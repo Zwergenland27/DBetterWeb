@@ -1,16 +1,16 @@
 <div class="divided-sidebar">
   <div>
-    <img src="logo-transparent.svg" alt="DBetter Logo"/>
+    <img src="logo-transparent.svg" i18n-alt alt="DBetter logo"/>
   </div>
   <mat-nav-list>
-    <a mat-list-item *ngFor="let item of genericMenu" [routerLink]="item.route" routerLinkActive #rla="routerLinkActive" [activated]="rla.isActive">
-      <mat-icon [matTooltip]="item.label" matTooltipPosition="after">{{ item.icon }}</mat-icon>
+    <a mat-list-item routerLink="/home" routerLinkActive #hla="routerLinkActive" [activated]="hla.isActive">
+      <mat-icon i18n-matTooltip matTooltip="Home" matTooltipPosition="after">home</mat-icon>
     </a>
   </mat-nav-list>
   <div class="spacer"></div>
   <mat-nav-list>
-    <a mat-list-item *ngFor="let item of userMenu" [routerLink]="item.route" routerLinkActive #rla="routerLinkActive" [activated]="rla.isActive">
-      <mat-icon [matTooltip]="item.label" matTooltipPosition="after">{{ item.icon }}</mat-icon>
+    <a mat-list-item routerLink="/account" routerLinkActive #ala="routerLinkActive" [activated]="ala.isActive">
+      <mat-icon i18n-matTooltip matTooltip="Account" matTooltipPosition="after">person</mat-icon>
     </a>
   </mat-nav-list>
 </div>
