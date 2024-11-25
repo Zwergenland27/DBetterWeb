@@ -1,0 +1,23 @@
+.mat-mdc-list-item {
+  border-radius: 0 !important;
+}
+
+.mat-icon {
+  height: 36px;
+  width: 36px;
+  font-size: 36px;
+}
+
+.divided-sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.mat-nav-list {
+  flex-shrink: 0;
+}
+
+.spacer {
+  flex-grow: 1;
+}
