@@ -3,27 +3,30 @@
     <div>
       <img src="logo-transparent.svg" i18n-alt alt="DBetter logo"/>
     </div>
-    <div class="navigation-list">
+    <div>
       <a class="navigation-item"
          routerLink="/home"
          routerLinkActive="selected-navigation-item"
          i18n-matTooltip matTooltip="Home"
          matTooltipPosition="after">
-        <mat-icon>
-          home
-        </mat-icon>
+        <mat-icon>home</mat-icon>
+      </a>
+      <a class="navigation-item"
+         routerLink="/search"
+         routerLinkActive="selected-navigation-item"
+         i18n-matTooltip matTooltip="Search"
+         matTooltipPosition="after">
+        <mat-icon>search</mat-icon>
       </a>
     </div>
     <div class="spacer"></div>
-    <div class="navigation-list">
+    <div>
       <a class="navigation-item"
          routerLink="/account"
          routerLinkActive="selected-navigation-item"
          i18n-matTooltip matTooltip="Account"
          matTooltipPosition="after">
-        <mat-icon>
-          person
-        </mat-icon>
+        <mat-icon>person</mat-icon>
       </a>
     </div>
   </div>
