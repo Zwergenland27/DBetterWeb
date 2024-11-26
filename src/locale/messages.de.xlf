@@ -2,11 +2,7 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en-US" datatype="plaintext" original="ng2.template">
     <body>
-      <trans-unit id="8893425608941098868" datatype="html">
-        <source>Homepage</source>
-        <target>Startseite</target>
-      </trans-unit>
-      <trans-unit id="9063002216768477747" datatype="html">
+<trans-unit id="9063002216768477747" datatype="html">
         <source>DBetter logo</source>
         <target>DBetter Logo</target>
       </trans-unit>

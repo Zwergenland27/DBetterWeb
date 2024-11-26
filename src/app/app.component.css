@@ -1,8 +1,46 @@
-.mat-sidenav-container {
+.nav-container {
+  display: flex;
   height: 100vh;
 }
 
-.mat-sidenav {
-  border-radius: 0;
+.sidebar {
   width: 4.5rem;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--mat-sys-surface-container-low)
+}
+
+.navigation-item {
+  display: flex;
+  color: var(--mat-app-text-color);
+  height: 36px;
+  width: calc(100% - 10px);
+  border-left: 5px solid transparent;
+}
+
+.navigation-item > mat-icon {
+  font-size: 36px;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+}
+
+.navigation-item:hover {
+  color: var(--mat-sys-secondary);
+  border-left: 5px solid var(--mat-sys-secondary);
+}
+
+.selected-navigation-item {
+  color: var(--mat-sys-primary);
+  border-left: 5px solid var(--mat-sys-primary);;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.content {
+  margin-left: 5px;
+  flex-grow: 1;
+  background-color: var(--mat-sys-surface);
 }

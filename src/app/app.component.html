@@ -1,8 +1,33 @@
-<mat-sidenav-container>
-  <mat-sidenav opened mode='side'>
-    <app-sidebar/>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <router-outlet />
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<div class="nav-container">
+  <div class="sidebar">
+    <div>
+      <img src="logo-transparent.svg" i18n-alt alt="DBetter logo"/>
+    </div>
+    <div class="navigation-list">
+      <a class="navigation-item"
+         routerLink="/home"
+         routerLinkActive="selected-navigation-item"
+         i18n-matTooltip matTooltip="Home"
+         matTooltipPosition="after">
+        <mat-icon>
+          home
+        </mat-icon>
+      </a>
+    </div>
+    <div class="spacer"></div>
+    <div class="navigation-list">
+      <a class="navigation-item"
+         routerLink="/account"
+         routerLinkActive="selected-navigation-item"
+         i18n-matTooltip matTooltip="Account"
+         matTooltipPosition="after">
+        <mat-icon>
+          person
+        </mat-icon>
+      </a>
+    </div>
+  </div>
+  <div class="content">
+    <router-outlet/>
+  </div>
+</div>
