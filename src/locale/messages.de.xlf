@@ -10,9 +10,17 @@
         <source>Home</source>
         <target>Startseite</target>
       </trans-unit>
-      <trans-unit id="4086606389696938932" datatype="html">
-        <source>Account</source>
-        <target>Konto</target>
+      <trans-unit id="4580988005648117665" datatype="html">
+        <source>Search</source>
+        <target>Suche</target>
+      </trans-unit>
+      <trans-unit id="2454050363478003966" datatype="html">
+        <source>Login</source>
+        <target>Anmelden</target>
+      </trans-unit>
+      <trans-unit id="4818852650817502025" datatype="html">
+        <source>My Account</source>
+        <target>Mein Konto</target>
       </trans-unit>
     </body>
   </file>
