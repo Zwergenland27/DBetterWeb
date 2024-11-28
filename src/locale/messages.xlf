@@ -119,25 +119,32 @@
           <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="3440875140207307002" datatype="html">
+        <source>Confirmed password does not match</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/register/register.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="2907733796351584017" datatype="html">
         <source> Register </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/register/register.component.html</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2005881428249546147" datatype="html">
         <source> Already have an account? </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/register/register.component.html</context>
-          <context context-type="linenumber">40,41</context>
+          <context context-type="linenumber">43,44</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2301997787250851162" datatype="html">
         <source>Login now</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/register/register.component.html</context>
-          <context context-type="linenumber">41,42</context>
+          <context context-type="linenumber">44,45</context>
         </context-group>
       </trans-unit>
     </body>

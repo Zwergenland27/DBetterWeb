@@ -62,6 +62,10 @@
         <source>Confirm password</source>
         <target>Password wiederholen</target>
       </trans-unit>
+      <trans-unit id="3440875140207307002" datatype="html">
+        <source>Confirmed password does not match</source>
+        <target>Passwörter stimmen nicht überein</target>
+      </trans-unit>
       <trans-unit id="2907733796351584017" datatype="html">
         <source> Register </source>
         <target>Registrieren</target>
