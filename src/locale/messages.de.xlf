@@ -2,7 +2,7 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en-US" datatype="plaintext" original="ng2.template">
     <body>
-<trans-unit id="9063002216768477747" datatype="html">
+      <trans-unit id="9063002216768477747" datatype="html">
         <source>DBetter logo</source>
         <target>DBetter Logo</target>
       </trans-unit>
@@ -21,6 +21,58 @@
       <trans-unit id="4818852650817502025" datatype="html">
         <source>My Account</source>
         <target>Mein Konto</target>
+      </trans-unit>
+      <trans-unit id="4768749765465246664" datatype="html">
+        <source>Email</source>
+        <target>E-Mail</target>
+      </trans-unit>
+      <trans-unit id="1431416938026210429" datatype="html">
+        <source>Password</source>
+        <target>Passwort</target>
+      </trans-unit>
+      <trans-unit id="1908285951500318953" datatype="html">
+        <source> Login </source>
+        <target>Anmelden</target>
+      </trans-unit>
+      <trans-unit id="8164791295086777340" datatype="html">
+        <source>Don&apos;t have an account?</source>
+        <target>Kein Konto?</target>
+      </trans-unit>
+      <trans-unit id="272695040866839830" datatype="html">
+        <source>Register now</source>
+        <target>Jetzt registrieren</target>
+      </trans-unit>
+      <trans-unit id="3301086086650990787" datatype="html">
+        <source>Register</source>
+        <target>Registrieren</target>
+      </trans-unit>
+      <trans-unit id="5342432350421167093" datatype="html">
+        <source>First name</source>
+        <target>Vorname</target>
+      </trans-unit>
+      <trans-unit id="3586674587150281199" datatype="html">
+        <source>Last name</source>
+        <target>Nachname</target>
+      </trans-unit>
+      <trans-unit id="2772668468223898232" datatype="html">
+        <source>Birthday</source>
+        <target>Geburtstag</target>
+      </trans-unit>
+      <trans-unit id="3782563238994348625" datatype="html">
+        <source>Confirm password</source>
+        <target>Password wiederholen</target>
+      </trans-unit>
+      <trans-unit id="2907733796351584017" datatype="html">
+        <source> Register </source>
+        <target>Registrieren</target>
+      </trans-unit>
+      <trans-unit id="2005881428249546147" datatype="html">
+        <source> Already have an account? </source>
+        <target>Hast du bereits ein Kont?</target>
+      </trans-unit>
+      <trans-unit id="2301997787250851162" datatype="html">
+        <source>Login now</source>
+        <target>Jetzt anmelden</target>
       </trans-unit>
     </body>
   </file>

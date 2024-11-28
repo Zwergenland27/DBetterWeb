@@ -29,12 +29,115 @@
           <context context-type="sourcefile">src/app/app.component.html</context>
           <context context-type="linenumber">28</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/login/login.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="4818852650817502025" datatype="html">
         <source>My Account</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
           <context context-type="linenumber">36,37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4768749765465246664" datatype="html">
+        <source>Email</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/login/login.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/register/register.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1431416938026210429" datatype="html">
+        <source>Password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/login/login.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/register/register.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1908285951500318953" datatype="html">
+        <source> Login </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/login/login.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8164791295086777340" datatype="html">
+        <source>Don&apos;t have an account?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/login/login.component.html</context>
+          <context context-type="linenumber">22,23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="272695040866839830" datatype="html">
+        <source>Register now</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/login/login.component.html</context>
+          <context context-type="linenumber">23,24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3301086086650990787" datatype="html">
+        <source>Register</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/register/register.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5342432350421167093" datatype="html">
+        <source>First name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/register/register.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3586674587150281199" datatype="html">
+        <source>Last name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/register/register.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2772668468223898232" datatype="html">
+        <source>Birthday</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/register/register.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3782563238994348625" datatype="html">
+        <source>Confirm password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/register/register.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2907733796351584017" datatype="html">
+        <source> Register </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/register/register.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2005881428249546147" datatype="html">
+        <source> Already have an account? </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/register/register.component.html</context>
+          <context context-type="linenumber">40,41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2301997787250851162" datatype="html">
+        <source>Login now</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/register/register.component.html</context>
+          <context context-type="linenumber">41,42</context>
         </context-group>
       </trans-unit>
     </body>

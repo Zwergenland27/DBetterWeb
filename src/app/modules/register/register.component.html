@@ -1,0 +1,48 @@
+<div class="login-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title i18n>Register</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="registerForm" (ngSubmit)="register()">
+        <mat-form-field>
+          <mat-label i18n>First name</mat-label>
+          <input matInput type="text" formControlName="firstname" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label i18n>Last name</mat-label>
+          <input matInput type="text" formControlName="lastname" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label i18n>Birthday</mat-label>
+          <input matInput readonly [matDatepicker]="picker" formControlName="birthday"/>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker startView="multi-year"></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label i18n>Email</mat-label>
+          <input matInput type="email" formControlName="email" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label i18n>Password</mat-label>
+          <input matInput type="password" formControlName="password"/>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label i18n>Confirm password</mat-label>
+          <input matInput type="password" formControlName="confirmedPassword"/>
+          @if (registerForm.get('confirmedPassword')?.hasError('confirmationFailed')) {
+            <mat-error i18n>Confirmed password does not match</mat-error>
+          }
+        </mat-form-field>
+
+        <button mat-raised-button type="submit" [disabled]="!registerForm.valid" i18n>
+          Register
+        </button>
+      </form>
+      <p>
+        <span i18n> Already have an account? </span>
+        <a href="login" i18n>Login now</a>
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>

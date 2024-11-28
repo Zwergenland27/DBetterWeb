@@ -5,6 +5,7 @@ import {MatTooltip} from '@angular/material/tooltip';
 import {MatIcon} from '@angular/material/icon';
 import {AuthService} from './shared/services/auth.service';
 import {NgIf} from '@angular/common';
+import {DateAdapter} from '@angular/material/core';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,5 @@ import {NgIf} from '@angular/common';
 export class AppComponent {
   title = 'DBetter';
 
-  constructor(public auth : AuthService) {
-  }
+  constructor(public auth : AuthService) {}
 }

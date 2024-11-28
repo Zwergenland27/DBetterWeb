@@ -1,35 +1,30 @@
-import {Component, signal} from '@angular/core';
+import {Component} from '@angular/core';
 import {AuthService} from '../../shared/services/auth.service';
-import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
-import {MatCard, MatCardContent} from '@angular/material/card';
-import {MatFormField, MatFormFieldModule} from '@angular/material/form-field';
-import {MatInput} from '@angular/material/input';
-import {MatIcon} from '@angular/material/icon';
-import {MatButton, MatIconButton} from '@angular/material/button';
+import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {MatCardModule} from '@angular/material/card';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-login',
   imports: [
-    ReactiveFormsModule,
     MatFormFieldModule,
+    MatCardModule,
+    MatButton,
+    MatInputModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
 
-  public hide = signal(true);
-
   public loginForm = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl(''),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required]),
   })
   constructor(private auth: AuthService) {
-  }
-
-  public togglePasswordVisibility(event: MouseEvent){
-    this.hide.set(!this.hide());
-    event.stopPropagation();
   }
 
   public login(){
