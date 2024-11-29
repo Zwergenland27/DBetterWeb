@@ -76,14 +76,14 @@ export class AuthService {
   }
 
   public login(email: string, password: string) {
-    this.http.post<AuthenticationDto>("login", {
+    return this.http.post<AuthenticationDto>("login", {
       email: email,
       password: password,
-    }).subscribe(
-      data => {
+    }).pipe(
+      tap(data => {
         this.handleAuthenticationData(data);
       }
-    )
+    ));
   }
 
   public logout(){
