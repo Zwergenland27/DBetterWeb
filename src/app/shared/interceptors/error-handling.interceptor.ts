@@ -22,11 +22,10 @@ export const errorHandlingInterceptor: HttpInterceptorFn = (req, next) => {
           const lastDotIndex = code.lastIndexOf('.')
           const sectionName = code.substring(0, lastDotIndex);
           const title = code.substring(lastDotIndex + 1);
-          if(this.errors[sectionName] === null){
+          if(this.errors[sectionName] === undefined){
             return false;
           }
-
-          return this.errors[sectionName].find(error => error.title === title) !== null;
+          return this.errors[sectionName].find(error => error.title === title) !== undefined;
         }
       }
       return throwError(() => problemDetails);
