@@ -5,35 +5,45 @@
     </mat-card-header>
     <mat-card-content>
       <form [formGroup]="registerForm" (ngSubmit)="register()">
-        <mat-form-field>
+        <mat-form-field subscriptSizing="dynamic">
           <mat-label i18n>First name</mat-label>
           <input matInput type="text" formControlName="firstname" />
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field subscriptSizing="dynamic">
           <mat-label i18n>Last name</mat-label>
           <input matInput type="text" formControlName="lastname" />
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field subscriptSizing="dynamic">
           <mat-label i18n>Birthday</mat-label>
           <input matInput readonly [matDatepicker]="picker" formControlName="birthday"/>
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker startView="multi-year"></mat-datepicker>
+          @if (registerForm.get('birthday')?.hasError('inFuture')) {
+            <mat-error i18n>Birthday cannot be in the future</mat-error>
+          }
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field subscriptSizing="dynamic">
           <mat-label i18n>Email</mat-label>
           <input matInput type="email" formControlName="email" />
+          @if (registerForm.get('email')?.hasError('alreadyRegistered')) {
+            <mat-error i18n>A user with this email already exists</mat-error>
+          }
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field subscriptSizing="dynamic">
           <mat-label i18n>Password</mat-label>
           <input matInput type="password" formControlName="password"/>
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field subscriptSizing="dynamic">
           <mat-label i18n>Confirm password</mat-label>
           <input matInput type="password" formControlName="confirmedPassword"/>
           @if (registerForm.get('confirmedPassword')?.hasError('confirmationFailed')) {
             <mat-error i18n>Confirmed password does not match</mat-error>
           }
         </mat-form-field>
+        <mat-checkbox formControlName="acceptTerms">
+          <span i18n>I accept the</span>
+          <a href="login" i18n>Terms and Conditions</a>
+        </mat-checkbox>
 
         <button mat-raised-button type="submit" [disabled]="!registerForm.valid" i18n>
           Register

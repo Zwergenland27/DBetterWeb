@@ -26,6 +26,10 @@
         <source>Email</source>
         <target>E-Mail</target>
       </trans-unit>
+      <trans-unit id="2424435431465348888" datatype="html">
+        <source>Invalid login credentials</source>
+        <target>Ungültige Anmeldedaten</target>
+      </trans-unit>
       <trans-unit id="1431416938026210429" datatype="html">
         <source>Password</source>
         <target>Passwort</target>
@@ -58,6 +62,14 @@
         <source>Birthday</source>
         <target>Geburtstag</target>
       </trans-unit>
+      <trans-unit id="7965183029052824544" datatype="html">
+        <source>Birthday cannot be in the future</source>
+        <target>Der Geburtstag kann nicht in der Zukunft liegen</target>
+      </trans-unit>
+      <trans-unit id="4969934864914893215" datatype="html">
+         <source>A user with this email already exists</source>
+         <target>Ein Nutzer mit dieser E-Mail existiert bereits</target>
+      </trans-unit>
       <trans-unit id="3782563238994348625" datatype="html">
         <source>Confirm password</source>
         <target>Password wiederholen</target>
@@ -66,13 +78,21 @@
         <source>Confirmed password does not match</source>
         <target>Passwörter stimmen nicht überein</target>
       </trans-unit>
+      <trans-unit id="4332926764927906890" datatype="html">
+        <source>I accept the</source>
+        <target>Ich akzeptiere die</target>
+      </trans-unit>
+      <trans-unit id="664573589261423471" datatype="html">
+        <source>Terms and Conditions</source>
+        <target>Geschäftsbedingungen</target>
+      </trans-unit>
       <trans-unit id="2907733796351584017" datatype="html">
         <source> Register </source>
         <target>Registrieren</target>
       </trans-unit>
       <trans-unit id="2005881428249546147" datatype="html">
         <source> Already have an account? </source>
-        <target>Hast du bereits ein Kont?</target>
+        <target>Hast du bereits ein Konto?</target>
       </trans-unit>
       <trans-unit id="2301997787250851162" datatype="html">
         <source>Login now</source>

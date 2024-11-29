@@ -7,6 +7,9 @@ import {MatInputModule} from "@angular/material/input";
 import {AuthService} from '../../shared/services/auth.service';
 import {UserService} from '../../shared/services/user.service';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import {ProblemDetails} from '../../shared/interceptors/error-handling.interceptor';
+import {MatCheckbox} from '@angular/material/checkbox';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +21,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     MatInputModule,
     MatLabel,
     ReactiveFormsModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatCheckbox
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
@@ -31,12 +35,13 @@ export class RegisterComponent {
     birthday: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
     confirmedPassword: new FormControl('', [Validators.required]),
+    acceptTerms: new FormControl(false, [Validators.requiredTrue]),
   }, {
     validators: [
       this.passwordConfirmValidator
     ]
   });
-  constructor(private auth: AuthService, private userService: UserService) {}
+  constructor(private auth: AuthService, private userService: UserService, private router: Router, private authService: AuthService) {}
 
   passwordConfirmValidator(control: AbstractControl) {
     const currentPassword = control.get('password');
@@ -52,9 +57,29 @@ export class RegisterComponent {
     return error;
   }
 
-  public async register(){
+  public register(){
     const val = this.registerForm.value!;
-    await this.userService.register(val.firstname!, val.lastname!, val.birthday!, val.email!, val.password!);
-    this.auth.login(val.email!, val.password!);
+    this.userService.register(val.firstname!, val.lastname!, val.birthday!, val.email!, val.password!)
+      .subscribe({
+        complete: () => {
+          this.auth.login(val.email!, val.password!)
+            .subscribe({
+              complete: async () => {
+                await this.router.navigate(['/'])
+              }
+            });
+        },
+        error: (error: ProblemDetails) => {
+          if(error.containsError('User.Exists')){
+            const email = this.registerForm.get('email')!;
+            email.setErrors({alreadyRegistered: true});
+          }
+
+          if(error.containsError('User.Birthday.InFuture')){
+            const birthday = this.registerForm.get('birthday')!;
+            birthday.setErrors({inFuture: true});
+          }
+        }
+      })
   }
 }

@@ -5,6 +5,8 @@ import {MatCardModule} from '@angular/material/card';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatButton} from '@angular/material/button';
+import {Router} from '@angular/router';
+import {ProblemDetails} from '../../shared/interceptors/error-handling.interceptor';
 
 @Component({
   selector: 'app-login',
@@ -24,12 +26,22 @@ export class LoginComponent {
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
   })
-  constructor(private auth: AuthService) {
+  constructor(private auth: AuthService, private router: Router) {
   }
 
   public login(){
     const val = this.loginForm.value;
     if(!val.email ||!val.password) return;
-    this.auth.login(val.email, val.password);
+    this.auth.login(val.email, val.password)
+      .subscribe({
+        complete: async () => {
+          await this.router.navigate(['/'])
+        },
+        error: (error: ProblemDetails) => {
+          if(error.containsError('User.InvalidCredentials')){
+            this.loginForm.setErrors({invalidCredentials: true});
+          }
+        }
+      })
   }
 }

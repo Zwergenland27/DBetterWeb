@@ -20,6 +20,14 @@ mat-card-content {
   margin-top: 1rem;
 }
 
+mat-checkbox, mat-form-field {
+  margin-bottom: 1rem;
+}
+
+a {
+  margin-left: 5px;
+}
+
 form {
   display: flex;
   flex-direction: column;
