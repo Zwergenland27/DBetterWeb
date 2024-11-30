@@ -15,6 +15,9 @@ export type Error = {
 export const errorHandlingInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
+      if(error.error == null) {
+        return throwError(() => error);
+      }
       const problemDetails : ProblemDetails = {
         status: error.error.status,
         errors: error.error.errors,
