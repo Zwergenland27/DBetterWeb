@@ -1,0 +1,91 @@
+<h2 mat-dialog-title i18n>Add passenger</h2>
+<mat-dialog-content>
+  <form [formGroup]="passengerForm">
+    <mat-form-field subscriptSizing="dynamic">
+      <mat-label i18n>Name</mat-label>
+      <input matInput [matAutocomplete]="auto" type="text" formControlName="name"/>
+      <mat-autocomplete #auto="matAutocomplete">
+        @for(passenger of filteredPassengers | async; track passenger.id){
+          <mat-option [value]="passenger.name" (click)="passengerSelected(passenger)">{{passenger.name}}</mat-option>
+        }
+      </mat-autocomplete>
+      <mat-icon matPrefix>account_circle</mat-icon>
+    </mat-form-field>
+    <div class="age-selection">
+      <mat-form-field subscriptSizing="dynamic">
+        <mat-label i18n>Birthday</mat-label>
+        <input matInput readonly [matDatepicker]="picker" formControlName="birthday"/>
+        <mat-datepicker-toggle matIconPrefix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker startView="multi-year"></mat-datepicker>
+      </mat-form-field>
+      <span class="divider">/</span>
+      <mat-form-field subscriptSizing="dynamic">
+        <mat-label i18n>Age</mat-label>
+        <input matInput type="number" formControlName="age">
+      </mat-form-field>
+    </div>
+    <mat-error style="text-align: justify;">
+        <span i18n>The birthday of the passenger must be set. If you don't know the birthday, set the age of the passenger manually.
+        </span>
+    </mat-error>
+    <button mat-button [disabled]="availableDiscounts.length == 0" [matMenuTriggerFor]="discountMenu" i18n>
+      Add discount
+    </button>
+    <mat-chip-set>
+      @for(discount of discounts(); track discount){
+        <span i18n #classTooltip hidden>{discount.class, select, First {1st class} Second {2nd class}}</span>
+        <mat-chip-row
+          (removed)="removeDiscount(discount)"
+          [class]="discount.class"
+          [matTooltip]="classTooltip.textContent"
+          matTooltipPosition="above">
+          {{ discount.type }}
+          <button matChipRemove>
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip-row>
+      }
+      <mat-menu #discountMenu="matMenu">
+        @for(discount of availableDiscounts; track discount){
+          <button mat-menu-item (click)="addDiscount(discount)">
+            {{discount.type}}
+            <span i18n>
+              {discount.class, select, First {1st class} Second {2nd class}}
+            </span>
+          </button>
+        }
+      </mat-menu>
+    </mat-chip-set>
+    <mat-chip-set>
+      <mat-chip-option
+        [selected]="passengerForm.get('seat')!.value"
+        (click)="toggleMobilityOption('seat')" i18n>
+        seat
+      </mat-chip-option>
+      <mat-chip-option
+        [selected]="passengerForm.get('bike')!.value"
+        (click)="toggleMobilityOption('bike')" i18n>
+        bike
+      </mat-chip-option>
+      <mat-chip-option
+        [selected]="passengerForm.get('dog')!.value"
+        (click)="toggleMobilityOption('dog')" i18n>
+        dog
+      </mat-chip-option>
+        <mat-chip-option
+          [selected]="passengerForm.get('buggy')!.value"
+          (click)="toggleMobilityOption('buggy')" i18n>
+          buggy
+        </mat-chip-option>
+        <mat-chip-option
+          [selected]="passengerForm.get('wheelchair')!.value"
+          (click)="toggleMobilityOption('wheelchair')" i18n>
+          wheelchair
+        </mat-chip-option>
+    </mat-chip-set>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close i18n>Cancel</button>
+  <button mat-button i18n [disabled]="!passengerForm.valid" (click)="addPassenger()">Add</button>
+</mat-dialog-actions>

@@ -1,5 +1,25 @@
 @use '@angular/material' as mat;
 
+:root {
+  --first-class-background: linear-gradient(45deg,
+    #FFD700,  /* Rich gold */
+    #FFFACD 40%, /* Lighter gold for a shiny effect */
+    #FFB300 60%, /* Deeper gold for contrast */
+    #FFD700 100% /* Rich gold */
+  );
+
+  --second-class-background: linear-gradient(45deg,
+    #C0C0C0,  /* Classic silver */
+    #FFFFFF 40%, /* Bright silver for shine */
+    #A9A9A9 60%, /* Darker silver for depth */
+    #C0C0C0 100% /* Classic silver */
+  );
+}
+
+:root {
+
+}
+
 html {
   color-scheme: light dark;
   @include mat.theme((

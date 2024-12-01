@@ -1,0 +1,39 @@
+form {
+  display: flex;
+  flex-direction: column;
+  width: 20rem;
+}
+
+mat-form-field {
+  margin-bottom: 1rem;
+}
+
+.multi-checkbox {
+  display: flex;
+  flex-direction: row;
+}
+
+.First {
+  color-scheme: light;
+  background: var(--first-class-background)
+!important;
+}
+
+
+.Second {
+  color-scheme: light;
+  background: var(--second-class-background) !important;
+}
+
+.age-selection {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.divider {
+  font-size: 56px;
+  margin-bottom: 1rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}

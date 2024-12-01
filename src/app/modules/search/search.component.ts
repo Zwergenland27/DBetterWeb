@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
+import {ConfiguratorComponent} from './components/configurator/configurator.component';
 
 @Component({
   selector: 'app-search',
-  imports: [],
+  imports: [
+    ConfiguratorComponent
+  ],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })
