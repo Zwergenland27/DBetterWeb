@@ -1,11 +1,13 @@
 import {DiscountDto, PassengerDto} from '../search.service';
 
 export class Passenger {
+  public frontendId: number | null = null;
+
   private constructor(
     public id: string | null,
     public name: string | null,
     public birthday: Date | null,
-    private age: number | null,
+    public age: number | null,
     public withSeat: boolean,
     public withBike: boolean,
     public withDog: boolean,

@@ -1,4 +1,8 @@
-<h2 mat-dialog-title i18n>Add passenger</h2>
+@if(editMode){
+  <h2 mat-dialog-title i18n>Edit passenger</h2>
+}@else{
+  <h2 mat-dialog-title i18n>Add passenger</h2>
+}
 <mat-dialog-content>
   <form [formGroup]="passengerForm">
     <mat-form-field subscriptSizing="dynamic">
@@ -34,7 +38,7 @@
     <mat-chip-set>
       @for(discount of discounts(); track discount){
         <span i18n #classTooltip hidden>{discount.class, select, First {1st class} Second {2nd class}}</span>
-        <mat-chip-row
+        <mat-chip
           (removed)="removeDiscount(discount)"
           [class]="discount.class"
           [matTooltip]="classTooltip.textContent"
@@ -43,7 +47,7 @@
           <button matChipRemove>
             <mat-icon>cancel</mat-icon>
           </button>
-        </mat-chip-row>
+        </mat-chip>
       }
       <mat-menu #discountMenu="matMenu">
         @for(discount of availableDiscounts; track discount){
@@ -87,5 +91,9 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close i18n>Cancel</button>
-  <button mat-button i18n [disabled]="!passengerForm.valid" (click)="addPassenger()">Add</button>
+  @if(editMode){
+    <button mat-button i18n [disabled]="!passengerForm.valid" (click)="submitPassenger()">Edit</button>
+  }@else{
+    <button mat-button i18n [disabled]="!passengerForm.valid" (click)="submitPassenger()">Add</button>
+  }
 </mat-dialog-actions>
