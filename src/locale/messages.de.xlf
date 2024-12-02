@@ -98,6 +98,82 @@
         <source>Login now</source>
         <target>Jetzt anmelden</target>
       </trans-unit>
+      <trans-unit id="5310263344989846776" datatype="html">
+        <source>Add passenger</source>
+        <target>Reisenden hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="8756658437500696062" datatype="html">
+        <source>Edit passenger</source>
+        <target>Reisenden bearbeiten</target>
+      </trans-unit>
+      <trans-unit id="8953033926734869941" datatype="html">
+        <source>Name</source>
+        <target>Name</target>
+      </trans-unit>
+      <trans-unit id="7325066323548963090" datatype="html">
+        <source> Add discount </source>
+        <target>Rabatt hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="1130652265542107236" datatype="html">
+        <source>Age</source>
+        <target>Alter</target>
+      </trans-unit>
+      <trans-unit id="9059294572934937021" datatype="html">
+        <source>The birthday of the passenger must be set. If you don&apos;t know the birthday, set the age of the passenger manually. </source>
+        <target>Der Geburtstag des Reisenden muss angegeben werden. Wenn du den Geburtstag nicht kennst, kannst du stattdessen das Alter manuell angeben.</target>
+      </trans-unit>
+      <trans-unit id="1373425243608442531" datatype="html">
+        <source>{VAR_SELECT, select, First {1st class} Second {2nd class}}</source>
+        <target>{VAR_SELECT, select, First {1. Klasse} Second {2. Klasse}}</target>
+      </trans-unit>
+      <trans-unit id="8856905278208146821" datatype="html">
+        <source> <x id="ICU" equiv-text="{discount.class, select, First {1st class} Second {2nd class}}" xid="1373425243608442531"/> </source>
+        <target> <x id="ICU" equiv-text="{discount.class, select, First {1. Klasse} Second {2. Klasse}}" xid="1373425243608442531"/> </target>
+      </trans-unit>
+      <trans-unit id="1165574829385018646" datatype="html">
+        <source> seat </source>
+        <target>Sitzplatz</target>
+      </trans-unit>
+      <trans-unit id="229194191047621858" datatype="html">
+        <source> bike </source>
+        <target>Fahrrad</target>
+      </trans-unit>
+      <trans-unit id="3416912915008130860" datatype="html">
+        <source> dog </source>
+        <target>Hund</target>
+      </trans-unit>
+      <trans-unit id="4713585570830884729" datatype="html">
+        <source> buggy </source>
+        <target>Kinderwagen</target>
+      </trans-unit>
+      <trans-unit id="1617121437412461982" datatype="html">
+        <source> wheelchair </source>
+        <target>Rollstuhl</target>
+      </trans-unit>
+      <trans-unit id="2159130950882492111" datatype="html">
+        <source>Cancel</source>
+        <target>Abbrechen</target>
+      </trans-unit>
+      <trans-unit id="7585826646011739428" datatype="html">
+        <source>Edit</source>
+        <target>Bearbeiten</target>
+      </trans-unit>
+      <trans-unit id="3249513483374643425" datatype="html">
+        <source>Add</source>
+        <target>Hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="8195216357509718477" datatype="html">
+        <source>Who travels</source>
+        <target>Wer reist?</target>
+      </trans-unit>
+      <trans-unit id="2870511987254138540" datatype="html">
+        <source>{VAR_PLURAL, plural, =1 {1 passenger} other {<x id="INTERPOLATION"/> passengers}}</source>
+        <target>{VAR_PLURAL, plural, =1 {1 Reisender} other {<x id="INTERPOLATION"/> Reisende}}</target>
+      </trans-unit>
+      <trans-unit id="1884615848108898039" datatype="html">
+        <source><x id="ICU" equiv-text="{passengers().length, plural, =1 {1 passenger} other {{{passengers().length}} passengers}}" xid="446620889828415811"/> </source>
+        <target><x id="ICU" equiv-text="{passengers().length, plural, =1 {1 Reisender} other {{{passengers().length}} Reisende}}" xid="446620889828415811"/> </target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
