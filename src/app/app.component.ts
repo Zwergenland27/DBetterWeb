@@ -4,12 +4,11 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatTooltip} from '@angular/material/tooltip';
 import {MatIcon} from '@angular/material/icon';
 import {AuthService} from './shared/services/auth.service';
-import {NgIf} from '@angular/common';
-import {DateAdapter} from '@angular/material/core';
+import {MatFabAnchor} from '@angular/material/button';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, MatSidenavModule, MatTooltip, MatIcon, RouterLink, RouterLinkActive, NgIf],
+  imports: [RouterOutlet, MatSidenavModule, MatTooltip, MatIcon, RouterLink, RouterLinkActive, MatFabAnchor],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
