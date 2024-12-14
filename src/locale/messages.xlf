@@ -186,25 +186,32 @@
           <context context-type="linenumber">54,55</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="1965356297860228129" datatype="html">
+        <source>Passengers</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/components/configurator/configurator.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="2870511987254138540" datatype="html">
         <source>{VAR_PLURAL, plural, =1 {1 passenger} other {<x id="INTERPOLATION"/> passengers}}</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/configurator/configurator.component.html</context>
-          <context context-type="linenumber">5</context>
+          <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1884615848108898039" datatype="html">
         <source><x id="ICU" equiv-text="{passengers().length, plural, =1 {1 passenger} other {{{passengers().length}} passengers}}" xid="446620889828415811"/> </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/configurator/configurator.component.html</context>
-          <context context-type="linenumber">5,6</context>
+          <context context-type="linenumber">8,9</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5310263344989846776" datatype="html">
         <source>Add passenger</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/configurator/configurator.component.html</context>
-          <context context-type="linenumber">17,18</context>
+          <context context-type="linenumber">21,22</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/passenger-dialog/passenger-dialog.component.html</context>

@@ -170,9 +170,9 @@
         <source>Add</source>
         <target>Hinzufügen</target>
       </trans-unit>
-      <trans-unit id="8195216357509718477" datatype="html">
-        <source>Who travels</source>
-        <target>Wer reist?</target>
+      <trans-unit id="1965356297860228129" datatype="html">
+        <source>Passengers</source>
+        <target>Reisende</target>
       </trans-unit>
       <trans-unit id="2870511987254138540" datatype="html">
         <source>{VAR_PLURAL, plural, =1 {1 passenger} other {<x id="INTERPOLATION"/> passengers}}</source>

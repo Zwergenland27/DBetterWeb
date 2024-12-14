@@ -1,8 +1,12 @@
 <div class="sidebar">
   <mat-accordion multi="multi">
-    <mat-expansion-panel expanded>
+    <mat-expansion-panel expanded #passengerPanel>
       <mat-expansion-panel-header>
-        <mat-panel-title i18n>{passengers().length, plural, =1 {1 passenger} other {{{passengers().length}} passengers}} </mat-panel-title>
+        @if(passengerPanel.expanded){
+          <mat-panel-title i18n>Passengers</mat-panel-title>
+        }@else{
+          <mat-panel-title i18n>{passengers().length, plural, =1 {1 passenger} other {{{passengers().length}} passengers}} </mat-panel-title>
+        }
         <mat-panel-description>
           @if(passengers().length == 0){
             <mat-icon class="warn">warning</mat-icon>
@@ -20,7 +24,7 @@
     </mat-expansion-panel>
     <mat-expansion-panel expanded>
       <mat-expansion-panel-header>
-        <mat-panel-title>When</mat-panel-title>
+        <mat-panel-title>Time</mat-panel-title>
       </mat-expansion-panel-header>
     </mat-expansion-panel>
     <mat-expansion-panel expanded>
