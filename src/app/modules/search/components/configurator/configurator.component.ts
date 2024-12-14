@@ -68,12 +68,13 @@ export class ConfiguratorComponent {
   }
 
   public addPassenger(){
+    const currentPassengerIds = this.passengers().filter(passenger => passenger.id != null).map(passenger => passenger.id);
+    const notAddedPassengers = this.myPassengers.filter(passenger => !currentPassengerIds.includes(passenger.id));
     this.dialog.open(PassengerDialogComponent, {
-      data: this.myPassengers,
+      data: notAddedPassengers
     }).afterClosed().subscribe(
       result => {
         if(result){
-          this.myPassengers = this.myPassengers.filter(passenger => passenger.id != result.id);
           result.frontendId = this.getNextPassengerId();
           this.passengers().push(result);
         }
