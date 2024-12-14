@@ -63,29 +63,3 @@
   color-scheme: light;
   background: var(--second-class-background);
 }
-
-
-.mat-mdc-card-avatar {
-  display: flex;
-  height: 2rem;
-  width: 2rem;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--mat-sys-primary);
-  color: var(--mat-sys-on-primary);
-  font-size: 24px;
-}
-
-.mat-mdc-card-avatar .material-icons {
-  font-size: 24px;
-}
-
-.mat-mdc-card-title {
-  font-size: var(--mat-sys-title-medium-size);
-  font-weight: var(--mat-sys-title-medium-weight);
-  line-height: var(--mat-sys-title-medium-line-height);
-  letter-spacing: var(--mat-sys-title-medium-tracking);
-}
-.material-icons{
-  font-size: var(--mat-sys-title-medium-size);
-}
