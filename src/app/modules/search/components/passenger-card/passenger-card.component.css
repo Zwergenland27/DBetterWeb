@@ -1,0 +1,91 @@
+.passenger-card {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: var(--mat-sys-corner-medium);
+  background-color: var(--mat-sys-surface-container-low);
+}
+
+.passenger-card:hover {
+  cursor: pointer;
+  background-color: var(--mat-sys-surface-container-lowest);
+}
+
+.passenger-card:active {
+  background-color: var(--mat-sys-surface-container);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-size: var(--mat-sys-title-medium-size);
+  font-weight: var(--mat-sys-title-medium-weight);
+  letter-spacing: var(--mat-sys-title-medium-tracking);
+}
+
+.content span {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+.content .mat-icon {
+  width: var(--mat-sys-title-large-size);
+  height: var(--mat-sys-title-large-size);
+}
+
+.content .material-icons {
+  font-size: var(--mat-sys-title-large-size);
+}
+
+.discount {
+  color: var(--mat-sys-on-surface);
+  border-radius: 4px;
+  border: 1px solid var(--mat-sys-outline-variant);
+  font-size: var(--mat-sys-title-medium-size);
+  line-height: var(--mat-sys-label-large-line-height);
+  font-weight: var(--mat-sys-title-medium-weight);
+  letter-spacing: var(--mat-sys-title-medium-tracking);
+  padding-left: 4px;
+  padding-right: 4px;
+  height: fit-content;
+}
+
+.class-first {
+  color-scheme: light;
+  background: var(--first-class-background);
+}
+
+.class-second {
+  color-scheme: light;
+  background: var(--second-class-background);
+}
+
+
+.mat-mdc-card-avatar {
+  display: flex;
+  height: 2rem;
+  width: 2rem;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--mat-sys-primary);
+  color: var(--mat-sys-on-primary);
+  font-size: 24px;
+}
+
+.mat-mdc-card-avatar .material-icons {
+  font-size: 24px;
+}
+
+.mat-mdc-card-title {
+  font-size: var(--mat-sys-title-medium-size);
+  font-weight: var(--mat-sys-title-medium-weight);
+  line-height: var(--mat-sys-title-medium-line-height);
+  letter-spacing: var(--mat-sys-title-medium-tracking);
+}
+.material-icons{
+  font-size: var(--mat-sys-title-medium-size);
+}

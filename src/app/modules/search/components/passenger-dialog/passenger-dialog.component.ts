@@ -27,7 +27,7 @@ export type SelectablePassenger = {
 }
 
 @Component({
-  selector: 'app-passenger-dialog',
+  selector: 'app-passenger-card-dialog',
   imports: [
     MatDialogModule,
     MatButton,
@@ -211,6 +211,10 @@ export class PassengerDialogComponent {
   public addDiscount(discount: DiscountDto){
     this.discounts().push(discount);
     this.availableDiscounts = this.availableDiscounts.filter(d => d != discount);
+  }
+
+  public removePassenger(){
+    this.dialogRef.close(null);
   }
 
   public submitPassenger(){

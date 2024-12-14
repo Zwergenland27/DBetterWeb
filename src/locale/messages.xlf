@@ -13,21 +13,21 @@
         <source>Home</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4580988005648117665" datatype="html">
         <source>Search</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2454050363478003966" datatype="html">
         <source>Login</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">33</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/login/login.component.html</context>
@@ -38,7 +38,7 @@
         <source>My Account</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">36,37</context>
+          <context context-type="linenumber">40,41</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4768749765465246664" datatype="html">
@@ -186,36 +186,36 @@
           <context context-type="linenumber">54,55</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="8195216357509718477" datatype="html">
-        <source>Who travels</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/modules/search/components/configurator/configurator.component.html</context>
-          <context context-type="linenumber">5</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="2870511987254138540" datatype="html">
         <source>{VAR_PLURAL, plural, =1 {1 passenger} other {<x id="INTERPOLATION"/> passengers}}</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/configurator/configurator.component.html</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1884615848108898039" datatype="html">
         <source><x id="ICU" equiv-text="{passengers().length, plural, =1 {1 passenger} other {{{passengers().length}} passengers}}" xid="446620889828415811"/> </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/configurator/configurator.component.html</context>
-          <context context-type="linenumber">10,12</context>
+          <context context-type="linenumber">5,6</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5310263344989846776" datatype="html">
         <source>Add passenger</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/configurator/configurator.component.html</context>
-          <context context-type="linenumber">29,30</context>
+          <context context-type="linenumber">17,18</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/passenger-dialog/passenger-dialog.component.html</context>
           <context context-type="linenumber">4,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5690680661303080966" datatype="html">
+        <source> Person </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/components/passenger-card/passenger-card.component.html</context>
+          <context context-type="linenumber">8,9</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8756658437500696062" datatype="html">
@@ -313,18 +313,25 @@
           <context context-type="linenumber">93,94</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="4814285799071780083" datatype="html">
+        <source>Remove</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/components/passenger-dialog/passenger-dialog.component.html</context>
+          <context context-type="linenumber">95,96</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="7585826646011739428" datatype="html">
         <source>Edit</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/passenger-dialog/passenger-dialog.component.html</context>
-          <context context-type="linenumber">95,96</context>
+          <context context-type="linenumber">96,97</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3249513483374643425" datatype="html">
         <source>Add</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/passenger-dialog/passenger-dialog.component.html</context>
-          <context context-type="linenumber">97,98</context>
+          <context context-type="linenumber">98,99</context>
         </context-group>
       </trans-unit>
     </body>

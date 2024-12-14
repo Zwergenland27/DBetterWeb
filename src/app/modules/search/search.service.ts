@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
+export function getShortTitleOfDiscount(discount: DiscountDto) : string {
+  return discount.type.match(/[A-Z0-9]/g)?.join('') ?? '';
+}
+
 export type DiscountDto = {
   type: string;
   class: string;

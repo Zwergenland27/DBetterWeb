@@ -1,0 +1,42 @@
+<div class="passenger-card">
+  <app-avatar [name]="passenger.name"/>
+  <div class="content">
+    <span>
+      @if(passenger.name){
+        <span> {{passenger.name}} </span>
+      }@else{
+        <span i18n> Person </span>
+      }
+
+      ({{passenger.getAgeAt(tripDate)}})
+    </span>
+    <span>
+      @if(passenger.withSeat){
+        <mat-icon>airline_seat_recline_extra</mat-icon>
+      }
+      @if(passenger.withBike){
+        <mat-icon>directions_bike</mat-icon>
+      }
+      @if(passenger.withBuggy){
+        <mat-icon>child_friendly</mat-icon>
+      }
+      @if(passenger.withDog){
+        <mat-icon>pets</mat-icon>
+      }
+      @if(passenger.needsWheelchair){
+        <mat-icon>accessible</mat-icon>
+      }
+      @for(discount of passenger.discounts; track discount){
+        @if(discount.class === 'First'){
+          <span class="discount class-first">
+          {{getShortTitleOfDiscount(discount)}}
+          </span>
+        }@else{
+          <span class="discount class-second">
+          {{getShortTitleOfDiscount(discount)}}
+          </span>
+        }
+      }
+    </span>
+  </div>
+</div>

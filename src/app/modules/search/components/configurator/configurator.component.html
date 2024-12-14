@@ -2,30 +2,18 @@
   <mat-accordion multi="multi">
     <mat-expansion-panel expanded>
       <mat-expansion-panel-header>
-        <mat-panel-title i18n>Who travels</mat-panel-title>
+        <mat-panel-title i18n>{passengers().length, plural, =1 {1 passenger} other {{{passengers().length}} passengers}} </mat-panel-title>
         <mat-panel-description>
           @if(passengers().length == 0){
             <mat-icon class="warn">warning</mat-icon>
-          } @else{
-            <span i18n>{passengers().length, plural, =1 {1 passenger} other {{{passengers().length}} passengers}} </span>
           }
         </mat-panel-description>
       </mat-expansion-panel-header>
       <div class="passengers-container">
-        <mat-chip-set>
         @for(passenger of passengers(); track passenger.frontendId){
-          <mat-chip-row
-            (click)="editPassenger(passenger.frontendId)"
-            (removed)="removePassenger(passenger.frontendId)">
-            {{passenger.name}}
-            <button matChipRemove>
-              <mat-icon>cancel</mat-icon>
-            </button>
-          </mat-chip-row>
+          <app-passenger-card [passenger]="passenger" (click)="editPassenger(passenger.frontendId)"/>
         }
-        </mat-chip-set>
-        <button mat-fab extended (click)="addPassenger()">
-          <mat-icon>person_add</mat-icon>
+        <button mat-button (click)="addPassenger()">
           <span i18n>Add passenger</span>
         </button>
       </div>

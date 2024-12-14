@@ -2,13 +2,13 @@ import {Component, signal} from '@angular/core';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {SearchService} from '../../search.service';
 import {AuthService} from '../../../../shared/services/auth.service';
-import {MatFabButton} from '@angular/material/button';
+import {MatButton} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatDialog} from '@angular/material/dialog';
 import {PassengerDialogComponent} from '../passenger-dialog/passenger-dialog.component';
 import {Passenger} from '../../models/passenger.model';
-import {MatChipRemove, MatChipRow, MatChipSet} from '@angular/material/chips';
+import {PassengerCardComponent} from '../passenger-card/passenger-card.component';
 
 @Component({
   selector: 'app-configurator',
@@ -16,10 +16,8 @@ import {MatChipRemove, MatChipRow, MatChipSet} from '@angular/material/chips';
     MatExpansionModule,
     MatIconModule,
     MatGridListModule,
-    MatChipSet,
-    MatChipRemove,
-    MatChipRow,
-    MatFabButton,
+    MatButton,
+    PassengerCardComponent,
   ],
   templateUrl: './configurator.component.html',
   styleUrl: './configurator.component.css'
@@ -101,6 +99,8 @@ export class ConfiguratorComponent {
           this.passengers.set(this.passengers().filter(p => p.frontendId !== frontendId));
           result.frontendId = this.getNextPassengerId();
           this.passengers().push(result);
+        }else if(result === null){
+          this.removePassenger(frontendId);
         }
       }
     );

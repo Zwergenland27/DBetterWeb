@@ -105,4 +105,20 @@ export class Passenger {
       discounts,
     );
   }
+
+  getAgeAt(date : Date){
+    if(this.age){
+      return this.age;
+    }
+
+    let age = date.getFullYear() - this.birthday!.getFullYear();
+    const monthDifference = date.getMonth() - this.birthday!.getMonth();
+    const dayDifference = date.getDate() - this.birthday!.getDate();
+
+    if(monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)){
+      age++;
+    }
+
+    return age;
+  }
 }

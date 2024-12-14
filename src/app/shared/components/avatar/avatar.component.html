@@ -1,0 +1,9 @@
+<div class="avatar">
+  @if(image){
+    img
+  } @else if (name){
+    {{name[0].toUpperCase()}}
+  } @else {
+    <mat-icon>person</mat-icon>
+  }
+</div>

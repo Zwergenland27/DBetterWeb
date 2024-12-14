@@ -102,6 +102,10 @@
         <source>Add passenger</source>
         <target>Reisenden hinzufügen</target>
       </trans-unit>
+      <trans-unit id="5690680661303080966" datatype="html">
+        <source> Person </source>
+        <target> Person </target>
+      </trans-unit>
       <trans-unit id="8756658437500696062" datatype="html">
         <source>Edit passenger</source>
         <target>Reisenden bearbeiten</target>
@@ -153,6 +157,10 @@
       <trans-unit id="2159130950882492111" datatype="html">
         <source>Cancel</source>
         <target>Abbrechen</target>
+      </trans-unit>
+      <trans-unit id="4814285799071780083" datatype="html">
+        <source>Remove</source>
+        <target>Entfernen</target>
       </trans-unit>
       <trans-unit id="7585826646011739428" datatype="html">
         <source>Edit</source>
