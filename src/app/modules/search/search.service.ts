@@ -26,6 +26,30 @@ export type MyPassengersDto = {
   friends: PassengerDto[];
 }
 
+export type StopDto = {
+  id: string;
+  rl100: string | null;
+  name: string;
+}
+
+export type ViaStopDto = {
+  id: string;
+  rl100: string | null;
+  name: string;
+  stay: number;
+}
+
+export type RouteOptionDto = {
+  transports: string[]
+}
+
+export type RouteDto = {
+  origin: StopDto | null;
+  destination: StopDto | null;
+  via: ViaStopDto[];
+  routeOptions: RouteOptionDto[];
+}
+
 @Injectable({
   providedIn: 'root'
 })

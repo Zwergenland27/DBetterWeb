@@ -1,1 +1,66 @@
-<app-configurator/>
+<div class="sidebar">
+  <div class="controls">
+    <mat-accordion multi="multi">
+      <mat-expansion-panel expanded #passengerPanel>
+        <mat-expansion-panel-header>
+          @if(passengerPanel.expanded){
+            <mat-panel-title i18n>Passengers</mat-panel-title>
+          }@else{
+            <mat-panel-title i18n>{passengers.length, plural, =1 {1 passenger} other {{{passengers.length}} passengers}} </mat-panel-title>
+          }
+          <mat-panel-description>
+            @if(passengers.length == 0){
+              <mat-icon class="warn">warning</mat-icon>
+            }
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <app-passenger-control [myPassengers]="myPassengers" [(passengers)]="passengers"/>
+      </mat-expansion-panel>
+      <mat-expansion-panel expanded #timePanel>
+        <mat-expansion-panel-header>
+          @if(timePanel.expanded){
+            <mat-panel-title i18n>Time</mat-panel-title>
+          }@else {
+            @if(tripDateTimeType == 'arrival'){
+              <div>
+                <span i18n>Arrival at</span>
+                <br>
+                <span>{{tripDateTime | date: 'fullDate'}} {{tripDateTime | date: 'shortTime'}}</span>
+              </div>
+            }@else{
+              <mat-panel-title>
+                <div>
+                  <span i18n>Departure at</span>
+                  <br>
+                  <span>{{tripDateTime | date: 'fullDate'}} {{tripDateTime | date: 'shortTime'}}</span>
+                </div>
+              </mat-panel-title>
+            }
+          }
+        </mat-expansion-panel-header>
+        <app-time-control [(dateTime)]="tripDateTime" [(type)]="tripDateTimeType"/>
+      </mat-expansion-panel>
+      <mat-expansion-panel expanded #routePanel>
+        <mat-expansion-panel-header>
+          @if(routePanel.expanded || routeInvalid()){
+            <mat-panel-title i18n>Route</mat-panel-title>
+          }@else{
+            <mat-panel-title i18n>From {{route.origin!.name}} to {{route.destination!.name}}</mat-panel-title>
+          }
+          <mat-panel-description>
+            @if(routeInvalid()){
+              <mat-icon class="warn">warning</mat-icon>
+            }
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <app-route-control [(route)]="route"/>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  <div class="search">
+    <button mat-fab extended [disabled]="passengers.length == 0 || routeInvalid()" (click)="search()">
+      <mat-icon>search</mat-icon>
+      Search
+    </button>
+  </div>
+</div>

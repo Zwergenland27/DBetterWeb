@@ -1,0 +1,69 @@
+<div class="route-control">
+  <mat-form-field subscriptSizing="dynamic">
+    <mat-label i18n>Origin</mat-label>
+    <input matInput [matAutocomplete]="origin" type="text" [formControl]="originStop"/>
+    <mat-autocomplete #origin="matAutocomplete">
+      @for(stop of stopSuggestions[0] | async; track stop.id){
+        <mat-option [value]="stop.name" (click)="originSelected(stop)">{{stop.name}}</mat-option>
+      }
+    </mat-autocomplete>
+    <mat-icon matPrefix>trip_origin</mat-icon>
+  </mat-form-field>
+  <div class="between-stops">
+    <div class="add-stop">
+      <div class="connection-line"></div>
+      <div class="icon-background"></div>
+      <button mat-icon-button [disabled]="viaStops.length >= 2" (click)="addVia(0)">
+        <mat-icon>add_circle</mat-icon>
+      </button>
+    </div>
+    <mat-chip-set>
+      <mat-chip-option [selected]="isTransportChecked(0, 'ice')" (click)="toggleTransport(0, 'ice')">ICE</mat-chip-option>
+      <mat-chip-option [selected]="isTransportChecked(0, 'ic')" (click)="toggleTransport(0, 'ic')">IC</mat-chip-option>
+      <mat-chip-option [selected]="isTransportChecked(0, 'ir')" (click)="toggleTransport(0, 'ir')">IR</mat-chip-option>
+      <mat-chip-option [selected]="isTransportChecked(0, 'regional')" (click)="toggleTransport(0, 'regional')" i18n>Regional</mat-chip-option>
+      <mat-chip-option [selected]="isTransportChecked(0, 'local')" (click)="toggleTransport(0, 'local')" i18n>Local</mat-chip-option>
+    </mat-chip-set>
+  </div>
+  @for(test of viaStops; track test; let i = $index){
+    <mat-form-field subscriptSizing="dynamic">
+      <mat-label i18n>Via</mat-label>
+      <input matInput [matAutocomplete]="via" type="text" [formControl]="viaStops[i]"/>
+      <mat-autocomplete #via="matAutocomplete">
+        @for(stop of stopSuggestions[2+i] | async; track stop.id){
+          <mat-option [value]="stop.name" (click)="viaSelected(i, stop)">{{stop.name}}</mat-option>
+        }
+      </mat-autocomplete>
+      <mat-icon matPrefix>location_on</mat-icon>
+      <button mat-icon-button matSuffix (click)="removeVia(i + 1)">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-form-field>
+    <div class="between-stops">
+      <div class="add-stop">
+        <div class="connection-line"></div>
+        <div class="icon-background"></div>
+        <button mat-icon-button [disabled]="viaStops.length >= 2" (click)="addVia(i + 1)">
+          <mat-icon>add_circle</mat-icon>
+        </button>
+      </div>
+      <mat-chip-set>
+        <mat-chip-option [selected]="isTransportChecked(1 + i, 'ice')" (click)="toggleTransport(1 + i, 'ice')">ICE</mat-chip-option>
+        <mat-chip-option [selected]="isTransportChecked(1 + i, 'ic')" (click)="toggleTransport(1 + i, 'ic')">IC</mat-chip-option>
+        <mat-chip-option [selected]="isTransportChecked(1 + i, 'ir')" (click)="toggleTransport(1 + i, 'ir')">IR</mat-chip-option>
+        <mat-chip-option [selected]="isTransportChecked(1 + i, 'regional')" (click)="toggleTransport(1 + i, 'regional')" i18n>Regional</mat-chip-option>
+        <mat-chip-option [selected]="isTransportChecked(1 + i, 'local')" (click)="toggleTransport(1 + i, 'local')" i18n>Local</mat-chip-option>
+      </mat-chip-set>
+    </div>
+  }
+  <mat-form-field subscriptSizing="dynamic">
+    <mat-label i18n>Destination</mat-label>
+    <input matInput [matAutocomplete]="destination" type="text" [formControl]="destinationStop"/>
+    <mat-autocomplete #destination="matAutocomplete">
+      @for(stop of stopSuggestions[1] | async; track stop.id){
+        <mat-option [value]="stop.name" (click)="destinationSelected(stop)">{{stop.name}}</mat-option>
+      }
+    </mat-autocomplete>
+    <mat-icon matPrefix>flag</mat-icon>
+  </mat-form-field>
+</div>

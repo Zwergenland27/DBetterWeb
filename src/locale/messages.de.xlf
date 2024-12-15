@@ -206,6 +206,38 @@
         <source>Date</source>
         <target>Datum</target>
       </trans-unit>
+      <trans-unit id="4553996117921122824" datatype="html">
+        <source>Regional</source>
+        <target>Regio</target>
+      </trans-unit>
+      <trans-unit id="2906587845957718064" datatype="html">
+        <source>Local</source>
+        <target>ÖPNV</target>
+      </trans-unit>
+      <trans-unit id="8629674313713169654" datatype="html">
+        <source>Via</source>
+        <target>Via</target>
+      </trans-unit>
+      <trans-unit id="1866048779551574162" datatype="html">
+        <source>Destination</source>
+        <target>Ziel</target>
+      </trans-unit>
+      <trans-unit id="3973931101896534797" datatype="html">
+        <source>Date</source>
+        <target>Datum</target>
+      </trans-unit>
+      <trans-unit id="66785722678644243" datatype="html">
+        <source>Origin</source>
+        <target>Start</target>
+      </trans-unit>
+      <trans-unit id="9171333469803394787" datatype="html">
+        <source>Route</source>
+        <target>Route</target>
+      </trans-unit>
+      <trans-unit id="9133242311401190794" datatype="html">
+        <source>From <x id="INTERPOLATION" equiv-text="{{route.origin.name}}"/> to <x id="INTERPOLATION_1" equiv-text="{{route.destination.name}}"/></source>
+        <target>Von <x id="INTERPOLATION" equiv-text="{{route.origin.name}}"/> nach <x id="INTERPOLATION_1" equiv-text="{{route.destination.name}}"/></target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

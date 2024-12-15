@@ -1,0 +1,43 @@
+.route-control {
+  display: flex;
+  flex-direction: column;
+}
+
+.between-stops {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 4px;
+}
+
+.add-stop {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-background {
+  position: absolute;
+  background-color: var(--mat-sys-surface-container-high);
+  height: 24px;
+  width: 24px;
+}
+
+.connection-line{
+  position: absolute;
+  height: 100%;
+  border-left: 3px dashed var(--mat-sys-on-surface);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.add-stop button {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+::ng-deep .between-stops .mat-mdc-standard-chip .mdc-evolution-chip__graphic {
+  width: 0 !important;
+  height: 0 !important;
+}
