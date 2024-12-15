@@ -1,0 +1,8 @@
+<div class="passengers-container">
+  @for(passenger of passengers; track passenger.frontendId){
+    <app-passenger-card [passenger]="passenger" (click)="editPassenger(passenger.frontendId)"/>
+  }
+  <button mat-button (click)="addPassenger()">
+    <span i18n>Add passenger</span>
+  </button>
+</div>

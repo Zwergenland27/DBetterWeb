@@ -1,18 +1,15 @@
-import {Component, signal} from '@angular/core';
+import {Component} from '@angular/core';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {SearchService} from '../../search.service';
 import {AuthService} from '../../../../shared/services/auth.service';
-import {MatButton} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatGridListModule} from '@angular/material/grid-list';
-import {MatDialog} from '@angular/material/dialog';
-import {PassengerDialogComponent} from '../passenger-dialog/passenger-dialog.component';
 import {Passenger} from '../../models/passenger.model';
-import {PassengerCardComponent} from '../passenger-card/passenger-card.component';
 import {DatePipe} from '@angular/common';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TimeControlComponent} from '../time-control/time-control.component';
+import {PassengerControlComponent} from '../passenger-control/passenger-control.component';
 
 @Component({
   selector: 'app-configurator',
@@ -20,19 +17,18 @@ import {TimeControlComponent} from '../time-control/time-control.component';
     MatExpansionModule,
     MatIconModule,
     MatGridListModule,
-    MatButton,
-    PassengerCardComponent,
     DatePipe,
     MatButtonToggleModule,
     FormsModule,
     ReactiveFormsModule,
     TimeControlComponent,
+    PassengerControlComponent,
   ],
   templateUrl: './configurator.component.html',
   styleUrl: './configurator.component.css'
 })
 export class ConfiguratorComponent {
-  private myPassengers : Passenger[] = [Passenger.fromKnownUser(
+  myPassengers : Passenger[] = [Passenger.fromKnownUser(
     '5',
     'Test',
     new Date(),
@@ -49,21 +45,14 @@ export class ConfiguratorComponent {
       }
     ]
   )];
-  private frontendPassengerId = 0;
-
-  private getNextPassengerId () {
-    return this.frontendPassengerId++;
-  }
-
-  passengers = signal<Passenger[]>([]);
+  passengers: Passenger[] = [];
 
   tripDateTime = new Date();
   tripDateTimeType: 'departure' | 'arrival' = 'departure';
 
   constructor(
     public auth: AuthService,
-    private searchService: SearchService,
-    private dialog: MatDialog) {
+    private searchService: SearchService) {
     const currentUser = auth.user();
     if(currentUser != null) {
       searchService.getMyPassengers(currentUser.id).subscribe({
@@ -78,45 +67,5 @@ export class ConfiguratorComponent {
         }
       });
     }
-  }
-
-  public addPassenger(){
-    const currentPassengerIds = this.passengers().filter(passenger => passenger.id != null).map(passenger => passenger.id);
-    const notAddedPassengers = this.myPassengers.filter(passenger => !currentPassengerIds.includes(passenger.id));
-    this.dialog.open(PassengerDialogComponent, {
-      data: notAddedPassengers
-    }).afterClosed().subscribe(
-      result => {
-        if(result){
-          result.frontendId = this.getNextPassengerId();
-          this.passengers().push(result);
-        }
-      }
-    );
-  }
-
-  public removePassenger(id: number | null){
-    this.passengers.set(this.passengers().filter(p => p.frontendId !== id));
-  }
-
-  public editPassenger(frontendId: number | null){
-    const passenger = this.passengers().find(p => p.frontendId === frontendId);
-    if(passenger == undefined){
-      return;
-    }
-
-    this.dialog.open(PassengerDialogComponent, {
-      data: [passenger]
-    }).afterClosed().subscribe(
-      result => {
-        if(result){
-          this.passengers.set(this.passengers().filter(p => p.frontendId !== frontendId));
-          result.frontendId = this.getNextPassengerId();
-          this.passengers().push(result);
-        }else if(result === null){
-          this.removePassenger(frontendId);
-        }
-      }
-    );
   }
 }

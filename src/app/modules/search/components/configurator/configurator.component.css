@@ -33,12 +33,6 @@
   border-radius: 0;
 }
 
-.passengers-container {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
 .warn {
   color: var(--mat-sys-error);
 }
