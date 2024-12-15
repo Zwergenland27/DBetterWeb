@@ -1,0 +1,22 @@
+.time-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.time-controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.time-controls .mat-icon {
+  cursor: pointer;
+  color: var(--mat-sys-primary);
+  font-size: var(--mat-sys-display-small-size);
+  font-weight: var(--mat-sys-display-small-weight);
+  line-height: var(--mat-sys-display-small-line-height);
+  width: var(--mat-sys-display-small-size);
+  height: var(--mat-sys-display-small-size);
+}

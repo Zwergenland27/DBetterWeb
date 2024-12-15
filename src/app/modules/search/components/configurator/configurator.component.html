@@ -22,12 +22,31 @@
         </button>
       </div>
     </mat-expansion-panel>
-    <mat-expansion-panel expanded>
+    <mat-expansion-panel expanded #timePanel>
       <mat-expansion-panel-header>
-        <mat-panel-title>Time</mat-panel-title>
+        @if(timePanel.expanded){
+          <mat-panel-title i18n>Time</mat-panel-title>
+        }@else {
+          @if(tripDateTimeType == 'arrival'){
+            <div>
+              <span i18n>Arrival at</span>
+              <br>
+              <span>{{tripDateTime | date: 'fullDate'}} {{tripDateTime | date: 'shortTime'}}</span>
+            </div>
+          }@else{
+            <mat-panel-title>
+              <div>
+                <span i18n>Departure at</span>
+                <br>
+                <span>{{tripDateTime | date: 'fullDate'}} {{tripDateTime | date: 'shortTime'}}</span>
+              </div>
+            </mat-panel-title>
+          }
+        }
       </mat-expansion-panel-header>
+      <app-time-control [(dateTime)]="tripDateTime" [(type)]="tripDateTimeType"/>
     </mat-expansion-panel>
-    <mat-expansion-panel expanded>
+    <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>Where</mat-panel-title>
       </mat-expansion-panel-header>

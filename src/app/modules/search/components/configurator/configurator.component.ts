@@ -9,6 +9,10 @@ import {MatDialog} from '@angular/material/dialog';
 import {PassengerDialogComponent} from '../passenger-dialog/passenger-dialog.component';
 import {Passenger} from '../../models/passenger.model';
 import {PassengerCardComponent} from '../passenger-card/passenger-card.component';
+import {DatePipe} from '@angular/common';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {TimeControlComponent} from '../time-control/time-control.component';
 
 @Component({
   selector: 'app-configurator',
@@ -18,6 +22,11 @@ import {PassengerCardComponent} from '../passenger-card/passenger-card.component
     MatGridListModule,
     MatButton,
     PassengerCardComponent,
+    DatePipe,
+    MatButtonToggleModule,
+    FormsModule,
+    ReactiveFormsModule,
+    TimeControlComponent,
   ],
   templateUrl: './configurator.component.html',
   styleUrl: './configurator.component.css'
@@ -47,6 +56,10 @@ export class ConfiguratorComponent {
   }
 
   passengers = signal<Passenger[]>([]);
+
+  tripDateTime = new Date();
+  tripDateTimeType: 'departure' | 'arrival' = 'departure';
+
   constructor(
     public auth: AuthService,
     private searchService: SearchService,

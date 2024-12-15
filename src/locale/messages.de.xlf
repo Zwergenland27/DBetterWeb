@@ -102,6 +102,18 @@
         <source>Add passenger</source>
         <target>Reisenden hinzufügen</target>
       </trans-unit>
+      <trans-unit id="8497528947328199741" datatype="html">
+        <source>Time</source>
+        <target>Zeit</target>
+      </trans-unit>
+      <trans-unit id="5531766460582010138" datatype="html">
+        <source>Arrival at</source>
+        <target>Ankunft am</target>
+      </trans-unit>
+      <trans-unit id="808719916219936807" datatype="html">
+        <source>Departure at</source>
+        <target>Abfahrt am</target>
+      </trans-unit>
       <trans-unit id="5690680661303080966" datatype="html">
         <source> Person </source>
         <target> Person </target>
@@ -181,6 +193,18 @@
       <trans-unit id="1884615848108898039" datatype="html">
         <source><x id="ICU" equiv-text="{passengers().length, plural, =1 {1 passenger} other {{{passengers().length}} passengers}}" xid="446620889828415811"/> </source>
         <target><x id="ICU" equiv-text="{passengers().length, plural, =1 {1 Reisender} other {{{passengers().length}} Reisende}}" xid="446620889828415811"/> </target>
+      </trans-unit>
+      <trans-unit id="8071204853402998860" datatype="html">
+        <source>Departure</source>
+        <target>Abfahrt</target>
+      </trans-unit>
+      <trans-unit id="1145177830444551970" datatype="html">
+        <source>Arrival</source>
+        <target>Ankunft</target>
+      </trans-unit>
+      <trans-unit id="3973931101896534797" datatype="html">
+        <source>Date</source>
+        <target>Datum</target>
       </trans-unit>
     </body>
   </file>
