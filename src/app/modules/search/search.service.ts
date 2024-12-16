@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {of} from 'rxjs';
 
 export function getShortTitleOfDiscount(discount: DiscountDto) : string {
   return discount.type.match(/[A-Z0-9]/g)?.join('') ?? '';
@@ -26,17 +27,21 @@ export type MyPassengersDto = {
   friends: PassengerDto[];
 }
 
-export type StopDto = {
+export type StationDto = {
   id: string;
   rl100: string | null;
   name: string;
+  lat: number;
+  lon: number;
 }
 
-export type ViaStopDto = {
+export type ViaStationDto = {
   id: string;
   rl100: string | null;
   name: string;
   stay: number;
+  lat: number;
+  lon: number;
 }
 
 export type RouteOptionDto = {
@@ -44,9 +49,9 @@ export type RouteOptionDto = {
 }
 
 export type RouteDto = {
-  origin: StopDto | null;
-  destination: StopDto | null;
-  via: ViaStopDto[];
+  origin: StationDto | null;
+  destination: StationDto | null;
+  via: ViaStationDto[];
   routeOptions: RouteOptionDto[];
 }
 
@@ -59,5 +64,12 @@ export class SearchService {
 
   public getMyPassengers(userId: string){
     return this.http.get<MyPassengersDto>(`users/${userId}/passengers`);
+  }
+
+  public getStationSuggestions(value: string | null) {
+    if(!value || value.length < 1){
+      return of([]);
+    }
+    return this.http.get<StationDto[]>(`stations?search=${value}`);
   }
 }

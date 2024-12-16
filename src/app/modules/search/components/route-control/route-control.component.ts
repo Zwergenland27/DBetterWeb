@@ -5,8 +5,8 @@ import {MatAutocomplete, MatAutocompleteTrigger, MatOption} from "@angular/mater
 import {MatFormField, MatLabel, MatPrefix, MatSuffix} from "@angular/material/form-field";
 import {MatIcon} from "@angular/material/icon";
 import {MatInput} from "@angular/material/input";
-import {map, Observable, startWith} from 'rxjs';
-import {RouteDto, StopDto, ViaStopDto} from '../../search.service';
+import {catchError, debounceTime, Observable, of, switchMap} from 'rxjs';
+import {RouteDto, SearchService, StationDto, ViaStationDto} from '../../search.service';
 import {MatIconButton} from '@angular/material/button';
 import {MatChipOption, MatChipSet} from '@angular/material/chips';
 
@@ -36,34 +36,33 @@ export class RouteControlComponent {
   @Input({required: true}) route! : RouteDto;
   @Output() routeChange = new EventEmitter<RouteDto>();
 
-  originStop = new FormControl('', Validators.required);
-  viaStops : FormControl[] = [];
-  destinationStop = new FormControl('', Validators.required);
+  originControl = new FormControl('', Validators.required);
+  viaStopControls : FormControl[] = [];
+  destinationControl = new FormControl('', Validators.required);
 
-  stopSuggestions: Observable<StopDto[]>[] = []
-  _suggestions : StopDto[] = [
-    { id: '1', name: 'Dresden Hbf', rl100: 'DH'},
-    { id: '2', name: 'Dresden Neustadt', rl100: 'DN'},
-    { id: '3', name: 'Berlin Ostkreuz', rl100: 'BO'},
-    { id: '4', name: 'Frankfurt (MAIN) Hbf', rl100: 'FF'},
-  ];
-  constructor() {
-    this.stopSuggestions[0] = this.originStop.valueChanges.pipe(
-      startWith(''),
-      map(value => this.filter(value || ''))
+  stationSuggestions: Observable<StationDto[]>[] = []
+  constructor(private searchService : SearchService) {
+    this.stationSuggestions[0] = this.originControl.valueChanges.pipe(
+      debounceTime(30),
+      switchMap((value) => {
+        return this.searchService.getStationSuggestions(value).pipe(
+          catchError(() => {
+            return of(<StationDto[]>[]);
+          })
+        )
+      })
     );
-    this.stopSuggestions[1] = this.destinationStop.valueChanges.pipe(
-      startWith(''),
-      map(value => this.filter(value || ''))
+
+    this.stationSuggestions[1] = this.destinationControl.valueChanges.pipe(
+      debounceTime(30),
+      switchMap((value) => {
+        return this.searchService.getStationSuggestions(value).pipe(
+          catchError(() => {
+            return of(<StationDto[]>[]);
+          })
+        )
+      })
     );
-  }
-
-  private filter(value: string){
-    if(value.length < 1) return [];
-    const filterValue = value.toLowerCase();
-
-    return this._suggestions
-      .filter(stop => stop.name.toLowerCase().includes(filterValue) || (stop.rl100 && stop.rl100.toLowerCase() == filterValue))
   }
 
   toggleTransport(index: number, type: string){
@@ -82,33 +81,40 @@ export class RouteControlComponent {
   addVia(index: number){
     const previousOptions = JSON.parse(JSON.stringify(this.route.routeOptions[index]));
     this.route.routeOptions.splice(index + 1, 0, previousOptions);
-    this.viaStops.splice(index, 0, new FormControl('', Validators.required));
-    this.stopSuggestions[index + 2] = this.viaStops[index].valueChanges.pipe(
-      startWith(''),
-      map(value => this.filter(value || ''))
+    this.viaStopControls.splice(index, 0, new FormControl('', Validators.required));
+    const autoComplete = this.viaStopControls[index].valueChanges.pipe(
+      debounceTime(30),
+      switchMap((value) => {
+        return this.searchService.getStationSuggestions(value).pipe(
+          catchError(() => {
+            return of(<StationDto[]>[]);
+          })
+        )
+      })
     );
+    this.stationSuggestions.splice(index + 2, 0, autoComplete);
   }
 
   removeVia(index: number){
     this.route.routeOptions.splice(index, 1);
-    this.viaStops.splice(index - 1, 1);
-    this.stopSuggestions.splice(index + 1, 1);
+    this.viaStopControls.splice(index - 1, 1);
+    this.stationSuggestions.splice(index + 1, 1);
     this.route.via.splice(index, 1);
     this.route.routeOptions.splice(index, 1);
     this.routeChange.emit(this.route);
   }
 
-  originSelected(stop: StopDto){
-    this.route.origin = stop;
+  originSelected(station: StationDto){
+    this.route.origin = station;
     this.routeChange.emit(this.route);
   }
 
-  viaSelected(index: number, stop: StopDto){
+  viaSelected(index: number, station: StationDto){
     const currentViaStops = this.route.via;
-    const changedVia = <ViaStopDto> {
-      id: stop.id,
-      name: stop.name,
-      rl100: stop.rl100,
+    const changedVia = <ViaStationDto> {
+      id: station.id,
+      name: station.name,
+      rl100: station.rl100,
       stay: 0
     }
     if(currentViaStops[index]){
@@ -116,11 +122,10 @@ export class RouteControlComponent {
     }else{
       currentViaStops.splice(index, 0, changedVia);
     }
-    console.log(this.route.via);
   }
 
-  destinationSelected(stop: StopDto){
-    this.route.destination = stop;
+  destinationSelected(station: StationDto){
+    this.route.destination = station;
     this.routeChange.emit(this.route);
   }
 }

@@ -1,10 +1,10 @@
 <div class="route-control">
   <mat-form-field subscriptSizing="dynamic">
     <mat-label i18n>Origin</mat-label>
-    <input matInput [matAutocomplete]="origin" type="text" [formControl]="originStop"/>
+    <input matInput [matAutocomplete]="origin" type="text" [formControl]="originControl"/>
     <mat-autocomplete #origin="matAutocomplete">
-      @for(stop of stopSuggestions[0] | async; track stop.id){
-        <mat-option [value]="stop.name" (click)="originSelected(stop)">{{stop.name}}</mat-option>
+      @for(station of stationSuggestions[0] | async; track station.id){
+        <mat-option [value]="station.name" (click)="originSelected(station)">{{station.name}}</mat-option>
       }
     </mat-autocomplete>
     <mat-icon matPrefix>trip_origin</mat-icon>
@@ -13,7 +13,7 @@
     <div class="add-stop">
       <div class="connection-line"></div>
       <div class="icon-background"></div>
-      <button mat-icon-button [disabled]="viaStops.length >= 2" (click)="addVia(0)">
+      <button mat-icon-button [disabled]="viaStopControls.length >= 2" (click)="addVia(0)">
         <mat-icon>add_circle</mat-icon>
       </button>
     </div>
@@ -25,13 +25,13 @@
       <mat-chip-option [selected]="isTransportChecked(0, 'local')" (click)="toggleTransport(0, 'local')" i18n>Local</mat-chip-option>
     </mat-chip-set>
   </div>
-  @for(test of viaStops; track test; let i = $index){
+  @for(stop of viaStopControls; track stop; let i = $index){
     <mat-form-field subscriptSizing="dynamic">
       <mat-label i18n>Via</mat-label>
-      <input matInput [matAutocomplete]="via" type="text" [formControl]="viaStops[i]"/>
+      <input matInput [matAutocomplete]="via" type="text" [formControl]="viaStopControls[i]"/>
       <mat-autocomplete #via="matAutocomplete">
-        @for(stop of stopSuggestions[2+i] | async; track stop.id){
-          <mat-option [value]="stop.name" (click)="viaSelected(i, stop)">{{stop.name}}</mat-option>
+        @for(station of stationSuggestions[2+i] | async; track station.id){
+          <mat-option [value]="station.name" (click)="viaSelected(i, station)">{{station.name}}</mat-option>
         }
       </mat-autocomplete>
       <mat-icon matPrefix>location_on</mat-icon>
@@ -43,7 +43,7 @@
       <div class="add-stop">
         <div class="connection-line"></div>
         <div class="icon-background"></div>
-        <button mat-icon-button [disabled]="viaStops.length >= 2" (click)="addVia(i + 1)">
+        <button mat-icon-button [disabled]="viaStopControls.length >= 2" (click)="addVia(i + 1)">
           <mat-icon>add_circle</mat-icon>
         </button>
       </div>
@@ -58,10 +58,10 @@
   }
   <mat-form-field subscriptSizing="dynamic">
     <mat-label i18n>Destination</mat-label>
-    <input matInput [matAutocomplete]="destination" type="text" [formControl]="destinationStop"/>
+    <input matInput [matAutocomplete]="destination" type="text" [formControl]="destinationControl"/>
     <mat-autocomplete #destination="matAutocomplete">
-      @for(stop of stopSuggestions[1] | async; track stop.id){
-        <mat-option [value]="stop.name" (click)="destinationSelected(stop)">{{stop.name}}</mat-option>
+      @for(station of stationSuggestions[1] | async; track station.id){
+        <mat-option [value]="station.name" (click)="destinationSelected(station)">{{station.name}}</mat-option>
       }
     </mat-autocomplete>
     <mat-icon matPrefix>flag</mat-icon>
