@@ -115,7 +115,7 @@ export class RouteControlComponent {
       id: station.id,
       name: station.name,
       rl100: station.rl100,
-      stay: 0
+      residenceMinutes: 0
     }
     if(currentViaStops[index]){
       currentViaStops[index] = changedVia;

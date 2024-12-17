@@ -86,9 +86,9 @@ export class SearchComponent {
   }
 
   search(){
-    console.log(this.passengers);
-    console.log(this.tripDateTimeType);
-    console.log(this.tripDateTime);
-    console.log(this.route);
+    this.searchService.searchTrip(this.passengers, this.tripDateTime, this.tripDateTimeType, this.route)
+      .subscribe({
+        next: result => {console.log(result)}
+      })
   }
 }
