@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {of} from 'rxjs';
 import {Passenger} from './models/passenger.model';
+import {StationDto} from '../station/station.service';
 
 export function getShortTitleOfDiscount(discount: DiscountDto) : string {
   return discount.type.match(/[A-Z0-9]/g)?.join('') ?? '';
@@ -26,14 +27,6 @@ export type MyPassengersDto = {
   me: PassengerDto;
   family: PassengerDto[];
   friends: PassengerDto[];
-}
-
-export type StationDto = {
-  id: string;
-  rl100: string | null;
-  name: string;
-  lat: number;
-  lon: number;
 }
 
 export type ViaStationDto = {
@@ -65,13 +58,6 @@ export class SearchService {
 
   public getMyPassengers(userId: string){
     return this.http.get<MyPassengersDto>(`users/${userId}/passengers`);
-  }
-
-  public getStationSuggestions(value: string | null) {
-    if(!value || value.length < 1){
-      return of([]);
-    }
-    return this.http.get<StationDto[]>(`stations?search=${value}`);
   }
 
   public searchTrip(passengers: Passenger[], dateTime: Date, dateTimeType: 'departure' | 'arrival', route: RouteDto){

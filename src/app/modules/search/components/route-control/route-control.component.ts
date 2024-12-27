@@ -6,9 +6,10 @@ import {MatFormField, MatLabel, MatPrefix, MatSuffix} from "@angular/material/fo
 import {MatIcon} from "@angular/material/icon";
 import {MatInput} from "@angular/material/input";
 import {catchError, debounceTime, Observable, of, switchMap} from 'rxjs';
-import {RouteDto, SearchService, StationDto, ViaStationDto} from '../../search.service';
+import {RouteDto, ViaStationDto} from '../../search.service';
 import {MatIconButton} from '@angular/material/button';
 import {MatChipOption, MatChipSet} from '@angular/material/chips';
+import {StationDto, StationService} from '../../../station/station.service';
 
 @Component({
   selector: 'app-route-control',
@@ -41,11 +42,12 @@ export class RouteControlComponent {
   destinationControl = new FormControl('', Validators.required);
 
   stationSuggestions: Observable<StationDto[]>[] = []
-  constructor(private searchService : SearchService) {
+  constructor(
+    private stationService: StationService) {
     this.stationSuggestions[0] = this.originControl.valueChanges.pipe(
       debounceTime(30),
       switchMap((value) => {
-        return this.searchService.getStationSuggestions(value).pipe(
+        return this.stationService.getStationSuggestions(value).pipe(
           catchError(() => {
             return of(<StationDto[]>[]);
           })
@@ -56,7 +58,7 @@ export class RouteControlComponent {
     this.stationSuggestions[1] = this.destinationControl.valueChanges.pipe(
       debounceTime(30),
       switchMap((value) => {
-        return this.searchService.getStationSuggestions(value).pipe(
+        return this.stationService.getStationSuggestions(value).pipe(
           catchError(() => {
             return of(<StationDto[]>[]);
           })
@@ -85,7 +87,7 @@ export class RouteControlComponent {
     const autoComplete = this.viaStopControls[index].valueChanges.pipe(
       debounceTime(30),
       switchMap((value) => {
-        return this.searchService.getStationSuggestions(value).pipe(
+        return this.stationService.getStationSuggestions(value).pipe(
           catchError(() => {
             return of(<StationDto[]>[]);
           })
