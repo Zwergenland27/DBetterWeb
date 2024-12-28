@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {of} from 'rxjs';
-import {Passenger} from './models/passenger.model';
-import {StationDto} from '../station/station.service';
+import {Observable, of, throwError} from 'rxjs';
 
 export function getShortTitleOfDiscount(discount: DiscountDto) : string {
   return discount.type.match(/[A-Z0-9]/g)?.join('') ?? '';
@@ -16,30 +14,48 @@ export type DiscountDto = {
 
 export type PassengerDto = {
   id: string;
+  userId: string | null;
+  name: string | null;
+  birthday: string | null;
+  age: number | null;
+  withSeat: boolean,
+  bikes: number,
+  dogs: number,
+  withBuggy: boolean,
+  needsAccessibility: boolean,
+  discounts: DiscountDto[];
+}
+
+export type UserDto = {
+  id: string;
   firstname: string;
   lastname: string;
   email: string;
   birthday: string;
-  discounts: DiscountDto[];
+  seatPreference: boolean;
+  bikePreference: number;
+  dogPreference: number;
+  buggyPreference: boolean;
+  needsAccessibility: boolean;
+  discounts: DiscountDto[]
 }
 
-export type MyPassengersDto = {
-  me: PassengerDto;
-  family: PassengerDto[];
-  friends: PassengerDto[];
+export type StationDto = {
+  id: string;
+  name: string;
 }
 
 export type ViaStationDto = {
   id: string;
-  rl100: string | null;
   name: string;
-  residenceMinutes: number;
-  lat: number;
-  lon: number;
+  residence: number;
 }
 
 export type RouteOptionDto = {
-  transports: string[]
+  allowHighSpeedTrains: boolean;
+  allowIntercityTrains: boolean;
+  allowRegionalTrains: boolean;
+  allowPublicTransport: boolean;
 }
 
 export type RouteDto = {
@@ -49,6 +65,15 @@ export type RouteDto = {
   routeOptions: RouteOptionDto[];
 }
 
+export type JourneySearchDto = {
+  id: string;
+  ownerId: string | null;
+  passengers: PassengerDto[];
+  time: string;
+  timeType: 'arrival' | 'departure';
+  route: RouteDto;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -56,49 +81,50 @@ export class SearchService {
 
   constructor(private http: HttpClient) { }
 
-  public getMyPassengers(userId: string){
-    return this.http.get<MyPassengersDto>(`users/${userId}/passengers`);
+  public createJourney(userId: string | null = null) : Observable<JourneySearchDto> {
+    return of({
+      id: '',
+      ownerId: userId,
+      passengers: [],
+      time: new Date().toISOString(),
+      timeType: 'departure',
+      route: {
+        origin: null,
+        destination: null,
+        via: [],
+        routeOptions: [{
+          allowHighSpeedTrains: true,
+          allowIntercityTrains: true,
+          allowRegionalTrains: false,
+          allowPublicTransport: false,
+        }]
+      },
+    });
   }
 
-  public searchTrip(passengers: Passenger[], dateTime: Date, dateTimeType: 'departure' | 'arrival', route: RouteDto){
-    return this.http.post(`trip`, {
-      passengers: passengers.map(p => {
-        return {
-          id: p.id,
-          name: p.name,
-          birthday: p.birthday?.toISOString(),
-          age: p.age,
-          withSeat: p.withSeat,
-          bikes: p.withBike ? 1 : 0,
-          dogs: p.withDog ? 1 : 0,
-          withBuggy: p.withBuggy,
-          needsWheelchair: p.needsWheelchair,
-          discounts: p.discounts.map(d => {
-            return {
-              type: d.type,
-              class: d.class,
-              validUntil: d.validUntil ? new Date(d.validUntil).toISOString() : null,
-            }
-          })
-        }
-      }),
-      dateTime: dateTime.toISOString(),
-      dateTimeType: dateTimeType,
-      route: {
-        originId: route.origin!.id,
-        destinationId: route.destination!.id,
-        via: route.via.map(v => {
-          return {
-            id: v.id,
-            residenceMinutes: v.residenceMinutes
-          }
-        }),
-        options: route.routeOptions.map(r => {
-          return {
-            allowedTransports: r.transports,
-          }
-        })
-      }
-    })
+  public getAvailablePassengers(journeyId: string) : Observable<UserDto[]> {
+    return of();
+  }
+
+  public addPassenger(
+    journeyId: string,
+    name: string,
+    birthday: Date | null,
+    age: number | null,
+    withSeat: boolean,
+    bikes: number,
+    dogs: number,
+    withBuggy: boolean,
+    needsAccessibility: boolean,
+    discounts: DiscountDto[]) : Observable<PassengerDto>{
+    return of();
+  }
+
+  public editPassenger(journeyId: string) : Observable<PassengerDto>{
+    return of();
+  }
+
+  public removePassenger(journeyId: string) : Observable<void> {
+    return of();
   }
 }

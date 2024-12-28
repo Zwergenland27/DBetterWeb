@@ -14,8 +14,7 @@ import {
 } from '@angular/material/chips';
 import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
 import {MatTooltip} from '@angular/material/tooltip';
-import {DiscountDto} from '../../search.service';
-import {Passenger} from '../../models/passenger.model';
+import {DiscountDto, SearchService, UserDto} from '../../search.service';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {map, Observable, startWith} from 'rxjs';
 import {AsyncPipe} from '@angular/common';
@@ -24,6 +23,7 @@ import {AsyncPipe} from '@angular/common';
 export type SelectablePassenger = {
   id: string;
   name: string;
+  email: string;
 }
 
 @Component({
@@ -52,15 +52,16 @@ export type SelectablePassenger = {
     AsyncPipe,
     MatChip,
   ],
-  templateUrl: './passenger-dialog.component.html',
-  styleUrl: './passenger-dialog.component.css'
+  templateUrl: './add-passenger-dialog.component.html',
+  styleUrl: './add-passenger-dialog.component.css'
 })
-export class PassengerDialogComponent {
-  private availablePassengers : Passenger[];
+export class AddPassengerDialogComponent {
+  private journeyId: string;
+  private availablePassengers : UserDto[] = [];
 
-  editMode = false;
   public availableDiscounts: DiscountDto[] = [];
   discounts = signal<DiscountDto[]>([]);
+
   selectedPassengerId : string | null = null;
   filteredPassengers: Observable<SelectablePassenger[]>;
 
@@ -71,27 +72,27 @@ export class PassengerDialogComponent {
     seat: new FormControl(true),
     bike: new FormControl(false),
     dog: new FormControl(false),
-    wheelchair: new FormControl(false),
+    needsAccessibility: new FormControl(false),
     buggy: new FormControl(false),
   },{
     validators: [this.ageSelectedValidator]
   });
 
-  constructor(@Inject(MAT_DIALOG_DATA)public data : Passenger[],private dialogRef: MatDialogRef<PassengerDialogComponent>) {
+  constructor(@Inject(MAT_DIALOG_DATA)public data : string,
+              private searchService: SearchService,
+              private dialogRef: MatDialogRef<AddPassengerDialogComponent>) {
     this.dialogRef.disableClose = true;
+
+    this.journeyId = data;
 
     this.filteredPassengers = this.passengerForm.get('name')!.valueChanges.pipe(
       startWith(''),
       map(value => this.filter(value || ''))
     );
     this.setDiscounts([]);
-    if(data.length === 1 && data[0].frontendId != null){
-      this.availablePassengers = [];
-      this.editPassenger(data[0]);
-      this.editMode = true;
-    }else{
-      this.availablePassengers = data;
-    }
+    searchService.getAvailablePassengers(this.journeyId).subscribe(result => {
+      this.availablePassengers = result;
+    });
   }
 
   private filter(value: string){
@@ -99,11 +100,14 @@ export class PassengerDialogComponent {
     const filterValue = value.toLowerCase();
 
     return this.availablePassengers
-      .filter(passenger => passenger.name!.toLowerCase().includes(filterValue))
       .map(passenger =><SelectablePassenger> {
         id: passenger.id,
-        name: passenger.name
-      });
+        name: passenger.firstname + passenger.lastname,
+        email: passenger.email,
+      })
+      .filter(passenger =>
+        passenger.name.toLowerCase().includes(filterValue) ||
+        passenger.email.toLowerCase().includes(filterValue));
   }
 
   private setDiscounts(selectedDiscounts: DiscountDto[]) {
@@ -123,40 +127,6 @@ export class PassengerDialogComponent {
     this.discounts.set(selectedDiscounts.slice());
   }
 
-  editPassenger(passenger: Passenger) {
-    this.selectedPassengerId = passenger.id;
-
-    const nameField = this.passengerForm.get('name')!;
-    const birthdayField = this.passengerForm.get('birthday')!;
-    const ageField = this.passengerForm.get('age')!;
-    const seatField = this.passengerForm.get('seat')!;
-    const bikeField = this.passengerForm.get('bike')!;
-    const dogField = this.passengerForm.get('dog')!;
-    const buggyField = this.passengerForm.get('buggy')!;
-    const wheelchairField = this.passengerForm.get('wheelchair')!;
-
-    nameField.setValue(passenger.name);
-    let birthday = '';
-    if(passenger.birthday){
-      birthday = passenger.birthday.toISOString()
-    }
-    birthdayField.setValue(birthday);
-    ageField.setValue(passenger.age);
-
-    if(passenger.id != null){
-      nameField.disable();
-      birthdayField.disable();
-      ageField.disable();
-    }
-
-    this.setDiscounts(passenger.discounts);
-    seatField.setValue(passenger.withSeat);
-    bikeField.setValue(passenger.withBike);
-    dogField.setValue(passenger.withDog);
-    buggyField.setValue(passenger.withBuggy);
-    wheelchairField.setValue(passenger.needsWheelchair);
-  }
-
   passengerSelected(selected: SelectablePassenger){
     this.selectedPassengerId = selected.id;
 
@@ -167,24 +137,24 @@ export class PassengerDialogComponent {
     const bikeField = this.passengerForm.get('bike')!;
     const dogField = this.passengerForm.get('dog')!;
     const buggyField = this.passengerForm.get('buggy')!;
-    const wheelchairField = this.passengerForm.get('wheelchair')!;
+    const accessibilityField = this.passengerForm.get('needsAccessibility')!;
 
     const passenger = this.availablePassengers.find(passenger => passenger.id === selected.id)!;
     this.availablePassengers = this.availablePassengers.filter(passenger => passenger.id !== selected.id);
 
-    nameField.setValue(passenger.name);
+    nameField.setValue(passenger.firstname + passenger.lastname);
     nameField.disable();
 
-    birthdayField.setValue(passenger.birthday!.toISOString());
+    birthdayField.setValue(passenger.birthday!);
     birthdayField.disable();
     ageField.disable();
 
     this.setDiscounts(passenger.discounts);
-    seatField.setValue(passenger.withSeat);
-    bikeField.setValue(passenger.withBike);
-    dogField.setValue(passenger.withDog);
-    buggyField.setValue(passenger.withBuggy);
-    wheelchairField.setValue(passenger.needsWheelchair);
+    seatField.setValue(passenger.seatPreference);
+    bikeField.setValue(passenger.bikePreference > 0);
+    dogField.setValue(passenger.dogPreference > 0);
+    buggyField.setValue(passenger.buggyPreference);
+    accessibilityField.setValue(passenger.needsAccessibility);
   }
 
   ageSelectedValidator(control: AbstractControl) {
@@ -213,45 +183,32 @@ export class PassengerDialogComponent {
     this.availableDiscounts = this.availableDiscounts.filter(d => d != discount);
   }
 
-  public removePassenger(){
-    this.dialogRef.close(null);
-  }
-
   public submitPassenger(){
     const value = this.passengerForm.getRawValue();
-    let passenger : Passenger;
-    if(value.birthday == '') {
-      passenger = Passenger.withAge(
-        value.name!,
-        value.age!,
-        value.seat!,
-        value.bike!,
-        value.dog!,
-        value.buggy!,
-        value.wheelchair!,
-        this.discounts());
-    }else if(this.selectedPassengerId == null){
-      passenger = Passenger.withBirthday(
-        value.name!,
-        new Date(value.birthday!),
-        value.seat!,
-        value.bike!,
-        value.dog!,
-        value.buggy!,
-        value.wheelchair!,
-        this.discounts());
+
+    let birthday : Date | null;
+    let age : number | null;
+    if(value.birthday == ''){
+      birthday = null;
+      age = value.age!;
     }else{
-      passenger = Passenger.fromKnownUser(
-        this.selectedPassengerId,
-        value.name!,
-        new Date(value.birthday!),
-        value.seat!,
-        value.bike!,
-        value.dog!,
-        value.buggy!,
-        value.wheelchair!,
-        this.discounts());
+      birthday = new Date(value.birthday!);
+      age = null;
     }
-    this.dialogRef.close(passenger);
+
+    this.searchService.addPassenger(
+      this.journeyId,
+      value.name!,
+      birthday,
+      age,
+      value.seat!,
+      value.bike! ? 1 : 0,
+      value.dog! ? 1 : 0,
+      value.buggy!,
+      value.needsAccessibility!,
+      this.discounts()
+    ).subscribe(result => {
+      this.dialogRef.close(result);
+    })
   }
 }

@@ -8,22 +8,22 @@
         <span i18n> Person </span>
       }
 
-      ({{passenger.getAgeAt(tripDate)}})
+      ({{calcPassengerAge(passenger, tripDate)}})
     </span>
     <span>
       @if(passenger.withSeat){
         <mat-icon>airline_seat_recline_extra</mat-icon>
       }
-      @if(passenger.withBike){
+      @if(passenger.bikes > 0){
         <mat-icon>directions_bike</mat-icon>
       }
       @if(passenger.withBuggy){
         <mat-icon>child_friendly</mat-icon>
       }
-      @if(passenger.withDog){
+      @if(passenger.dogs > 0){
         <mat-icon>pets</mat-icon>
       }
-      @if(passenger.needsWheelchair){
+      @if(passenger.needsAccessibility){
         <mat-icon>accessible</mat-icon>
       }
       @for(discount of passenger.discounts; track discount){

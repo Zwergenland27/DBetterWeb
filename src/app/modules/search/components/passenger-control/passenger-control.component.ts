@@ -1,66 +1,65 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {MatButton} from "@angular/material/button";
 import {PassengerCardComponent} from "../passenger-card/passenger-card.component";
-import {PassengerDialogComponent} from '../passenger-dialog/passenger-dialog.component';
+import {AddPassengerDialogComponent} from '../add-passenger-dialog/add-passenger-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
-import {Passenger} from '../../models/passenger.model';
+import {PassengerDto} from '../../search.service';
+import {
+  MatExpansionPanel,
+  MatExpansionPanelDescription,
+  MatExpansionPanelHeader,
+  MatExpansionPanelTitle
+} from '@angular/material/expansion';
+import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'app-passenger-control',
-    imports: [
-        MatButton,
-        PassengerCardComponent
-    ],
+  imports: [
+    MatButton,
+    PassengerCardComponent,
+    MatExpansionPanel,
+    MatExpansionPanelDescription,
+    MatExpansionPanelHeader,
+    MatExpansionPanelTitle,
+    MatIcon
+  ],
   templateUrl: './passenger-control.component.html',
-  styleUrl: './passenger-control.component.css'
+  styleUrls: ['./passenger-control.component.css', '../../search.component.css']
 })
 export class PassengerControlComponent {
-  @Input() myPassengers : Passenger[] = [];
-  @Input({required: true}) passengers! : Passenger[];
-  @Output() passengersChange = new EventEmitter<Passenger[]>();
-
-  private frontendPassengerId = 0;
+  @Input({required: true}) requestId! : string;
+  @Input({required: true}) passengers! : PassengerDto[];
 
   constructor(private dialog: MatDialog) {
   }
-
-  private _getNextPassengerId () {
-    return this.frontendPassengerId++;
-  }
   public addPassenger(){
-    const currentPassengerIds = this.passengers.filter(passenger => passenger.id != null).map(passenger => passenger.id);
-    const notAddedPassengers = this.myPassengers.filter(passenger => !currentPassengerIds.includes(passenger.id));
-    this.dialog.open(PassengerDialogComponent, {
-      data: notAddedPassengers
+    this.dialog.open(AddPassengerDialogComponent, {
+      data: this.requestId
     }).afterClosed().subscribe(
       result => {
         if(result){
-          result.frontendId = this._getNextPassengerId();
           this.passengers.push(result);
-          this.passengersChange.emit(this.passengers);
         }
       }
     );
   }
 
-  public editPassenger(frontendId: number | null){
-    const passenger = this.passengers.find(p => p.frontendId === frontendId);
+  public editPassenger(id: string){
+    const passenger = this.passengers.find(p => p.id === id);
     if(passenger == undefined){
       return;
     }
 
-    this.dialog.open(PassengerDialogComponent, {
+    this.dialog.open(AddPassengerDialogComponent, {
       data: [passenger]
     }).afterClosed().subscribe(
       result => {
         if(result){
-          this.passengers = this.passengers.filter(p => p.frontendId !== frontendId);
-          result.frontendId = this._getNextPassengerId();
+          this.passengers = this.passengers.filter(p => p.id !== id);
           this.passengers.push(result);
         }else if(result === null){
-          this.passengers = this.passengers.filter(p => p.frontendId !== frontendId);
+          this.passengers = this.passengers.filter(p => p.id !== id);
         }
-        this.passengersChange.emit(this.passengers);
       }
     );
   }

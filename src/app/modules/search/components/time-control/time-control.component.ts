@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatButtonToggle, MatButtonToggleGroup} from "@angular/material/button-toggle";
 import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
@@ -6,6 +6,8 @@ import {MatFormField, MatLabel, MatPrefix} from "@angular/material/form-field";
 import {MatIcon} from "@angular/material/icon";
 import {MatInput} from "@angular/material/input";
 import {MatTimepicker, MatTimepickerInput, MatTimepickerToggle} from "@angular/material/timepicker";
+import {DatePipe} from '@angular/common';
+import {MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle} from '@angular/material/expansion';
 
 @Component({
   selector: 'app-time-control',
@@ -24,16 +26,19 @@ import {MatTimepicker, MatTimepickerInput, MatTimepickerToggle} from "@angular/m
     MatTimepicker,
     MatTimepickerInput,
     MatTimepickerToggle,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DatePipe,
+    MatExpansionPanel,
+    MatExpansionPanelHeader,
+    MatExpansionPanelTitle
   ],
   templateUrl: './time-control.component.html',
-  styleUrl: './time-control.component.css'
+  styleUrls: ['./time-control.component.css', '../../search.component.css']
 })
 export class TimeControlComponent implements OnInit {
+  @Input({required: true}) requestId!: string;
   @Input({required:true}) type! : 'arrival' | 'departure';
-  @Output() typeChange = new EventEmitter<'arrival' | 'departure'>();
   @Input({required:true}) dateTime! : Date;
-  @Output() dateTimeChange = new EventEmitter<Date>();
 
   typeControl = new FormControl();
   dateControl = new FormControl();
@@ -44,7 +49,6 @@ export class TimeControlComponent implements OnInit {
     this.dateControl.setValue(this.dateTime);
     this.timeControl.setValue(this.dateTime);
 
-    this.typeControl.valueChanges.subscribe(value => {this.typeChange.emit(value)});
     this.dateControl.valueChanges.subscribe(() => this._handleDateTimeChange());
     this.timeControl.valueChanges.subscribe(() => this._handleDateTimeChange());
   }
@@ -53,7 +57,6 @@ export class TimeControlComponent implements OnInit {
     const date: Date= this.dateControl.value;
     const dateTime: Date = this.timeControl.value;
     dateTime.setFullYear(date.getFullYear(), date.getMonth(), date.getDate());
-    this.dateTimeChange.emit(dateTime);
   }
 
   previousDay(){

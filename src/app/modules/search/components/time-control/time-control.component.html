@@ -1,26 +1,49 @@
-<div class="time-form">
-  <mat-button-toggle-group [formControl]="typeControl">
-    <mat-button-toggle value="departure" i18n>Departure</mat-button-toggle>
-    <mat-button-toggle value="arrival" i18n>Arrival</mat-button-toggle>
-  </mat-button-toggle-group>
-  <div class="time-controls">
-    <mat-icon (click)="previousDay()">chevron_left</mat-icon>
-    <mat-form-field subscriptSizing="dynamic">
-      <mat-label i18n>Date</mat-label>
-      <input matInput readonly [matDatepicker]="datepicker" [formControl]="dateControl"/>
-      <mat-datepicker-toggle matIconPrefix [for]="datepicker"></mat-datepicker-toggle>
-      <mat-datepicker #datepicker></mat-datepicker>
-    </mat-form-field>
-    <mat-icon (click)="nextDay()">chevron_right</mat-icon>
+<mat-expansion-panel expanded #timePanel>
+  <mat-expansion-panel-header>
+    @if(timePanel.expanded){
+      <mat-panel-title i18n>Time</mat-panel-title>
+    }@else {
+      @if(type == 'arrival'){
+        <div>
+          <span i18n>Arrival at</span>
+          <br>
+          <span>{{dateTime | date: 'fullDate'}} {{dateTime | date: 'shortTime'}}</span>
+        </div>
+      }@else{
+        <mat-panel-title>
+          <div>
+            <span i18n>Departure at</span>
+            <br>
+            <span>{{dateTime | date: 'fullDate'}} {{dateTime | date: 'shortTime'}}</span>
+          </div>
+        </mat-panel-title>
+      }
+    }
+  </mat-expansion-panel-header>
+  <div class="time-form">
+    <mat-button-toggle-group [formControl]="typeControl">
+      <mat-button-toggle value="departure" i18n>Departure</mat-button-toggle>
+      <mat-button-toggle value="arrival" i18n>Arrival</mat-button-toggle>
+    </mat-button-toggle-group>
+    <div class="time-controls">
+      <mat-icon (click)="previousDay()">chevron_left</mat-icon>
+      <mat-form-field subscriptSizing="dynamic">
+        <mat-label i18n>Date</mat-label>
+        <input matInput readonly [matDatepicker]="datepicker" [formControl]="dateControl"/>
+        <mat-datepicker-toggle matIconPrefix [for]="datepicker"></mat-datepicker-toggle>
+        <mat-datepicker #datepicker></mat-datepicker>
+      </mat-form-field>
+      <mat-icon (click)="nextDay()">chevron_right</mat-icon>
+    </div>
+    <div class="time-controls">
+      <mat-icon (click)="subtract15Min()">remove</mat-icon>
+      <mat-form-field subscriptSizing="dynamic">
+        <mat-label i18n>Time</mat-label>
+        <input matInput  [matTimepicker]="timepicker" [formControl]="timeControl">
+        <mat-timepicker #timepicker interval="15min"/>
+        <mat-timepicker-toggle matIconPrefix [for]="timepicker"/>
+      </mat-form-field>
+      <mat-icon (click)="add15Min()">add</mat-icon>
+    </div>
   </div>
-  <div class="time-controls">
-    <mat-icon (click)="subtract15Min()">remove</mat-icon>
-    <mat-form-field subscriptSizing="dynamic">
-      <mat-label i18n>Time</mat-label>
-      <input matInput  [matTimepicker]="timepicker" [formControl]="timeControl">
-      <mat-timepicker #timepicker interval="15min"/>
-      <mat-timepicker-toggle matIconPrefix [for]="timepicker"/>
-    </mat-form-field>
-    <mat-icon (click)="add15Min()">add</mat-icon>
-  </div>
-</div>
+</mat-expansion-panel>

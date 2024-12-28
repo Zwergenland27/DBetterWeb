@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {AsyncPipe} from "@angular/common";
 import {FormControl, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatAutocomplete, MatAutocompleteTrigger, MatOption} from "@angular/material/autocomplete";
@@ -6,10 +6,16 @@ import {MatFormField, MatLabel, MatPrefix, MatSuffix} from "@angular/material/fo
 import {MatIcon} from "@angular/material/icon";
 import {MatInput} from "@angular/material/input";
 import {catchError, debounceTime, Observable, of, switchMap} from 'rxjs';
-import {RouteDto, ViaStationDto} from '../../search.service';
+import { RouteDto, ViaStationDto} from '../../search.service';
 import {MatIconButton} from '@angular/material/button';
 import {MatChipOption, MatChipSet} from '@angular/material/chips';
 import {StationDto, StationService} from '../../../station/station.service';
+import {
+  MatExpansionPanel,
+  MatExpansionPanelDescription,
+  MatExpansionPanelHeader,
+  MatExpansionPanelTitle
+} from '@angular/material/expansion';
 
 @Component({
   selector: 'app-route-control',
@@ -28,14 +34,18 @@ import {StationDto, StationService} from '../../../station/station.service';
     MatIconButton,
     MatChipSet,
     MatChipOption,
-    MatSuffix
+    MatSuffix,
+    MatExpansionPanel,
+    MatExpansionPanelDescription,
+    MatExpansionPanelHeader,
+    MatExpansionPanelTitle
   ],
   templateUrl: './route-control.component.html',
-  styleUrl: './route-control.component.css'
+  styleUrls: ['./route-control.component.css', '../../search.component.css']
 })
 export class RouteControlComponent {
+  @Input({ required: true }) requestId!: string;
   @Input({required: true}) route! : RouteDto;
-  @Output() routeChange = new EventEmitter<RouteDto>();
 
   originControl = new FormControl('', Validators.required);
   viaStopControls : FormControl[] = [];
@@ -67,17 +77,31 @@ export class RouteControlComponent {
     );
   }
 
+  get valid(){
+    return this.route.origin && this.route.destination && this.route.via.length == this.route.routeOptions.length - 1;
+  }
+
   toggleTransport(index: number, type: string){
-    if(this.route.routeOptions[index].transports.includes(type)){
-      this.route.routeOptions[index].transports = this.route.routeOptions[index].transports.filter(transport => transport !== type);
-    }else{
-      this.route.routeOptions[index].transports.push(type);
+    const routeOptions = this.route.routeOptions[index];
+    switch (type){
+      case 'ice': routeOptions.allowHighSpeedTrains = !routeOptions.allowHighSpeedTrains; break;
+      case 'ic': routeOptions.allowIntercityTrains = !routeOptions.allowIntercityTrains; break;
+      case 'regional': routeOptions.allowRegionalTrains = !routeOptions.allowRegionalTrains; break;
+      case 'local': routeOptions.allowPublicTransport = !routeOptions.allowPublicTransport; break;
     }
-    this.routeChange.emit(this.route);
+
+    this.route.routeOptions[index] = routeOptions;
   }
 
   isTransportChecked(index: number, type: string){
-    return this.route.routeOptions[index].transports.includes(type);
+    const routeOptions = this.route.routeOptions[index];
+    switch (type){
+      case 'ice': return routeOptions.allowHighSpeedTrains;
+      case 'ic': return routeOptions.allowIntercityTrains;
+      case 'regional': return routeOptions.allowRegionalTrains;
+      case 'local': return routeOptions.allowPublicTransport;
+      default: return false;
+    }
   }
 
   addVia(index: number){
@@ -103,12 +127,10 @@ export class RouteControlComponent {
     this.stationSuggestions.splice(index + 1, 1);
     this.route.via.splice(index, 1);
     this.route.routeOptions.splice(index, 1);
-    this.routeChange.emit(this.route);
   }
 
   originSelected(station: StationDto){
     this.route.origin = station;
-    this.routeChange.emit(this.route);
   }
 
   viaSelected(index: number, station: StationDto){
@@ -116,8 +138,7 @@ export class RouteControlComponent {
     const changedVia = <ViaStationDto> {
       id: station.id,
       name: station.name,
-      rl100: station.rl100,
-      residenceMinutes: 0
+      residence: 0
     }
     if(currentViaStops[index]){
       currentViaStops[index] = changedVia;
@@ -128,6 +149,5 @@ export class RouteControlComponent {
 
   destinationSelected(station: StationDto){
     this.route.destination = station;
-    this.routeChange.emit(this.route);
   }
 }

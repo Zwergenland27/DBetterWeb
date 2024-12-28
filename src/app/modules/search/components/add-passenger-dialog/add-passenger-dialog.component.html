@@ -1,8 +1,4 @@
-@if(editMode){
-  <h2 mat-dialog-title i18n>Edit passenger</h2>
-}@else{
-  <h2 mat-dialog-title i18n>Add passenger</h2>
-}
+<h2 mat-dialog-title i18n>Add passenger</h2>
 <mat-dialog-content>
   <form [formGroup]="passengerForm">
     <mat-form-field subscriptSizing="dynamic">
@@ -82,8 +78,8 @@
           buggy
         </mat-chip-option>
         <mat-chip-option
-          [selected]="passengerForm.get('wheelchair')!.value"
-          (click)="toggleMobilityOption('wheelchair')" i18n>
+          [selected]="passengerForm.get('needsAccessibility')!.value"
+          (click)="toggleMobilityOption('needsAccessibility')" i18n>
           wheelchair
         </mat-chip-option>
     </mat-chip-set>
@@ -91,10 +87,5 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close i18n>Cancel</button>
-  @if(editMode){
-    <button mat-button i18n (click)="removePassenger()">Remove</button>
-    <button mat-button i18n [disabled]="!passengerForm.valid" (click)="submitPassenger()">Edit</button>
-  }@else{
-    <button mat-button i18n [disabled]="!passengerForm.valid" (click)="submitPassenger()">Add</button>
-  }
+  <button mat-button i18n [disabled]="!passengerForm.valid" (click)="submitPassenger()">Add</button>
 </mat-dialog-actions>

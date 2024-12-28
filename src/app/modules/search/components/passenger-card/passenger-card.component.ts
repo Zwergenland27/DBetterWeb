@@ -1,9 +1,8 @@
 import {Component, Input} from '@angular/core';
-import {Passenger} from '../../models/passenger.model';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 import {AvatarComponent} from '../../../../shared/components/avatar/avatar.component';
-import {getShortTitleOfDiscount} from '../../search.service';
+import {getShortTitleOfDiscount, PassengerDto} from '../../search.service';
 
 @Component({
   selector: 'app-passenger-card',
@@ -17,8 +16,26 @@ import {getShortTitleOfDiscount} from '../../search.service';
 })
 export class PassengerCardComponent {
 
-  @Input({ required: true }) passenger! : Passenger;
+  @Input({ required: true }) passenger! : PassengerDto;
 
   @Input({ required: false }) tripDate : Date = new Date();
   protected readonly getShortTitleOfDiscount = getShortTitleOfDiscount;
+
+  public calcPassengerAge(passenger: PassengerDto, tripTime : Date) {
+    if(passenger.age){
+      return passenger.age;
+    }
+
+    const birthday = new Date(passenger.birthday!);
+
+    let age = tripTime.getFullYear() - birthday.getFullYear();
+    const monthDifference = tripTime.getMonth() - birthday.getMonth();
+    const dayDifference = tripTime.getDate() - birthday.getDate();
+
+    if(monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)){
+      age++;
+    }
+
+    return age;
+  }
 }

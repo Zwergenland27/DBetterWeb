@@ -1,8 +1,22 @@
-<div class="passengers-container">
-  @for(passenger of passengers; track passenger.frontendId){
-    <app-passenger-card [passenger]="passenger" (click)="editPassenger(passenger.frontendId)"/>
-  }
-  <button mat-button (click)="addPassenger()">
-    <span i18n>Add passenger</span>
-  </button>
-</div>
+<mat-expansion-panel expanded #passengerPanel>
+  <mat-expansion-panel-header>
+    @if(passengerPanel.expanded){
+      <mat-panel-title i18n>Passengers</mat-panel-title>
+    }@else{
+      <mat-panel-title i18n>{passengers.length, plural, =1 {1 passenger} other {{{passengers.length}} passengers}} </mat-panel-title>
+    }
+    <mat-panel-description>
+      @if(passengers.length == 0){
+        <mat-icon class="warn">warning</mat-icon>
+      }
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <div class="passengers-container">
+    @for(passenger of passengers; track passenger.id){
+      <app-passenger-card [passenger]="passenger" (click)="editPassenger(passenger.id)"/>
+    }
+    <button mat-button (click)="addPassenger()">
+      <span i18n>Add passenger</span>
+    </button>
+  </div>
+</mat-expansion-panel>
