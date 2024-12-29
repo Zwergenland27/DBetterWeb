@@ -1,16 +1,15 @@
 form {
   display: flex;
   flex-direction: column;
-  width: 20rem;
+  align-items: flex-start;
+}
+
+h1 {
+  font: var(--mat-sys-title-large);
 }
 
 mat-form-field {
   margin-bottom: 1rem;
-}
-
-.multi-checkbox {
-  display: flex;
-  flex-direction: row;
 }
 
 .First {
@@ -29,6 +28,8 @@ mat-form-field {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .divider {
@@ -36,4 +37,22 @@ mat-form-field {
   margin-bottom: 1rem;
   margin-left: 0.5rem;
   margin-right: 0.5rem;
+}
+
+.options {
+  display: flex;
+  flex-direction: row;
+}
+
+.options-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.options-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 1rem;
+  padding-left: 1rem;
 }

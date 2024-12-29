@@ -1,10 +1,14 @@
-<h2 mat-dialog-title i18n>Add passenger</h2>
+@if(editMode){
+  <h2 mat-dialog-title i18n>Edit passenger</h2>
+}@else{
+  <h2 mat-dialog-title i18n>Add passenger</h2>
+}
 <mat-dialog-content>
   <form [formGroup]="passengerForm">
-    <mat-form-field subscriptSizing="dynamic">
+    <mat-form-field subscriptSizing="dynamic" style="width: 100%;">
       <mat-label i18n>Name</mat-label>
-      <input matInput [matAutocomplete]="auto" type="text" formControlName="name"/>
-      <mat-autocomplete #auto="matAutocomplete">
+      <input matInput [matAutocomplete]="name" type="text" formControlName="name"/>
+      <mat-autocomplete #name="matAutocomplete">
         @for(passenger of filteredPassengers | async; track passenger.id){
           <mat-option [value]="passenger.name" (click)="passengerSelected(passenger)">{{passenger.name}}</mat-option>
         }
@@ -21,16 +25,18 @@
       <span class="divider">/</span>
       <mat-form-field subscriptSizing="dynamic">
         <mat-label i18n>Age</mat-label>
-        <input matInput type="number" formControlName="age">
+        <mat-select formControlName="age">
+          @for(i of ageArray(); track i){
+            <mat-option [value]="i">{{i}}</mat-option>
+          }
+        </mat-select>
       </mat-form-field>
     </div>
     <mat-error style="text-align: justify;">
         <span i18n>The birthday of the passenger must be set. If you don't know the birthday, set the age of the passenger manually.
         </span>
     </mat-error>
-    <button mat-button [disabled]="availableDiscounts.length == 0" [matMenuTriggerFor]="discountMenu" i18n>
-      Add discount
-    </button>
+    <h1 i18n>Discounts</h1>
     <mat-chip-set>
       @for(discount of discounts(); track discount){
         <span i18n #classTooltip hidden>{discount.class, select, First {1st class} Second {2nd class}}</span>
@@ -56,36 +62,49 @@
         }
       </mat-menu>
     </mat-chip-set>
-    <mat-chip-set>
-      <mat-chip-option
-        [selected]="passengerForm.get('seat')!.value"
-        (click)="toggleMobilityOption('seat')" i18n>
-        seat
-      </mat-chip-option>
-      <mat-chip-option
-        [selected]="passengerForm.get('bike')!.value"
-        (click)="toggleMobilityOption('bike')" i18n>
-        bike
-      </mat-chip-option>
-      <mat-chip-option
-        [selected]="passengerForm.get('dog')!.value"
-        (click)="toggleMobilityOption('dog')" i18n>
-        dog
-      </mat-chip-option>
-        <mat-chip-option
-          [selected]="passengerForm.get('buggy')!.value"
-          (click)="toggleMobilityOption('buggy')" i18n>
+    <button mat-mini-fab [disabled]="availableDiscounts.length == 0" [matMenuTriggerFor]="discountMenu">
+      <mat-icon>add</mat-icon>
+    </button>
+    <h1 i18n>Options</h1>
+    <div class="options">
+      <div class="options-left">
+        <mat-form-field subscriptSizing="dynamic">
+          <mat-label i18n>Number of bikes</mat-label>
+          <mat-select  formControlName="bikes">
+            @for(i of getArray(); track i){
+              <mat-option [value]="i">{{i}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field subscriptSizing="dynamic">
+          <mat-label i18n>Number of dogs</mat-label>
+          <mat-select formControlName="dogs">
+            @for(i of getArray(); track i){
+              <mat-option [value]="i">{{i}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="options-right">
+        <mat-checkbox formControlName="withSeat" i18n>
+          seat
+        </mat-checkbox>
+        <mat-checkbox formControlName="withBuggy" i18n>
           buggy
-        </mat-chip-option>
-        <mat-chip-option
-          [selected]="passengerForm.get('needsAccessibility')!.value"
-          (click)="toggleMobilityOption('needsAccessibility')" i18n>
-          wheelchair
-        </mat-chip-option>
-    </mat-chip-set>
+        </mat-checkbox>
+        <mat-checkbox formControlName="needsAccessibility" i18n>
+          needs accessibility
+        </mat-checkbox>
+      </div>
+    </div>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close i18n>Cancel</button>
-  <button mat-button i18n [disabled]="!passengerForm.valid" (click)="submitPassenger()">Add</button>
+  @if(editMode){
+    <button mat-button i18n (click)="removePassenger()">Remove</button>
+    <button mat-button i18n [disabled]="!passengerForm.valid" (click)="editPassenger()">Edit</button>
+  }@else{
+    <button mat-button i18n [disabled]="!passengerForm.valid" (click)="addPassenger()">Add</button>
+  }
 </mat-dialog-actions>

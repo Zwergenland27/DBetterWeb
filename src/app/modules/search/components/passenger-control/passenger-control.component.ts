@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {MatButton} from "@angular/material/button";
 import {PassengerCardComponent} from "../passenger-card/passenger-card.component";
-import {AddPassengerDialogComponent} from '../add-passenger-dialog/add-passenger-dialog.component';
+import {PassengerDialogComponent, PassengerDialogData} from '../passenger-dialog/passenger-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 import {PassengerDto} from '../../search.service';
 import {
@@ -33,8 +33,11 @@ export class PassengerControlComponent {
   constructor(private dialog: MatDialog) {
   }
   public addPassenger(){
-    this.dialog.open(AddPassengerDialogComponent, {
-      data: this.requestId
+    this.dialog.open(PassengerDialogComponent, {
+      data: <PassengerDialogData> {
+        requestId: this.requestId,
+        passengerToEdit: null
+      }
     }).afterClosed().subscribe(
       result => {
         if(result){
@@ -50,8 +53,11 @@ export class PassengerControlComponent {
       return;
     }
 
-    this.dialog.open(AddPassengerDialogComponent, {
-      data: [passenger]
+    this.dialog.open(PassengerDialogComponent, {
+      data: <PassengerDialogData> {
+        requestId: this.requestId,
+        passengerToEdit: passenger
+      }
     }).afterClosed().subscribe(
       result => {
         if(result){

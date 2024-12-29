@@ -238,6 +238,26 @@
         <source>From <x id="INTERPOLATION" equiv-text="{{route.origin.name}}"/> to <x id="INTERPOLATION_1" equiv-text="{{route.destination.name}}"/></source>
         <target>Von <x id="INTERPOLATION" equiv-text="{{route.origin.name}}"/> nach <x id="INTERPOLATION_1" equiv-text="{{route.destination.name}}"/></target>
       </trans-unit>
+      <trans-unit id="9058311592028468327" datatype="html">
+        <source>Number of bikes</source>
+        <target>Anzahl Fahrräder</target>
+      </trans-unit>
+      <trans-unit id="1466802891977936020" datatype="html">
+        <source>Number of dogs</source>
+        <target>Anzahl Hunde</target>
+      </trans-unit>
+      <trans-unit id="5513525732622198991" datatype="html">
+        <source>Discounts</source>
+        <target>Rabatte</target>
+      </trans-unit>
+      <trans-unit id="8432562579042371182" datatype="html">
+        <source>Options</source>
+        <target>Optionen</target>
+      </trans-unit>
+      <trans-unit id="7484666668547127162" datatype="html">
+        <source> needs accessibility </source>
+        <target>Barrierefreiheit benötigt</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

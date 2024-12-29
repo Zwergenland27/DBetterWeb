@@ -40,9 +40,3 @@
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
-
-
-::ng-deep .between-stops .mat-mdc-standard-chip .mdc-evolution-chip__graphic {
-  width: 0 !important;
-  height: 0 !important;
-}
