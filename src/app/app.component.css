@@ -18,13 +18,13 @@
 }
 
 .nav-item {
-  background-color: transparent;
-  box-shadow: none;
+  background-color: var(--mat-sys-surface-variant);
+  color: var(--mat-sys-on-surface-variant);
 }
 
 .nav-item-active {
-  color: var(--mat-sys-on-primary);
-  background-color: var(--mat-sys-primary);
+  color: var(--mat-sys-on-secondary-container);
+  background-color: var(--mat-sys-secondary-container);
 }
 
 .spacer {
