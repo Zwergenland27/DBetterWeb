@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {MatButton} from "@angular/material/button";
 import {PassengerCardComponent} from "../passenger-card/passenger-card.component";
 import {PassengerDialogComponent, PassengerDialogData} from '../passenger-dialog/passenger-dialog.component';
@@ -29,6 +29,7 @@ import {MatIcon} from '@angular/material/icon';
 export class PassengerControlComponent {
   @Input({required: true}) requestId! : string;
   @Input({required: true}) passengers! : PassengerDto[];
+  @Output() passengersChange = new EventEmitter<PassengerDto[]>()
 
   constructor(private dialog: MatDialog) {
   }
@@ -42,6 +43,7 @@ export class PassengerControlComponent {
       result => {
         if(result){
           this.passengers.push(result);
+          this.passengersChange.emit(this.passengers);
         }
       }
     );
@@ -63,8 +65,10 @@ export class PassengerControlComponent {
         if(result){
           this.passengers = this.passengers.filter(p => p.id !== id);
           this.passengers.push(result);
+          this.passengersChange.emit(this.passengers);
         }else if(result === null){
           this.passengers = this.passengers.filter(p => p.id !== id);
+          this.passengersChange.emit(this.passengers);
         }
       }
     );
