@@ -30,6 +30,7 @@ import {MatFabButton} from '@angular/material/button';
 })
 export class SearchComponent {
   request: JourneySearchDto | null = null;
+  routeValid: boolean = false;
 
   get time() {
     const msIn15Minutes = 15 * 60 * 1000;
@@ -37,6 +38,10 @@ export class SearchComponent {
     const millis = new Date(time).getTime();
     const flooredTime = Math.floor(millis / msIn15Minutes) * msIn15Minutes
     return new Date(flooredTime);
+  }
+
+  set time(value: Date) {
+    this.request!.time = value.toISOString();
   }
 
   constructor(
@@ -50,5 +55,6 @@ export class SearchComponent {
   }
 
   search(){
+    console.log(this.request);
   }
 }

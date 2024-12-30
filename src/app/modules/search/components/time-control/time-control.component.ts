@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatButtonToggle, MatButtonToggleGroup} from "@angular/material/button-toggle";
 import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
@@ -38,7 +38,9 @@ import {MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle} from
 export class TimeControlComponent implements OnInit {
   @Input({required: true}) requestId!: string;
   @Input({required:true}) type! : 'arrival' | 'departure';
+  @Output() typeChange = new EventEmitter<'arrival' | 'departure'>();
   @Input({required:true}) dateTime! : Date;
+  @Output() dateTimeChange = new EventEmitter<Date>();
 
   typeControl = new FormControl();
   dateControl = new FormControl();
@@ -49,6 +51,7 @@ export class TimeControlComponent implements OnInit {
     this.dateControl.setValue(this.dateTime);
     this.timeControl.setValue(this.dateTime);
 
+    this.typeControl.valueChanges.subscribe(value => {this.typeChange.emit(value)});
     this.dateControl.valueChanges.subscribe(() => this._handleDateTimeChange());
     this.timeControl.valueChanges.subscribe(() => this._handleDateTimeChange());
   }
@@ -57,6 +60,7 @@ export class TimeControlComponent implements OnInit {
     const date: Date= this.dateControl.value;
     const dateTime: Date = this.timeControl.value;
     dateTime.setFullYear(date.getFullYear(), date.getMonth(), date.getDate());
+    this.dateTimeChange.emit(dateTime);
   }
 
   previousDay(){

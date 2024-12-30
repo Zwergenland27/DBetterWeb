@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {AsyncPipe} from "@angular/common";
 import {FormControl, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatAutocomplete, MatAutocompleteTrigger, MatOption} from "@angular/material/autocomplete";
@@ -44,11 +44,13 @@ import {
   styleUrls: ['./route-control.component.css', '../../search.component.css']
 })
 export class RouteControlComponent {
-  @Input({ required: true }) requestId!: string;
   @Input({required: true}) route! : RouteDto;
+  @Input() valid : boolean = false;
+  @Output() validChange = new EventEmitter<boolean>();
 
   originControl = new FormControl('', Validators.required);
   viaStopControls : FormControl[] = [];
+  viaResidenceControls : FormControl[] = [];
   destinationControl = new FormControl('', Validators.required);
 
   stationSuggestions: Observable<StationDto[]>[] = []
@@ -77,10 +79,6 @@ export class RouteControlComponent {
     );
   }
 
-  get valid(){
-    return this.route.origin && this.route.destination && this.route.via.length == this.route.routeOptions.length - 1;
-  }
-
   toggleTransport(index: number, type: string){
     const routeOptions = this.route.routeOptions[index];
     switch (type){
@@ -107,7 +105,25 @@ export class RouteControlComponent {
   addVia(index: number){
     const previousOptions = JSON.parse(JSON.stringify(this.route.routeOptions[index]));
     this.route.routeOptions.splice(index + 1, 0, previousOptions);
+
+    const addedVia = <ViaStationDto> {
+      id: null,
+      name: null,
+      residence: 0
+    }
     this.viaStopControls.splice(index, 0, new FormControl('', Validators.required));
+    const residenceControl = new FormControl('00:00', [Validators.required, Validators.pattern(/^\d{2}:\d{2}$/)]);
+    residenceControl.statusChanges.subscribe((status) => {
+      if(status == 'VALID'){
+        const currentIndex = this.viaResidenceControls.findIndex(control => control == residenceControl);
+        const [minutes, seconds] = residenceControl.value!.split(':').map(Number);
+        this.route.via[currentIndex].residence = minutes * 60 + seconds;
+      }
+      this.updateValidity();
+    })
+    this.viaResidenceControls.splice(index, 0, residenceControl);
+    this.route.via.splice(index, 0, addedVia);
+
     const autoComplete = this.viaStopControls[index].valueChanges.pipe(
       debounceTime(30),
       switchMap((value) => {
@@ -119,35 +135,48 @@ export class RouteControlComponent {
       })
     );
     this.stationSuggestions.splice(index + 2, 0, autoComplete);
+    this.updateValidity();
   }
 
   removeVia(index: number){
-    this.route.routeOptions.splice(index, 1);
-    this.viaStopControls.splice(index - 1, 1);
-    this.stationSuggestions.splice(index + 1, 1);
+    this.route.routeOptions.splice(index + 1, 1);
+    this.viaStopControls.splice(index, 1);
+    this.viaResidenceControls.splice(index, 1);
+    this.stationSuggestions.splice(index + 2, 1);
     this.route.via.splice(index, 1);
-    this.route.routeOptions.splice(index, 1);
+    this.updateValidity();
   }
 
   originSelected(station: StationDto){
     this.route.origin = station;
+    this.updateValidity();
   }
 
   viaSelected(index: number, station: StationDto){
     const currentViaStops = this.route.via;
-    const changedVia = <ViaStationDto> {
-      id: station.id,
-      name: station.name,
-      residence: 0
-    }
-    if(currentViaStops[index]){
-      currentViaStops[index] = changedVia;
-    }else{
-      currentViaStops.splice(index, 0, changedVia);
-    }
+
+    currentViaStops[index].id = station.id;
+    currentViaStops[index].name = station.name;
+    this.updateValidity();
   }
 
   destinationSelected(station: StationDto){
     this.route.destination = station;
+    this.updateValidity();
+  }
+
+  private updateValidity(){
+    const originSelected = this.route.origin != null;
+    const destinationSelected = this.route.destination != null;
+    const allViaStationsSelected = this.route.via.filter(via => via.id == null).length == 0;
+    const allResidenceTimesValid = this.viaResidenceControls.filter(control => !control.valid).length == 0;
+
+    this.validChange.emit(
+      originSelected &&
+      destinationSelected &&
+      allViaStationsSelected &&
+      allViaStationsSelected &&
+      allResidenceTimesValid);
+    //TODO: invalidate form field when text is changed after station is selected
   }
 }

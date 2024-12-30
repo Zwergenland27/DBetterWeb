@@ -47,8 +47,8 @@ export type StationDto = {
 }
 
 export type ViaStationDto = {
-  id: string;
-  name: string;
+  id: string | null;
+  name: string | null;
   residence: number;
 }
 
@@ -103,12 +103,12 @@ export class SearchService {
     });
   }
 
-  public getAvailablePassengers(journeyId: string) : Observable<UserDto[]> {
+  public getAvailablePassengers(requestId: string) : Observable<UserDto[]> {
     return of();
   }
 
   public addPassenger(
-    journeyId: string,
+    requestId: string,
     userId: string | null,
     name: string,
     birthday: Date | null,
@@ -135,7 +135,7 @@ export class SearchService {
   }
 
   public editPassenger(
-    journeyId: string,
+    requestId: string,
     passengerId: string,
     userId: string | null,
     name: string,
@@ -162,7 +162,7 @@ export class SearchService {
     });
   }
 
-  public removePassenger(journeyId: string, passengerId: string) : Observable<void> {
+  public removePassenger(requestId: string, passengerId: string) : Observable<void> {
     return of(undefined);
   }
 }

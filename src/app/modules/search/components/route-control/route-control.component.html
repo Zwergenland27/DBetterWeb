@@ -47,9 +47,14 @@
           }
         </mat-autocomplete>
         <mat-icon matPrefix>location_on</mat-icon>
-        <button mat-icon-button matSuffix (click)="removeVia(i + 1)">
+        <button mat-icon-button matSuffix (click)="removeVia(i)">
           <mat-icon>cancel</mat-icon>
         </button>
+      </mat-form-field>
+      <mat-form-field subscriptSizing="dynamic">
+        <mat-label i18n>Residence</mat-label>
+        <input matInput type="text" [formControl]="viaResidenceControls[i]">
+        <mat-icon matPrefix>schedule</mat-icon>
       </mat-form-field>
       <div class="between-stops">
         <div class="add-stop">

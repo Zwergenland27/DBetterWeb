@@ -3,12 +3,12 @@
     <div class="controls">
       <mat-accordion multi="multi">
         <app-passenger-control [requestId]="request.id" [(passengers)]="request.passengers"/>
-        <app-time-control [requestId]="request.id"  [dateTime]="time" [type]="request.timeType"/>
-        <app-route-control [requestId]="request.id" [route]="request.route"/>
+        <app-time-control [requestId]="request.id"  [(dateTime)]="time" [(type)]="request.timeType"/>
+        <app-route-control [route]="request.route" [(valid)]="routeValid"/>
       </mat-accordion>
     </div>
     <div class="search">
-      <button mat-fab extended [disabled]="true" (click)="search()">
+      <button mat-fab extended [disabled]="false" (click)="search()">
         <mat-icon>search</mat-icon>
         Search
       </button>
