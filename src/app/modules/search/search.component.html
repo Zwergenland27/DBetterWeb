@@ -2,7 +2,7 @@
   @if(request){
     <div class="controls">
       <mat-accordion multi="multi">
-        <app-passenger-control [(passengers)]="request.passengers"/>
+        <app-passenger-control [userId]="userId" [(passengers)]="request.passengers"/>
         <app-time-control [(dateTime)]="time" [(type)]="request.timeType"/>
         <app-route-control [route]="request.route" [(valid)]="routeValid"/>
       </mat-accordion>

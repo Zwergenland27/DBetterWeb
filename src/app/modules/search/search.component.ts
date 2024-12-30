@@ -44,11 +44,18 @@ export class SearchComponent {
     this.request!.time = value.toISOString();
   }
 
+  get userId(){
+    const user = this.auth.user();
+    if(!user){
+      return null;
+    }
+    return user.id;
+  }
+
   constructor(
     public auth: AuthService,
     private searchService: SearchService) {
-    const currentUser = auth.user();
-    searchService.createJourney(currentUser?.id).subscribe(
+    searchService.createRequest(auth.user()?.id).subscribe(
       result => {
         this.request = result;
       });
