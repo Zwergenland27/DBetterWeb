@@ -81,9 +81,9 @@ export class SearchService {
 
   constructor(private http: HttpClient) { }
 
-  public createJourney(userId: string | null = null) : Observable<JourneySearchDto> {
+  public createRequest(userId: string | null = null) : Observable<JourneySearchDto> {
     return of({
-      id: '',
+      id: crypto.randomUUID(),
       ownerId: userId,
       passengers: [],
       time: new Date().toISOString(),
