@@ -7,7 +7,8 @@ import {MatIcon} from "@angular/material/icon";
 import {MatInput} from "@angular/material/input";
 import {MatTimepicker, MatTimepickerInput, MatTimepickerToggle} from "@angular/material/timepicker";
 import {DatePipe} from '@angular/common';
-import {MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle} from '@angular/material/expansion';
+import {MatExpansionPanelTitle} from '@angular/material/expansion';
+import {ExpansionPanelComponent} from '../expansion-panel/expansion-panel.component';
 
 @Component({
   selector: 'app-time-control',
@@ -28,12 +29,11 @@ import {MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle} from
     MatTimepickerToggle,
     ReactiveFormsModule,
     DatePipe,
-    MatExpansionPanel,
-    MatExpansionPanelHeader,
-    MatExpansionPanelTitle
+    MatExpansionPanelTitle,
+    ExpansionPanelComponent
   ],
   templateUrl: './time-control.component.html',
-  styleUrls: ['./time-control.component.css', '../../search.component.css']
+  styleUrl: './time-control.component.css'
 })
 export class TimeControlComponent implements OnInit {
   @Input({required:true}) type! : 'arrival' | 'departure';

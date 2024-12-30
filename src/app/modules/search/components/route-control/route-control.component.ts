@@ -11,11 +11,9 @@ import {MatIconButton} from '@angular/material/button';
 import {MatChipOption, MatChipSet} from '@angular/material/chips';
 import {StationDto, StationService} from '../../../station/station.service';
 import {
-  MatExpansionPanel,
-  MatExpansionPanelDescription,
-  MatExpansionPanelHeader,
   MatExpansionPanelTitle
 } from '@angular/material/expansion';
+import {ExpansionPanelComponent} from '../expansion-panel/expansion-panel.component';
 
 @Component({
   selector: 'app-route-control',
@@ -35,10 +33,8 @@ import {
     MatChipSet,
     MatChipOption,
     MatSuffix,
-    MatExpansionPanel,
-    MatExpansionPanelDescription,
-    MatExpansionPanelHeader,
-    MatExpansionPanelTitle
+    MatExpansionPanelTitle,
+    ExpansionPanelComponent
   ],
   templateUrl: './route-control.component.html',
   styleUrls: ['./route-control.component.css', '../../search.component.css']

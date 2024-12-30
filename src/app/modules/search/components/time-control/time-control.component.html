@@ -1,5 +1,5 @@
-<mat-expansion-panel expanded #timePanel>
-  <mat-expansion-panel-header>
+<app-expansion-panel #timePanel>
+  <div title>
     @if(timePanel.expanded){
       <mat-panel-title i18n>Time</mat-panel-title>
     }@else {
@@ -19,8 +19,8 @@
         </mat-panel-title>
       }
     }
-  </mat-expansion-panel-header>
-  <div class="time-form">
+  </div>
+  <div content class="time-form">
     <mat-button-toggle-group [formControl]="typeControl">
       <mat-button-toggle value="departure" i18n>Departure</mat-button-toggle>
       <mat-button-toggle value="arrival" i18n>Arrival</mat-button-toggle>
@@ -46,4 +46,4 @@
       <mat-icon (click)="add15Min()">add</mat-icon>
     </div>
   </div>
-</mat-expansion-panel>
+</app-expansion-panel>

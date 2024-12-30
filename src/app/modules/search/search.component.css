@@ -11,39 +11,6 @@
   background: transparent;  /* Optional: just make scrollbar invisible */
 }
 
-.mat-expansion-panel {
-  background: transparent;
-  box-shadow: none !important;
-  border-radius: 0;
-}
-
-.mat-expansion-panel-header {
-  font-size: var(--mat-sys-title-medium-size);
-  font-weight: var(--mat-sys-title-medium-weight);
-  line-height: var(--mat-sys-title-medium-line-height);
-  letter-spacing: var(--mat-sys-title-medium-tracking);
-}
-
-.mat-expansion-panel-header.mat-expanded {
-  height: var(--mat-expansion-header-collapsed-state-height, 48px);
-}
-
-.mat-expansion-panel-header-description {
-  flex-grow: 0;
-}
-
-.mat-expansion-panel-spacing {
-  margin: 0;
-}
-
-.mat-accordion .mat-expansion-panel {
-  border-radius: 0;
-}
-
-.warn {
-  color: var(--mat-sys-error);
-}
-
 .search {
   position: sticky;
   bottom: 0;

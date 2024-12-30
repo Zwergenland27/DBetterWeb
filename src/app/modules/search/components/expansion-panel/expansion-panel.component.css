@@ -1,0 +1,31 @@
+.expansion-panel {
+  border-radius: 12px;
+}
+
+.header {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 1rem;
+}
+
+.expansion-panel:has(> .header:hover) {
+  background-color: var(--mat-sys-surface-container-lowest);
+}
+
+.content {
+  padding: 0 1rem 1rem;
+}
+
+.title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-grow: 1;
+  align-items: center;
+}
+
+.warn {
+  color: var(--mat-sys-error);
+}

@@ -1,5 +1,13 @@
+.passengers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .passengers-container {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin-bottom: 10px;
+  width: 100%;
 }

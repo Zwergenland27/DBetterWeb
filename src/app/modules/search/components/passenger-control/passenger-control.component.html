@@ -1,22 +1,19 @@
-<mat-expansion-panel expanded #passengerPanel>
-  <mat-expansion-panel-header>
+<app-expansion-panel #passengerPanel [warn]="passengers.length == 0">
+  <div title>
     @if(passengerPanel.expanded){
       <mat-panel-title i18n>Passengers</mat-panel-title>
     }@else{
       <mat-panel-title i18n>{passengers.length, plural, =1 {1 passenger} other {{{passengers.length}} passengers}} </mat-panel-title>
     }
-    <mat-panel-description>
-      @if(passengers.length == 0){
-        <mat-icon class="warn">warning</mat-icon>
+  </div>
+  <div content class="passengers">
+    <div class="passengers-container">
+      @for(passenger of passengers; track passenger.id){
+        <app-passenger-card [passenger]="passenger" (click)="editPassenger(passenger.id)"/>
       }
-    </mat-panel-description>
-  </mat-expansion-panel-header>
-  <div class="passengers-container">
-    @for(passenger of passengers; track passenger.id){
-      <app-passenger-card [passenger]="passenger" (click)="editPassenger(passenger.id)"/>
-    }
+    </div>
     <button mat-button (click)="addPassenger()">
       <span i18n>Add passenger</span>
     </button>
   </div>
-</mat-expansion-panel>
+</app-expansion-panel>

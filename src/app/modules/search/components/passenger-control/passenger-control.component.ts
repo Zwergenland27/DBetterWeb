@@ -5,26 +5,20 @@ import {PassengerDialogComponent, PassengerDialogData} from '../passenger-dialog
 import {MatDialog} from '@angular/material/dialog';
 import {PassengerDto, SearchService, UserDto} from '../../search.service';
 import {
-  MatExpansionPanel,
-  MatExpansionPanelDescription,
-  MatExpansionPanelHeader,
   MatExpansionPanelTitle
 } from '@angular/material/expansion';
-import {MatIcon} from '@angular/material/icon';
+import {ExpansionPanelComponent} from '../expansion-panel/expansion-panel.component';
 
 @Component({
   selector: 'app-passenger-control',
   imports: [
     MatButton,
     PassengerCardComponent,
-    MatExpansionPanel,
-    MatExpansionPanelDescription,
-    MatExpansionPanelHeader,
     MatExpansionPanelTitle,
-    MatIcon
+    ExpansionPanelComponent
   ],
   templateUrl: './passenger-control.component.html',
-  styleUrls: ['./passenger-control.component.css', '../../search.component.css']
+  styleUrl: './passenger-control.component.css'
 })
 export class PassengerControlComponent {
   @Input({required: true}) userId!: string | null;

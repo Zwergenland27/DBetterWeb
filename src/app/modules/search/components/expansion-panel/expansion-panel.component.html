@@ -1,0 +1,20 @@
+<div class="expansion-panel">
+  <div class="header" (click)="togglePanel()">
+    <div class="title">
+      <ng-content select="[title]"></ng-content>
+      @if(warn){
+        <mat-icon class="warn">warning</mat-icon>
+      }
+    </div>
+    @if(expanded){
+      <mat-icon>keyboard_arrow_up</mat-icon>
+    }@else{
+      <mat-icon>keyboard_arrow_down</mat-icon>
+    }
+  </div>
+  @if(expanded){
+    <div class="content">
+      <ng-content select="[content]"></ng-content>
+    </div>
+  }
+</div>

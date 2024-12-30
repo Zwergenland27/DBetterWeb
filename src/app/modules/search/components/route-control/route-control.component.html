@@ -1,17 +1,12 @@
-<mat-expansion-panel expanded #routePanel>
-  <mat-expansion-panel-header>
+<app-expansion-panel #routePanel [warn]="!valid">
+  <div title>
     @if(routePanel.expanded || !valid){
       <mat-panel-title i18n>Route</mat-panel-title>
     }@else{
       <mat-panel-title i18n>From {{route.origin!.name}} to {{route.destination!.name}}</mat-panel-title>
     }
-    <mat-panel-description>
-      @if(!valid){
-        <mat-icon class="warn">warning</mat-icon>
-      }
-    </mat-panel-description>
-  </mat-expansion-panel-header>
-  <div class="route-control">
+  </div>
+  <div content class="route-control">
     <mat-form-field subscriptSizing="dynamic">
       <mat-label i18n>Origin</mat-label>
       <input matInput [matAutocomplete]="origin" type="text" [formControl]="originControl"/>
@@ -83,4 +78,4 @@
       <mat-icon matPrefix>flag</mat-icon>
     </mat-form-field>
   </div>
-</mat-expansion-panel>
+</app-expansion-panel>
