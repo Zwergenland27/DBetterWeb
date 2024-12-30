@@ -258,6 +258,10 @@
         <source> needs accessibility </source>
         <target>Barrierefreiheit benötigt</target>
       </trans-unit>
+      <trans-unit id="535285739563290758" datatype="html">
+        <source>Residence</source>
+        <target>Aufenthalt</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

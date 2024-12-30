@@ -26,7 +26,7 @@
       <div class="add-stop">
         <div class="connection-line"></div>
         <div class="icon-background"></div>
-        <button mat-icon-button [disabled]="viaStopControls.length >= 2" (click)="addVia(0)">
+        <button mat-icon-button [disabled]="viaStopControls.length >= 2" (click)="addVia(0, null)">
           <mat-icon>add_circle</mat-icon>
         </button>
       </div>
@@ -60,7 +60,7 @@
         <div class="add-stop">
           <div class="connection-line"></div>
           <div class="icon-background"></div>
-          <button mat-icon-button [disabled]="viaStopControls.length >= 2" (click)="addVia(i + 1)">
+          <button mat-icon-button [disabled]="viaStopControls.length >= 2" (click)="addVia(i + 1, null)">
             <mat-icon>add_circle</mat-icon>
           </button>
         </div>

@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {MatExpansionModule} from '@angular/material/expansion';
-import {JourneySearchDto, SearchService} from './search.service';
+import {RequestDto, SearchService} from './search.service';
 import {AuthService} from '../../shared/services/auth.service';
 import {MatIconModule} from '@angular/material/icon';
 import {MatGridListModule} from '@angular/material/grid-list';
@@ -29,8 +29,12 @@ import {MatFabButton} from '@angular/material/button';
   styleUrl: './search.component.css',
 })
 export class SearchComponent {
-  request: JourneySearchDto | null = null;
+  request: RequestDto;
+
   routeValid: boolean = false;
+  get passengersValid() {
+    return this.request.passengers.length > 0;
+  }
 
   get time() {
     const msIn15Minutes = 15 * 60 * 1000;
@@ -55,13 +59,22 @@ export class SearchComponent {
   constructor(
     public auth: AuthService,
     private searchService: SearchService) {
-    searchService.createRequest(auth.user()?.id).subscribe(
-      result => {
-        this.request = result;
-      });
+    const request = searchService.getLocalRequest();
+    if(request){
+      this.request = request;
+    }else{
+      this.request = searchService.createRequest(auth.user()?.id);
+      searchService.storeLocalRequest(this.request);
+    }
+  }
+
+  requestDataChanged(){
+    this.searchService.storeLocalRequest(this.request);
   }
 
   search(){
-    console.log(this.request);
+    this.searchService.getResults(this.request).subscribe(results => {
+      console.log(this.request);
+    })
   }
 }

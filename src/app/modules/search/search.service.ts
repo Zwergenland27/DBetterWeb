@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
+import {StationDto} from '../station/station.service';
 
 export function getShortTitleOfDiscount(discount: DiscountDto) : string {
   return discount.type.match(/[A-Z0-9]/g)?.join('') ?? '';
@@ -40,14 +41,8 @@ export type UserDto = {
   discounts: DiscountDto[]
 }
 
-export type StationDto = {
-  id: string;
-  name: string;
-}
-
 export type ViaStationDto = {
-  id: string | null;
-  name: string | null;
+  station: StationDto | null;
   residence: number;
 }
 
@@ -65,7 +60,7 @@ export type RouteDto = {
   routeOptions: RouteOptionDto[];
 }
 
-export type JourneySearchDto = {
+export type RequestDto = {
   id: string;
   ownerId: string | null;
   passengers: PassengerDto[];
@@ -79,10 +74,21 @@ export type JourneySearchDto = {
 })
 export class SearchService {
 
+  private REQUEST_KEY = 'request';
   constructor(private http: HttpClient) { }
 
-  public createRequest(userId: string | null = null) : Observable<JourneySearchDto> {
-    return of({
+  public storeLocalRequest(request: RequestDto) {
+    sessionStorage.setItem(this.REQUEST_KEY, JSON.stringify(request));
+  }
+
+  public getLocalRequest() : RequestDto | null {
+    const json = sessionStorage.getItem(this.REQUEST_KEY);
+    if(!json) return null;
+    return JSON.parse(json);
+  }
+
+  public createRequest(userId: string | null = null) : RequestDto {
+    return {
       id: crypto.randomUUID(),
       ownerId: userId,
       passengers: [],
@@ -99,7 +105,11 @@ export class SearchService {
           allowPublicTransport: false,
         }]
       },
-    });
+    };
+  }
+
+  public getResults(request: RequestDto) : Observable<void> {
+    return of(undefined);
   }
 
   public getAvailablePassengers(userId: string) : Observable<UserDto[]> {

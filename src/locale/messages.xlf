@@ -22,6 +22,10 @@
           <context context-type="sourcefile">src/app/app.component.html</context>
           <context context-type="linenumber">20</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/search.component.html</context>
+          <context context-type="linenumber">13,14</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="2454050363478003966" datatype="html">
         <source>Login</source>
@@ -377,7 +381,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/route-control/route-control.component.html</context>
-          <context context-type="linenumber">65</context>
+          <context context-type="linenumber">70</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2906587845957718064" datatype="html">
@@ -388,7 +392,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/route-control/route-control.component.html</context>
-          <context context-type="linenumber">66</context>
+          <context context-type="linenumber">71</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8629674313713169654" datatype="html">
@@ -398,11 +402,18 @@
           <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="535285739563290758" datatype="html">
+        <source>Residence</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/components/route-control/route-control.component.html</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="1866048779551574162" datatype="html">
         <source>Destination</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/route-control/route-control.component.html</context>
-          <context context-type="linenumber">71</context>
+          <context context-type="linenumber">76</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8497528947328199741" datatype="html">

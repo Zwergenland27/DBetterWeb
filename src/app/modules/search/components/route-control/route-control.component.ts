@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AsyncPipe} from "@angular/common";
 import {FormControl, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatAutocomplete, MatAutocompleteTrigger, MatOption} from "@angular/material/autocomplete";
@@ -6,7 +6,7 @@ import {MatFormField, MatLabel, MatPrefix, MatSuffix} from "@angular/material/fo
 import {MatIcon} from "@angular/material/icon";
 import {MatInput} from "@angular/material/input";
 import {catchError, debounceTime, Observable, of, switchMap} from 'rxjs';
-import { RouteDto, ViaStationDto} from '../../search.service';
+import {RouteDto, RouteOptionDto, ViaStationDto} from '../../search.service';
 import {MatIconButton} from '@angular/material/button';
 import {MatChipOption, MatChipSet} from '@angular/material/chips';
 import {StationDto, StationService} from '../../../station/station.service';
@@ -43,8 +43,9 @@ import {
   templateUrl: './route-control.component.html',
   styleUrls: ['./route-control.component.css', '../../search.component.css']
 })
-export class RouteControlComponent {
+export class RouteControlComponent implements OnInit {
   @Input({required: true}) route! : RouteDto;
+  @Output() routeChange = new EventEmitter<RouteDto>();
   @Input() valid : boolean = false;
   @Output() validChange = new EventEmitter<boolean>();
 
@@ -89,6 +90,40 @@ export class RouteControlComponent {
     }
 
     this.route.routeOptions[index] = routeOptions;
+    this.routeChange.emit(this.route);
+  }
+
+  ngOnInit() {
+    this._loadInitialData();
+  }
+  private _loadInitialData() {
+    const route = this.route;
+
+    if(route.origin){
+      this.originControl.setValue(route.origin.name)
+    }
+    if(route.destination){
+      this.destinationControl.setValue(route.destination.name)
+    }
+
+    const via = route.via.slice();
+    const routeOptions = this.route.routeOptions.slice();
+    route.via.splice(0, route.via.length);
+    route.routeOptions.splice(1, route.routeOptions.length);
+    for(let i = 0; i < via.length; i++){
+      this.addVia(i, routeOptions[i + 1]);
+      if(via[i].station){
+        this.viaSelected(i, via[i].station!);
+        this.viaStopControls[i].setValue(via[i].station!.name);
+      }
+      const hours = Math.floor(via[i].residence / 60);
+      const minutes = via[i].residence % 60;
+      this.viaResidenceControls[i].setValue(`${this.padZero(hours)}:${this.padZero(minutes)}`);
+    }
+  }
+
+  padZero(value: number): string {
+    return value < 10 ? `0${value}` : `${value}`;
   }
 
   isTransportChecked(index: number, type: string){
@@ -102,13 +137,15 @@ export class RouteControlComponent {
     }
   }
 
-  addVia(index: number){
+  addVia(index: number, routeOptions: RouteOptionDto | null){
     const previousOptions = JSON.parse(JSON.stringify(this.route.routeOptions[index]));
-    this.route.routeOptions.splice(index + 1, 0, previousOptions);
+    if(!routeOptions){
+      routeOptions = previousOptions;
+    }
+    this.route.routeOptions.splice(index + 1, 0, routeOptions!);
 
     const addedVia = <ViaStationDto> {
-      id: null,
-      name: null,
+      station: null,
       residence: 0
     }
     this.viaStopControls.splice(index, 0, new FormControl('', Validators.required));
@@ -118,6 +155,7 @@ export class RouteControlComponent {
         const currentIndex = this.viaResidenceControls.findIndex(control => control == residenceControl);
         const [minutes, seconds] = residenceControl.value!.split(':').map(Number);
         this.route.via[currentIndex].residence = minutes * 60 + seconds;
+        this.routeChange.emit(this.route);
       }
       this.updateValidity();
     })
@@ -136,6 +174,7 @@ export class RouteControlComponent {
     );
     this.stationSuggestions.splice(index + 2, 0, autoComplete);
     this.updateValidity();
+    this.routeChange.emit(this.route);
   }
 
   removeVia(index: number){
@@ -145,30 +184,33 @@ export class RouteControlComponent {
     this.stationSuggestions.splice(index + 2, 1);
     this.route.via.splice(index, 1);
     this.updateValidity();
+    this.routeChange.emit(this.route);
   }
 
   originSelected(station: StationDto){
     this.route.origin = station;
     this.updateValidity();
+    this.routeChange.emit(this.route);
   }
 
   viaSelected(index: number, station: StationDto){
     const currentViaStops = this.route.via;
 
-    currentViaStops[index].id = station.id;
-    currentViaStops[index].name = station.name;
+    currentViaStops[index].station = station;
     this.updateValidity();
+    this.routeChange.emit(this.route);
   }
 
   destinationSelected(station: StationDto){
     this.route.destination = station;
     this.updateValidity();
+    this.routeChange.emit(this.route);
   }
 
   private updateValidity(){
     const originSelected = this.route.origin != null;
     const destinationSelected = this.route.destination != null;
-    const allViaStationsSelected = this.route.via.filter(via => via.id == null).length == 0;
+    const allViaStationsSelected = this.route.via.filter(via => via.station == null).length == 0;
     const allResidenceTimesValid = this.viaResidenceControls.filter(control => !control.valid).length == 0;
 
     this.validChange.emit(

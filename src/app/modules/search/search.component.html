@@ -2,15 +2,15 @@
   @if(request){
     <div class="controls">
       <mat-accordion multi="multi">
-        <app-passenger-control [userId]="userId" [(passengers)]="request.passengers"/>
-        <app-time-control [(dateTime)]="time" [(type)]="request.timeType"/>
-        <app-route-control [route]="request.route" [(valid)]="routeValid"/>
+        <app-passenger-control [userId]="userId" [(passengers)]="request.passengers" (passengersChange)="requestDataChanged()"/>
+        <app-time-control [(dateTime)]="time" (dateTimeChange)="requestDataChanged()" [(type)]="request.timeType" (typeChange)="requestDataChanged()"/>
+        <app-route-control [(route)]="request.route" (routeChange)="requestDataChanged()" [(valid)]="routeValid"/>
       </mat-accordion>
     </div>
     <div class="search">
-      <button mat-fab extended [disabled]="false" (click)="search()">
+      <button mat-fab extended [disabled]="!passengersValid || !routeValid" (click)="search()">
         <mat-icon>search</mat-icon>
-        Search
+        <span i18n>Search</span>
       </button>
     </div>
   }
