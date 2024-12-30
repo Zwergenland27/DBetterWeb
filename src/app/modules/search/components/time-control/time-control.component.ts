@@ -36,7 +36,6 @@ import {MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle} from
   styleUrls: ['./time-control.component.css', '../../search.component.css']
 })
 export class TimeControlComponent implements OnInit {
-  @Input({required: true}) requestId!: string;
   @Input({required:true}) type! : 'arrival' | 'departure';
   @Output() typeChange = new EventEmitter<'arrival' | 'departure'>();
   @Input({required:true}) dateTime! : Date;

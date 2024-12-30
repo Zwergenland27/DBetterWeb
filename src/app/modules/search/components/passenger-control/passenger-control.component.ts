@@ -3,7 +3,7 @@ import {MatButton} from "@angular/material/button";
 import {PassengerCardComponent} from "../passenger-card/passenger-card.component";
 import {PassengerDialogComponent, PassengerDialogData} from '../passenger-dialog/passenger-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
-import {PassengerDto} from '../../search.service';
+import {PassengerDto, SearchService, UserDto} from '../../search.service';
 import {
   MatExpansionPanel,
   MatExpansionPanelDescription,
@@ -27,16 +27,23 @@ import {MatIcon} from '@angular/material/icon';
   styleUrls: ['./passenger-control.component.css', '../../search.component.css']
 })
 export class PassengerControlComponent {
-  @Input({required: true}) requestId! : string;
+  @Input({required: true}) userId!: string | null;
   @Input({required: true}) passengers! : PassengerDto[];
-  @Output() passengersChange = new EventEmitter<PassengerDto[]>()
+  @Output() passengersChange = new EventEmitter<PassengerDto[]>();
 
-  constructor(private dialog: MatDialog) {
+  private myPassengers : UserDto[] = [];
+
+  constructor(
+    private searchService: SearchService,
+    private dialog: MatDialog) {
+    if(this.userId){
+      searchService.getAvailablePassengers(this.userId).subscribe(result => this.myPassengers = result);
+    }
   }
   public addPassenger(){
     this.dialog.open(PassengerDialogComponent, {
       data: <PassengerDialogData> {
-        requestId: this.requestId,
+        availableUsers: this._filteredPassengers,
         passengerToEdit: null
       }
     }).afterClosed().subscribe(
@@ -57,7 +64,7 @@ export class PassengerControlComponent {
 
     this.dialog.open(PassengerDialogComponent, {
       data: <PassengerDialogData> {
-        requestId: this.requestId,
+        availableUsers: this._filteredPassengers,
         passengerToEdit: passenger
       }
     }).afterClosed().subscribe(
@@ -72,5 +79,9 @@ export class PassengerControlComponent {
         }
       }
     );
+  }
+
+  private get _filteredPassengers() : UserDto[] {
+    return this.myPassengers.filter(user => this.passengers.find(passenger => passenger.userId === user.id) == null);
   }
 }

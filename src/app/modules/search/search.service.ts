@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable, of, throwError} from 'rxjs';
-import {withHttpTransferCacheOptions} from '@angular/platform-browser';
+import {Observable, of} from 'rxjs';
 
 export function getShortTitleOfDiscount(discount: DiscountDto) : string {
   return discount.type.match(/[A-Z0-9]/g)?.join('') ?? '';
@@ -103,66 +102,7 @@ export class SearchService {
     });
   }
 
-  public getAvailablePassengers(requestId: string) : Observable<UserDto[]> {
+  public getAvailablePassengers(userId: string) : Observable<UserDto[]> {
     return of();
-  }
-
-  public addPassenger(
-    requestId: string,
-    userId: string | null,
-    name: string,
-    birthday: Date | null,
-    age: number | null,
-    withSeat: boolean,
-    bikes: number,
-    dogs: number,
-    withBuggy: boolean,
-    needsAccessibility: boolean,
-    discounts: DiscountDto[]) : Observable<PassengerDto>{
-    return of({
-      id: 'id',
-      userId: userId,
-      name: name,
-      birthday: birthday ? birthday.toISOString() : null,
-      age: age,
-      withSeat: withSeat,
-      bikes: bikes,
-      dogs: dogs,
-      withBuggy: withBuggy,
-      needsAccessibility: needsAccessibility,
-      discounts: discounts
-    });
-  }
-
-  public editPassenger(
-    requestId: string,
-    passengerId: string,
-    userId: string | null,
-    name: string,
-    birthday: Date | null,
-    age: number | null,
-    withSeat: boolean,
-    bikes: number,
-    dogs: number,
-    withBuggy: boolean,
-    needsAccessibility: boolean,
-    discounts: DiscountDto[]) : Observable<PassengerDto>{
-    return of({
-      id: passengerId,
-      userId: userId,
-      name: name,
-      birthday: birthday ? birthday.toISOString() : null,
-      age: age,
-      withSeat: withSeat,
-      bikes: bikes,
-      dogs: dogs,
-      withBuggy: withBuggy,
-      needsAccessibility: needsAccessibility,
-      discounts: discounts
-    });
-  }
-
-  public removePassenger(requestId: string, passengerId: string) : Observable<void> {
-    return of(undefined);
   }
 }

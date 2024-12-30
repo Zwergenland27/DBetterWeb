@@ -13,7 +13,7 @@ import {
 } from '@angular/material/chips';
 import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
 import {MatTooltip} from '@angular/material/tooltip';
-import {DiscountDto, PassengerDto, SearchService, UserDto} from '../../search.service';
+import {DiscountDto, PassengerDto, UserDto} from '../../search.service';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {map, Observable, startWith} from 'rxjs';
 import {AsyncPipe} from '@angular/common';
@@ -28,7 +28,7 @@ export type SelectablePassenger = {
 }
 
 export type PassengerDialogData = {
-  requestId: string;
+  availableUsers: UserDto[];
   passengerToEdit: PassengerDto | null;
 }
 
@@ -64,18 +64,15 @@ export type PassengerDialogData = {
   styleUrl: './passenger-dialog.component.css'
 })
 export class PassengerDialogComponent {
-  private readonly journeyId: string;
-  private availablePassengers : UserDto[] = [];
+  private availableUsers : UserDto[] = [];
 
-  private readonly editPassengerId : string | null = null;
+  private readonly passengerId : string
 
-  get editMode(){
-    return this.editPassengerId != null;
-  }
+  editMode = false;
   public availableDiscounts: DiscountDto[] = [];
   discounts = signal<DiscountDto[]>([]);
 
-  selectedPassengerId : string | null = null;
+  selectedUserId : string | null = null;
   filteredPassengers: Observable<SelectablePassenger[]>;
 
   public passengerForm = new FormGroup({
@@ -92,35 +89,33 @@ export class PassengerDialogComponent {
   });
 
   constructor(@Inject(MAT_DIALOG_DATA)public data : PassengerDialogData,
-              private searchService: SearchService,
               private dialogRef: MatDialogRef<PassengerDialogComponent>) {
     this.dialogRef.disableClose = true;
-
-    this.journeyId = data.requestId;
 
     this.filteredPassengers = this.passengerForm.get('name')!.valueChanges.pipe(
       startWith(''),
       map(value => this.filter(value || ''))
     );
     this.setDiscounts([]);
-    searchService.getAvailablePassengers(this.journeyId).subscribe(result => {
-      this.availablePassengers = result;
-    });
+    this.availableUsers = data.availableUsers
 
     if(data.passengerToEdit){
-      this.editPassengerId = data.passengerToEdit.id;
+      this.editMode = true;
+      this.passengerId = data.passengerToEdit.id;
       this.loadPassengerForEdit(data.passengerToEdit);
+    }else{
+      this.passengerId = crypto.randomUUID();
     }
   }
 
   private filter(value: string){
-    if(value.length < 3) return [];
+    if(value.length < 2) return [];
     const filterValue = value.toLowerCase();
 
-    return this.availablePassengers
+    return this.availableUsers
       .map(passenger =><SelectablePassenger> {
         id: passenger.id,
-        name: passenger.firstname + passenger.lastname,
+        name: `${passenger.firstname} ${passenger.lastname}`,
         email: passenger.email,
       })
       .filter(passenger =>
@@ -146,7 +141,7 @@ export class PassengerDialogComponent {
   }
 
   loadPassengerForEdit(passenger: PassengerDto) {
-    this.selectedPassengerId = passenger.userId;
+    this.selectedUserId = passenger.userId;
 
     const nameField = this.passengerForm.get('name')!;
     const birthdayField = this.passengerForm.get('birthday')!;
@@ -181,7 +176,7 @@ export class PassengerDialogComponent {
   }
 
   passengerSelected(selected: SelectablePassenger){
-    this.selectedPassengerId = selected.id;
+    this.selectedUserId = selected.id;
 
     const nameField = this.passengerForm.get('name')!;
     const birthdayField = this.passengerForm.get('birthday')!;
@@ -192,10 +187,10 @@ export class PassengerDialogComponent {
     const bikesField = this.passengerForm.get('bikes')!;
     const dogsField = this.passengerForm.get('dogs')!;
 
-    const passenger = this.availablePassengers.find(passenger => passenger.id === selected.id)!;
-    this.availablePassengers = this.availablePassengers.filter(passenger => passenger.id !== selected.id);
+    const passenger = this.availableUsers.find(passenger => passenger.id === selected.id)!;
+    this.availableUsers = this.availableUsers.filter(passenger => passenger.id !== selected.id);
 
-    nameField.setValue(passenger.firstname + passenger.lastname);
+    nameField.setValue(`${passenger.firstname} ${passenger.lastname}`);
     nameField.disable();
 
     birthdayField.setValue(passenger.birthday!);
@@ -233,70 +228,37 @@ export class PassengerDialogComponent {
   }
 
   public removePassenger(){
-    this.searchService.removePassenger(this.journeyId, this.editPassengerId!).subscribe(_ => {
-      this.dialogRef.close(null);
-    })
+    this.dialogRef.close(null);
   }
 
-  public editPassenger(){
+  public submit(){
     const value = this.passengerForm.getRawValue();
 
-    let birthday : Date | null;
+    let birthday : string | null;
     let age : number | null;
     if(value.birthday == ''){
       birthday = null;
       age = value.age!;
     }else{
-      birthday = new Date(value.birthday!);
+      birthday = value.birthday!;
       age = null;
     }
 
-    this.searchService.editPassenger(
-      this.journeyId,
-      this.editPassengerId!,
-      this.selectedPassengerId,
-      value.name!,
-      birthday,
-      age,
-      value.withSeat!,
-      value.bikes!,
-      value.dogs!,
-      value.withBuggy!,
-      value.needsAccessibility!,
-      this.discounts()
-    ).subscribe(result => {
-      this.dialogRef.close(result);
-    })
-  }
-
-  public addPassenger(){
-    const value = this.passengerForm.getRawValue();
-
-    let birthday : Date | null;
-    let age : number | null;
-    if(value.birthday == ''){
-      birthday = null;
-      age = value.age!;
-    }else{
-      birthday = new Date(value.birthday!);
-      age = null;
+    const passenger : PassengerDto = {
+      id: this.passengerId,
+      userId: this.selectedUserId,
+      name: value.name!,
+      birthday: birthday,
+      age: age,
+      withSeat: value.withSeat!,
+      bikes: value.bikes!,
+      dogs: value.dogs!,
+      withBuggy: value.withBuggy!,
+      needsAccessibility: value.needsAccessibility!,
+      discounts: this.discounts()
     }
 
-    this.searchService.addPassenger(
-      this.journeyId,
-      this.selectedPassengerId,
-      value.name!,
-      birthday,
-      age,
-      value.withSeat!,
-      value.bikes!,
-      value.dogs!,
-      value.withBuggy!,
-      value.needsAccessibility!,
-      this.discounts()
-    ).subscribe(result => {
-      this.dialogRef.close(result);
-    })
+    this.dialogRef.close(passenger);
   }
 
   public ageArray(){

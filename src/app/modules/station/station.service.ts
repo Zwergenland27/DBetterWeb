@@ -21,6 +21,13 @@ export class StationService {
     if(!value || value.length < 1){
       return of([]);
     }
-    return this.http.get<StationDto[]>(`stations?search=${value}`);
+    const stations : StationDto[] = [
+      {id: '0', rl100: 'DH', name: 'Dresden Hbf', lat: 0, lon: 0},
+      {id: '1', rl100: 'DN', name: 'Dresden Neustadt', lat: 0, lon: 0},
+      {id: '2', rl100: 'FF', name: 'Frankfurt Hbf', lat: 0, lon: 0},
+    ];
+
+    return of(stations.filter(station => station.rl100?.includes(value) || station.name.includes(value)));
+    //return this.http.get<StationDto[]>(`stations?search=${value}`);
   }
 }
