@@ -23,7 +23,8 @@
 
 .icon-background {
   position: absolute;
-  background-color: var(--mat-sys-surface-container-high);
+  background-color: var(--mat-sys-surface);
+  border-radius: 50%;
   height: 24px;
   width: 24px;
 }
