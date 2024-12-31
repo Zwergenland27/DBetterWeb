@@ -10,6 +10,7 @@ import {TimeControlComponent} from './components/time-control/time-control.compo
 import {PassengerControlComponent} from './components/passenger-control/passenger-control.component';
 import {RouteControlComponent} from './components/route-control/route-control.component';
 import {MatFabButton} from '@angular/material/button';
+import {OptionsControlComponent} from './components/options-control/options-control.component';
 
 @Component({
   selector: 'app-search',
@@ -24,6 +25,7 @@ import {MatFabButton} from '@angular/material/button';
     PassengerControlComponent,
     RouteControlComponent,
     MatFabButton,
+    OptionsControlComponent,
   ],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css',

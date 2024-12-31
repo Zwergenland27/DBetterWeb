@@ -3,7 +3,7 @@
     @if(timePanel.expanded){
       <mat-panel-title i18n>Time</mat-panel-title>
     }@else {
-      @if(type == 'arrival'){
+      @if(type == 'Arrival'){
         <div>
           <span i18n>Arrival at</span>
           <br>
@@ -22,8 +22,8 @@
   </div>
   <div content class="time-form">
     <mat-button-toggle-group [formControl]="typeControl">
-      <mat-button-toggle value="departure" i18n>Departure</mat-button-toggle>
-      <mat-button-toggle value="arrival" i18n>Arrival</mat-button-toggle>
+      <mat-button-toggle value="Departure" i18n>Departure</mat-button-toggle>
+      <mat-button-toggle value="Arrival" i18n>Arrival</mat-button-toggle>
     </mat-button-toggle-group>
     <div class="time-controls">
       <mat-icon (click)="previousDay()">chevron_left</mat-icon>

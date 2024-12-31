@@ -1,0 +1,27 @@
+<app-expansion-panel [(expanded)]="expanded" (expandedChange)="persistUIState()">
+  <div title>
+    <mat-panel-title i18n>Options</mat-panel-title>
+  </div>
+  <div content class="options-form">
+    <mat-button-toggle-group [formControl]="classControl">
+      <mat-button-toggle value="Second" i18n>2nd class</mat-button-toggle>
+      <mat-button-toggle value="First" i18n>1st class</mat-button-toggle>
+    </mat-button-toggle-group>
+    <mat-form-field subscriptSizing="dynamic">
+      <mat-label i18n>transfers</mat-label>
+      <mat-select [formControl]="maxTransfersControl">
+        @for(i of generateArray(0, 10); track i){
+          <mat-option [value]="i">{i, plural, =0 {direct} other {max. {{i}}}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field subscriptSizing="dynamic">
+      <mat-label i18n>transfer time</mat-label>
+      <mat-select [formControl]="minTransferTimeControl">
+        @for(i of generateArray(1, 60); track i){
+          <mat-option [value]="i">{i, plural, =1 {min. {{i}} minute} other {min. {{i}} minutes}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+</app-expansion-panel>

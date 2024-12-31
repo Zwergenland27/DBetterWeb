@@ -37,10 +37,10 @@ import {ExpansionPanelComponent} from '../expansion-panel/expansion-panel.compon
 })
 export class TimeControlComponent implements OnInit {
   private UI_KEY = 'time-control-ui';
-  expanded : boolean;
+  expanded : boolean
 
-  @Input({required:true}) type! : 'arrival' | 'departure';
-  @Output() typeChange = new EventEmitter<'arrival' | 'departure'>();
+  @Input({required:true}) type! : 'Arrival' | 'Departure';
+  @Output() typeChange = new EventEmitter<'Arrival' | 'Departure'>();
   @Input({required:true}) dateTime! : Date;
   @Output() dateTimeChange = new EventEmitter<Date>();
 

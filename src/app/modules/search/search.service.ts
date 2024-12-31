@@ -9,7 +9,7 @@ export function getShortTitleOfDiscount(discount: DiscountDto) : string {
 
 export type DiscountDto = {
   type: string;
-  class: string;
+  class: 'First' | 'Second';
   validUntil: string | null;
 }
 
@@ -60,12 +60,19 @@ export type RouteDto = {
   routeOptions: RouteOptionDto[];
 }
 
+export type OptionsDto = {
+  class: 'First' | 'Second';
+  maxTransfers: number,
+  minTransferTime: number,
+}
+
 export type RequestDto = {
   id: string;
   ownerId: string | null;
   passengers: PassengerDto[];
   time: string;
-  timeType: 'arrival' | 'departure';
+  timeType: 'Arrival' | 'Departure';
+  options: OptionsDto;
   route: RouteDto;
 }
 
@@ -93,7 +100,12 @@ export class SearchService {
       ownerId: userId,
       passengers: [],
       time: new Date().toISOString(),
-      timeType: 'departure',
+      timeType: 'Departure',
+      options: {
+        class: 'Second',
+        maxTransfers: 10,
+        minTransferTime: 5,
+      },
       route: {
         origin: null,
         destination: null,

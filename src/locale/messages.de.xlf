@@ -262,6 +262,30 @@
         <source>Residence</source>
         <target>Aufenthalt</target>
       </trans-unit>
+      <trans-unit id="1078051522469861815" datatype="html">
+        <source>2nd class</source>
+        <target>2. Klasse </target>
+      </trans-unit>
+      <trans-unit id="2555580483847754969" datatype="html">
+        <source>1st class</source>
+        <target>1. Klasse </target>
+      </trans-unit>
+      <trans-unit id="8596353099673932842" datatype="html">
+        <source>transfers</source>
+        <target>Umstiege</target>
+      </trans-unit>
+      <trans-unit id="4628270902965577903" datatype="html">
+        <source>{VAR_PLURAL, plural, =0 {direct} other {max. <x id="INTERPOLATION"/>}}</source>
+        <target>{VAR_PLURAL, plural, =0 {direkt} other {max. <x id="INTERPOLATION"/>}}</target>
+      </trans-unit>
+      <trans-unit id="6261476101697978494" datatype="html">
+        <source>transfer time</source>
+        <target>Umstiegszeit</target>
+      </trans-unit>
+      <trans-unit id="190409164820185760" datatype="html">
+        <source>{VAR_PLURAL, plural, =1 {min. <x id="INTERPOLATION"/> minute} other {min. <x id="INTERPOLATION"/> minutes}}</source>
+        <target>{VAR_PLURAL, plural, =1 {min. <x id="INTERPOLATION"/> Minute} other {min. <x id="INTERPOLATION"/> Minuten}}</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

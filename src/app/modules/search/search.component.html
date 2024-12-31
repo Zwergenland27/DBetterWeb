@@ -4,6 +4,7 @@
       <mat-accordion multi="multi">
         <app-passenger-control [userId]="userId" [(passengers)]="request.passengers" (passengersChange)="requestDataChanged()"/>
         <app-time-control [(dateTime)]="time" (dateTimeChange)="requestDataChanged()" [(type)]="request.timeType" (typeChange)="requestDataChanged()"/>
+        <app-options-control [(options)]="request.options" (optionsChange)="requestDataChanged()"/>
         <app-route-control [(route)]="request.route" (routeChange)="requestDataChanged()" [(valid)]="routeValid"/>
       </mat-accordion>
     </div>

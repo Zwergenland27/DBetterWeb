@@ -124,7 +124,7 @@ export class PassengerDialogComponent {
   }
 
   private setDiscounts(selectedDiscounts: DiscountDto[]) {
-    const availableDiscounts = [
+    const availableDiscounts : DiscountDto[] = [
       { type: 'BahnCard25',   class: 'Second',  validUntil: ''},
       { type: 'BahnCard25',   class: 'First',   validUntil: ''},
       { type: 'BahnCard50',   class: 'Second',  validUntil: ''},
