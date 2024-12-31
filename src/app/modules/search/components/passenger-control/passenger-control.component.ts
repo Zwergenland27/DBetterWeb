@@ -21,17 +21,28 @@ import {ExpansionPanelComponent} from '../expansion-panel/expansion-panel.compon
   styleUrl: './passenger-control.component.css'
 })
 export class PassengerControlComponent {
+  private UI_KEY = 'passenger-control-ui';
+  expanded : boolean;
+
   @Input({required: true}) userId!: string | null;
   @Input({required: true}) passengers! : PassengerDto[];
   @Output() passengersChange = new EventEmitter<PassengerDto[]>();
 
   private myPassengers : UserDto[] = [];
 
+
   constructor(
     private searchService: SearchService,
     private dialog: MatDialog) {
     if(this.userId){
       searchService.getAvailablePassengers(this.userId).subscribe(result => this.myPassengers = result);
+    }
+
+    const uiState = sessionStorage.getItem(this.UI_KEY);
+    if(uiState){
+      this.expanded = JSON.parse(uiState);
+    }else{
+      this.expanded = true;
     }
   }
   public addPassenger(){
@@ -73,6 +84,10 @@ export class PassengerControlComponent {
         }
       }
     );
+  }
+
+  public persistUIState(){
+    sessionStorage.setItem(this.UI_KEY, JSON.stringify(this.expanded));
   }
 
   private get _filteredPassengers() : UserDto[] {

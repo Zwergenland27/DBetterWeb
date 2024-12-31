@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {MatIcon} from '@angular/material/icon';
 
 @Component({
@@ -11,9 +11,11 @@ import {MatIcon} from '@angular/material/icon';
 })
 export class ExpansionPanelComponent {
   @Input() expanded = false;
+  @Output() expandedChange = new EventEmitter<boolean>();
   @Input() warn = false;
 
   togglePanel(){
     this.expanded = !this.expanded
+    this.expandedChange.emit(this.expanded);
   }
 }

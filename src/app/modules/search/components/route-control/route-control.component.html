@@ -1,4 +1,4 @@
-<app-expansion-panel #routePanel [warn]="!valid">
+<app-expansion-panel #routePanel [(expanded)]="expanded" (expandedChange)="persistUIState()" [warn]="!valid">
   <div title>
     @if(routePanel.expanded || !valid){
       <mat-panel-title i18n>Route</mat-panel-title>

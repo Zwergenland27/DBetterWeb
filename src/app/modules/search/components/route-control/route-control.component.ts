@@ -40,6 +40,9 @@ import {ExpansionPanelComponent} from '../expansion-panel/expansion-panel.compon
   styleUrls: ['./route-control.component.css', '../../search.component.css']
 })
 export class RouteControlComponent implements OnInit {
+  private UI_KEY = 'route-control-ui';
+  expanded : boolean;
+
   @Input({required: true}) route! : RouteDto;
   @Output() routeChange = new EventEmitter<RouteDto>();
   @Input() valid : boolean = false;
@@ -74,6 +77,13 @@ export class RouteControlComponent implements OnInit {
         )
       })
     );
+
+    const uiState = sessionStorage.getItem(this.UI_KEY);
+    if(uiState){
+      this.expanded = JSON.parse(uiState);
+    }else{
+      this.expanded = true;
+    }
   }
 
   toggleTransport(index: number, type: string){
@@ -201,6 +211,10 @@ export class RouteControlComponent implements OnInit {
     this.route.destination = station;
     this.updateValidity();
     this.routeChange.emit(this.route);
+  }
+
+  public persistUIState(){
+    sessionStorage.setItem(this.UI_KEY, JSON.stringify(this.expanded));
   }
 
   private updateValidity(){

@@ -1,4 +1,4 @@
-<app-expansion-panel #timePanel>
+<app-expansion-panel #timePanel [(expanded)]="expanded" (expandedChange)="persistUIState()" >
   <div title>
     @if(timePanel.expanded){
       <mat-panel-title i18n>Time</mat-panel-title>

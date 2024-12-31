@@ -1,4 +1,4 @@
-<app-expansion-panel #passengerPanel [warn]="passengers.length == 0">
+<app-expansion-panel #passengerPanel [(expanded)]="expanded" (expandedChange)="persistUIState()" [warn]="passengers.length == 0">
   <div title>
     @if(passengerPanel.expanded){
       <mat-panel-title i18n>Passengers</mat-panel-title>

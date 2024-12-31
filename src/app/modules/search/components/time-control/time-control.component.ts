@@ -36,6 +36,9 @@ import {ExpansionPanelComponent} from '../expansion-panel/expansion-panel.compon
   styleUrl: './time-control.component.css'
 })
 export class TimeControlComponent implements OnInit {
+  private UI_KEY = 'time-control-ui';
+  expanded : boolean;
+
   @Input({required:true}) type! : 'arrival' | 'departure';
   @Output() typeChange = new EventEmitter<'arrival' | 'departure'>();
   @Input({required:true}) dateTime! : Date;
@@ -44,6 +47,15 @@ export class TimeControlComponent implements OnInit {
   typeControl = new FormControl();
   dateControl = new FormControl();
   timeControl = new FormControl();
+
+  constructor() {
+    const uiState = sessionStorage.getItem(this.UI_KEY);
+    if(uiState){
+      this.expanded = JSON.parse(uiState);
+    }else{
+      this.expanded = true;
+    }
+  }
 
   ngOnInit() {
     this.typeControl.setValue(this.type);
@@ -81,5 +93,9 @@ export class TimeControlComponent implements OnInit {
   add15Min(){
     const time : Date = this.timeControl.value;
     this.timeControl.setValue(new Date(time.getTime()  + 15 * 60000));
+  }
+
+  public persistUIState(){
+    sessionStorage.setItem(this.UI_KEY, JSON.stringify(this.expanded));
   }
 }
