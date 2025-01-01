@@ -76,15 +76,24 @@ export type RequestDto = {
   route: RouteDto;
 }
 
+export type ConnectionStationDto = {
+  arrival: string | null,
+  departure: string | null,
+} & StationDto;
+
 export type ConnectionSectionDto = {
-  vehicle: string,
-  stops : StationDto[]
+  vehicle: string | null,
+  percentage: number,
+  stops : ConnectionStationDto[]
 }
 
 export type ConnectionDto = {
+  id: string,
   startTime: string,
   endTime: string,
   sections: ConnectionSectionDto[],
+  price: number
+  notifications: string[]
 }
 
 @Injectable({

@@ -1,1 +1,41 @@
-<p>connection-card works!</p>
+<div class="connection-card">
+  <div class="connection-header">
+    <div class="overview">
+      <div class="title">
+        <span class="time">{{startTime | date: 'HH:mm'}} - {{endTime | date: 'HH:mm'}}</span>
+        <span class="overview-text">{{duration.hours}}h {{duration.minutes}}min</span>
+        <span class="overview-text">{transfers, plural, =0 {direct connection} =1 {1 transfer} other {{{transfers}} transfers}} </span>
+      </div>
+      <div class="route-overview">
+        @for(section of connection.sections; track section){
+          <div class="section">
+            <span>{{section.vehicle}}</span>
+          </div>
+        }
+      </div>
+      <div class="notifications">
+        @for(notification of connection.notifications; track notification){
+          <div class="warn">
+            <mat-icon>warning</mat-icon>
+            <span>{{notification}}</span>
+          </div>
+        }
+      </div>
+    </div>
+    <div class="route-controls">
+      <div class="controls">
+        <mat-icon class="clickable-icon">share</mat-icon>
+        <mat-icon class="clickable-icon">bookmark</mat-icon>
+      </div>
+      <div class="price">
+        <span i18n>from </span>
+        <span class="price-text">{{connection.price}} €</span>
+      </div>
+      <button mat-flat-button i18n>
+        Buy
+      </button>
+    </div>
+  </div>
+  <div class="connection-content">
+  </div>
+</div>

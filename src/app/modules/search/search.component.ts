@@ -37,7 +37,39 @@ export class SearchComponent {
 
   routeValid: boolean = false;
 
-  connections: ConnectionDto[] = [];
+  connections: ConnectionDto[] = [{
+    id: '0',
+    startTime: '2025-01-01T14:48:00.000Z',
+    endTime: '2025-01-01T15:48:00.000Z',
+    sections: [
+      {
+        vehicle: 'ICE 1',
+        stops: [
+          {
+            id: '0',
+            name: 'Dresden Hbf',
+            rl100: 'DH',
+            lat: 0,
+            lon: 0,
+            arrival: null,
+            departure: '2025-01-01T14:48:00.000Z'
+          },
+          {
+            id: '1',
+            name: 'Frankfurt',
+            rl100: 'FF',
+            lat: 0,
+            lon: 0,
+            arrival: '2025-01-01T15:48:00.000Z',
+            departure: null
+          }
+        ],
+        percentage: 1
+      }
+    ],
+    notifications: ['Test Notification'],
+    price: 123.45
+  }];
 
   get passengersValid() {
     return this.request.passengers.length > 0;
