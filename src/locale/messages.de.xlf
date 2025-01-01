@@ -286,6 +286,30 @@
         <source>{VAR_PLURAL, plural, =1 {min. <x id="INTERPOLATION"/> minute} other {min. <x id="INTERPOLATION"/> minutes}}</source>
         <target>{VAR_PLURAL, plural, =1 {min. <x id="INTERPOLATION"/> Minute} other {min. <x id="INTERPOLATION"/> Minuten}}</target>
       </trans-unit>
+      <trans-unit id="9112584085285839498" datatype="html">
+        <source>Search connection</source>
+        <target>Verbindung suchen</target>
+      </trans-unit>
+      <trans-unit id="8766575877563183003" datatype="html">
+        <source>Select the passengers</source>
+        <target>Auswählen, wer an der Fahrt teilnimmt</target>
+      </trans-unit>
+      <trans-unit id="6540967060328987525" datatype="html">
+        <source>Select the time of the journey</source>
+        <target>Zeitpunkt der Fahrt auswählen</target>
+      </trans-unit>
+      <trans-unit id="1654358027024922570" datatype="html">
+        <source>Select the route</source>
+        <target>Route auswählen</target>
+      </trans-unit>
+      <trans-unit id="6330473726038713812" datatype="html">
+        <source>Search connections</source>
+        <target>Verbindungen suchen</target>
+      </trans-unit>
+      <trans-unit id="780051768573367251" datatype="html">
+        <source>Select connection</source>
+        <target>Verbindung auswählen</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

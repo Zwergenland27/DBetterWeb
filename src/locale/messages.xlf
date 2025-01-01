@@ -24,7 +24,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/search.component.html</context>
-          <context context-type="linenumber">14,15</context>
+          <context context-type="linenumber">15,16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2454050363478003966" datatype="html">
@@ -506,6 +506,48 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/time-control/time-control.component.html</context>
           <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9112584085285839498" datatype="html">
+        <source>Search connection</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/search.component.html</context>
+          <context context-type="linenumber">23,24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8766575877563183003" datatype="html">
+        <source>Select the passengers</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/search.component.html</context>
+          <context context-type="linenumber">26,27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6540967060328987525" datatype="html">
+        <source>Select the time of the journey</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/search.component.html</context>
+          <context context-type="linenumber">30,31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1654358027024922570" datatype="html">
+        <source>Select the route</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/search.component.html</context>
+          <context context-type="linenumber">34,35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6330473726038713812" datatype="html">
+        <source>Search connections</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/search.component.html</context>
+          <context context-type="linenumber">38,39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="780051768573367251" datatype="html">
+        <source>Select connection</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/search.component.html</context>
+          <context context-type="linenumber">42,43</context>
         </context-group>
       </trans-unit>
     </body>

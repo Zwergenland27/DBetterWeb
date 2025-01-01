@@ -76,6 +76,17 @@ export type RequestDto = {
   route: RouteDto;
 }
 
+export type ConnectionSectionDto = {
+  vehicle: string,
+  stops : StationDto[]
+}
+
+export type ConnectionDto = {
+  startTime: string,
+  endTime: string,
+  sections: ConnectionSectionDto[],
+}
+
 @Injectable({
   providedIn: 'root'
 })

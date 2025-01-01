@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {MatExpansionModule} from '@angular/material/expansion';
-import {RequestDto, SearchService} from './search.service';
+import {ConnectionDto, RequestDto, SearchService} from './search.service';
 import {AuthService} from '../../shared/services/auth.service';
 import {MatIconModule} from '@angular/material/icon';
 import {MatGridListModule} from '@angular/material/grid-list';
@@ -11,6 +11,7 @@ import {PassengerControlComponent} from './components/passenger-control/passenge
 import {RouteControlComponent} from './components/route-control/route-control.component';
 import {MatFabButton} from '@angular/material/button';
 import {OptionsControlComponent} from './components/options-control/options-control.component';
+import {ConnectionCardComponent} from './components/connection-card/connection-card.component';
 
 @Component({
   selector: 'app-search',
@@ -26,6 +27,7 @@ import {OptionsControlComponent} from './components/options-control/options-cont
     RouteControlComponent,
     MatFabButton,
     OptionsControlComponent,
+    ConnectionCardComponent,
   ],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css',
@@ -34,6 +36,9 @@ export class SearchComponent {
   request: RequestDto;
 
   routeValid: boolean = false;
+
+  connections: ConnectionDto[] = [];
+
   get passengersValid() {
     return this.request.passengers.length > 0;
   }

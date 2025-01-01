@@ -1,18 +1,47 @@
-<div class="sidebar">
-  @if(request){
-    <div class="controls">
-      <mat-accordion multi="multi">
-        <app-passenger-control [userId]="userId" [(passengers)]="request.passengers" (passengersChange)="requestDataChanged()"/>
-        <app-time-control [(dateTime)]="time" (dateTimeChange)="requestDataChanged()" [(type)]="request.timeType" (typeChange)="requestDataChanged()"/>
-        <app-options-control [(options)]="request.options" (optionsChange)="requestDataChanged()"/>
-        <app-route-control [(route)]="request.route" (routeChange)="requestDataChanged()" [(valid)]="routeValid"/>
-      </mat-accordion>
-    </div>
-    <div class="search">
-      <button mat-fab extended [disabled]="!passengersValid || !routeValid" (click)="search()">
-        <mat-icon>search</mat-icon>
-        <span i18n>Search</span>
-      </button>
+<div class="component">
+  <div class="sidebar">
+    @if(request){
+      <div class="controls">
+        <mat-accordion multi="multi">
+          <app-passenger-control [userId]="userId" [(passengers)]="request.passengers" (passengersChange)="requestDataChanged()"/>
+          <app-time-control [(dateTime)]="time" (dateTimeChange)="requestDataChanged()" [(type)]="request.timeType" (typeChange)="requestDataChanged()"/>
+          <app-options-control [(options)]="request.options" (optionsChange)="requestDataChanged()"/>
+          <app-route-control [(route)]="request.route" (routeChange)="requestDataChanged()" [(valid)]="routeValid"/>
+        </mat-accordion>
+      </div>
+      <div class="search">
+        <button mat-fab extended [disabled]="!passengersValid || !routeValid" (click)="search()">
+          <mat-icon>search</mat-icon>
+          <span i18n>Search</span>
+        </button>
+      </div>
+    }
+  </div>
+  @if(connections.length == 0){
+    <div class="search-infos">
+      <div class="info-container">
+        <span class="info-headline" i18n>Search connection</span>
+        <div class="info-entry">
+          <span class="number">1</span>
+          <span class="info-text" i18n>Select the passengers</span>
+        </div>
+        <div class="info-entry">
+          <span class="number">2</span>
+          <span class="info-text" i18n>Select the time of the journey</span>
+        </div>
+        <div class="info-entry">
+          <span class="number">3</span>
+          <span class="info-text" i18n>Select the route</span>
+        </div>
+        <div class="info-entry">
+          <span class="number">4</span>
+          <span class="info-text" i18n>Search connections</span>
+        </div>
+        <div class="info-entry">
+          <span class="number">5</span>
+          <span i18n>Select connection</span>
+        </div>
+      </div>
     </div>
   }
 </div>
