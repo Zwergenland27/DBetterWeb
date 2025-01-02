@@ -46,7 +46,7 @@
   }@else{
     <div class="connections">
       @for(connection of connections; track connection.id){
-        <app-connection-card [connection]="connection"/>
+        <app-connection-card [connection]="connection" [showBikeInfo]="bikeInfoRequired" [showAccessibilityInfo]="accessibilityInfoRequired"/>
       }
     </div>
   }

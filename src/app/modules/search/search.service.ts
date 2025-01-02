@@ -81,9 +81,28 @@ export type ConnectionStationDto = {
   departure: string | null,
 } & StationDto;
 
+export enum Demand {
+  Low,
+  Medium,
+  High,
+  Extreme,
+  Unknown
+}
+
+export type Vehicle = {
+  name: string | null,
+  uicNumber: string | null
+}
+
 export type ConnectionSectionDto = {
-  vehicle: string | null,
+  lineNr: string;
+  vehicle: Vehicle[] | null,
   percentage: number,
+  catering: 'None' | 'Partial' | 'Bistro' | 'Restaurant' | 'Unknown'
+  bike: 'None' | 'Limited' | 'Always' | 'Unknown',
+  accessibility: 'None' | 'Partial' | 'Always' | 'Unknown',
+  demand: Demand,
+  notifications: string[],
   stops : ConnectionStationDto[]
 }
 

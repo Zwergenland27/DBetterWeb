@@ -190,6 +190,157 @@
           <context context-type="linenumber">54,55</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="8404895952074060217" datatype="html">
+        <source>{VAR_PLURAL, plural, =0 {direct connection} =1 {1 transfer} other {<x id="INTERPOLATION"/> transfers}}</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
+          <context context-type="linenumber">7,8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6845608579544023806" datatype="html">
+        <source>Catering service not available</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
+          <context context-type="linenumber">26,27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1511180581628184880" datatype="html">
+        <source>Catering service only partial available</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
+          <context context-type="linenumber">29,30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5381221397731781090" datatype="html">
+        <source>Bistro available</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
+          <context context-type="linenumber">32,33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9018685951772950941" datatype="html">
+        <source>Restaurant available</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
+          <context context-type="linenumber">35,36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1764192124756248014" datatype="html">
+        <source>Bike transport not possible</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
+          <context context-type="linenumber">40,41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2450053624676965683" datatype="html">
+        <source>Bike transport limited</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
+          <context context-type="linenumber">43,44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4116965483088659187" datatype="html">
+        <source>Bike transport possible</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
+          <context context-type="linenumber">46,47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2148776887507280326" datatype="html">
+        <source>No bike transport information</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
+          <context context-type="linenumber">49,50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4800127457733470339" datatype="html">
+        <source>Not accessible</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
+          <context context-type="linenumber">56,57</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
+          <context context-type="linenumber">62,63</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7981695253945586346" datatype="html">
+        <source>Partly accessible</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
+          <context context-type="linenumber">59,60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5080842226299983988" datatype="html">
+        <source>No accessibility information</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
+          <context context-type="linenumber">65,66</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6599695064230363466" datatype="html">
+        <source>Exceptional high demand expected</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
+          <context context-type="linenumber">71,72</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3606647710694195216" datatype="html">
+        <source>High demand expected</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
+          <context context-type="linenumber">74,75</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2209023682604821221" datatype="html">
+        <source>Medium demand expected</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
+          <context context-type="linenumber">77,78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5700201374840675904" datatype="html">
+        <source>Low demand expected</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
+          <context context-type="linenumber">80,81</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8376027904593545908" datatype="html">
+        <source>No demand information</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
+          <context context-type="linenumber">83,84</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5160861768192059894" datatype="html">
+        <source>There are multiple problems on this section. Open details for more information.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
+          <context context-type="linenumber">90,91</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4423253549935469768" datatype="html">
+        <source> Details </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
+          <context context-type="linenumber">126,127</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4215194277711300165" datatype="html">
+        <source>from </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
+          <context context-type="linenumber">140,141</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1790234586531719509" datatype="html">
+        <source> Buy </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
+          <context context-type="linenumber">144,145</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="8432562579042371182" datatype="html">
         <source>Options</source>
         <context-group purpose="location">

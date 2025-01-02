@@ -310,6 +310,90 @@
         <source>Select connection</source>
         <target>Verbindung auswählen</target>
       </trans-unit>
+      <trans-unit id="8404895952074060217" datatype="html">
+        <source>{VAR_PLURAL, plural, =0 {direct connection} =1 {1 transfer} other {<x id="INTERPOLATION"/> transfers}}</source>
+        <target>{VAR_PLURAL, plural, =0 {Direktverbindung} =1 {1 Umstieg} other {<x id="INTERPOLATION"/> Umstiege}}</target>
+      </trans-unit>
+      <trans-unit id="4423253549935469768" datatype="html">
+        <source> Details </source>
+        <target>Details</target>
+      </trans-unit>
+      <trans-unit id="4215194277711300165" datatype="html">
+        <source>from </source>
+        <target>ab</target>
+      </trans-unit>
+      <trans-unit id="1790234586531719509" datatype="html">
+        <source> Buy </source>
+        <target>Kaufen</target>
+      </trans-unit>
+      <trans-unit id="6845608579544023806" datatype="html">
+        <source>Catering service not available</source>
+        <target>Kein gastronomisches Angebot</target>
+      </trans-unit>
+      <trans-unit id="1511180581628184880" datatype="html">
+        <source>Catering service only partial available</source>
+        <target>Gastronomisches Angebot nur teilweise verfügbar</target>
+      </trans-unit>
+      <trans-unit id="5381221397731781090" datatype="html">
+        <source>Bistro available</source>
+        <target>Bistro verfügbar</target>
+      </trans-unit>
+      <trans-unit id="9018685951772950941" datatype="html">
+        <source>Restaurant available</source>
+        <target>Restaurant verfügbar</target>
+      </trans-unit>
+      <trans-unit id="1764192124756248014" datatype="html">
+        <source>Bike transport not possible</source>
+        <target>Fahrradmitnahme nicht möglich</target>
+      </trans-unit>
+      <trans-unit id="2450053624676965683" datatype="html">
+        <source>Bike transport limited</source>
+        <target>Fahrradmitnahme begrenzt</target>
+      </trans-unit>
+      <trans-unit id="4116965483088659187" datatype="html">
+        <source>Bike transport possible</source>
+        <target>Fahrradmitnahme möglich</target>
+      </trans-unit>
+      <trans-unit id="2148776887507280326" datatype="html">
+        <source>No bike transport information</source>
+        <target>Keine Informationen zur Fahrradmitnahme</target>
+      </trans-unit>
+      <trans-unit id="4800127457733470339" datatype="html">
+        <source>Not accessible</source>
+        <target>Nicht barrierefrei</target>
+      </trans-unit>
+      <trans-unit id="7981695253945586346" datatype="html">
+        <source>Partly accessible</source>
+        <target>Teilweise barrierefrei</target>
+      </trans-unit>
+      <trans-unit id="5080842226299983988" datatype="html">
+        <source>No accessibility information</source>
+        <target>Keine Informationen zur Barrierefreiheit</target>
+      </trans-unit>
+      <trans-unit id="6599695064230363466" datatype="html">
+        <source>Exceptional high demand expected</source>
+        <target>Außergewöhnlich hohe Auslastung erwartet</target>
+      </trans-unit>
+      <trans-unit id="3606647710694195216" datatype="html">
+        <source>High demand expected</source>
+        <target>Hohe Auslastung erwartet</target>
+      </trans-unit>
+      <trans-unit id="2209023682604821221" datatype="html">
+        <source>Medium demand expected</source>
+        <target>Mittlere Auslastung erwartet</target>
+      </trans-unit>
+      <trans-unit id="5700201374840675904" datatype="html">
+        <source>Low demand expected</source>
+        <target>Geringe Auslastung erwartet</target>
+      </trans-unit>
+      <trans-unit id="8376027904593545908" datatype="html">
+        <source>No demand information</source>
+        <target>Keine Informationen zur Auslastung</target>
+      </trans-unit>
+      <trans-unit id="5160861768192059894" datatype="html">
+        <source>There are multiple problems on this section. Open details for more information.</source>
+        <target>Auf dem Streckenabschnitt gibt es mehrere Probleme. Bitte Details öffnen um weitere Informationen zu erhalten</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
