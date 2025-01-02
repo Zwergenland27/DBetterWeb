@@ -126,6 +126,7 @@ export class RouteControlComponent implements OnInit {
       const minutes = via[i].residence % 60;
       this.viaResidenceControls[i].setValue(`${this.padZero(hours)}:${this.padZero(minutes)}`);
     }
+    this.updateValidity();
   }
 
   padZero(value: number): string {
