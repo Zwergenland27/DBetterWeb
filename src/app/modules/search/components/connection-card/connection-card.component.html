@@ -5,10 +5,22 @@
         <span class="time">{{startTime | date: 'HH:mm'}} - {{endTime | date: 'HH:mm'}}</span>
         <span class="overview-text">{{duration.hours}}h {{duration.minutes}}min</span>
         <span class="overview-text">{transfers, plural, =0 {direct connection} =1 {1 transfer} other {{{transfers}} transfers}} </span>
+        @if(connection.bike){
+          @if(connection.bike == 'Yes'){
+            <span #bikeTooltip hidden i18n>Bike transport possible</span>
+            <mat-icon class="information-ok" [matTooltip]="bikeTooltip.textContent" matTooltipPosition="above">directions_bike</mat-icon>
+          } @else if (connection.bike == 'No'){
+            <span #bikeTooltip hidden i18n>Bike transport not possible</span>
+            <mat-icon class="warn" [matTooltip]="bikeTooltip.textContent" matTooltipPosition="above">directions_bike</mat-icon>
+          } @else if(connection.bike == 'Unknown'){
+            <span #bikeTooltip hidden i18n>No information about bike transport</span>
+            <mat-icon class="information-unknown" [matTooltip]="bikeTooltip.textContent" matTooltipPosition="above">directions_bike</mat-icon>
+          }
+        }
       </div>
       <div class="route-overview">
         @for(section of connection.sections; track section; let i = $index){
-          <div class="section" [style.flex]="section.percentage">
+          <div class="section" [style.flex-grow]="section.percentage">
             <div class="section-content">
               <span class="section-title" [matTooltip]="sectionTooltip.textContent" matTooltipPosition="above">{{section.lineNr}}</span>
               <div #sectionTooltip hidden>
@@ -25,26 +37,32 @@
                 @if(section.catering == 'None'){
                   <span #cateringTooltip hidden i18n>Catering service not available</span>
                   <mat-icon class="warn" [matTooltip]="cateringTooltip.textContent" matTooltipPosition="above">restaurant</mat-icon>
-                } @else if (section.catering == 'Partial'){
-                  <span #cateringTooltip hidden i18n>Catering service only partial available</span>
+                } @else if(section.catering == 'Snack'){
+                  <span #cateringTooltip hidden i18n>Snackpoint available</span>
+                  <mat-icon class="information-ok" [matTooltip]="cateringTooltip.textContent" matTooltipPosition="above">restaurant</mat-icon>
+                } @else if(section.catering == 'PartialSnack'){
+                  <span #cateringTooltip hidden i18n>Snackpoint only partial available</span>
                   <mat-icon class="information-warn" [matTooltip]="cateringTooltip.textContent" matTooltipPosition="above">restaurant</mat-icon>
-                } @else if(section.catering == 'Bistro'){
-                  <span #cateringTooltip hidden i18n>Bistro available</span>
+                } @else if(section.catering == 'SnackService'){
+                  <span #cateringTooltip hidden i18n>Snack service available</span>
                   <mat-icon class="information-ok" [matTooltip]="cateringTooltip.textContent" matTooltipPosition="above">restaurant</mat-icon>
                 } @else if(section.catering == 'Restaurant'){
                   <span #cateringTooltip hidden i18n>Restaurant available</span>
                   <mat-icon class="information-ok" [matTooltip]="cateringTooltip.textContent" matTooltipPosition="above">restaurant</mat-icon>
+                } @else if(section.catering == 'PartialRestaurant'){
+                  <span #cateringTooltip hidden i18n>Restaurant only partial available</span>
+                  <mat-icon class="information-warn" [matTooltip]="cateringTooltip.textContent" matTooltipPosition="above">restaurant</mat-icon>
                 }
                 @if(showBikeInfo){
-                  @if(section.bike == 'None'){
+                  @if(section.bike == 'No'){
                     <span #bikeTooltip hidden i18n>Bike transport not possible</span>
                     <mat-icon class="warn" [matTooltip]="bikeTooltip.textContent" matTooltipPosition="above">directions_bike</mat-icon>
-                  } @else if (section.bike == 'Limited'){
-                    <span #bikeTooltip hidden i18n>Bike transport limited</span>
-                    <mat-icon class="information-warn" [matTooltip]="bikeTooltip.textContent" matTooltipPosition="above">directions_bike</mat-icon>
-                  } @else if(section.bike == 'Always'){
-                    <span #bikeTooltip hidden i18n>Bike transport possible</span>
+                  } @else if (section.bike == 'ReservationRequired'){
+                    <span #bikeTooltip hidden i18n>Reservation required</span>
                     <mat-icon class="information-ok" [matTooltip]="bikeTooltip.textContent" matTooltipPosition="above">directions_bike</mat-icon>
+                  } @else if(section.bike == 'Limited'){
+                    <span #bikeTooltip hidden i18n>Number of bicycles limited</span>
+                    <mat-icon class="information-unknown" [matTooltip]="bikeTooltip.textContent" matTooltipPosition="above">directions_bike</mat-icon>
                   } @else {
                     <span #accessibleTooltip hidden i18n>No bike transport information</span>
                     <mat-icon class="information-unknown" [matTooltip]="accessibleTooltip.textContent" matTooltipPosition="above">directions_bike</mat-icon>
@@ -55,15 +73,15 @@
                   @if(section.accessibility == 'None'){
                     <span #accessibleTooltip hidden i18n>Not accessible</span>
                     <mat-icon class="warn" [matTooltip]="accessibleTooltip.textContent" matTooltipPosition="above">accessible</mat-icon>
-                  } @else if (section.bike == 'Limited'){
+                  } @else if (section.accessibility == 'PartialAccessible'){
                     <span #accessibleTooltip hidden i18n>Partly accessible</span>
                     <mat-icon class="information-warn" [matTooltip]="accessibleTooltip.textContent" matTooltipPosition="above">accessible</mat-icon>
-                  } @else if(section.bike == 'Always'){
+                  } @else if(section.accessibility == 'Accessible'){
                     <span #accessibleTooltip hidden i18n>Not accessible</span>
                     <mat-icon class="information-ok" [matTooltip]="accessibleTooltip.textContent" matTooltipPosition="above">accessible</mat-icon>
                   } @else {
                     <span #accessibleTooltip hidden i18n>No accessibility information</span>
-                    <mat-icon class="information-unknown" [matTooltip]="accessibleTooltip.textContent" matTooltipPosition="above">accessible</mat-icon>
+                    <mat-icon class="information-warn" [matTooltip]="accessibleTooltip.textContent" matTooltipPosition="above">accessible</mat-icon>
                   }
                 }
 
@@ -84,9 +102,9 @@
                   <mat-icon class="information-unknown" [matTooltip]="accessibleTooltip.textContent" matTooltipPosition="above">group</mat-icon>
                 }
 
-                @if(section.notifications.length == 1){
-                  <mat-icon class="warn" [matTooltip]="section.notifications[0]" matTooltipPosition="above">warning</mat-icon>
-                }@else if(section.notifications.length > 1){
+                @if(getSectionInfos(i).length == 1){
+                  <mat-icon class="warn" [matTooltip]="getSectionInfos(i)[0].code" matTooltipPosition="above">warning</mat-icon>
+                }@else if(getSectionInfos(i).length > 1){
                   <span #notificationsTooltip hidden i18n>There are multiple problems on this section. Open details for more information.</span>
                   <mat-icon class="warn" [matTooltip]="notificationsTooltip.textContent" matTooltipPosition="above">warning</mat-icon>
                 }
@@ -115,10 +133,10 @@
         }
       </div>
       <div class="notifications">
-        @for(notification of connection.notifications; track notification){
+        @for(notification of getConnectionInfos(); track notification){
           <div class="warn">
             <mat-icon>warning</mat-icon>
-            <span>{{notification}}</span>
+            <span>{{notification.code}}</span>
           </div>
         }
       </div>
@@ -137,8 +155,10 @@
         <mat-icon class="clickable-icon">bookmark</mat-icon>
       </div>
       <div class="price">
-        <span i18n>from </span>
-        <span class="price-text">{{connection.price}} €</span>
+        @if(connection.price){
+          <span i18n>from </span>
+          <span class="price-text">{{connection.price}} €</span>
+        }
       </div>
       <button mat-flat-button i18n>
         Buy

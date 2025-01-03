@@ -24,11 +24,21 @@ export class ConnectionCardComponent {
   expanded = false;
 
   get startTime(){
-    return new Date(this.connection.startTime);
+    const section = this.connection.sections[0];
+    return new Date(section.stops[0].departure!);
   }
 
   get endTime(){
-    return new Date(this.connection.endTime);
+    const section = this.connection.sections[this.connection.sections.length - 1];
+    return new Date(section.stops[section.stops.length - 1].arrival!);
+  }
+
+  getSectionInfos(i: number){
+    return this.connection.sections[i].information.filter(info => info.priority > 1);
+  }
+
+  getConnectionInfos(){
+    return this.connection.information.filter(info => info.priority > 1);
   }
 
   get duration(){

@@ -78,15 +78,16 @@ export type RequestDto = {
 
 export type ConnectionStationDto = {
   arrival: string | null,
+  realTimeArrival: string | null,
   departure: string | null,
+  realTimeDeparture: string | null,
+  information: Information[],
+  demand: Demand
 } & StationDto;
 
-export enum Demand {
-  Low,
-  Medium,
-  High,
-  Extreme,
-  Unknown
+export type Demand = {
+  FirstClass: number,
+  SecondClass: number;
 }
 
 export type Vehicle = {
@@ -94,25 +95,33 @@ export type Vehicle = {
   uicNumber: string | null
 }
 
+export type Information = {
+  priority: number;
+  code: string;
+  routeIndexStart : number | null;
+  routeIndexEnd : number | null;
+}
+
 export type ConnectionSectionDto = {
   lineNr: string;
   vehicle: Vehicle[] | null,
   percentage: number,
-  catering: 'None' | 'Partial' | 'Bistro' | 'Restaurant' | 'Unknown'
-  bike: 'None' | 'Limited' | 'Always' | 'Unknown',
-  accessibility: 'None' | 'Partial' | 'Always' | 'Unknown',
+  catering: 'None' | 'Snack' | 'PartialSnack' | 'SnackService' | 'Restaurant' | 'PartialRestaurant' | 'Unknown'
+  bike: 'No' | 'ReservationRequired' | 'Limited' | 'Unknown',
+  accessibility: 'None' | 'PartialAccessible' | 'Accessible' | 'Unknown',
   demand: Demand,
-  notifications: string[],
+  information: Information[],
   stops : ConnectionStationDto[]
 }
 
+
 export type ConnectionDto = {
   id: string,
-  startTime: string,
-  endTime: string,
   sections: ConnectionSectionDto[],
-  price: number
-  notifications: string[]
+  price: number | null,
+  information: Information[],
+  bike: 'Yes' | 'No' | 'Unknown' | null,
+  demand: Demand
 }
 
 @Injectable({
@@ -159,8 +168,8 @@ export class SearchService {
     };
   }
 
-  public getResults(request: RequestDto) : Observable<void> {
-    return of(undefined);
+  public getResults(request: RequestDto) : Observable<ConnectionDto[]> {
+    return this.http.post<ConnectionDto[]>(`search`, request);
   }
 
   public getAvailablePassengers(userId: string) : Observable<UserDto[]> {

@@ -17,7 +17,7 @@
       </div>
     }
   </div>
-  @if(connections.length == 0){
+  @if(connections === null){
     <div class="search-infos">
       <div class="info-container">
         <span class="info-headline" i18n>Search connection</span>
@@ -41,6 +41,20 @@
           <span class="number">5</span>
           <span i18n>Select connection</span>
         </div>
+      </div>
+    </div>
+  }@else if(connections === undefined){
+    <div class="search-infos">
+      <div class="info-container">
+        <mat-spinner/>
+      </div>
+    </div>
+  }
+  @else if(connections.length == 0){
+    <div class="search-infos">
+      <div class="info-container">
+        <span class="info-headline" i18n>No connections found</span>
+        <span class="info-text" i18n>Please adjust the request parameters</span>
       </div>
     </div>
   }@else{
