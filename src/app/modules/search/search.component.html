@@ -10,14 +10,15 @@
         </mat-accordion>
       </div>
       <div class="search">
-        <button mat-fab extended [disabled]="!passengersValid || !routeValid" (click)="search()">
-          <mat-icon>search</mat-icon>
-          <span i18n>Search</span>
+        <button mat-fab extended [disabled]="!passengersValid || !routeValid || connectionsLoading" (click)="search()">
+          <mat-spinner [diameter]="24" *ngIf="connectionsLoading"/>
+          <mat-icon *ngIf="!connectionsLoading">search</mat-icon>
+          <span *ngIf="!connectionsLoading" i18n>Search</span>
         </button>
       </div>
     }
   </div>
-  @if(connections === null){
+  @if(!connections){
     <div class="search-infos">
       <div class="info-container">
         <span class="info-headline" i18n>Search connection</span>
@@ -43,14 +44,7 @@
         </div>
       </div>
     </div>
-  }@else if(connections === undefined){
-    <div class="search-infos">
-      <div class="info-container">
-        <mat-spinner/>
-      </div>
-    </div>
-  }
-  @else if(connections.length == 0){
+  }@else if(connections.length == 0){
     <div class="search-infos">
       <div class="info-container">
         <span class="info-headline" i18n>No connections found</span>
@@ -59,9 +53,26 @@
     </div>
   }@else{
     <div class="connections">
-      @for(connection of connections; track connection.id){
+      <div class="pagination">
+        <button mat-flat-button [disabled]="pageEarlierLoading" (click)="searchEarlier()">
+          <mat-spinner [diameter]="24" *ngIf="pageEarlierLoading"/>
+          <mat-icon *ngIf="!pageEarlierLoading">keyboard_arrow_up</mat-icon>
+          <span *ngIf="!pageEarlierLoading" i18n>Earlier</span>
+        </button>
+      </div>
+      @for(connection of connections; track connection.id; let i = $index){
+        @if(i === 0 || getCompareDate(connection) !== getCompareDate(connections[i - 1])){
+          <span class="date">{{getStartDate(connection) | date: 'fullDate'}}</span>
+        }
         <app-connection-card [connection]="connection" [showBikeInfo]="bikeInfoRequired" [showAccessibilityInfo]="accessibilityInfoRequired" [requestedClass]="requestedClass"/>
       }
+      <div class="pagination">
+        <button mat-flat-button [disabled]="pageLaterLoading" (click)="searchLater()">
+          <mat-spinner [diameter]="24" *ngIf="pageLaterLoading"/>
+          <mat-icon *ngIf="!pageLaterLoading">keyboard_arrow_down</mat-icon>
+          <span *ngIf="!pageLaterLoading" i18n>Later</span>
+        </button>
+      </div>
     </div>
   }
 </div>

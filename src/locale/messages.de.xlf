@@ -430,6 +430,14 @@
         <source>Please adjust the request parameters</source>
         <target>Bitte passe die Suchparameter an</target>
       </trans-unit>
+      <trans-unit id="904263491421405349" datatype="html">
+        <source>Earlier</source>
+        <target>Eher</target>
+      </trans-unit>
+      <trans-unit id="9026083618139453880" datatype="html">
+        <source>Later</source>
+        <target>Später</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -120,6 +120,11 @@ export type ConnectionSectionDto = {
   stops : ConnectionStationDto[]
 }
 
+export type ConnectionsDto = {
+  connections: ConnectionDto[];
+  pageEarlier: string;
+  pageLater: string;
+}
 
 export type ConnectionDto = {
   id: string,
@@ -170,12 +175,15 @@ export class SearchService {
           allowRegionalTrains: false,
           allowPublicTransport: false,
         }]
-      },
+      }
     };
   }
 
-  public getResults(request: RequestDto) : Observable<ConnectionDto[]> {
-    return this.http.post<ConnectionDto[]>(`search`, request);
+  public getResults(request: RequestDto, page: string | null = null) : Observable<ConnectionsDto> {
+    if(!page){
+      return this.http.post<ConnectionsDto>(`search`, request);
+    }
+    return this.http.post<ConnectionsDto>(`search?page=${page}`, request);
   }
 
   public getAvailablePassengers(userId: string) : Observable<UserDto[]> {
