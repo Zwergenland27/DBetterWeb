@@ -398,6 +398,22 @@
         <source>No accessibility information</source>
         <target>Keine Informationen zur Barrierefreiheit</target>
       </trans-unit>
+      <trans-unit id="8402696305361715603" datatype="html">
+        <source>Transfer</source>
+        <target>Umstieg</target>
+      </trans-unit>
+      <trans-unit id="3270785600136762546" datatype="html">
+        <source>Pl.</source>
+        <target>Gl.</target>
+      </trans-unit>
+      <trans-unit id="3567987259049276337" datatype="html">
+        <source>Without stopovers</source>
+        <target>Ohne Zwischenhalt</target>
+      </trans-unit>
+      <trans-unit id="6444203510024301276" datatype="html">
+        <source>{VAR_PLURAL, plural, =1 {1 stopover} other {<x id="INTERPOLATION"/> stopovers}}</source>
+        <target>{VAR_PLURAL, plural, =1 {1 Zwischenhalt} other {<x id="INTERPOLATION"/> Zwischenhalte}}</target>
+      </trans-unit>
       <trans-unit id="6599695064230363466" datatype="html">
         <source>Exceptional high demand expected</source>
         <target>Außergewöhnlich hohe Auslastung erwartet</target>

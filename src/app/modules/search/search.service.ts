@@ -82,6 +82,7 @@ export type ConnectionStationDto = {
   departure: string | null,
   realTimeDeparture: string | null,
   information: Information[],
+  platform: string,
   demand: Demand
 } & StationDto;
 

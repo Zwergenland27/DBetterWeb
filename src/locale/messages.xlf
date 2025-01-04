@@ -356,6 +356,42 @@
           <context context-type="linenumber">158,159</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="8402696305361715603" datatype="html">
+        <source>Transfer</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
+          <context context-type="linenumber">173,174</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3270785600136762546" datatype="html">
+        <source>Pl.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
+          <context context-type="linenumber">201,202</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
+          <context context-type="linenumber">251,252</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
+          <context context-type="linenumber">270,271</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3567987259049276337" datatype="html">
+        <source>Without stopovers</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
+          <context context-type="linenumber">218,219</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6444203510024301276" datatype="html">
+        <source>{VAR_PLURAL, plural, =1 {1 stopover} other {<x id="INTERPOLATION"/> stopovers}}</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
+          <context context-type="linenumber">221</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="6599695064230363466" datatype="html">
         <source>Exceptional high demand expected</source>
         <context-group purpose="location">
