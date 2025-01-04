@@ -8,6 +8,10 @@
   margin: 10px 0;
 }
 
+.not-purchasable {
+  filter: brightness(50%);
+}
+
 .connection-header {
   width: 100%;
   display: flex;
@@ -106,13 +110,6 @@
   flex-direction: row;
   gap: 2px;
 }
-
-.section-infos > .mat-icon {
-  font-size: 18px;
-  width: 20px;
-  height: 20px;
-}
-
 .vehicle-info {
   display: none;
   position: absolute;
@@ -122,11 +119,11 @@
 }
 
 .information-ok {
-  color: #93D976;
+  color: var(--ok-color);
 }
 
 .information-warn{
-  color: #EED202;
+  color: var(--warn-color);
 }
 
 .information-unknown {

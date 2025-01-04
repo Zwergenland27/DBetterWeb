@@ -47,6 +47,10 @@ export class SearchComponent {
     return this.request.passengers.filter(passenger => passenger.needsAccessibility).length > 0;
   }
 
+  get requestedClass(){
+    return this.request.options.class;
+  }
+
   connections: ConnectionDto[] | null | undefined = null;
   loadingConnections: boolean = false;
 

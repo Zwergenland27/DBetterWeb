@@ -322,17 +322,33 @@
         <source>from </source>
         <target>ab</target>
       </trans-unit>
-      <trans-unit id="1790234586531719509" datatype="html">
-        <source> Buy </source>
-        <target>Kaufen</target>
+      <trans-unit id="6318216385094974109" datatype="html">
+        <source>No information</source>
+        <target>Keine Informationen</target>
+      </trans-unit>
+      <trans-unit id="467214397973775959" datatype="html">
+        <source>Booking not possible</source>
+        <target>Buchen nicht möglich</target>
+      </trans-unit>
+      <trans-unit id="1215020689044739662" datatype="html">
+        <source> Book </source>
+        <target>Buchen</target>
       </trans-unit>
       <trans-unit id="6845608579544023806" datatype="html">
         <source>Catering service not available</source>
         <target>Kein gastronomisches Angebot</target>
       </trans-unit>
-      <trans-unit id="1511180581628184880" datatype="html">
-        <source>Catering service only partial available</source>
-        <target>Gastronomisches Angebot nur teilweise verfügbar</target>
+      <trans-unit id="1577179339456843988" datatype="html">
+        <source>Snackpoint available</source>
+        <target>Imbiss verfügbar</target>
+      </trans-unit>
+      <trans-unit id="1017299583351980362" datatype="html">
+        <source>Snackpoint only partial available</source>
+        <target>Imbiss nur teilweise verfügbar </target>
+      </trans-unit>
+      <trans-unit id="3798166546275160985" datatype="html">
+        <source>Snack service available</source>
+        <target>Snack Service verfügbar</target>
       </trans-unit>
       <trans-unit id="5381221397731781090" datatype="html">
         <source>Bistro available</source>
@@ -342,20 +358,32 @@
         <source>Restaurant available</source>
         <target>Restaurant verfügbar</target>
       </trans-unit>
+      <trans-unit id="7123978516070498779" datatype="html">
+        <source>Restaurant only partial available</source>
+        <target>Restaurant nur teilweise verfügbar</target>
+      </trans-unit>
       <trans-unit id="1764192124756248014" datatype="html">
         <source>Bike transport not possible</source>
         <target>Fahrradmitnahme nicht möglich</target>
-      </trans-unit>
-      <trans-unit id="2450053624676965683" datatype="html">
-        <source>Bike transport limited</source>
-        <target>Fahrradmitnahme begrenzt</target>
       </trans-unit>
       <trans-unit id="4116965483088659187" datatype="html">
         <source>Bike transport possible</source>
         <target>Fahrradmitnahme möglich</target>
       </trans-unit>
-      <trans-unit id="2148776887507280326" datatype="html">
-        <source>No bike transport information</source>
+      <trans-unit id="8826748114652058645" datatype="html">
+        <source>Reservation required for bike transport</source>
+        <target>Fahrradmitnahme reservierungspflichtig</target>
+      </trans-unit>
+      <trans-unit id="9092977834445542436" datatype="html">
+        <source>Reservation required for bike transport</source>
+        <target>Fahrradmitnahme reservierungspflichtig</target>
+      </trans-unit>
+      <trans-unit id="4666855261056784139" datatype="html">
+        <source>Number of bicycles limited</source>
+        <target>Fahrradmitnahme begrenzt möglich</target>
+      </trans-unit>
+      <trans-unit id="7425554214297215564" datatype="html">
+        <source>No information about bike transport</source>
         <target>Keine Informationen zur Fahrradmitnahme</target>
       </trans-unit>
       <trans-unit id="4800127457733470339" datatype="html">
@@ -393,6 +421,14 @@
       <trans-unit id="5160861768192059894" datatype="html">
         <source>There are multiple problems on this section. Open details for more information.</source>
         <target>Auf dem Streckenabschnitt gibt es mehrere Probleme. Bitte Details öffnen um weitere Informationen zu erhalten</target>
+      </trans-unit>
+      <trans-unit id="2122242976964875002" datatype="html">
+        <source>No connections found</source>
+        <target>Keine Verbindungen gefunden</target>
+      </trans-unit>
+      <trans-unit id="2039372937823096731" datatype="html">
+        <source>Please adjust the request parameters</source>
+        <target>Bitte passe die Suchparameter an</target>
       </trans-unit>
     </body>
   </file>

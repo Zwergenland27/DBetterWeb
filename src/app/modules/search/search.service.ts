@@ -86,8 +86,8 @@ export type ConnectionStationDto = {
 } & StationDto;
 
 export type Demand = {
-  FirstClass: number,
-  SecondClass: number;
+  firstClass: 'Unknown' | 'Low' | 'Medium' | 'High' | 'Extreme',
+  secondClass: 'Unknown' | 'Low' | 'Medium' | 'High' | 'Extreme';
 }
 
 export type Vehicle = {
@@ -102,11 +102,17 @@ export type Information = {
   routeIndexEnd : number | null;
 }
 
+export type PriceDto =  {
+  value: number;
+  currency: string;
+  sectionPrice: boolean;
+}
+
 export type ConnectionSectionDto = {
   lineNr: string;
   vehicle: Vehicle[] | null,
   percentage: number,
-  catering: 'None' | 'Snack' | 'PartialSnack' | 'SnackService' | 'Restaurant' | 'PartialRestaurant' | 'Unknown'
+  catering: 'None' | 'Snack' | 'PartialSnack' | 'SnackService' | 'Bistro' | 'Restaurant' | 'PartialRestaurant' | 'Unknown'
   bike: 'No' | 'ReservationRequired' | 'Limited' | 'Unknown',
   accessibility: 'None' | 'PartialAccessible' | 'Accessible' | 'Unknown',
   demand: Demand,
@@ -118,7 +124,7 @@ export type ConnectionSectionDto = {
 export type ConnectionDto = {
   id: string,
   sections: ConnectionSectionDto[],
-  price: number | null,
+  price: PriceDto | null,
   information: Information[],
   bike: 'Yes' | 'No' | 'Unknown' | null,
   demand: Demand

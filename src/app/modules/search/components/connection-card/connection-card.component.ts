@@ -1,9 +1,11 @@
 import {Component, Input} from '@angular/core';
-import {ConnectionDto, Demand} from '../../search.service';
-import {DatePipe} from '@angular/common';
+import {ConnectionDto} from '../../search.service';
+import {CurrencyPipe, DatePipe} from '@angular/common';
 import {MatButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
 import {MatTooltip} from '@angular/material/tooltip';
+import {DemandComponent} from '../demand/demand.component';
+import {connect} from 'rxjs';
 
 @Component({
   selector: 'app-connection-card',
@@ -12,6 +14,8 @@ import {MatTooltip} from '@angular/material/tooltip';
     MatButton,
     MatIcon,
     MatTooltip,
+    DemandComponent,
+    CurrencyPipe,
   ],
   templateUrl: './connection-card.component.html',
   styleUrl: './connection-card.component.css'
@@ -19,6 +23,7 @@ import {MatTooltip} from '@angular/material/tooltip';
 export class ConnectionCardComponent {
   @Input({required: true}) showBikeInfo!: boolean;
   @Input({required: true}) showAccessibilityInfo!: boolean;
+  @Input({required: true}) requestedClass!: 'First' | 'Second';
   @Input({required: false}) connection!: ConnectionDto;
 
   expanded = false;
@@ -59,5 +64,5 @@ export class ConnectionCardComponent {
     this.expanded = !this.expanded
   }
 
-  protected readonly Demand = Demand;
+  protected readonly connect = connect;
 }

@@ -1,0 +1,15 @@
+.low {
+  color: var(--ok-color);
+}
+
+.medium{
+  color: var(--warn-color);
+}
+
+.unknown {
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.high {
+  color: var(--mat-sys-error);
+}

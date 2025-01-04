@@ -1,9 +1,10 @@
-<div class="connection-card">
+<div class="connection-card" [class.not-purchasable]="!connection.price">
   <div class="connection-header">
     <div class="overview">
       <div class="title">
         <span class="time">{{startTime | date: 'HH:mm'}} - {{endTime | date: 'HH:mm'}}</span>
         <span class="overview-text">{{duration.hours}}h {{duration.minutes}}min</span>
+        <span style="flex: 1"></span>
         <span class="overview-text">{transfers, plural, =0 {direct connection} =1 {1 transfer} other {{{transfers}} transfers}} </span>
         @if(connection.bike){
           @if(connection.bike == 'Yes'){
@@ -17,6 +18,7 @@
             <mat-icon class="information-unknown" [matTooltip]="bikeTooltip.textContent" matTooltipPosition="above">directions_bike</mat-icon>
           }
         }
+        <app-demand [showClass]="requestedClass" [demand]="connection.demand"/>
       </div>
       <div class="route-overview">
         @for(section of connection.sections; track section; let i = $index){
@@ -46,7 +48,10 @@
                 } @else if(section.catering == 'SnackService'){
                   <span #cateringTooltip hidden i18n>Snack service available</span>
                   <mat-icon class="information-ok" [matTooltip]="cateringTooltip.textContent" matTooltipPosition="above">restaurant</mat-icon>
-                } @else if(section.catering == 'Restaurant'){
+                }@else if(section.catering == 'Bistro'){
+                  <span #cateringTooltip hidden i18n>Bistro available</span>
+                  <mat-icon class="information-ok" [matTooltip]="cateringTooltip.textContent" matTooltipPosition="above">restaurant</mat-icon>
+                }@else if(section.catering == 'Restaurant'){
                   <span #cateringTooltip hidden i18n>Restaurant available</span>
                   <mat-icon class="information-ok" [matTooltip]="cateringTooltip.textContent" matTooltipPosition="above">restaurant</mat-icon>
                 } @else if(section.catering == 'PartialRestaurant'){
@@ -58,13 +63,13 @@
                     <span #bikeTooltip hidden i18n>Bike transport not possible</span>
                     <mat-icon class="warn" [matTooltip]="bikeTooltip.textContent" matTooltipPosition="above">directions_bike</mat-icon>
                   } @else if (section.bike == 'ReservationRequired'){
-                    <span #bikeTooltip hidden i18n>Reservation required</span>
+                    <span #bikeTooltip hidden i18n>Reservation required for bike transport</span>
                     <mat-icon class="information-ok" [matTooltip]="bikeTooltip.textContent" matTooltipPosition="above">directions_bike</mat-icon>
                   } @else if(section.bike == 'Limited'){
                     <span #bikeTooltip hidden i18n>Number of bicycles limited</span>
                     <mat-icon class="information-unknown" [matTooltip]="bikeTooltip.textContent" matTooltipPosition="above">directions_bike</mat-icon>
                   } @else {
-                    <span #accessibleTooltip hidden i18n>No bike transport information</span>
+                    <span #accessibleTooltip hidden i18n>No information about bike transport</span>
                     <mat-icon class="information-unknown" [matTooltip]="accessibleTooltip.textContent" matTooltipPosition="above">directions_bike</mat-icon>
                   }
                 }
@@ -85,22 +90,7 @@
                   }
                 }
 
-                @if(section.demand == Demand.Extreme){
-                  <span #accessibleTooltip hidden i18n>Exceptional high demand expected</span>
-                  <mat-icon class="warn" [matTooltip]="accessibleTooltip.textContent" matTooltipPosition="above">group_off</mat-icon>
-                }@else if(section.demand == Demand.High){
-                  <span #accessibleTooltip hidden i18n>High demand expected</span>
-                  <mat-icon class="warn" [matTooltip]="accessibleTooltip.textContent" matTooltipPosition="above">group</mat-icon>
-                }@else if(section.demand == Demand.Medium){
-                  <span #accessibleTooltip hidden i18n>Medium demand expected</span>
-                  <mat-icon class="information-warn" [matTooltip]="accessibleTooltip.textContent" matTooltipPosition="above">group</mat-icon>
-                } @else if(section.demand == Demand.Low){
-                  <span #accessibleTooltip hidden i18n>Low demand expected</span>
-                  <mat-icon class="information-ok" [matTooltip]="accessibleTooltip.textContent" matTooltipPosition="above">group</mat-icon>
-                } @else{
-                  <span #accessibleTooltip hidden i18n>No demand information</span>
-                  <mat-icon class="information-unknown" [matTooltip]="accessibleTooltip.textContent" matTooltipPosition="above">group</mat-icon>
-                }
+                <app-demand [showClass]="requestedClass" [demand]="section.demand"/>
 
                 @if(getSectionInfos(i).length == 1){
                   <mat-icon class="warn" [matTooltip]="getSectionInfos(i)[0].code" matTooltipPosition="above">warning</mat-icon>
@@ -155,13 +145,17 @@
         <mat-icon class="clickable-icon">bookmark</mat-icon>
       </div>
       <div class="price">
-        @if(connection.price){
+        @if(connection.price && !connection.price.sectionPrice){
           <span i18n>from </span>
-          <span class="price-text">{{connection.price}} €</span>
+          <span class="price-text">{{connection.price.value | currency: connection.price.currency}}</span>
+        }@else if(connection.price && connection.price.sectionPrice){
+          <span i18n>No information</span>
+        } @else{
+          <span i18n>Booking not possible</span>
         }
       </div>
-      <button mat-flat-button i18n>
-        Buy
+      <button mat-flat-button [disabled]="!connection.price" i18n>
+        Book
       </button>
     </div>
   </div>
