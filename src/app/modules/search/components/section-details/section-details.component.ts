@@ -3,6 +3,7 @@ import {ConnectionSectionDto, ConnectionStationDto, Demand} from '../../search.s
 import {DatePipe, NgClass, NgIf} from '@angular/common';
 import {MatIcon} from '@angular/material/icon';
 import {StationDto} from '../../../station/station.service';
+import {MatButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-section-details',
@@ -10,7 +11,8 @@ import {StationDto} from '../../../station/station.service';
     DatePipe,
     MatIcon,
     NgClass,
-    NgIf
+    NgIf,
+    MatButton
   ],
   templateUrl: './section-details.component.html',
   styleUrl: './section-details.component.css'

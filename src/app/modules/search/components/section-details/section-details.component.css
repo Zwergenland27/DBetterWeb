@@ -5,12 +5,15 @@
 
 .route {
   flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .infos {
   flex: 1;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 10px;
   padding: 0.5rem;
 }
@@ -142,6 +145,7 @@
   flex-direction: column;
   gap: 10px;
   align-items: flex-start;
+  justify-content: space-between;
 }
 
 .section-line {

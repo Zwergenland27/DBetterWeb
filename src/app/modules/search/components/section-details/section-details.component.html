@@ -34,7 +34,7 @@
             </div>
           </div>
         </div>
-        <div class="stop">
+        <div class="stop" style="flex: 1;">
           <div class="timeline"></div>
           <div class="progress">
             @if(expanded){
@@ -44,8 +44,12 @@
             }
           </div>
           <div class="section-infos">
-            <div class="section-line" i18n>
-              {{section.lineNameFull}} to {{section.direction}}
+            <div class="section-line">
+              @if(section.direction){
+                <span i18n>{{section.lineNameFull}} to {{section.direction}}</span>
+              }@else {
+                <span>{{section.lineNameFull}}</span>
+              }
             </div>
             @if(section.stops.length == 2){
               <span i18n>Without stopovers</span>
@@ -178,5 +182,9 @@
         <span>({{information.code}})</span>
       </div>
     }
+
+    <button mat-stroked-button i18n>
+      Show route of {{section.lineNameMedium}}
+    </button>
   </div>
 </div>

@@ -370,10 +370,6 @@
         <source>Bike transport possible</source>
         <target>Fahrradmitnahme möglich</target>
       </trans-unit>
-      <trans-unit id="8826748114652058645" datatype="html">
-        <source>Reservation required for bike transport</source>
-        <target>Fahrradmitnahme reservierungspflichtig</target>
-      </trans-unit>
       <trans-unit id="9092977834445542436" datatype="html">
         <source>Reservation required for bike transport</source>
         <target>Fahrradmitnahme reservierungspflichtig</target>
@@ -402,9 +398,21 @@
         <source>No accessibility information</source>
         <target>Keine Informationen zur Barrierefreiheit</target>
       </trans-unit>
+      <trans-unit id="8826748114652058645" datatype="html">
+        <source>Reservation required</source>
+        <target>Reservierung benötigt</target>
+      </trans-unit>
       <trans-unit id="8402696305361715603" datatype="html">
         <source>Transfer</source>
         <target>Umstieg</target>
+      </trans-unit>
+      <trans-unit id="7447630077854505837" datatype="html">
+        <source>Earlier arrival</source>
+        <target>Eher ankommen</target>
+      </trans-unit>
+      <trans-unit id="2295751856269454463" datatype="html">
+        <source>Later departure</source>
+        <target>Später abfahren</target>
       </trans-unit>
       <trans-unit id="3270785600136762546" datatype="html">
         <source>Pl.</source>
@@ -466,9 +474,13 @@
         <source> No exit</source>
         <target> Kein Ausstieg</target>
       </trans-unit>
-      <trans-unit id="8181294127154662837" datatype="html">
-        <source> <x id="INTERPOLATION" equiv-text="{{section.lineNameFull}}"/> to <x id="INTERPOLATION_1" equiv-text="{{section.direction}}"/> </source>
-        <target> <x id="INTERPOLATION" equiv-text="{{section.lineNameFull}}"/> nach <x id="INTERPOLATION_1" equiv-text="{{section.direction}}"/> </target>
+      <trans-unit id="2812335561466891595" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{section.lineNameFull}}"/> to <x id="INTERPOLATION_1" equiv-text="{{section.direction}}"/></source>
+        <target><x id="INTERPOLATION" equiv-text="{{section.lineNameFull}}"/> nach <x id="INTERPOLATION_1" equiv-text="{{section.direction}}"/> </target>
+      </trans-unit>
+      <trans-unit id="3111149078026880123" datatype="html">
+        <source> Show route of <x id="INTERPOLATION" equiv-text="{{section.lineNameMedium}}"/> </source>
+        <target> Zeige Route von <x id="INTERPOLATION" equiv-text="{{section.lineNameMedium}}"/> </target>
       </trans-unit>
     </body>
   </file>

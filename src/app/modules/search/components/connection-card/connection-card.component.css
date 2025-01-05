@@ -205,11 +205,16 @@
 }
 
 .transfer-progress {
+  position: relative;
   width: 24px;
+  display: flex;
+  align-items: center;
+  color: #555;
 }
 
 .transfer-content {
   display: flex;
   align-items: center;
+  gap: 10px;
   padding: 0.5rem 0;
 }

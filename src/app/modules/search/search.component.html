@@ -54,7 +54,7 @@
   }@else{
     <div class="connections">
       <div class="pagination">
-        <button mat-flat-button [disabled]="pageEarlierLoading" (click)="searchEarlier()">
+        <button mat-stroked-button [disabled]="pageEarlierLoading" (click)="searchEarlier()">
           <mat-spinner [diameter]="24" *ngIf="pageEarlierLoading"/>
           <mat-icon *ngIf="!pageEarlierLoading">keyboard_arrow_up</mat-icon>
           <span *ngIf="!pageEarlierLoading" i18n>Earlier</span>
@@ -67,7 +67,7 @@
         <app-connection-card [connection]="connection" [showBikeInfo]="bikeInfoRequired" [showAccessibilityInfo]="accessibilityInfoRequired" [requestedClass]="requestedClass"/>
       }
       <div class="pagination">
-        <button mat-flat-button [disabled]="pageLaterLoading" (click)="searchLater()">
+        <button mat-stroked-button [disabled]="pageLaterLoading" (click)="searchLater()">
           <mat-spinner [diameter]="24" *ngIf="pageLaterLoading"/>
           <mat-icon *ngIf="!pageLaterLoading">keyboard_arrow_down</mat-icon>
           <span *ngIf="!pageLaterLoading" i18n>Later</span>

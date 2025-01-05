@@ -114,7 +114,7 @@ export type ConnectionSectionDto = {
   lineNameShort: string;
   lineNameMedium: string;
   lineNameFull: string;
-  direction: string;
+  direction: string | null;
   vehicle: Vehicle[] | null,
   percentage: number,
   catering: 'None' | 'Snack' | 'PartialSnack' | 'SnackService' | 'Bistro' | 'Restaurant' | 'PartialRestaurant' | 'Unknown'
@@ -122,6 +122,7 @@ export type ConnectionSectionDto = {
   accessibility: 'None' | 'PartialAccessible' | 'Accessible' | 'Unknown',
   demand: Demand,
   information: Information[],
+  reservationRequired: boolean,
   stops : ConnectionStationDto[]
 }
 

@@ -75,8 +75,8 @@
                     <span #bikeTooltip hidden i18n>Number of bicycles limited</span>
                     <mat-icon class="information-unknown" [matTooltip]="bikeTooltip.textContent" matTooltipPosition="above">directions_bike</mat-icon>
                   } @else {
-                    <span #accessibleTooltip hidden i18n>No information about bike transport</span>
-                    <mat-icon class="information-unknown" [matTooltip]="accessibleTooltip.textContent" matTooltipPosition="above">directions_bike</mat-icon>
+                    <span #bikeTooltip hidden i18n>No information about bike transport</span>
+                    <mat-icon class="information-unknown" [matTooltip]="bikeTooltip.textContent" matTooltipPosition="above">directions_bike</mat-icon>
                   }
                 }
 
@@ -97,6 +97,11 @@
                 }
 
                 <app-demand [showClass]="requestedClass" [demand]="section.demand"/>
+
+                @if(section.reservationRequired){
+                  <span #reservationTooltip hidden i18n>Reservation required</span>
+                  <mat-icon [matTooltip]="reservationTooltip.textContent" matTooltipPosition="above">book_online</mat-icon>
+                }
 
                 @if(getSectionInfos(i).length == 1){
                   <mat-icon class="warn" [matTooltip]="getSectionInfos(i)[0].text" matTooltipPosition="above">warning</mat-icon>
@@ -158,9 +163,12 @@
               </div>
             </div>
             <div class="transfer-progress">
+              <span #transfer_tooltip i18n hidden>Transfer</span>
+              <mat-icon [matTooltip]="transfer_tooltip.textContent" matTooltipPosition="above">transfer_within_a_station</mat-icon>
             </div>
             <div class="transfer-content">
-              <span i18n>Transfer</span>
+              <button mat-stroked-button i18n>Earlier arrival</button>
+              <button mat-stroked-button i18n>Later departure</button>
             </div>
           </div>
         }
