@@ -99,6 +99,7 @@ export type Vehicle = {
 export type Information = {
   priority: number;
   code: string;
+  text: string;
   routeIndexStart : number | null;
   routeIndexEnd : number | null;
 }
@@ -112,7 +113,7 @@ export type PriceDto =  {
 export type ConnectionSectionDto = {
   lineNameShort: string;
   lineNameMedium: string;
-  trainNameLong: string;
+  lineNameFull: string;
   direction: string;
   vehicle: Vehicle[] | null,
   percentage: number,

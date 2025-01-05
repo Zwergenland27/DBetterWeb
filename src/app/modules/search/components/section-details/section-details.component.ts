@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {ConnectionSectionDto, Demand} from '../../search.service';
-import {DatePipe, NgClass} from '@angular/common';
+import {DatePipe, NgClass, NgIf} from '@angular/common';
 import {MatIcon} from '@angular/material/icon';
 
 @Component({
@@ -8,7 +8,8 @@ import {MatIcon} from '@angular/material/icon';
   imports: [
     DatePipe,
     MatIcon,
-    NgClass
+    NgClass,
+    NgIf
   ],
   templateUrl: './section-details.component.html',
   styleUrl: './section-details.component.css'

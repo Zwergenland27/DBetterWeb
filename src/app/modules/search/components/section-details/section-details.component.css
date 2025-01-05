@@ -1,3 +1,20 @@
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+.route {
+  flex: 1;
+}
+
+.infos {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0.5rem;
+}
+
 .stop {
   display: flex;
   gap: 0.5rem;
@@ -26,7 +43,7 @@
 
 .progress > .mat-icon {
   z-index: 2;
-  color: var(--mat-sys-on-surface-variant);
+  color: #555;
 }
 
 .expand {
@@ -34,13 +51,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  color: var(--mat-sys-primary);
 }
 
 .stop-dot {
   margin-left: calc(12px - 0.5rem);
   width: 1rem;
   height: 1rem;
-  background-color: var(--mat-sys-on-surface-variant);
+  background-color: #555;
   border-radius: 50%;
   z-index: 2;
 }
@@ -103,9 +121,48 @@
 }
 
 .unknown {
-  border-left-color: var(--mat-sys-on-surface-variant);
+  border-left-color: #555;
 }
 
 .high {
   border-left-color: var(--mat-sys-error);
+}
+
+.section-infos {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.section-line {
+  padding: 0.25rem;
+  border: 1px solid var(--mat-sys-outline-variant);
+  background-color: var(--mat-sys-surface-container-high);
+  border-radius: 0.25rem;
+}
+
+.information {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.information-ok {
+  color: var(--ok-color);
+}
+
+.information-warn{
+  color: var(--warn-color);
+}
+
+.information-unknown {
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.warn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--mat-sys-error);
 }

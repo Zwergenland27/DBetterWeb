@@ -3,7 +3,12 @@
     <div class="overview">
       <div class="title">
         <span class="time">{{startTime | date: 'HH:mm'}} - {{endTime | date: 'HH:mm'}}</span>
-        <span class="overview-text">{{duration.hours}}h {{duration.minutes}}min</span>
+        <span class="overview-text">
+          <div>
+            <span *ngIf="duration.hours > 0">{{duration.hours}}h</span>
+            <span> {{duration.minutes}}min</span>
+          </div>
+        </span>
         <span style="flex: 1"></span>
         <span class="overview-text">{transfers, plural, =0 {direct connection} =1 {1 transfer} other {{{transfers}} transfers}} </span>
         @if(connection.bike){
@@ -83,7 +88,7 @@
                     <span #accessibleTooltip hidden i18n>Partly accessible</span>
                     <mat-icon class="information-warn" [matTooltip]="accessibleTooltip.textContent" matTooltipPosition="above">accessible</mat-icon>
                   } @else if(section.accessibility == 'Accessible'){
-                    <span #accessibleTooltip hidden i18n>Not accessible</span>
+                    <span #accessibleTooltip hidden i18n>Accessible</span>
                     <mat-icon class="information-ok" [matTooltip]="accessibleTooltip.textContent" matTooltipPosition="above">accessible</mat-icon>
                   } @else {
                     <span #accessibleTooltip hidden i18n>No accessibility information</span>
@@ -94,7 +99,7 @@
                 <app-demand [showClass]="requestedClass" [demand]="section.demand"/>
 
                 @if(getSectionInfos(i).length == 1){
-                  <mat-icon class="warn" [matTooltip]="getSectionInfos(i)[0].code" matTooltipPosition="above">warning</mat-icon>
+                  <mat-icon class="warn" [matTooltip]="getSectionInfos(i)[0].text" matTooltipPosition="above">warning</mat-icon>
                 }@else if(getSectionInfos(i).length > 1){
                   <span #notificationsTooltip hidden i18n>There are multiple problems on this section. Open details for more information.</span>
                   <mat-icon class="warn" [matTooltip]="notificationsTooltip.textContent" matTooltipPosition="above">warning</mat-icon>
@@ -108,7 +113,7 @@
         @for(notification of getConnectionInfos(); track notification){
           <div class="warn">
             <mat-icon>warning</mat-icon>
-            <span>{{notification.code}}</span>
+            <span>{{notification.text}}</span>
           </div>
         }
       </div>
@@ -147,7 +152,10 @@
         @if(sectionIndex > 0){
           <div class="transfer">
             <div class="transfer-timeline">
-              <span>{{getTransferTime(connection.sections[sectionIndex - 1], connection.sections[sectionIndex]).hours}}h {{getTransferTime(connection.sections[sectionIndex - 1], connection.sections[sectionIndex]).minutes}}min</span>
+              <div>
+                <span *ngIf="getTransferTime(connection.sections[sectionIndex - 1], connection.sections[sectionIndex]).hours > 0">{{getTransferTime(connection.sections[sectionIndex - 1], connection.sections[sectionIndex]).hours}}h </span>
+                <span> {{getTransferTime(connection.sections[sectionIndex - 1], connection.sections[sectionIndex]).minutes}}min</span>
+              </div>
             </div>
             <div class="transfer-progress">
             </div>

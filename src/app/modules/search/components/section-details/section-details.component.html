@@ -1,99 +1,176 @@
-@for(stop of section.stops; track stop.id; let stopIndex = $index){
-  @if(stopIndex == 0){
-    <div class="stop">
-      <div class="timeline">
-        <span class="time-important">{{stop.departure | date: 'HH:mm'}}</span>
-        <span>{{sectionDuration.hours}}h {{sectionDuration.minutes}}min</span>
-      </div>
-      <div class="progress">
-        @if(type == 'First' || type == 'Single'){
-          <mat-icon>trip_origin</mat-icon>
-        }@else{
-          <mat-icon>location_on</mat-icon>
-        }
-        @if(expanded){
-          <span class="line bottom" [ngClass]="getDemandClass(stop.demand)"></span>
-        }@else{
-          <span class="line bottom" [ngClass]="getDemandClass(section.demand)"></span>
-        }
-      </div>
-      <div>
-        <div class="stop-infos">
-          <span class="stop-important">{{stop.name}}</span>
-          <div class="platform-important">
-            <span i18n>Pl.</span>
-            <span> {{stop.platform}}</span>
+<div class="container">
+  <div class="route">
+    @for(stop of section.stops; track stop.id; let stopIndex = $index){
+      @if(stopIndex == 0){
+        <div class="stop">
+          <div class="timeline">
+            <span class="time-important">{{stop.departure | date: 'HH:mm'}}</span>
+            <div>
+              <span *ngIf="sectionDuration.hours > 0">{{sectionDuration.hours}}h</span>
+              <span> {{sectionDuration.minutes}}min</span>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
-    <div class="stop">
-      <div class="timeline"></div>
-      <div class="progress">
-        @if(expanded){
-          <span class="line" [ngClass]="getDemandClass(stop.demand)"></span>
-        }@else{
-          <span class="line" [ngClass]="getDemandClass(section.demand)"></span>
-        }
-      </div>
-      <div class="section-infos">
-        @if(section.stops.length == 2){
-          <span i18n>Without stopovers</span>
-        }@else{
-          <div class="expand" (click)="expanded = !expanded">
-            <span i18n>{section.stops.length - 2, plural, =1 {1 stopover} other {{{section.stops.length - 2}} stopovers}}</span>
-            @if(expanded){
-              <mat-icon>keyboard_arrow_up</mat-icon>
+          <div class="progress">
+            @if(type == 'First' || type == 'Single'){
+              <mat-icon>trip_origin</mat-icon>
             }@else{
-              <mat-icon>keyboard_arrow_down</mat-icon>
+              <mat-icon>location_on</mat-icon>
+            }
+            @if(expanded){
+              <span class="line bottom" [ngClass]="getDemandClass(stop.demand)"></span>
+            }@else{
+              <span class="line bottom" [ngClass]="getDemandClass(section.demand)"></span>
             }
           </div>
-        }
-      </div>
-    </div>
-  }@else if(stopIndex == section.stops.length - 1){
-    <div class="stop">
-      <div class="timeline">
-        <span class="time-important">{{stop.arrival | date: 'HH:mm'}}</span>
-      </div>
-      <div class="progress">
-        @if(expanded){
-          <span class="line top" [ngClass]="getDemandClass(section.stops[stopIndex - 1].demand)"></span>
-        }@else{
-          <span class="line top" [ngClass]="getDemandClass(section.demand)"></span>
-        }
-        @if(type == 'End' || type == 'Single'){
-          <mat-icon>flag</mat-icon>
-        }@else{
-          <mat-icon>location_on</mat-icon>
-        }
-      </div>
-      <div class="stop-infos">
-        <span class="stop-important">{{stop.name}}</span>
-        <div class="platform-important">
-          <span i18n>Pl.</span>
-          <span> {{stop.platform}}</span>
+          <div>
+            <div class="stop-infos">
+              <span class="stop-important">{{stop.name}}</span>
+              <div class="platform-important">
+                <span i18n>Pl.</span>
+                <span> {{stop.platform}}</span>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  }@else if(expanded){
-    <div class="stop">
-      <div class="timeline">
-        <span>{{stop.arrival | date: 'HH:mm'}}</span>
-        <span>{{stop.departure | date: 'HH:mm'}}</span>
-      </div>
-      <div class="progress">
-        <span class="line top-half" [class]="getDemandClass(section.stops[stopIndex - 1].demand)"></span>
-        <span class="stop-dot"></span>
-        <span class="line bottom-half" [ngClass]="getDemandClass(stop.demand)"></span>
-      </div>
-      <div class="stop-infos">
-        <span>{{stop.name}}</span>
-        <div class="platform-infos">
-          <span i18n>Pl.</span>
-          <span> {{stop.platform}}</span>
+        <div class="stop">
+          <div class="timeline"></div>
+          <div class="progress">
+            @if(expanded){
+              <span class="line" [ngClass]="getDemandClass(stop.demand)"></span>
+            }@else{
+              <span class="line" [ngClass]="getDemandClass(section.demand)"></span>
+            }
+          </div>
+          <div class="section-infos">
+            <div class="section-line" i18n>
+              {{section.lineNameFull}} to {{section.direction}}
+            </div>
+            @if(section.stops.length == 2){
+              <span i18n>Without stopovers</span>
+            }@else{
+              <div class="expand" (click)="expanded = !expanded">
+                <span i18n>{section.stops.length - 2, plural, =1 {1 stopover} other {{{section.stops.length - 2}} stopovers}}</span>
+                @if(expanded){
+                  <mat-icon>keyboard_arrow_up</mat-icon>
+                }@else{
+                  <mat-icon>keyboard_arrow_down</mat-icon>
+                }
+              </div>
+            }
+          </div>
         </div>
-      </div>
+      }@else if(stopIndex == section.stops.length - 1){
+        <div class="stop">
+          <div class="timeline">
+            <span class="time-important">{{stop.arrival | date: 'HH:mm'}}</span>
+          </div>
+          <div class="progress">
+            @if(expanded){
+              <span class="line top" [ngClass]="getDemandClass(section.stops[stopIndex - 1].demand)"></span>
+            }@else{
+              <span class="line top" [ngClass]="getDemandClass(section.demand)"></span>
+            }
+            @if(type == 'End' || type == 'Single'){
+              <mat-icon>flag</mat-icon>
+            }@else{
+              <mat-icon>location_on</mat-icon>
+            }
+          </div>
+          <div class="stop-infos">
+            <span class="stop-important">{{stop.name}}</span>
+            <div class="platform-important">
+              <span i18n>Pl.</span>
+              <span> {{stop.platform}}</span>
+            </div>
+          </div>
+        </div>
+      }@else if(expanded){
+        <div class="stop">
+          <div class="timeline">
+            <span>{{stop.arrival | date: 'HH:mm'}}</span>
+            <span>{{stop.departure | date: 'HH:mm'}}</span>
+          </div>
+          <div class="progress">
+            <span class="line top-half" [class]="getDemandClass(section.stops[stopIndex - 1].demand)"></span>
+            <span class="stop-dot"></span>
+            <span class="line bottom-half" [ngClass]="getDemandClass(stop.demand)"></span>
+          </div>
+          <div class="stop-infos">
+            <span>{{stop.name}}</span>
+            <div class="platform-infos">
+              <span i18n>Pl.</span>
+              <span> {{stop.platform}}</span>
+            </div>
+          </div>
+        </div>
+      }
+    }
+  </div>
+  <div class="infos">
+    <div class="information">
+      @if(section.catering == 'None'){
+        <mat-icon class="warn">restaurant</mat-icon>
+        <span i18n>Catering service not available</span>
+      } @else if(section.catering == 'Snack'){
+        <mat-icon class="information-ok">restaurant</mat-icon>
+        <span i18n>Snackpoint available</span>
+      } @else if(section.catering == 'PartialSnack'){
+        <mat-icon class="information-warn">restaurant</mat-icon>
+        <span i18n>Snackpoint only partial available</span>
+      } @else if(section.catering == 'SnackService'){
+        <mat-icon class="information-ok">restaurant</mat-icon>
+        <span i18n>Snack service available</span>
+      }@else if(section.catering == 'Bistro'){
+        <mat-icon class="information-ok">restaurant</mat-icon>
+        <span i18n>Bistro available</span>
+      }@else if(section.catering == 'Restaurant'){
+        <mat-icon class="information-ok">restaurant</mat-icon>
+        <span i18n>Restaurant available</span>
+      } @else if(section.catering == 'PartialRestaurant'){
+        <mat-icon class="information-warn">restaurant</mat-icon>
+        <span i18n>Restaurant only partial available</span>
+      }
     </div>
-  }
-}
+    <div class="information">
+      @if(section.bike == 'No'){
+        <mat-icon class="warn">directions_bike</mat-icon>
+        <span i18n>Bike transport not possible</span>
+      } @else if (section.bike == 'ReservationRequired'){
+        <mat-icon class="information-ok">directions_bike</mat-icon>
+        <span i18n>Reservation required for bike transport</span>
+      } @else if(section.bike == 'Limited'){
+        <mat-icon class="information-unknown">directions_bike</mat-icon>
+        <span i18n>Number of bicycles limited</span>
+      } @else {
+        <mat-icon class="information-unknown">directions_bike</mat-icon>
+        <span i18n>No information about bike transport</span>
+      }
+    </div>
+    <div class="information">
+      @if(section.accessibility == 'None'){
+        <mat-icon class="warn">accessible</mat-icon>
+        <span i18n>Not accessible</span>
+      } @else if (section.accessibility == 'PartialAccessible'){
+        <mat-icon class="information-warn">accessible</mat-icon>
+        <span i18n>Partly accessible</span>
+      } @else if(section.accessibility == 'Accessible'){
+        <mat-icon class="information-ok">accessible</mat-icon>
+        <span i18n>Accessible</span>
+      } @else {
+        <mat-icon class="information-warn">accessible</mat-icon>
+        <span i18n>No accessibility information</span>
+      }
+    </div>
+    @for(information of section.information; track information){
+      <div class="information">
+        @if(information.priority <= 1){
+          <mat-icon>info</mat-icon>
+        }@else{
+          <mat-icon class="warn">warning</mat-icon>
+        }
+        <span>{{information.text}}</span>
+        <span>({{information.code}})</span>
+      </div>
+    }
+  </div>
+</div>
