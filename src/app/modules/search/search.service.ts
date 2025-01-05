@@ -110,7 +110,10 @@ export type PriceDto =  {
 }
 
 export type ConnectionSectionDto = {
-  lineNr: string;
+  lineNameShort: string;
+  lineNameMedium: string;
+  trainNameLong: string;
+  direction: string;
   vehicle: Vehicle[] | null,
   percentage: number,
   catering: 'None' | 'Snack' | 'PartialSnack' | 'SnackService' | 'Bistro' | 'Restaurant' | 'PartialRestaurant' | 'Unknown'

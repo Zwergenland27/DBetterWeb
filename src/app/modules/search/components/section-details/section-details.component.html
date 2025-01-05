@@ -1,0 +1,99 @@
+@for(stop of section.stops; track stop.id; let stopIndex = $index){
+  @if(stopIndex == 0){
+    <div class="stop">
+      <div class="timeline">
+        <span class="time-important">{{stop.departure | date: 'HH:mm'}}</span>
+        <span>{{sectionDuration.hours}}h {{sectionDuration.minutes}}min</span>
+      </div>
+      <div class="progress">
+        @if(type == 'First' || type == 'Single'){
+          <mat-icon>trip_origin</mat-icon>
+        }@else{
+          <mat-icon>location_on</mat-icon>
+        }
+        @if(expanded){
+          <span class="line bottom" [ngClass]="getDemandClass(stop.demand)"></span>
+        }@else{
+          <span class="line bottom" [ngClass]="getDemandClass(section.demand)"></span>
+        }
+      </div>
+      <div>
+        <div class="stop-infos">
+          <span class="stop-important">{{stop.name}}</span>
+          <div class="platform-important">
+            <span i18n>Pl.</span>
+            <span> {{stop.platform}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="stop">
+      <div class="timeline"></div>
+      <div class="progress">
+        @if(expanded){
+          <span class="line" [ngClass]="getDemandClass(stop.demand)"></span>
+        }@else{
+          <span class="line" [ngClass]="getDemandClass(section.demand)"></span>
+        }
+      </div>
+      <div class="section-infos">
+        @if(section.stops.length == 2){
+          <span i18n>Without stopovers</span>
+        }@else{
+          <div class="expand" (click)="expanded = !expanded">
+            <span i18n>{section.stops.length - 2, plural, =1 {1 stopover} other {{{section.stops.length - 2}} stopovers}}</span>
+            @if(expanded){
+              <mat-icon>keyboard_arrow_up</mat-icon>
+            }@else{
+              <mat-icon>keyboard_arrow_down</mat-icon>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  }@else if(stopIndex == section.stops.length - 1){
+    <div class="stop">
+      <div class="timeline">
+        <span class="time-important">{{stop.arrival | date: 'HH:mm'}}</span>
+      </div>
+      <div class="progress">
+        @if(expanded){
+          <span class="line top" [ngClass]="getDemandClass(section.stops[stopIndex - 1].demand)"></span>
+        }@else{
+          <span class="line top" [ngClass]="getDemandClass(section.demand)"></span>
+        }
+        @if(type == 'End' || type == 'Single'){
+          <mat-icon>flag</mat-icon>
+        }@else{
+          <mat-icon>location_on</mat-icon>
+        }
+      </div>
+      <div class="stop-infos">
+        <span class="stop-important">{{stop.name}}</span>
+        <div class="platform-important">
+          <span i18n>Pl.</span>
+          <span> {{stop.platform}}</span>
+        </div>
+      </div>
+    </div>
+  }@else if(expanded){
+    <div class="stop">
+      <div class="timeline">
+        <span>{{stop.arrival | date: 'HH:mm'}}</span>
+        <span>{{stop.departure | date: 'HH:mm'}}</span>
+      </div>
+      <div class="progress">
+        <span class="line top-half" [class]="getDemandClass(section.stops[stopIndex - 1].demand)"></span>
+        <span class="stop-dot"></span>
+        <span class="line bottom-half" [ngClass]="getDemandClass(stop.demand)"></span>
+      </div>
+      <div class="stop-infos">
+        <span>{{stop.name}}</span>
+        <div class="platform-infos">
+          <span i18n>Pl.</span>
+          <span> {{stop.platform}}</span>
+        </div>
+      </div>
+    </div>
+  }
+}

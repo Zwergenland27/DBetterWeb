@@ -86,12 +86,15 @@
 
 .section {
   display: flex;
+  min-width: 2rem;
+  flex: 1 0 auto;
   flex-direction: column;
 }
 
 .section-content {
   position: relative;
   display: flex;
+  flex: 1;
   justify-content: space-around;
   padding: 0.25rem;
   flex-direction: column;
@@ -102,13 +105,16 @@
 }
 
 .section-title {
+  white-space: nowrap;
   font: var(--mat-sys-label-large);
 }
 
 .section-infos {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 2px;
+  justify-content: center;
 }
 .vehicle-info {
   display: none;
@@ -181,12 +187,6 @@
   padding: 1rem;
 }
 
-.stop {
-  display: flex;
-  gap: 0.5rem;
-  flex-direction: row;
-}
-
 .transfer {
   display: flex;
   gap: 0.5rem;
@@ -194,7 +194,7 @@
   background-color: var(--mat-sys-surface-container-high);
 }
 
-.timeline {
+.transfer-timeline {
   width: 5rem;
   display: flex;
   flex-direction: column;
@@ -203,98 +203,12 @@
   padding: 0.5rem 0;
 }
 
-.time-important {
-  font: var(--mat-sys-title-large);
-}
-
-.progress {
-  position: relative;
+.transfer-progress {
   width: 24px;
-  display: flex;
-  align-items: center;
-}
-
-.progress > .mat-icon {
-  z-index: 2;
-  color: grey;
-}
-
-.stop-dot {
-  margin-left: calc(12px - 0.5rem);
-  width: 1rem;
-  height: 1rem;
-  background-color: grey;
-  border-radius: 50%;
-  z-index: 2;
-}
-
-.line {
-  position: absolute;
-  height: 100%;
-  border-left-width: 4px;
-  border-left-style: solid;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.top {
-  height: calc(50% - 8px);
-  top: 0;
-}
-
-.top-half {
-  height: 50%;
-  top: 0;
-}
-
-.bottom {
-  height: calc(50% - 8px);
-  top: calc(50% + 8px);
-}
-
-.bottom-half {
-  height: 50%;
-  top: 50%;
-}
-
-
-.stop-infos {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0.5rem 0;
-}
-
-.platform-infos {
-  font: var(--mat-sys-body-medium);
-}
-
-.stop-important {
-  font: var(--mat-sys-title-large);
-}
-
-.platform-important {
-  font: var(--mat-sys-title-medium)
 }
 
 .transfer-content {
   display: flex;
   align-items: center;
   padding: 0.5rem 0;
-}
-
-.low {
-  border-left-color: var(--ok-color);
-}
-
-.medium{
-  border-left-color: var(--warn-color);
-}
-
-.unknown {
-  border-left-color: var(--mat-sys-on-surface-variant);
-}
-
-.high {
-  border-left-color: var(--mat-sys-error);
 }
