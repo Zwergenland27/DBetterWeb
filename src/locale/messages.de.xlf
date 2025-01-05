@@ -390,6 +390,10 @@
         <source>Not accessible</source>
         <target>Nicht barrierefrei</target>
       </trans-unit>
+      <trans-unit id="6362038180167515562" datatype="html">
+        <source>Accessible</source>
+        <target>Barrierefrei</target>
+      </trans-unit>
       <trans-unit id="7981695253945586346" datatype="html">
         <source>Partly accessible</source>
         <target>Teilweise barrierefrei</target>
@@ -453,6 +457,18 @@
       <trans-unit id="9026083618139453880" datatype="html">
         <source>Later</source>
         <target>Später</target>
+      </trans-unit>
+      <trans-unit id="519393146925794654" datatype="html">
+        <source> No entry</source>
+        <target> Kein Einstieg</target>
+      </trans-unit>
+      <trans-unit id="3759735949843118327" datatype="html">
+        <source> No exit</source>
+        <target> Kein Ausstieg</target>
+      </trans-unit>
+      <trans-unit id="8181294127154662837" datatype="html">
+        <source> <x id="INTERPOLATION" equiv-text="{{section.lineNameFull}}"/> to <x id="INTERPOLATION_1" equiv-text="{{section.direction}}"/> </source>
+        <target> <x id="INTERPOLATION" equiv-text="{{section.lineNameFull}}"/> nach <x id="INTERPOLATION_1" equiv-text="{{section.direction}}"/> </target>
       </trans-unit>
     </body>
   </file>

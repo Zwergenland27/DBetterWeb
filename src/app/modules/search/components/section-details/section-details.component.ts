@@ -1,7 +1,8 @@
 import {Component, Input} from '@angular/core';
-import {ConnectionSectionDto, Demand} from '../../search.service';
+import {ConnectionSectionDto, ConnectionStationDto, Demand} from '../../search.service';
 import {DatePipe, NgClass, NgIf} from '@angular/common';
 import {MatIcon} from '@angular/material/icon';
+import {StationDto} from '../../../station/station.service';
 
 @Component({
   selector: 'app-section-details',
@@ -38,5 +39,21 @@ export class SectionDetailsComponent {
       return demand.firstClass.toLowerCase();
     }
     return demand.secondClass.toLowerCase();
+  }
+
+  isExitOnly(stop: ConnectionStationDto){
+    return stop.information.filter(i => i.code == 'Ris.Stop.ExitOnly').length > 0;
+  }
+
+  isEntryOnly(stop: ConnectionStationDto){
+    return stop.information.filter(i => i.code == 'Ris.Stop.EntryOnly').length > 0;
+  }
+
+  isCancelled(stop: ConnectionStationDto){
+    return stop.information.filter(i => i.code == 'Ris.Stop.Cancelled').length > 0;
+  }
+
+  isAdditional(stop: ConnectionStationDto){
+    return stop.information.filter(i => i.code == 'Ris.Stop.Additional').length > 0;
   }
 }

@@ -108,6 +108,15 @@
   font: var(--mat-sys-title-large);
 }
 
+.stop-cancelled {
+  text-decoration: line-through;
+  color: var(--mat-sys-error);
+}
+
+.stop-additional {
+  color: var(--ok-color);
+}
+
 .platform-important {
   font: var(--mat-sys-title-medium)
 }

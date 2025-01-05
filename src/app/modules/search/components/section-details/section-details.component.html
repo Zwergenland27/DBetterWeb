@@ -3,7 +3,7 @@
     @for(stop of section.stops; track stop.id; let stopIndex = $index){
       @if(stopIndex == 0){
         <div class="stop">
-          <div class="timeline">
+          <div class="timeline" [class.stop-cancelled]="isCancelled(stop)">
             <span class="time-important">{{stop.departure | date: 'HH:mm'}}</span>
             <div>
               <span *ngIf="sectionDuration.hours > 0">{{sectionDuration.hours}}h</span>
@@ -23,11 +23,13 @@
             }
           </div>
           <div>
-            <div class="stop-infos">
-              <span class="stop-important">{{stop.name}}</span>
+            <div class="stop-infos" [class.stop-cancelled]="isCancelled(stop)">
+              <span class="stop-important" [class.stop-additional]="isAdditional(stop)">{{stop.name}}</span>
               <div class="platform-important">
                 <span i18n>Pl.</span>
                 <span> {{stop.platform}}</span>
+                <span *ngIf="isExitOnly(stop)" i18n> No entry</span>
+                <span *ngIf="isEntryOnly(stop)" i18n> No exit</span>
               </div>
             </div>
           </div>
@@ -61,7 +63,7 @@
         </div>
       }@else if(stopIndex == section.stops.length - 1){
         <div class="stop">
-          <div class="timeline">
+          <div class="timeline" [class.stop-cancelled]="isCancelled(stop)">
             <span class="time-important">{{stop.arrival | date: 'HH:mm'}}</span>
           </div>
           <div class="progress">
@@ -76,17 +78,19 @@
               <mat-icon>location_on</mat-icon>
             }
           </div>
-          <div class="stop-infos">
-            <span class="stop-important">{{stop.name}}</span>
+          <div class="stop-infos" [class.stop-cancelled]="isCancelled(stop)">
+            <span class="stop-important" [class.stop-additional]="isAdditional(stop)">{{stop.name}}</span>
             <div class="platform-important">
               <span i18n>Pl.</span>
               <span> {{stop.platform}}</span>
+              <span *ngIf="isExitOnly(stop)" i18n> No entry</span>
+              <span *ngIf="isEntryOnly(stop)" i18n> No exit</span>
             </div>
           </div>
         </div>
       }@else if(expanded){
         <div class="stop">
-          <div class="timeline">
+          <div class="timeline" [class.stop-cancelled]="isCancelled(stop)">
             <span>{{stop.arrival | date: 'HH:mm'}}</span>
             <span>{{stop.departure | date: 'HH:mm'}}</span>
           </div>
@@ -95,11 +99,13 @@
             <span class="stop-dot"></span>
             <span class="line bottom-half" [ngClass]="getDemandClass(stop.demand)"></span>
           </div>
-          <div class="stop-infos">
-            <span>{{stop.name}}</span>
+          <div class="stop-infos" [class.stop-cancelled]="isCancelled(stop)">
+            <span [class.stop-additional]="isAdditional(stop)">{{stop.name}}</span>
             <div class="platform-infos">
               <span i18n>Pl.</span>
               <span> {{stop.platform}}</span>
+              <span *ngIf="isExitOnly(stop)" i18n> No entry</span>
+              <span *ngIf="isEntryOnly(stop)" i18n> No exit</span>
             </div>
           </div>
         </div>
