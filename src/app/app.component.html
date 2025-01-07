@@ -22,27 +22,27 @@
       </a>
     </div>
     <div class="spacer"></div>
-    <div class="nav-list">
-      @if(!auth.user()){
-        <a
-          mat-fab
-          class="nav-item"
-          routerLink="login"
-          routerLinkActive="nav-item-active"
-          i18n-matTooltip matTooltip="Login"
-          matTooltipPosition="after">
-          <mat-icon>account_circle</mat-icon>
-        </a>
-      }@else{
-        <a class="nav-item"
-           [routerLink]="'account/' + auth.user()!.id"
-           routerLinkActive="nav-item-active"
-           i18n-matTooltip matTooltip="My Account"
-           matTooltipPosition="after">
-          <mat-icon>person</mat-icon>
-        </a>
-      }
-    </div>
+<!--    <div class="nav-list">-->
+<!--      @if(!auth.user()){-->
+<!--        <a-->
+<!--          mat-fab-->
+<!--          class="nav-item"-->
+<!--          routerLink="login"-->
+<!--          routerLinkActive="nav-item-active"-->
+<!--          i18n-matTooltip matTooltip="Login"-->
+<!--          matTooltipPosition="after">-->
+<!--          <mat-icon>account_circle</mat-icon>-->
+<!--        </a>-->
+<!--      }@else{-->
+<!--        <a class="nav-item"-->
+<!--           [routerLink]="'account/' + auth.user()!.id"-->
+<!--           routerLinkActive="nav-item-active"-->
+<!--           i18n-matTooltip matTooltip="My Account"-->
+<!--           matTooltipPosition="after">-->
+<!--          <mat-icon>person</mat-icon>-->
+<!--        </a>-->
+<!--      }-->
+<!--    </div>-->
   </div>
   <div class="content">
     <router-outlet/>
