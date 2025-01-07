@@ -76,7 +76,24 @@ export type RequestDto = {
   route: RouteDto;
 }
 
+export type FixSectionStationDto = {
+  externalId: string;
+  time: string;
+}
+
+export type IncreaseTransferTimeRequestDto = {
+  id: string;
+  contextId: string;
+  ownerId: string | null;
+  passengers: PassengerDto[];
+  options: OptionsDto;
+  route: RouteDto;
+  begin: FixSectionStationDto;
+  end: FixSectionStationDto;
+}
+
 export type ConnectionStationDto = {
+  externalId: string;
   arrival: string | null,
   realTimeArrival: string | null,
   departure: string | null,
@@ -123,6 +140,7 @@ export type ConnectionSectionDto = {
   demand: Demand,
   information: Information[],
   reservationRequired: boolean,
+  connectionPrediction: 'Reachable' | 'Unknown' | null
   stops : ConnectionStationDto[]
 }
 
@@ -134,6 +152,8 @@ export type ConnectionsDto = {
 
 export type ConnectionDto = {
   id: string,
+  contextId: string,
+  transferTimeChanged: boolean,
   sections: ConnectionSectionDto[],
   price: PriceDto | null,
   information: Information[],
@@ -190,6 +210,34 @@ export class SearchService {
       return this.http.post<ConnectionsDto>(`search`, request);
     }
     return this.http.post<ConnectionsDto>(`search?page=${page}`, request);
+  }
+
+  public getConnection(
+    contextId: string,
+    transferIncreaseType: 'Earlier' | 'Later',
+    fixStationStart: ConnectionStationDto,
+    fixStationEnd: ConnectionStationDto) : Observable<ConnectionDto> {
+    const request = this.getLocalRequest();
+    if(!request) return of();
+
+    const fixRouteRequest : IncreaseTransferTimeRequestDto = {
+      id: request.id,
+      contextId: contextId,
+      ownerId: request.ownerId,
+      passengers: request.passengers,
+      options: request.options,
+      route: request.route,
+      begin: {
+        externalId: fixStationStart.externalId,
+        time: fixStationStart.departure!
+      },
+      end: {
+        externalId: fixStationEnd.externalId,
+        time: fixStationEnd.arrival!
+      }
+    }
+
+    return this.http.post<ConnectionDto>(`connection?transferIncreaseType=${transferIncreaseType}`, fixRouteRequest);
   }
 
   public getAvailablePassengers(userId: string) : Observable<UserDto[]> {

@@ -482,6 +482,10 @@
         <source> Show route of <x id="INTERPOLATION" equiv-text="{{section.lineNameMedium}}"/> </source>
         <target> Zeige Route von <x id="INTERPOLATION" equiv-text="{{section.lineNameMedium}}"/> </target>
       </trans-unit>
+      <trans-unit id="5291091642611018439" datatype="html">
+        <source> Transfer time increased</source>
+        <target>Umstiegszeit verlängert</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

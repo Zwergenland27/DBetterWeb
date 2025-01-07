@@ -9,7 +9,10 @@
             <span> {{duration.minutes}}min</span>
           </div>
         </span>
-        <span style="flex: 1"></span>
+        <div class="updated">
+          <mat-icon *ngIf="connection.transferTimeChanged">more_time</mat-icon>
+          <span *ngIf="connection.transferTimeChanged" i18n> Transfer time increased</span>
+        </div>
         <span class="overview-text">{transfers, plural, =0 {direct connection} =1 {1 transfer} other {{{transfers}} transfers}} </span>
         @if(connection.bike){
           @if(connection.bike == 'Yes'){
@@ -167,8 +170,8 @@
               <mat-icon [matTooltip]="transfer_tooltip.textContent" matTooltipPosition="above">transfer_within_a_station</mat-icon>
             </div>
             <div class="transfer-content">
-              <button mat-stroked-button i18n>Earlier arrival</button>
-              <button mat-stroked-button i18n>Later departure</button>
+              <button mat-stroked-button [disabled]="loadingTransferTimeChange" (click)="earlierArrival(sectionIndex - 1)" i18n>Earlier arrival</button>
+              <button mat-stroked-button [disabled]="loadingTransferTimeChange" (click)="laterDeparture(sectionIndex - 1)" i18n>Later departure</button>
             </div>
           </div>
         }

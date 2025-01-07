@@ -190,29 +190,36 @@
           <context context-type="linenumber">54,55</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="5291091642611018439" datatype="html">
+        <source> Transfer time increased</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
+          <context context-type="linenumber">14,15</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="8404895952074060217" datatype="html">
         <source>{VAR_PLURAL, plural, =0 {direct connection} =1 {1 transfer} other {<x id="INTERPOLATION"/> transfers}}</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
-          <context context-type="linenumber">13,14</context>
+          <context context-type="linenumber">16,17</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4116965483088659187" datatype="html">
         <source>Bike transport possible</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
-          <context context-type="linenumber">16,17</context>
+          <context context-type="linenumber">19,20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1764192124756248014" datatype="html">
         <source>Bike transport not possible</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
-          <context context-type="linenumber">19,20</context>
+          <context context-type="linenumber">22,23</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
-          <context context-type="linenumber">69,70</context>
+          <context context-type="linenumber">72,73</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/section-details/section-details.component.html</context>
@@ -223,11 +230,11 @@
         <source>No information about bike transport</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
-          <context context-type="linenumber">22,23</context>
+          <context context-type="linenumber">25,26</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
-          <context context-type="linenumber">78,79</context>
+          <context context-type="linenumber">81,82</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/section-details/section-details.component.html</context>
@@ -238,7 +245,7 @@
         <source>Catering service not available</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
-          <context context-type="linenumber">46,47</context>
+          <context context-type="linenumber">49,50</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/section-details/section-details.component.html</context>
@@ -249,7 +256,7 @@
         <source>Snackpoint available</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
-          <context context-type="linenumber">49,50</context>
+          <context context-type="linenumber">52,53</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/section-details/section-details.component.html</context>
@@ -260,7 +267,7 @@
         <source>Snackpoint only partial available</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
-          <context context-type="linenumber">52,53</context>
+          <context context-type="linenumber">55,56</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/section-details/section-details.component.html</context>
@@ -271,7 +278,7 @@
         <source>Snack service available</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
-          <context context-type="linenumber">55,56</context>
+          <context context-type="linenumber">58,59</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/section-details/section-details.component.html</context>
@@ -282,7 +289,7 @@
         <source>Bistro available</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
-          <context context-type="linenumber">58,59</context>
+          <context context-type="linenumber">61,62</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/section-details/section-details.component.html</context>
@@ -293,7 +300,7 @@
         <source>Restaurant available</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
-          <context context-type="linenumber">61,62</context>
+          <context context-type="linenumber">64,65</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/section-details/section-details.component.html</context>
@@ -304,7 +311,7 @@
         <source>Restaurant only partial available</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
-          <context context-type="linenumber">64,65</context>
+          <context context-type="linenumber">67,68</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/section-details/section-details.component.html</context>
@@ -315,7 +322,7 @@
         <source>Reservation required for bike transport</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
-          <context context-type="linenumber">72,73</context>
+          <context context-type="linenumber">75,76</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/section-details/section-details.component.html</context>
@@ -326,7 +333,7 @@
         <source>Number of bicycles limited</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
-          <context context-type="linenumber">75,76</context>
+          <context context-type="linenumber">78,79</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/section-details/section-details.component.html</context>
@@ -337,7 +344,7 @@
         <source>Not accessible</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
-          <context context-type="linenumber">85,86</context>
+          <context context-type="linenumber">88,89</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/section-details/section-details.component.html</context>
@@ -348,7 +355,7 @@
         <source>Partly accessible</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
-          <context context-type="linenumber">88,89</context>
+          <context context-type="linenumber">91,92</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/section-details/section-details.component.html</context>
@@ -359,7 +366,7 @@
         <source>Accessible</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
-          <context context-type="linenumber">91,92</context>
+          <context context-type="linenumber">94,95</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/section-details/section-details.component.html</context>
@@ -370,7 +377,7 @@
         <source>No accessibility information</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
-          <context context-type="linenumber">94,95</context>
+          <context context-type="linenumber">97,98</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/section-details/section-details.component.html</context>
@@ -381,70 +388,70 @@
         <source>Reservation required</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
-          <context context-type="linenumber">102,103</context>
+          <context context-type="linenumber">105,106</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5160861768192059894" datatype="html">
         <source>There are multiple problems on this section. Open details for more information.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
-          <context context-type="linenumber">109,110</context>
+          <context context-type="linenumber">112,113</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4423253549935469768" datatype="html">
         <source> Details </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
-          <context context-type="linenumber">126,127</context>
+          <context context-type="linenumber">129,130</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4215194277711300165" datatype="html">
         <source>from </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
-          <context context-type="linenumber">141,142</context>
+          <context context-type="linenumber">144,145</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6318216385094974109" datatype="html">
         <source>No information</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
-          <context context-type="linenumber">144,145</context>
+          <context context-type="linenumber">147,148</context>
         </context-group>
       </trans-unit>
       <trans-unit id="467214397973775959" datatype="html">
         <source>Booking not possible</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
-          <context context-type="linenumber">146,147</context>
+          <context context-type="linenumber">149,150</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1215020689044739662" datatype="html">
         <source> Book </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
-          <context context-type="linenumber">150,151</context>
+          <context context-type="linenumber">153,154</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8402696305361715603" datatype="html">
         <source>Transfer</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
-          <context context-type="linenumber">166,167</context>
+          <context context-type="linenumber">169,170</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7447630077854505837" datatype="html">
         <source>Earlier arrival</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
-          <context context-type="linenumber">170,171</context>
+          <context context-type="linenumber">173,174</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2295751856269454463" datatype="html">
         <source>Later departure</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/connection-card/connection-card.component.html</context>
-          <context context-type="linenumber">171,172</context>
+          <context context-type="linenumber">174,175</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6599695064230363466" datatype="html">

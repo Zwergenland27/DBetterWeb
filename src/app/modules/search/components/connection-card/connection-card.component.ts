@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {ConnectionDto, ConnectionSectionDto} from '../../search.service';
+import {ConnectionDto, ConnectionSectionDto, SearchService} from '../../search.service';
 import {CurrencyPipe, DatePipe, NgIf} from '@angular/common';
 import {MatButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
@@ -29,6 +29,10 @@ export class ConnectionCardComponent {
   @Input({required: false}) connection!: ConnectionDto;
 
   expanded = false;
+  loadingTransferTimeChange = false;
+
+  constructor(private searchService: SearchService) {
+  }
 
   get startTime(){
     const section = this.connection.sections[0];
@@ -76,5 +80,40 @@ export class ConnectionCardComponent {
       hours: hours,
       minutes: minutes
     };
+  }
+
+  public laterDeparture(sectionIndex: number){
+    this.loadingTransferTimeChange = true;
+
+
+    const currentSection = this.connection.sections[sectionIndex];
+    const sectionStartStation = this.connection.sections[0].stops[0];
+    const sectionEndStation = currentSection.stops[currentSection.stops.length - 1];
+
+    this.searchService.getConnection(
+      this.connection.contextId,
+      "Later",
+      sectionStartStation,
+      sectionEndStation).subscribe(result => {
+        this.connection = result;
+        this.loadingTransferTimeChange = false;
+    })
+  }
+
+  public earlierArrival(sectionIndex: number){
+    this.loadingTransferTimeChange = true;
+
+    const lastSectionIndex = this.connection.sections.length - 1;
+    const sectionStartStation = this.connection.sections[sectionIndex + 1].stops[0];
+    const sectionEndStation = this.connection.sections[lastSectionIndex].stops[this.connection.sections[lastSectionIndex].stops.length - 1];
+
+    this.searchService.getConnection(
+      this.connection.contextId,
+      "Earlier",
+      sectionStartStation,
+      sectionEndStation).subscribe(result => {
+      this.connection = result;
+      this.loadingTransferTimeChange = false;
+    })
   }
 }
