@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+  <file source-language="en" datatype="plaintext" original="ng2.template">
     <body>
       <trans-unit id="9063002216768477747" datatype="html">
         <source>DBetter logo</source>
@@ -30,19 +30,8 @@
       <trans-unit id="2454050363478003966" datatype="html">
         <source>Login</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">33</context>
-        </context-group>
-        <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/login/login.component.html</context>
           <context context-type="linenumber">4</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="4818852650817502025" datatype="html">
-        <source>My Account</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">40,41</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4768749765465246664" datatype="html">
@@ -594,7 +583,7 @@
         <source>Add passenger</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/passenger-control/passenger-control.component.html</context>
-          <context context-type="linenumber">16,17</context>
+          <context context-type="linenumber">17,18</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/passenger-dialog/passenger-dialog.component.html</context>
@@ -703,8 +692,8 @@
           <context context-type="linenumber">105,106</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="7585826646011739428" datatype="html">
-        <source>Edit</source>
+      <trans-unit id="4391289919356861627" datatype="html">
+        <source>Apply</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/passenger-dialog/passenger-dialog.component.html</context>
           <context context-type="linenumber">106,107</context>

@@ -9,10 +9,11 @@
   <div content class="passengers">
     <div class="passengers-container">
       @for(passenger of passengers; track passenger.id){
-        <app-passenger-card [passenger]="passenger" (click)="editPassenger(passenger.id)"/>
+        <app-passenger-card [passenger]="passenger" (click)="editPassenger(passenger.id)" (delete)="removePassenger(passenger.id)"/>
       }
     </div>
-    <button mat-button (click)="addPassenger()">
+    <button mat-fab extended (click)="addPassenger()">
+      <mat-icon>person_add</mat-icon>
       <span i18n>Add passenger</span>
     </button>
   </div>

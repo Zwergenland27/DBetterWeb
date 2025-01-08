@@ -8,10 +8,6 @@
   margin: 10px 0;
 }
 
-.not-purchasable {
-  filter: brightness(50%);
-}
-
 .connection-header {
   width: 100%;
   display: flex;

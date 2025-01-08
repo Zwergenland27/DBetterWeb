@@ -1,8 +1,9 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 import {AvatarComponent} from '../../../../shared/components/avatar/avatar.component';
 import {getShortTitleOfDiscount, PassengerDto} from '../../search.service';
+import {MatIconButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-passenger-card',
@@ -10,6 +11,7 @@ import {getShortTitleOfDiscount, PassengerDto} from '../../search.service';
     MatCardModule,
     MatIconModule,
     AvatarComponent,
+    MatIconButton,
   ],
   templateUrl: './passenger-card.component.html',
   styleUrl: './passenger-card.component.css'
@@ -19,6 +21,8 @@ export class PassengerCardComponent {
   @Input({ required: true }) passenger! : PassengerDto;
 
   @Input({ required: false }) tripDate : Date = new Date();
+
+  @Output() delete = new EventEmitter();
   protected readonly getShortTitleOfDiscount = getShortTitleOfDiscount;
 
   public calcPassengerAge(passenger: PassengerDto, tripTime : Date) {

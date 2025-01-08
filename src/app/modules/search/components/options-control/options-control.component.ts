@@ -41,7 +41,7 @@ export class OptionsControlComponent implements OnInit {
     if(uiState){
       this.expanded = JSON.parse(uiState);
     }else{
-      this.expanded = false;
+      this.expanded = true;
     }
   }
 

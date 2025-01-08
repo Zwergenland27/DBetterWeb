@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {MatButton} from "@angular/material/button";
+import {MatFabButton} from "@angular/material/button";
 import {PassengerCardComponent} from "../passenger-card/passenger-card.component";
 import {PassengerDialogComponent, PassengerDialogData} from '../passenger-dialog/passenger-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
@@ -8,14 +8,16 @@ import {
   MatExpansionPanelTitle
 } from '@angular/material/expansion';
 import {ExpansionPanelComponent} from '../expansion-panel/expansion-panel.component';
+import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'app-passenger-control',
   imports: [
-    MatButton,
     PassengerCardComponent,
     MatExpansionPanelTitle,
-    ExpansionPanelComponent
+    ExpansionPanelComponent,
+    MatFabButton,
+    MatIconModule
   ],
   templateUrl: './passenger-control.component.html',
   styleUrl: './passenger-control.component.css'
@@ -79,11 +81,15 @@ export class PassengerControlComponent {
           this.passengers.push(result);
           this.passengersChange.emit(this.passengers);
         }else if(result === null){
-          this.passengers = this.passengers.filter(p => p.id !== id);
-          this.passengersChange.emit(this.passengers);
+          this.removePassenger(id);
         }
       }
     );
+  }
+
+  public removePassenger(id: string){
+    this.passengers = this.passengers.filter(p => p.id !== id);
+    this.passengersChange.emit(this.passengers);
   }
 
   public persistUIState(){

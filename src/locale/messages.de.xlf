@@ -174,9 +174,9 @@
         <source>Remove</source>
         <target>Entfernen</target>
       </trans-unit>
-      <trans-unit id="7585826646011739428" datatype="html">
-        <source>Edit</source>
-        <target>Bearbeiten</target>
+      <trans-unit id="4391289919356861627" datatype="html">
+        <source>Apply</source>
+        <target>Übernehmen</target>
       </trans-unit>
       <trans-unit id="3249513483374643425" datatype="html">
         <source>Add</source>

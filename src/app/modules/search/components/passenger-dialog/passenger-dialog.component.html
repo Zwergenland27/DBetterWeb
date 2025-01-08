@@ -103,7 +103,7 @@
   <button mat-button mat-dialog-close i18n>Cancel</button>
   @if(editMode){
     <button mat-button i18n (click)="removePassenger()">Remove</button>
-    <button mat-button i18n [disabled]="!passengerForm.valid" (click)="submit()">Edit</button>
+    <button mat-button i18n [disabled]="!passengerForm.valid" (click)="submit()">Apply</button>
   }@else{
     <button mat-button i18n [disabled]="!passengerForm.valid" (click)="submit()">Add</button>
   }

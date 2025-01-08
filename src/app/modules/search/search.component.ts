@@ -112,29 +112,35 @@ export class SearchComponent {
 
   searchEarlier(){
     this.pageEarlierLoading = true;
-    this.searchService.getResults(this.request, this.pageEarlier).subscribe(result => {
-      this.connections = [...result.connections, ...this.connections!];
-      this.pageEarlier = result.pageEarlier;
-      this.pageEarlierLoading = false;
-    });
+    this.searchService.getResults(this.request, this.pageEarlier).subscribe({
+        next: result => {
+          this.connections = [...result.connections, ...this.connections!];
+          this.pageEarlier = result.pageEarlier;
+        },
+        complete: () => {this.pageEarlierLoading = false}
+      });
   }
 
   searchLater(){
     this.pageLaterLoading = true;
-    this.searchService.getResults(this.request, this.pageLater).subscribe(result => {
-      this.connections = [...this.connections!, ...result.connections];
-      this.pageLater = result.pageLater;
-      this.pageLaterLoading = false;
+    this.searchService.getResults(this.request, this.pageLater).subscribe({
+      next: result => {
+        this.connections = [...this.connections!, ...result.connections];
+        this.pageLater = result.pageLater;
+      },
+      complete: () => {this.pageLaterLoading = false}
     });
   }
 
   search(){
     this.connectionsLoading = true;
-    this.searchService.getResults(this.request).subscribe(result => {
-      this.connections = result.connections;
-      this.pageEarlier = result.pageEarlier;
-      this.pageLater = result.pageLater;
-      this.connectionsLoading = false;
+    this.searchService.getResults(this.request).subscribe({
+      next: result => {
+        this.connections = result.connections;
+        this.pageEarlier = result.pageEarlier;
+        this.pageLater = result.pageLater;
+      },
+      complete: () => {this.connectionsLoading = false}
     });
   }
 }
