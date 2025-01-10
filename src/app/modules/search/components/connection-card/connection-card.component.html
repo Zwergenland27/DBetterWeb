@@ -149,8 +149,8 @@
           <span i18n>Booking not possible</span>
         }
       </div>
-      <button mat-flat-button [disabled]="!connection.price" i18n>
-        Book
+      <button mat-flat-button [disabled]="!connection.price" (click)="openBahnBooking()" i18n>
+        Continue on bahn.de
       </button>
     </div>
   </div>

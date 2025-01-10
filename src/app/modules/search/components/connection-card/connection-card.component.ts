@@ -116,4 +116,8 @@ export class ConnectionCardComponent {
       this.loadingTransferTimeChange = false;
     })
   }
+
+  public openBahnBooking(){
+    window.open(this.connection.bahnRequestUrl, "_blank");
+  }
 }

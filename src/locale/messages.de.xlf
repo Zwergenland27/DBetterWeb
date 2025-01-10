@@ -330,9 +330,9 @@
         <source>Booking not possible</source>
         <target>Buchen nicht möglich</target>
       </trans-unit>
-      <trans-unit id="1215020689044739662" datatype="html">
-        <source> Book </source>
-        <target>Buchen</target>
+      <trans-unit id="5117436401758074324" datatype="html">
+        <source> Continue on bahn.de </source>
+        <target> Weiter auf bahn.de </target>
       </trans-unit>
       <trans-unit id="6845608579544023806" datatype="html">
         <source>Catering service not available</source>

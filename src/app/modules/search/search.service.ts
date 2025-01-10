@@ -77,7 +77,7 @@ export type RequestDto = {
 }
 
 export type FixSectionStationDto = {
-  externalId: string;
+  extId: string;
   time: string;
 }
 
@@ -93,7 +93,6 @@ export type IncreaseTransferTimeRequestDto = {
 }
 
 export type ConnectionStationDto = {
-  externalId: string;
   arrival: string | null,
   realTimeArrival: string | null,
   departure: string | null,
@@ -158,7 +157,8 @@ export type ConnectionDto = {
   price: PriceDto | null,
   information: Information[],
   bike: 'Yes' | 'No' | 'Unknown' | null,
-  demand: Demand
+  demand: Demand,
+  bahnRequestUrl: string,
 }
 
 @Injectable({
@@ -228,11 +228,11 @@ export class SearchService {
       options: request.options,
       route: request.route,
       begin: {
-        externalId: fixStationStart.externalId,
+        extId: fixStationStart.externalId,
         time: fixStationStart.departure!
       },
       end: {
-        externalId: fixStationEnd.externalId,
+        extId: fixStationEnd.externalId,
         time: fixStationEnd.arrival!
       }
     }
