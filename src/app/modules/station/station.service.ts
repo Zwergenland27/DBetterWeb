@@ -6,7 +6,7 @@ export type StationDto = {
   id: string;
   rl100: string | null;
   name: string;
-  externalId: string;
+  extId: string;
 }
 
 @Injectable({

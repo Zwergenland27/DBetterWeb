@@ -228,11 +228,11 @@ export class SearchService {
       options: request.options,
       route: request.route,
       begin: {
-        extId: fixStationStart.externalId,
+        extId: fixStationStart.extId,
         time: fixStationStart.departure!
       },
       end: {
-        extId: fixStationEnd.externalId,
+        extId: fixStationEnd.extId,
         time: fixStationEnd.arrival!
       }
     }
