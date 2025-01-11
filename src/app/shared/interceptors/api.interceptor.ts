@@ -1,6 +1,6 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 
-const baseUrl = 'https://raspi02.whsfkf8zibahncto.myfritz.net/api/';
+const baseUrl = 'https://alpha.dbetter.de/api/';
 
 export const apiInterceptor: HttpInterceptorFn = (req, next) => {
   req = req.clone({
