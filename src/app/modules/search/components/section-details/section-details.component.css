@@ -140,6 +140,10 @@
   border-left-color: var(--mat-sys-error);
 }
 
+.extreme {
+  border-left-color: red;
+}
+
 .section-infos {
   display: flex;
   flex-direction: column;

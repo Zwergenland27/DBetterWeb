@@ -6,6 +6,7 @@ import {MatIcon} from '@angular/material/icon';
 import {MatTooltip} from '@angular/material/tooltip';
 import {DemandComponent} from '../demand/demand.component';
 import {SectionDetailsComponent} from '../section-details/section-details.component';
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-connection-card',
@@ -18,6 +19,7 @@ import {SectionDetailsComponent} from '../section-details/section-details.compon
     CurrencyPipe,
     SectionDetailsComponent,
     NgIf,
+    MatProgressSpinner,
   ],
   templateUrl: './connection-card.component.html',
   styleUrl: './connection-card.component.css'
@@ -94,10 +96,17 @@ export class ConnectionCardComponent {
       this.connection.contextId,
       "Later",
       sectionStartStation,
-      sectionEndStation).subscribe(result => {
+      sectionEndStation).subscribe({
+      next: (result) => {
         this.connection = result;
+      },
+      error: () => {
         this.loadingTransferTimeChange = false;
-    })
+      },
+      complete: () => {
+        this.loadingTransferTimeChange = false;
+      }
+    });
   }
 
   public earlierArrival(sectionIndex: number){
@@ -111,10 +120,17 @@ export class ConnectionCardComponent {
       this.connection.contextId,
       "Earlier",
       sectionStartStation,
-      sectionEndStation).subscribe(result => {
-      this.connection = result;
-      this.loadingTransferTimeChange = false;
-    })
+      sectionEndStation).subscribe({
+        next: (result) => {
+          this.connection = result;
+        },
+        error: () => {
+          this.loadingTransferTimeChange = false;
+        },
+        complete: () => {
+          this.loadingTransferTimeChange = false;
+        }
+      });
   }
 
   public openBahnBooking(){

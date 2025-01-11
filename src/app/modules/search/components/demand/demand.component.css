@@ -13,3 +13,7 @@
 .high {
   color: var(--mat-sys-error);
 }
+
+.extreme {
+  color: red;
+}

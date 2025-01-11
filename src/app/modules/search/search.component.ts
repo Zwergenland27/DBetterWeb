@@ -117,6 +117,7 @@ export class SearchComponent {
           this.connections = [...result.connections, ...this.connections!];
           this.pageEarlier = result.pageEarlier;
         },
+        error: () => {this.pageEarlierLoading = false;},
         complete: () => {this.pageEarlierLoading = false}
       });
   }
@@ -128,6 +129,7 @@ export class SearchComponent {
         this.connections = [...this.connections!, ...result.connections];
         this.pageLater = result.pageLater;
       },
+      error: () => {this.pageLaterLoading = false},
       complete: () => {this.pageLaterLoading = false}
     });
   }
@@ -140,6 +142,7 @@ export class SearchComponent {
         this.pageEarlier = result.pageEarlier;
         this.pageLater = result.pageLater;
       },
+      error: () => {this.connectionsLoading = false},
       complete: () => {this.connectionsLoading = false}
     });
   }
