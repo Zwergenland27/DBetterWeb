@@ -32,18 +32,8 @@
         @for(section of connection.sections; track section; let i = $index){
           <div class="section" [style.max-width]="section.percentage + '%'">
             <div class="section-content">
-              <span class="section-title" *ngIf="section.percentage < 6" [matTooltip]="sectionTooltip.textContent" matTooltipPosition="above">{{section.lineNameShort}}</span>
-              <span class="section-title" *ngIf="section.percentage >= 6" [matTooltip]="sectionTooltip.textContent" matTooltipPosition="above">{{section.lineNameMedium}}</span>
-              <div #sectionTooltip hidden>
-                @if(section.vehicle){
-                  @for(vehicle of section.vehicle; track vehicle; let i = $index){
-                    <span>{{vehicle.name}}</span>
-                    @if(i != section.vehicle.length - 1){
-                      <span> + </span>
-                    }
-                  }
-                }
-              </div>
+              <span class="section-title" *ngIf="section.percentage < 6">{{section.lineNameShort}}</span>
+              <span class="section-title" *ngIf="section.percentage >= 6">{{section.lineNameMedium}}</span>
               <div class="section-infos">
                 @if(section.catering == 'None'){
                   <span #cateringTooltip hidden i18n>Catering service not available</span>

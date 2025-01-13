@@ -107,11 +107,6 @@ export type Demand = {
   secondClass: 'Unknown' | 'Low' | 'Medium' | 'High' | 'Extreme';
 }
 
-export type Vehicle = {
-  name: string | null,
-  uicNumber: string | null
-}
-
 export type Information = {
   priority: number;
   code: string;
@@ -130,8 +125,9 @@ export type ConnectionSectionDto = {
   lineNameShort: string;
   lineNameMedium: string;
   lineNameFull: string;
+  lineNumber: string;
+  category: string;
   direction: string | null;
-  vehicle: Vehicle[] | null,
   percentage: number,
   catering: 'None' | 'Snack' | 'PartialSnack' | 'SnackService' | 'Bistro' | 'Restaurant' | 'PartialRestaurant' | 'Unknown'
   bike: 'No' | 'ReservationRequired' | 'Limited' | 'Unknown',
@@ -147,6 +143,11 @@ export type ConnectionsDto = {
   connections: ConnectionDto[];
   pageEarlier: string;
   pageLater: string;
+}
+
+export type VehicleDto = {
+  coaches: string[];
+  realTime: boolean;
 }
 
 export type ConnectionDto = {
@@ -238,6 +239,10 @@ export class SearchService {
     }
 
     return this.http.post<ConnectionDto>(`connection?transferIncreaseType=${transferIncreaseType}`, fixRouteRequest);
+  }
+
+  public getVehicle(category: string, lineNumber: string, when: string, eva: string){
+    return this.http.get<VehicleDto | null>(`vehicle?category=${category}&lineNumber=${lineNumber}&when=${when}&station=${eva}`);
   }
 
   public getAvailablePassengers(userId: string) : Observable<UserDto[]> {

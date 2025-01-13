@@ -118,6 +118,12 @@
   </div>
   <div class="infos">
     <div class="information">
+      <mat-icon>train</mat-icon>
+      <span *ngIf="vehicle === ''" i18n>No vehicle information</span>
+      <span *ngIf="vehicle !== ''">{{vehicle}}</span>
+      <mat-icon *ngIf="!realTime" i18n-matTooltip matTooltip="No real time data available. Displaying estimated vehicle information based on past data." matTooltipPosition="above">history</mat-icon>
+    </div>
+    <div class="information">
       @if(section.catering == 'None'){
         <mat-icon class="warn">restaurant</mat-icon>
         <span i18n>Catering service not available</span>

@@ -486,6 +486,14 @@
         <source> Transfer time increased</source>
         <target>Umstiegszeit verlängert</target>
       </trans-unit>
+      <trans-unit id="192005424757527661" datatype="html">
+        <source>No vehicle information</source>
+        <target>Keine Informationen zum Fahrzeug</target>
+      </trans-unit>
+      <trans-unit id="7396875828489001221" datatype="html">
+        <source>No real time data available. Displaying estimated vehicle information based on past data.</source>
+        <target>Keine Echtzeitdaten vorhanden. Es werden geschätzte Fahrzeuginformationen aus der Vergangenheit angezeigt.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
