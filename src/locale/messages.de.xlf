@@ -494,6 +494,18 @@
         <source>No real time data available. Displaying estimated vehicle information based on past data.</source>
         <target>Keine Echtzeitdaten vorhanden. Es werden geschätzte Fahrzeuginformationen aus der Vergangenheit angezeigt.</target>
       </trans-unit>
+      <trans-unit id="4771113291441249134" datatype="html">
+        <source>No information about the train type available</source>
+        <target>Keine Informationen über den Zugtyp vorhanden</target>
+      </trans-unit>
+      <trans-unit id="5175900023044973606" datatype="html">
+        <source>Loading train type</source>
+        <target>Zugtyp wird geladen</target>
+      </trans-unit>
+      <trans-unit id="6831965779504621448" datatype="html">
+        <source>(planned)</source>
+        <target>(geplant)</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

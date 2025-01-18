@@ -241,8 +241,8 @@ export class SearchService {
     return this.http.post<ConnectionDto>(`connection?transferIncreaseType=${transferIncreaseType}`, fixRouteRequest);
   }
 
-  public getVehicle(category: string, lineNumber: string, when: string, eva: string){
-    return this.http.get<VehicleDto | null>(`vehicle?category=${category}&lineNumber=${lineNumber}&when=${when}&station=${eva}`);
+  public getVehicle(category: string, lineNumber: string, departureStation: string, departure: string, arrivalStation: string, arrival: string){
+    return this.http.get<VehicleDto | null>(`vehicle?category=${category}&lineNumber=${lineNumber}&departureStation=${departureStation}&departure=${departure}&arrivalStation=${arrivalStation}&arrival=${arrival}`);
   }
 
   public getAvailablePassengers(userId: string) : Observable<UserDto[]> {

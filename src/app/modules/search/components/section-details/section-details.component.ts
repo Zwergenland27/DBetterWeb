@@ -3,7 +3,7 @@ import {ConnectionSectionDto, ConnectionStationDto, Demand, SearchService} from 
 import {DatePipe, NgClass, NgIf} from '@angular/common';
 import {MatIcon} from '@angular/material/icon';
 import {StationDto} from '../../../station/station.service';
-import {MatButton} from '@angular/material/button';
+import {MatButton, MatMiniFabButton} from '@angular/material/button';
 import {MatTooltip} from '@angular/material/tooltip';
 
 @Component({
@@ -19,25 +19,20 @@ import {MatTooltip} from '@angular/material/tooltip';
   templateUrl: './section-details.component.html',
   styleUrl: './section-details.component.css'
 })
-export class SectionDetailsComponent implements OnInit {
+export class SectionDetailsComponent {
   @Input({required:true}) requestedClass!: 'First' | 'Second';
   @Input({required:true}) section!: ConnectionSectionDto;
   @Input({required:true}) type!: 'First' | 'End' | 'Single' | 'Middle'
 
-  expanded = false;
-  vehicle : string = "";
-  realTime = true;
-  constructor(private searchService: SearchService ) {}
+  noInfoText = $localize`No information about the train type available`;
+  loadingText = $localize`Loading train type`;
+  plannedText = $localize`(planned)`;
 
-  ngOnInit() {
-    const firstStop = this.section.stops[0];
-    this.searchService.getVehicle(this.section.category, this.section.lineNumber, firstStop.departure!, firstStop.extId).subscribe(result => {
-      if(result){
-        this.vehicle = result.coaches.join(" + ");
-        this.realTime = result.realTime;
-      }
-    });
-  }
+  vehicleText = this.noInfoText;
+  loaded = false;
+
+  expanded = false;
+  constructor(private searchService: SearchService ) {}
 
   get sectionDuration(){
     const startTime = new Date(this.section.stops[0].departure!);
@@ -72,5 +67,29 @@ export class SectionDetailsComponent implements OnInit {
 
   isAdditional(stop: ConnectionStationDto){
     return stop.information.filter(i => i.code == 'Ris.Stop.Additional').length > 0;
+  }
+
+  getVehicle(){
+    if(this.loaded) return;
+    this.loaded = true;
+    this.vehicleText = this.loadingText;
+    const firstStop = this.section.stops[0];
+    const lastStop = this.section.stops[this.section.stops.length - 1];
+    this.searchService.getVehicle(
+      this.section.category,
+      this.section.lineNumber,
+      firstStop.extId,
+      firstStop.departure!,
+      lastStop.extId,
+      lastStop.arrival!).subscribe(result => {
+      if(result){
+        this.vehicleText = result.coaches.join(" + ");
+        if(!result.realTime){
+          this.vehicleText += " " + this.plannedText;
+        }
+      }else{
+        this.vehicleText = this.noInfoText;
+      }
+    });
   }
 }

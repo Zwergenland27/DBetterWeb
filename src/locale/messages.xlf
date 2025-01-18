@@ -212,7 +212,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/section-details/section-details.component.html</context>
-          <context context-type="linenumber">153,154</context>
+          <context context-type="linenumber">147,148</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7425554214297215564" datatype="html">
@@ -227,7 +227,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/section-details/section-details.component.html</context>
-          <context context-type="linenumber">162,163</context>
+          <context context-type="linenumber">156,157</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6845608579544023806" datatype="html">
@@ -238,7 +238,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/section-details/section-details.component.html</context>
-          <context context-type="linenumber">129,130</context>
+          <context context-type="linenumber">123,124</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1577179339456843988" datatype="html">
@@ -249,7 +249,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/section-details/section-details.component.html</context>
-          <context context-type="linenumber">132,133</context>
+          <context context-type="linenumber">126,127</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1017299583351980362" datatype="html">
@@ -260,7 +260,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/section-details/section-details.component.html</context>
-          <context context-type="linenumber">135,136</context>
+          <context context-type="linenumber">129,130</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3798166546275160985" datatype="html">
@@ -271,7 +271,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/section-details/section-details.component.html</context>
-          <context context-type="linenumber">138,139</context>
+          <context context-type="linenumber">132,133</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5381221397731781090" datatype="html">
@@ -282,7 +282,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/section-details/section-details.component.html</context>
-          <context context-type="linenumber">141,142</context>
+          <context context-type="linenumber">135,136</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9018685951772950941" datatype="html">
@@ -293,7 +293,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/section-details/section-details.component.html</context>
-          <context context-type="linenumber">144,145</context>
+          <context context-type="linenumber">138,139</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7123978516070498779" datatype="html">
@@ -304,7 +304,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/section-details/section-details.component.html</context>
-          <context context-type="linenumber">147,148</context>
+          <context context-type="linenumber">141,142</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9092977834445542436" datatype="html">
@@ -315,7 +315,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/section-details/section-details.component.html</context>
-          <context context-type="linenumber">156,157</context>
+          <context context-type="linenumber">150,151</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4666855261056784139" datatype="html">
@@ -326,7 +326,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/section-details/section-details.component.html</context>
-          <context context-type="linenumber">159,160</context>
+          <context context-type="linenumber">153,154</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4800127457733470339" datatype="html">
@@ -337,7 +337,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/section-details/section-details.component.html</context>
-          <context context-type="linenumber">168,169</context>
+          <context context-type="linenumber">162,163</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7981695253945586346" datatype="html">
@@ -348,7 +348,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/section-details/section-details.component.html</context>
-          <context context-type="linenumber">171,172</context>
+          <context context-type="linenumber">165,166</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6362038180167515562" datatype="html">
@@ -359,7 +359,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/section-details/section-details.component.html</context>
-          <context context-type="linenumber">174,175</context>
+          <context context-type="linenumber">168,169</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5080842226299983988" datatype="html">
@@ -370,7 +370,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/section-details/section-details.component.html</context>
-          <context context-type="linenumber">177,178</context>
+          <context context-type="linenumber">171,172</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8826748114652058645" datatype="html">
@@ -836,25 +836,32 @@
           <context context-type="linenumber">58</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="192005424757527661" datatype="html">
-        <source>No vehicle information</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/modules/search/components/section-details/section-details.component.html</context>
-          <context context-type="linenumber">122,123</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="7396875828489001221" datatype="html">
-        <source>No real time data available. Displaying estimated vehicle information based on past data.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/modules/search/components/section-details/section-details.component.html</context>
-          <context context-type="linenumber">124</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="3111149078026880123" datatype="html">
         <source> Show route of <x id="INTERPOLATION" equiv-text="{{section.lineNameMedium}}"/> </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/components/section-details/section-details.component.html</context>
-          <context context-type="linenumber">193,195</context>
+          <context context-type="linenumber">187,189</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4771113291441249134" datatype="html">
+        <source>No information about the train type available</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/components/section-details/section-details.component.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5175900023044973606" datatype="html">
+        <source>Loading train type</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/components/section-details/section-details.component.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6831965779504621448" datatype="html">
+        <source>(planned)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/components/section-details/section-details.component.ts</context>
+          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8497528947328199741" datatype="html">
