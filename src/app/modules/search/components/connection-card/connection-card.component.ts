@@ -7,6 +7,7 @@ import {MatTooltip} from '@angular/material/tooltip';
 import {DemandComponent} from '../demand/demand.component';
 import {SectionDetailsComponent} from '../section-details/section-details.component';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-connection-card',
@@ -33,7 +34,7 @@ export class ConnectionCardComponent {
   expanded = false;
   loadingTransferTimeChange = false;
 
-  constructor(private searchService: SearchService) {
+  constructor(private searchService: SearchService, private router: Router) {
   }
 
   get startTime(){
@@ -131,6 +132,13 @@ export class ConnectionCardComponent {
           this.loadingTransferTimeChange = false;
         }
       });
+  }
+
+  openDetails(){
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree(['/journey/123'])
+    );
+    window.open(url);
   }
 
   public openBahnBooking(){

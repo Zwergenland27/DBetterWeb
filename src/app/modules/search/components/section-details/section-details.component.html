@@ -46,9 +46,9 @@
           <div class="section-infos">
             <div class="section-line">
               @if(section.direction){
-                <span i18n (mouseenter)="getVehicle()" [matTooltip]="vehicleText" matTooltipPosition="above">{{section.lineNameFull}} to {{section.direction}}</span>
+                <span i18n (mouseenter)="getVehicle()" [matTooltip]="vehicleText">{{section.lineNameFull}} to {{section.direction}}</span>
               }@else {
-                <span [matTooltip]="vehicleText" matTooltipPosition="above">{{section.lineNameFull}}</span>
+                <span [matTooltip]="vehicleText">{{section.lineNameFull}}</span>
               }
             </div>
             @if(section.stops.length == 2){
@@ -183,8 +183,9 @@
       </div>
     }
 
-    <button mat-stroked-button i18n>
-      Show route of {{section.lineNameMedium}}
+    <button mat-stroked-button (click)="openDetails()">
+      <mat-icon>open_in_new</mat-icon>
+      <span i18n>Show route of {{section.lineNameMedium}}</span>
     </button>
   </div>
 </div>

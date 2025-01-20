@@ -43,8 +43,7 @@
         <mat-chip
           (removed)="removeDiscount(discount)"
           [class]="discount.class"
-          [matTooltip]="classTooltip.textContent"
-          matTooltipPosition="above">
+          [matTooltip]="classTooltip.textContent">
           {{ discount.type }}
           <button matChipRemove>
             <mat-icon>cancel</mat-icon>

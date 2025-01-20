@@ -55,6 +55,14 @@
   border-left: 1px solid var(--mat-sys-outline-variant);
 }
 
+.route-controls > button {
+  display: flex;
+}
+
+.route-controls > button > .mat-icon {
+  flex-shrink: 0;
+}
+
 .controls {
   display: flex;
   gap: 10px;

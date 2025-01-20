@@ -318,6 +318,18 @@
         <source> Details </source>
         <target>Details</target>
       </trans-unit>
+      <trans-unit id="6371588679924903737" datatype="html">
+        <source>Open in new tab</source>
+        <target>In neuem Tab öffnen</target>
+      </trans-unit>
+      <trans-unit id="7419704019640008953" datatype="html">
+        <source>Share</source>
+        <target>Teilen</target>
+      </trans-unit>
+      <trans-unit id="3768927257183755959" datatype="html">
+        <source>Save</source>
+        <target>Speichern</target>
+      </trans-unit>
       <trans-unit id="4215194277711300165" datatype="html">
         <source>from </source>
         <target>ab</target>
@@ -330,7 +342,7 @@
         <source>Booking not possible</source>
         <target>Buchen nicht möglich</target>
       </trans-unit>
-      <trans-unit id="5117436401758074324" datatype="html">
+      <trans-unit id="1705135377289965490" datatype="html">
         <source> Continue on bahn.de </source>
         <target> Weiter auf bahn.de </target>
       </trans-unit>
@@ -478,7 +490,7 @@
         <source><x id="INTERPOLATION" equiv-text="{{section.lineNameFull}}"/> to <x id="INTERPOLATION_1" equiv-text="{{section.direction}}"/></source>
         <target><x id="INTERPOLATION" equiv-text="{{section.lineNameFull}}"/> nach <x id="INTERPOLATION_1" equiv-text="{{section.direction}}"/> </target>
       </trans-unit>
-      <trans-unit id="3111149078026880123" datatype="html">
+      <trans-unit id="7104401653955624962" datatype="html">
         <source> Show route of <x id="INTERPOLATION" equiv-text="{{section.lineNameMedium}}"/> </source>
         <target> Zeige Route von <x id="INTERPOLATION" equiv-text="{{section.lineNameMedium}}"/> </target>
       </trans-unit>

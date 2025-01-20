@@ -1,37 +1,37 @@
 @if(showClass == 'Second'){
   @if(demand.secondClass == 'Extreme'){
     <span #accessibleTooltip hidden i18n>Exceptional high demand expected</span>
-    <mat-icon class="extreme" [matTooltip]="accessibleTooltip.textContent" matTooltipPosition="above">group_off</mat-icon>
+    <mat-icon class="extreme" [matTooltip]="accessibleTooltip.textContent">group_off</mat-icon>
   }@else if(demand.secondClass == 'High'){
     <span #accessibleTooltip hidden i18n>High demand expected</span>
-    <mat-icon class="high" [matTooltip]="accessibleTooltip.textContent" matTooltipPosition="above">group</mat-icon>
+    <mat-icon class="high" [matTooltip]="accessibleTooltip.textContent">group</mat-icon>
   }@else if(demand.secondClass == 'Medium'){
     <span #accessibleTooltip hidden i18n>Medium demand expected</span>
-    <mat-icon class="medium" [matTooltip]="accessibleTooltip.textContent" matTooltipPosition="above">group</mat-icon>
+    <mat-icon class="medium" [matTooltip]="accessibleTooltip.textContent">group</mat-icon>
   } @else if(demand.secondClass == 'Low'){
     <span #accessibleTooltip hidden i18n>Low demand expected</span>
-    <mat-icon class="low" [matTooltip]="accessibleTooltip.textContent" matTooltipPosition="above">group</mat-icon>
+    <mat-icon class="low" [matTooltip]="accessibleTooltip.textContent">group</mat-icon>
   } @else{
     <span #accessibleTooltip hidden i18n>No demand information</span>
-    <mat-icon class="unknown" [matTooltip]="accessibleTooltip.textContent" matTooltipPosition="above">group</mat-icon>
+    <mat-icon class="unknown" [matTooltip]="accessibleTooltip.textContent">group</mat-icon>
   }
 }
 
 @if(showClass == 'First'){
   @if(demand.firstClass == 'Extreme'){
     <span #accessibleTooltip hidden i18n>Exceptional high demand expected</span>
-    <mat-icon class="extreme" [matTooltip]="accessibleTooltip.textContent" matTooltipPosition="above">group_off</mat-icon>
+    <mat-icon class="extreme" [matTooltip]="accessibleTooltip.textContent">group_off</mat-icon>
   }@else if(demand.firstClass == 'High'){
     <span #accessibleTooltip hidden i18n>High demand expected</span>
-    <mat-icon class="high" [matTooltip]="accessibleTooltip.textContent" matTooltipPosition="above">group</mat-icon>
+    <mat-icon class="high" [matTooltip]="accessibleTooltip.textContent">group</mat-icon>
   }@else if(demand.firstClass == 'Medium'){
     <span #accessibleTooltip hidden i18n>Medium demand expected</span>
-    <mat-icon class="medium" [matTooltip]="accessibleTooltip.textContent" matTooltipPosition="above">group</mat-icon>
+    <mat-icon class="medium" [matTooltip]="accessibleTooltip.textContent">group</mat-icon>
   } @else if(demand.firstClass == 'Low'){
     <span #accessibleTooltip hidden i18n>Low demand expected</span>
-    <mat-icon class="low" [matTooltip]="accessibleTooltip.textContent" matTooltipPosition="above">group</mat-icon>
+    <mat-icon class="low" [matTooltip]="accessibleTooltip.textContent">group</mat-icon>
   } @else{
     <span #accessibleTooltip hidden i18n>No demand information</span>
-    <mat-icon class="unknown" [matTooltip]="accessibleTooltip.textContent" matTooltipPosition="above">group</mat-icon>
+    <mat-icon class="unknown" [matTooltip]="accessibleTooltip.textContent">group</mat-icon>
   }
 }

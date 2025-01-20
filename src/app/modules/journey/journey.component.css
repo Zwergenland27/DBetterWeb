@@ -1,0 +1,13 @@
+.content{
+  height: 100vh;
+  display: flex;
+}
+
+.route {
+  flex: 1;
+}
+
+.map {
+  flex: 1;
+  height: 100%;
+}

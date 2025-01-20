@@ -1,10 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {ConnectionSectionDto, ConnectionStationDto, Demand, SearchService} from '../../search.service';
 import {DatePipe, NgClass, NgIf} from '@angular/common';
 import {MatIcon} from '@angular/material/icon';
-import {StationDto} from '../../../station/station.service';
-import {MatButton, MatMiniFabButton} from '@angular/material/button';
+import {MatButton} from '@angular/material/button';
 import {MatTooltip} from '@angular/material/tooltip';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-section-details',
@@ -14,7 +14,7 @@ import {MatTooltip} from '@angular/material/tooltip';
     NgClass,
     NgIf,
     MatButton,
-    MatTooltip
+    MatTooltip,
   ],
   templateUrl: './section-details.component.html',
   styleUrl: './section-details.component.css'
@@ -32,7 +32,7 @@ export class SectionDetailsComponent {
   loaded = false;
 
   expanded = false;
-  constructor(private searchService: SearchService ) {}
+  constructor(private searchService: SearchService, private router: Router) {}
 
   get sectionDuration(){
     const startTime = new Date(this.section.stops[0].departure!);
@@ -92,4 +92,13 @@ export class SectionDetailsComponent {
       }
     });
   }
+
+  openDetails(){
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree(['/journey/123'])
+    );
+    window.open(url);
+  }
+
+  protected readonly open = open;
 }
