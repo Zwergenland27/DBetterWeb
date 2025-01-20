@@ -1,13 +1,60 @@
 .component {
   display: flex;
+  height: 100vh;
 }
 
 .sidebar {
-  flex: 0 0 25rem;
-  height: 100vh;
-  background: var(--mat-sys-surface-container-high);
-  overflow-y: auto;
   position: relative;
+  flex: 0 0 26rem;
+  background: var(--mat-sys-surface-container-high);
+  overflow: hidden;
+}
+
+.controls-header {
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font: var(--mat-sys-title-large);
+}
+
+.controls-header > button {
+  color: var(--mat-sys-on-surface-variant);
+  background: var(--mat-sys-surface-variant);
+}
+
+.content {
+  position: absolute;
+  right: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.expand {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--mat-sys-surface-container-high);
+}
+
+.expand:hover {
+  background: var(--mat-sys-surface-variant);
+  box-shadow: var(--mat-sys-level3);
+}
+
+.controls {
+  right: 0;
+  width: 26rem;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+}
+
+.sidebar-control {
+  cursor: pointer;
+  width: 2rem;
+  background: var(--mat-sys-surface-container-high);
 }
 
 .search-infos {
@@ -34,19 +81,13 @@
   font: var(--mat-sys-headline-medium);
 }
 
-::-webkit-scrollbar {
-  width: 0;  /* Remove scrollbar space */
-  background: transparent;  /* Optional: just make scrollbar invisible */
-}
-
 .search {
-  position: sticky;
-  bottom: 0;
+  right: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
-  background: linear-gradient(rgba(0, 0, 0, 0) 0%, var(--mat-sys-surface-container-high) 20%);
+  padding: 1rem 0;
+  width: 25rem;
 }
 
 .search-infos {

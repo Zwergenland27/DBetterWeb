@@ -9,11 +9,12 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TimeControlComponent} from './components/time-control/time-control.component';
 import {PassengerControlComponent} from './components/passenger-control/passenger-control.component';
 import {RouteControlComponent} from './components/route-control/route-control.component';
-import {MatButton, MatFabButton} from '@angular/material/button';
+import {MatButton, MatFabButton, MatMiniFabButton} from '@angular/material/button';
 import {OptionsControlComponent} from './components/options-control/options-control.component';
 import {ConnectionCardComponent} from './components/connection-card/connection-card.component';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import {DatePipe, NgIf} from '@angular/common';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-search',
@@ -34,14 +35,43 @@ import {DatePipe, NgIf} from '@angular/common';
     DatePipe,
     MatButton,
     NgIf,
+    MatMiniFabButton,
   ],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css',
+  animations: [
+    trigger('hide', [
+      state(
+        'expanded',
+        style({
+          flex: '0 0 26rm',
+        })
+      ),
+      state(
+        'closed',
+        style({
+          flex: '0 0 0px',
+        })
+      ),
+      transition('expanded => closed', animate('300ms ease-out')),
+      transition('closed => expanded', animate('300ms ease-out'))
+    ])
+  ]
 })
 export class SearchComponent {
   request: RequestDto;
 
+  state = 'expanded';
+
   routeValid: boolean = false;
+
+  toggleSidebar(){
+    if(this.state === 'expanded'){
+      this.state = 'closed';
+    }else{
+      this.state = 'expanded';
+    }
+  }
 
   get bikeInfoRequired(){
     return this.request.passengers.filter(passenger => passenger.bikes > 0).length > 0;

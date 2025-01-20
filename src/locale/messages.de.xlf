@@ -506,6 +506,10 @@
         <source>(planned)</source>
         <target>(geplant)</target>
       </trans-unit>
+      <trans-unit id="6198850230661974450" datatype="html">
+        <source>Journey options</source>
+        <target>Reiseoptionen</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

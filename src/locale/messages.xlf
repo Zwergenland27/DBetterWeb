@@ -24,7 +24,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/search.component.html</context>
-          <context context-type="linenumber">14,15</context>
+          <context context-type="linenumber">21,22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2454050363478003966" datatype="html">
@@ -910,74 +910,81 @@
           <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="6198850230661974450" datatype="html">
+        <source>Journey options</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/search/search.component.html</context>
+          <context context-type="linenumber">6,7</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="9112584085285839498" datatype="html">
         <source>Search connection</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/search.component.html</context>
-          <context context-type="linenumber">22,23</context>
+          <context context-type="linenumber">33,34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8766575877563183003" datatype="html">
         <source>Select the passengers</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/search.component.html</context>
-          <context context-type="linenumber">25,26</context>
+          <context context-type="linenumber">36,37</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6540967060328987525" datatype="html">
         <source>Select the time of the journey</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/search.component.html</context>
-          <context context-type="linenumber">29,30</context>
+          <context context-type="linenumber">40,41</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1654358027024922570" datatype="html">
         <source>Select the route</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/search.component.html</context>
-          <context context-type="linenumber">33,34</context>
+          <context context-type="linenumber">44,45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6330473726038713812" datatype="html">
         <source>Search connections</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/search.component.html</context>
-          <context context-type="linenumber">37,38</context>
+          <context context-type="linenumber">48,49</context>
         </context-group>
       </trans-unit>
       <trans-unit id="780051768573367251" datatype="html">
         <source>Select connection</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/search.component.html</context>
-          <context context-type="linenumber">41,42</context>
+          <context context-type="linenumber">52,53</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2122242976964875002" datatype="html">
         <source>No connections found</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/search.component.html</context>
-          <context context-type="linenumber">48,49</context>
+          <context context-type="linenumber">59,60</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2039372937823096731" datatype="html">
         <source>Please adjust the request parameters</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/search.component.html</context>
-          <context context-type="linenumber">49,50</context>
+          <context context-type="linenumber">60,61</context>
         </context-group>
       </trans-unit>
       <trans-unit id="904263491421405349" datatype="html">
         <source>Earlier</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/search.component.html</context>
-          <context context-type="linenumber">58,59</context>
+          <context context-type="linenumber">69,70</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9026083618139453880" datatype="html">
         <source>Later</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/search/search.component.html</context>
-          <context context-type="linenumber">71,72</context>
+          <context context-type="linenumber">82,83</context>
         </context-group>
       </trans-unit>
     </body>
