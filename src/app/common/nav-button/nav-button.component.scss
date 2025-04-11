@@ -1,0 +1,67 @@
+a {
+  display: flex;
+  align-items: center;
+  gap: var(--text-gap);
+  flex-direction: row;
+  text-decoration: none;
+  padding: 16px;
+  border-radius: var(--radius-round);
+  color: var(--on-surface);
+
+  &.active {
+    box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0px rgba(0, 0, 0, .14), 0 1px 18px 0px rgba(0, 0, 0, .12);
+    background-color: var(--primary);
+    color: var(--on-primary);
+  }
+
+  &:hover {
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12);
+  }
+
+  &:not(.active):hover{
+    background-color: var(--surface-variant);
+    color: var(--on-surface-variant);
+  }
+
+  span {
+    display: none;
+    font: var(--label-large);
+  }
+}
+
+@media screen and (width >= 768px) {
+  a {
+    &:hover {
+      span {
+        display: unset;
+        position: absolute;
+        left: calc(100% + 8px);
+        background-color: var(--inverse-surface);
+        color: var(--inverse-on-surface);
+        border-radius: var(--radius-small);
+        padding: 2px 6px;
+        border: 1px solid var(--surface-variant);
+      }
+    }
+  }
+}
+
+@media screen and (width < 768px) {
+  a {
+    span {
+      display: unset;
+    }
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  a:hover {
+    filter: brightness(0.8);
+  }
+}
+
+@media(prefers-color-scheme: dark) {
+  a:hover {
+    filter: brightness(1.2);
+  }
+}
