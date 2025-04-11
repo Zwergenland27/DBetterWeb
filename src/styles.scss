@@ -1,1 +1,57 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  color-scheme: light dark;
+
+  --background: light-dark(#f8faef, #11140e);
+  --error: light-dark(#ba1a1a, #ffb4ab);
+  --error-container: light-dark(#ffdad6, #93000a);
+  --inverse-on-surface: light-dark(#f0f2e7, #2e312a);
+  --inverse-primary: light-dark(#acd28f, #466730);
+  --inverse-surface: light-dark(#2e312a, #e1e4d9);
+  --on-background: light-dark(#191d16, #e1e4d9);
+  --on-error: light-dark(#ffffff, #690005);
+  --on-error-container: light-dark(#410002, #ffdad6);
+  --on-primary: light-dark(#ffffff, #1a3705);
+  --on-primary-container: light-dark(#0a2100, #c7eea9);
+  --on-primary-fixed: light-dark(#0a2100, #0a2100);
+  --on-primary-fixed-variant: light-dark(#2f4f1a, #2f4f1a);
+  --on-secondary: light-dark(#ffffff, #1a3704);
+  --on-secondary-container: light-dark(#0b2000, #c7eea8);
+  --on-secondary-fixed: light-dark(#0b2000, #0b2000);
+  --on-secondary-fixed-variant: light-dark(#304f19, #304f19);
+  --on-surface: light-dark(#191d16, #e1e4d9);
+  --on-surface-variant: light-dark(#43483d, #e0e4d5);
+  --on-tertiary: light-dark(#ffffff, #1a3705);
+  --on-tertiary-container: light-dark(#0a2100, #c7eea9);
+  --on-tertiary-fixed: light-dark(#0a2100, #0a2100);
+  --on-tertiary-fixed-variant: light-dark(#2f4f1a, #2f4f1a);
+  --outline: light-dark(#74796c, #8d9385);
+  --outline-variant: light-dark(#c3c8ba, #43483d);
+  --primary: light-dark(#466730, #acd28f);
+  --primary-container: light-dark(#c7eea9, #2f4f1a);
+  --primary-fixed: light-dark(#c7eea9, #c7eea9);
+  --primary-fixed-dim: light-dark(#acd28f, #acd28f);
+  --scrim: light-dark(#000000, #000000);
+  --secondary: light-dark(#46672f, #acd28e);
+  --secondary-container: light-dark(#c7eea8, #304f19);
+  --secondary-fixed: light-dark(#c7eea8, #c7eea8);
+  --secondary-fixed-dim: light-dark(#acd28e, #acd28e);
+  --shadow: light-dark(#000000, #000000);
+  --surface: light-dark(#f8faef, #11140e);
+  --surface-bright: light-dark(#f8faef, #373a33);
+  --surface-container: light-dark(#edefe4, #1d211a);
+  --surface-container-high: light-dark(#e7e9de, #282b24);
+  --surface-container-highest: light-dark(#e1e4d9, #373a33);
+  --surface-container-low: light-dark(#f3f5ea, #191d16);
+  --surface-container-lowest: light-dark(#ffffff, #0c0f09);
+  --surface-dim: light-dark(#d9dbd0, #11140e);
+  --surface-tint: light-dark(#466730, #acd28f);
+  --surface-variant: light-dark(#e0e4d5, #43483d);
+  --tertiary: light-dark(#466730, #acd28f);
+  --tertiary-container: light-dark(#c7eea9, #2f4f1a);
+  --tertiary-fixed: light-dark(#c7eea9, #c7eea9);
+  --tertiary-fixed-dim: light-dark(#acd28f, #acd28f);
+  --neutral-variant20: #2d3228;
+  --neutral10: #191d16;
+
+  -webkit-tap-highlight-color: transparent;
+}
