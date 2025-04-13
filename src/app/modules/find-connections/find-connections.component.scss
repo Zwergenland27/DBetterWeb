@@ -1,0 +1,141 @@
+$options-width: calc(25rem + 1rem);
+$options-opener-width: calc(1.5rem + 2 * 8px);
+
+.find-connections {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.options {
+  background-color: var(--surface-container-high);
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font: var(--title-large);
+    padding: 16px;
+  }
+
+  .panels {
+    overflow-y: auto;
+    flex: 1;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5rem;
+  }
+}
+
+.options-opener {
+  display: none;
+  cursor: pointer;
+  color: var(--on-secondary-container);
+  background-color: var(--secondary-container);
+  box-shadow: var(--normal-shadow);
+  z-index: 0;
+
+  icon {
+    padding: 8px;
+  }
+
+  icon.desktop,
+  icon.mobile {
+    display: none;
+  }
+
+  &:hover {
+    box-shadow: var(--hover-shadow);
+  }
+}
+
+@media screen and (width >= 768px){
+  .find-connections {
+    flex-direction: row;
+  }
+
+  .options {
+    width: $options-width;
+    height: 100%;
+    transform: translateX(-$options-width);
+    transition: transform 0.3s ease-out;
+
+    &.extended {
+      transform: translateX(0);
+    }
+
+    .footer {
+      width: $options-width;
+    }
+  }
+
+  .options-opener {
+    display: flex;
+    height: 100%;
+    width: $options-opener-width;
+    flex-direction: column;
+    justify-content: space-evenly;
+    position: fixed;
+
+    icon.desktop {
+      display: unset;
+    }
+  }
+
+  .suggestions {
+    transform: translateX(0);
+    transition: transform 0.3s ease-out;
+
+    &.expanded {
+      transform: translateX(calc($options-opener-width - $options-width));
+    }
+  }
+}
+
+@media screen and (width < 768px) {
+  .find-connections {
+    flex-direction: column;
+  }
+
+  .options {
+    width: 100%;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease-out;
+
+    &.extended {
+      transform: translateY(0);
+    }
+  }
+
+  .options-opener {
+    display: flex;
+    height: $options-opener-width;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-evenly;
+    position: fixed;
+
+    icon.mobile {
+      display: unset;
+    }
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .options-opener:hover {
+    filter: brightness(0.8);
+  }
+}
+
+@media(prefers-color-scheme: dark) {
+  .options-opener:hover {
+    filter: brightness(1.2);
+  }
+}

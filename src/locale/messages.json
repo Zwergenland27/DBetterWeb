@@ -3,6 +3,11 @@
   "translations": {
     "logo-alt": "Logo of dbetter",
     "find-connection-nav": "Connections",
-    "about-nav": "About"
+    "about-nav": "About",
+    "connection-options-title": "Connection options",
+    "route": "Route",
+    "time": "Time",
+    "passengers": "Passengers",
+    "button-search": "Search"
   }
 }
