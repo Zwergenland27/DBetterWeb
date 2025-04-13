@@ -1,0 +1,100 @@
+.input {
+  .input-text {
+    position: relative;
+
+    input {
+      width: 100%;
+      height: calc(1.5rem + 2 * 16px);
+      padding-top: 1rem;
+      font: var(--body-large);
+      border-radius: var(--radius-small) var(--radius-small) 0 0;
+      border: none;
+      border-bottom: 1px solid var(--on-surface-variant);
+      outline: none;
+      background-color: var(--surface-variant);
+      box-sizing: border-box;
+
+      &:focus {
+        border-bottom-color: var(--primary);
+        border-bottom-width: 2px;
+      }
+
+      &:focus + label {
+        color: var(--primary);
+      }
+
+      &:focus + label,
+      &.hint + label,
+      &:not(:placeholder-shown) + label{
+        top: 4px;
+        transform: unset;
+        font: var(--label-large);
+      }
+
+      &.invalid{
+        border-bottom-color: var(--error);
+      }
+
+      &.invalid + label {
+        color: var(--error);
+      }
+    }
+
+    icon {
+      display: none;
+      padding: 16px;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    label {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      transition: 0.2s ease all;
+      font: var(--body-large);
+
+      &.required:after {
+        content: "*";
+      }
+    }
+
+    &.icon {
+      icon {
+        display: unset;
+        position: absolute;
+      }
+
+      input {
+        padding-left: calc(1.5rem + 2 * 16px);
+      }
+
+      label {
+        left: calc(1.5rem + 2 * 16px);
+      }
+    }
+  }
+
+  .input-errors {
+    padding-left: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    color: var(--error);
+    min-height: var(--body-large-line-height);
+    font: var(--body-large);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  input:hover:not(:focus){
+    filter: brightness(0.8);
+  }
+}
+
+@media(prefers-color-scheme: dark) {
+  input:hover:not(:focus){
+    filter: brightness(1.2);
+  }
+}

@@ -1,0 +1,76 @@
+import {Component, input, output} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {IconComponent} from '../icon/icon.component';
+import {NgIf} from '@angular/common';
+import {ErrorTranslation} from '../error-translation';
+
+@Component({
+  selector: 'input-text',
+  imports: [
+    FormsModule,
+    IconComponent,
+    NgIf
+  ],
+  templateUrl: './input-text.component.html',
+  styleUrl: './input-text.component.scss'
+})
+export class InputTextComponent {
+  icon = input<string>();
+  label = input.required<string>();
+  hint = input<string>('');
+  value = input.required<string>();
+  validators = input<((value: string) => boolean)[]>([]);
+  required = input<boolean | ''>(false);
+  errorTranslations = input<Record<string, string>>({});
+  valueChange = output<string | undefined>();
+  errors: ErrorTranslation[] = [];
+
+  isValid = true;
+  _value : string = ''
+
+  get isRequired() {
+    return this.required() || this.required() === '';
+  }
+
+  currentValueChange(value: string){
+    this._value = value;
+    this.validate();
+    if(this.isValid){
+      this.valueChange.emit(this._value);
+      return;
+    }
+
+    this.valueChange.emit(undefined);
+  }
+
+  setErrors(errorCodes: string[]){
+    const errors: ErrorTranslation[] = [];
+    const errorTranslations = this.errorTranslations();
+
+    for(let errorCode of errorCodes){
+      const message = errorTranslations[errorCode];
+      if(message){
+        errors.push(ErrorTranslation.Create(errorCode, message));
+      }else{
+        errors.push(ErrorTranslation.CreateWithoutTranslation(errorCode));
+      }
+    }
+
+    this.errors = errors;
+    this.isValid = errors.length <= 0;
+  }
+
+  clearErrors() {
+    this.setErrors([]);
+  }
+
+  validate(){
+    const required = this.isRequired;
+    if(required && !this._value){
+      this.setErrors(["Frontend.Missing"])
+      return;
+    }
+
+    this.clearErrors();
+  }
+}
