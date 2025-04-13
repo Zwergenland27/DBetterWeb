@@ -64,11 +64,11 @@ $options-opener-width: calc(1.5rem + 2 * 8px);
   .options {
     width: $options-width;
     height: 100%;
-    transform: translateX(-$options-width);
+    transform: translateX(0);
     transition: transform 0.3s ease-out;
 
-    &.extended {
-      transform: translateX(0);
+    &.hidden {
+      transform: translateX(-$options-width);
     }
 
     .footer {
@@ -106,11 +106,11 @@ $options-opener-width: calc(1.5rem + 2 * 8px);
 
   .options {
     width: 100%;
-    transform: translateY(-100%);
+    transform: translateY(0);
     transition: transform 0.3s ease-out;
 
-    &.extended {
-      transform: translateY(0);
+    &.hidden {
+      transform: translateY(-100%);
     }
   }
 
