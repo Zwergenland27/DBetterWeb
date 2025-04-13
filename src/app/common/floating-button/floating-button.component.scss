@@ -7,8 +7,9 @@ button {
   padding: 16px;
   border-radius: var(--radius-round);
   border: none;
-  color: var(--on-surface);
+  color: var(--on-primary-container);
   background-color: var(--primary-container);
+  font: var(--label-large);
   box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0px rgba(0, 0, 0, .14), 0 1px 18px 0px rgba(0, 0, 0, .12);
 
   &:hover:not(:disabled) {
@@ -19,6 +20,15 @@ button {
     cursor: unset;
     color: color-mix(in srgb, var(--on-surface-variant) 38%, transparent);
     background-color: color-mix(in srgb, var(--on-surface-variant) 12%, transparent);
+  }
+
+  &.secondary {
+    color: var(--on-secondary-container);
+    background-color: var(--secondary-container);
+  }
+
+  &.small {
+    padding: 8px;
   }
 }
 

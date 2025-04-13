@@ -9,15 +9,17 @@ import {NgIf} from '@angular/common';
     NgIf
   ],
   template: `
-    <button [disabled]="disabled()">
+    <button [disabled]="disabled()" [class.small]="small()" [class.secondary]="secondary()">
       <icon *ngIf="icon()" [name]="icon()!"/>
-      <span>{{ text() }}</span>
+      <span *ngIf="text()">{{ text() }}</span>
     </button>
   `,
   styleUrl: './floating-button.component.scss'
 })
 export class FloatingButtonComponent {
   icon = input<string>();
-  text = input.required<string>();
+  text = input<string>();
   disabled = input(false, {transform: booleanAttribute});
+  small = input(false, {transform: booleanAttribute});
+  secondary = input(false, {transform: booleanAttribute});
 }
