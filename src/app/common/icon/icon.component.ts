@@ -10,6 +10,7 @@ import {Component, input} from '@angular/core';
   span {
     user-select: none;
     display: flex;
+    justify-content: center;
     font-size: 1.5rem;
   }`
 })
