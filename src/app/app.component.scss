@@ -10,6 +10,7 @@ $navigation-size: 80px;
 .navigation {
   background-color: var(--surface-container-highest);
   color: var(--on-surface);
+  z-index: 999;
 
   nav {
     display: flex;
