@@ -8,7 +8,9 @@ import {Component, input} from '@angular/core';
   `,
   styles: `
   span {
+    user-select: none;
     display: flex;
+    font-size: 1.5rem;
   }`
 })
 export class IconComponent {
