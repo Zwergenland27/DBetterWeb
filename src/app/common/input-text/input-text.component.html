@@ -8,7 +8,7 @@
            [class.hint]="hint()"
            [class.invalid]="!isValid"
            (blur)="validate()"/>
-    <label [class.required]="isRequired">{{ label() }}</label>
+    <label [class.required]="required()">{{ label() }}</label>
   </div>
   <div class="input-errors">
     @for(error of errors; track error.code){

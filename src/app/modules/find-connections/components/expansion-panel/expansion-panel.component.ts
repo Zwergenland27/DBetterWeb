@@ -1,4 +1,4 @@
-import {Component, effect, input, output} from '@angular/core';
+import {booleanAttribute, Component, effect, input, output} from '@angular/core';
 import {IconComponent} from '../../../../common/icon/icon.component';
 import {NgIf} from '@angular/common';
 
@@ -13,7 +13,7 @@ import {NgIf} from '@angular/common';
 })
 export class ExpansionPanelComponent {
   title = input.required<string>();
-  expanded = input<boolean | ''>(false);
+  expanded = input(false, {transform: booleanAttribute});
   invalid = input.required<boolean>();
   invalidChange = output<boolean>();
 
@@ -23,7 +23,7 @@ export class ExpansionPanelComponent {
 
   constructor() {
     effect(() => {
-      this.isExpanded = this.expanded() || this.expanded() === '';
+      this.isExpanded = this.expanded()
     });
   }
 

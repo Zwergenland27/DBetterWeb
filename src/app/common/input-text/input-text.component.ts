@@ -1,4 +1,4 @@
-import {Component, input, output} from '@angular/core';
+import {booleanAttribute, Component, input, output} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {IconComponent} from '../icon/icon.component';
 import {NgIf} from '@angular/common';
@@ -20,17 +20,13 @@ export class InputTextComponent {
   hint = input<string>('');
   value = input.required<string>();
   validators = input<((value: string) => boolean)[]>([]);
-  required = input<boolean | ''>(false);
+  required = input(false, {transform: booleanAttribute});
   errorTranslations = input<Record<string, string>>({});
   valueChange = output<string | undefined>();
   errors: ErrorTranslation[] = [];
 
   isValid = true;
   _value : string = ''
-
-  get isRequired() {
-    return this.required() || this.required() === '';
-  }
 
   currentValueChange(value: string){
     this._value = value;
@@ -65,8 +61,7 @@ export class InputTextComponent {
   }
 
   validate(){
-    const required = this.isRequired;
-    if(required && !this._value){
+    if(this.required() && !this._value){
       this.setErrors(["Frontend.Missing"])
       return;
     }
