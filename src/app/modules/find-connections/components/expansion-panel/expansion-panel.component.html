@@ -1,7 +1,7 @@
 <div class="expansion-panel">
   <div class="header" (click)="togglePanel()">
     <icon *ngIf="invalid()" [class.invalid]="invalid()" name="warning"/>
-    <span [class.invalid]="invalid()" class="title">{{ title() }}</span>
+    <span [class.invalid]="invalid()" class="title">{{ text() }}</span>
     <icon *ngIf="isExpanded" name="keyboard_arrow_up"/>
     <icon *ngIf="!isExpanded" name="keyboard_arrow_down"/>
   </div>

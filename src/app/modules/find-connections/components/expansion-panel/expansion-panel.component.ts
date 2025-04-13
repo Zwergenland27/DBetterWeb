@@ -12,7 +12,7 @@ import {NgIf} from '@angular/common';
   styleUrl: './expansion-panel.component.scss'
 })
 export class ExpansionPanelComponent {
-  title = input.required<string>();
+  text = input.required<string>();
   expanded = input(false, {transform: booleanAttribute});
   invalid = input.required<boolean>();
   invalidChange = output<boolean>();
