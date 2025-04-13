@@ -17,9 +17,13 @@ $navigation-size: 80px;
   }
 }
 
+
+.content {
+  flex: 1;
+}
+
 @media screen and (width >= 768px){
   .navigation {
-    top: 0;
     height: 100%;
     width: $navigation-size;
 
@@ -32,8 +36,11 @@ $navigation-size: 80px;
 }
 
 @media screen and (width < 768px) {
+  .app {
+    flex-direction: column-reverse;
+  }
+
   .navigation {
-    bottom: 0;
     height: $navigation-size;
     width: 100%;
 
