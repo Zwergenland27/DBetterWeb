@@ -4,8 +4,9 @@
 
     input {
       width: 100%;
-      height: calc(1.5rem + 2 * 16px);
+      height: var(--input-height);
       padding-top: 1rem;
+      padding-left: 16px;
       font: var(--body-large);
       border-radius: var(--radius-small) var(--radius-small) 0 0;
       border: none;

@@ -22,7 +22,7 @@ export class InputTextComponent {
   validators = input<((value: string) => boolean)[]>([]);
   required = input(false, {transform: booleanAttribute});
   errorTranslations = input<Record<string, string>>({});
-  valueChange = output<string | undefined>();
+  valueChange = output<{value: string, valid: boolean}>();
   errors: ErrorTranslation[] = [];
 
   isValid = true;
@@ -31,12 +31,7 @@ export class InputTextComponent {
   currentValueChange(value: string){
     this._value = value;
     this.validate();
-    if(this.isValid){
-      this.valueChange.emit(this._value);
-      return;
-    }
-
-    this.valueChange.emit(undefined);
+    this.valueChange.emit({value: this._value, valid: this.isValid});
   }
 
   setErrors(errorCodes: string[]){

@@ -1,0 +1,17 @@
+<div class="autocomplete-input-text"
+(focusout)="close()">
+  <input-text class="input" #input
+    [icon]="icon()"
+    [label]="label()"
+    [hint]="hint()"
+    [validators]="validators()"
+    [required]="required()"
+    [errorTranslations]="errorTranslations()"
+    [value]="value"
+    (valueChange)="onValueChange($event)"/>
+  <div class="suggestions" [class.opened]="suggestions.length > 0">
+    @for(suggestion of suggestions; track suggestion.id){
+      <option (click)="select(suggestion.id)">{{suggestion.value}}</option>
+    }
+  </div>
+</div>
