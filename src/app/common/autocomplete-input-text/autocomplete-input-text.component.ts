@@ -58,7 +58,10 @@ export class AutocompleteInputTextComponent {
       valid: result.valid,
     });
 
-    if(this._closing) return;
+    if(this._closing){
+      this._closing = false;
+      return;
+    }
 
     this.autocompleteFunction()(result.value).subscribe(
       value => {
