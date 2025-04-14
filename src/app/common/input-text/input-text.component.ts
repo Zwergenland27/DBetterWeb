@@ -16,6 +16,8 @@ import {ErrorTranslation} from '../error-translation';
 })
 export class InputTextComponent {
   icon = input<string>();
+  buttonIcon = input<string>();
+  buttonClick = output();
   label = input.required<string>();
   hint = input<string>('');
   value = input.required<string>();
