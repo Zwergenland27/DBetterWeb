@@ -23,7 +23,7 @@ export class AutocompleteInputTextComponent {
   errorTranslations = input<Record<string, string>>({});
   hideErrors = input(false, {transform: booleanAttribute});
 
-  default = input<string>('');
+  default = input<{id: string | undefined, value:string}>({id: undefined, value: ''});
   autocompleteFunction = input.required<(value: string) => Observable<{id: string, value: string}[]>>();
   mustUseSuggestion = input(false, {transform: booleanAttribute});
   valueChange = output<{id: string | undefined, value:string, valid:boolean}>();
@@ -36,7 +36,8 @@ export class AutocompleteInputTextComponent {
 
   constructor() {
     effect(() => {
-      this.value = this.default();
+      this.value = this.default().value;
+      this._selectedId = this.default().id;
     });
   }
 
