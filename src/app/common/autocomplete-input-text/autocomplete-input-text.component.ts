@@ -14,6 +14,8 @@ export class AutocompleteInputTextComponent {
   @ViewChild('input') inputText!: InputTextComponent;
 
   icon = input<string>();
+  buttonIcon = input<string>();
+  buttonClick = output();
   label = input.required<string>();
   hint = input<string>('');
   validators = input<((value: string) => boolean)[]>([]);
