@@ -47,6 +47,7 @@
       padding: 16px;
       pointer-events: none;
       z-index: 2;
+      color: var(--on-surface-variant);
     }
 
     label {
@@ -74,6 +75,7 @@
         z-index: 2;
         border-radius: 100%;
         border: none;
+        color: var(--on-surface-variant);
         background-color: transparent;
 
         &:hover {
