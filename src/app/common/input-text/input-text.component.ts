@@ -1,4 +1,4 @@
-import {booleanAttribute, Component, input, output} from '@angular/core';
+import {booleanAttribute, Component, effect, input, output} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {IconComponent} from '../icon/icon.component';
 import {NgIf} from '@angular/common';
@@ -32,6 +32,12 @@ export class InputTextComponent {
 
   isValid = true;
   _value : string = ''
+
+  constructor() {
+    effect(() => {
+      this._value = this.value();
+    });
+  }
 
   currentValueChange(value: string){
     this._value = value;

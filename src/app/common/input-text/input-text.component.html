@@ -2,7 +2,7 @@
   <div class="input-text" [class.icon]="icon()" [class.button]="buttonIcon()">
     <icon *ngIf="icon()" [name]="icon()!" class="prefix"/>
     <input type="text"
-           [ngModel]="value()"
+           [ngModel]="_value"
            (ngModelChange)="currentValueChange($event)"
            [placeholder]="hint()"
            [class.hint]="hint()"
