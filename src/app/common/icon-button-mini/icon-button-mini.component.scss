@@ -1,0 +1,30 @@
+button {
+  position: relative;
+  cursor: pointer;
+  pointer-events: all;
+  padding: 8px;
+  z-index: 2;
+  border-radius: 100%;
+  border: none;
+  color: var(--on-surface-variant);
+  background-color: transparent;
+
+  span{
+    content: '';
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    opacity: 0;
+    background-color: #fff;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  &:hover {
+    span {
+      opacity: 0.1;
+    }
+  }
+}

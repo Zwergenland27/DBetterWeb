@@ -3,13 +3,15 @@ import {FormsModule} from '@angular/forms';
 import {IconComponent} from '../icon/icon.component';
 import {NgIf} from '@angular/common';
 import {ErrorTranslation} from '../error-translation';
+import {IconButtonMiniComponent} from '../icon-button-mini/icon-button-mini.component';
 
 @Component({
   selector: 'input-text',
   imports: [
     FormsModule,
     IconComponent,
-    NgIf
+    NgIf,
+    IconButtonMiniComponent
   ],
   templateUrl: './input-text.component.html',
   styleUrl: './input-text.component.scss'

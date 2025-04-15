@@ -67,21 +67,6 @@
     .suffix {
       display: none;
       pointer-events: none;
-
-      button {
-        cursor: pointer;
-        pointer-events: all;
-        padding: 8px;
-        z-index: 2;
-        border-radius: 100%;
-        border: none;
-        color: var(--on-surface-variant);
-        background-color: transparent;
-
-        &:hover {
-          background-color: var(--surface-variant);
-        }
-      }
     }
 
     &.icon {
