@@ -9,7 +9,7 @@
            [class.invalid]="!isValid"
            (blur)="validate()"/>
     <label [class.required]="required()">{{ label() }}</label>
-    <icon-button-mini *ngIf="buttonIcon()" class="suffix" [icon]="buttonIcon()!" (click)="buttonClick.emit()"/>
+    <icon-button-mini *ngIf="buttonIcon()" class="suffix" [icon]="buttonIcon()!" (buttonClick)="buttonClick.emit()"/>
   </div>
   <div *ngIf="!hideErrors()" class="input-errors">
     @for(error of errors; track error.code){

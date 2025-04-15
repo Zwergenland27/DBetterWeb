@@ -7,14 +7,14 @@ import {IconComponent} from '../icon/icon.component';
     IconComponent
   ],
   template: `
-    <button (click)="click.emit()">
+    <button (click)="buttonClick.emit()">
       <span></span>
       <icon [name]="icon()"/>
     </button>
-    `,
+  `,
   styleUrl: './icon-button-mini.component.scss'
 })
 export class IconButtonMiniComponent {
   icon = input.required<string>();
-  click = output();
+  buttonClick = output();
 }
