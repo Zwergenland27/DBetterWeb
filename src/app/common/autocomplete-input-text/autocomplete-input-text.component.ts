@@ -21,6 +21,7 @@ export class AutocompleteInputTextComponent {
   validators = input<((value: string) => boolean)[]>([]);
   required = input(false, {transform: booleanAttribute});
   errorTranslations = input<Record<string, string>>({});
+  hideErrors = input(false, {transform: booleanAttribute});
 
   default = input<string>('');
   autocompleteFunction = input.required<(value: string) => Observable<{id: string, value: string}[]>>();

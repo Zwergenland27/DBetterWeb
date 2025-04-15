@@ -15,7 +15,7 @@
       </button>
     </div>
   </div>
-  <div class="input-errors">
+  <div *ngIf="!hideErrors()" class="input-errors">
     @for(error of errors; track error.code){
       <span>{{error.message}}</span>
     }

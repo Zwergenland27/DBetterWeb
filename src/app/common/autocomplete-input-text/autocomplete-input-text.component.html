@@ -9,6 +9,7 @@
               [validators]="validators()"
               [required]="required()"
               [errorTranslations]="errorTranslations()"
+              [hideErrors]="hideErrors()"
               [value]="value"
               (valueChange)="onValueChange($event)"/>
   <div class="suggestions" [class.opened]="suggestions.length > 0">

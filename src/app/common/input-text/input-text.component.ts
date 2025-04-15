@@ -26,6 +26,7 @@ export class InputTextComponent {
   errorTranslations = input<Record<string, string>>({});
   valueChange = output<{value: string, valid: boolean}>();
   errors: ErrorTranslation[] = [];
+  hideErrors = input(false, {transform: booleanAttribute});
 
   isValid = true;
   _value : string = ''
