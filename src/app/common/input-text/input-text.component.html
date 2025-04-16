@@ -2,10 +2,12 @@
   <div class="input-text" [class.icon]="icon()" [class.button]="buttonIcon()">
     <icon *ngIf="icon()" [name]="icon()!" class="prefix"/>
     <input type="text"
+           #input
            [ngModel]="_value"
            (ngModelChange)="currentValueChange($event)"
            [placeholder]="hint()"
            [class.hint]="hint()"
+           (focus)="scrollIntoView(input)"
            [class.invalid]="!isValid"
            (blur)="validate()"/>
     <label [class.required]="required()">{{ label() }}</label>

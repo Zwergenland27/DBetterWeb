@@ -39,6 +39,10 @@ export class InputTextComponent {
     });
   }
 
+  scrollIntoView(inputElement: HTMLElement) {
+    inputElement.scrollIntoView({behavior: 'smooth', block: 'start'});
+  }
+
   currentValueChange(value: string){
     this._value = value;
     this.validate();
