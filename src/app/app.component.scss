@@ -18,18 +18,17 @@ $navigation-size: 80px;
   }
 }
 
-
 .content {
   flex: 1;
+  overflow: hidden;
 }
 
 @media screen and (width >= 768px){
   .navigation {
     height: 100%;
-    width: $navigation-size;
 
     nav {
-      width: 100%;
+      width: $navigation-size;
       flex-direction: column;
       align-items: center;
     }
@@ -42,7 +41,6 @@ $navigation-size: 80px;
   }
 
   .navigation {
-    height: $navigation-size;
     width: 100%;
 
     img {
@@ -50,7 +48,7 @@ $navigation-size: 80px;
     }
 
     nav {
-      height: 100%;
+      height: $navigation-size;
       flex-direction: row;
       justify-content: space-evenly;
       align-items: center;

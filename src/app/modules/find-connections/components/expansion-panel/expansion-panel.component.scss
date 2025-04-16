@@ -8,6 +8,7 @@
     align-items: center;
     gap: var(--text-gap);
     padding: 1rem;
+    -webkit-user-select: none;
 
     .title {
       display: flex;
