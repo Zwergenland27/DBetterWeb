@@ -1,1 +1,51 @@
-<p>route-options works!</p>
+<div class="route-options">
+  <autocomplete-input-text
+    icon="trip_origin"
+    label="Origin"
+    [autocompleteFunction]="searchStation"
+    (valueChange)="originStationSelected($event)"
+    hideErrors
+    required
+    mustUseSuggestion
+    selectAllOnFocus/>
+  <segment-options (addClick)="addFirstStopover()" [withButton]="!showFirstStopoverInput || !showSecondStopoverInput"/>
+  <autocomplete-input-text
+    *ngIf="showFirstStopoverInput"
+    icon="filled_location_on"
+    buttonIcon="filled_cancel"
+    (buttonClick)="removeFirstStopover()"
+    label="Stopover"
+    [autocompleteFunction]="searchStation"
+    [default]="stopoverAsResult(firstStopover)"
+    (valueChange)="firstStopoverStationSelected($event)"
+    hideErrors
+    required
+    mustUseSuggestion
+    selectAllOnFocus/>
+  <stopover-length-of-stay [(totalMinutes)]="firstStopover.stayTotalMinutes" *ngIf="showFirstStopoverInput"/>
+  <segment-options *ngIf="showFirstStopoverInput" (addClick)="addSecondStopover()" [withButton]="!showFirstStopoverInput || !showSecondStopoverInput"/>
+  <autocomplete-input-text
+    *ngIf="showSecondStopoverInput"
+    icon="filled_location_on"
+    buttonIcon="filled_cancel"
+    (buttonClick)="removeSecondStopover()"
+    label="Stopover"
+    [autocompleteFunction]="searchStation"
+    [default]="stopoverAsResult(secondStopover)"
+    (valueChange)="secondStopoverStationSelected($event)"
+    hideErrors
+    required
+    mustUseSuggestion
+    selectAllOnFocus/>
+  <stopover-length-of-stay [(totalMinutes)]="secondStopover.stayTotalMinutes" *ngIf="showSecondStopoverInput"/>
+  <segment-options *ngIf="showSecondStopoverInput" [withButton]="false"/>
+  <autocomplete-input-text
+    icon="filled_flag"
+    label="Destination"
+    [autocompleteFunction]="searchStation"
+    (valueChange)="destinationStationSelected($event)"
+    hideErrors
+    required
+    mustUseSuggestion
+    selectAllOnFocus/>
+</div>

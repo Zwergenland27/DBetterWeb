@@ -1,0 +1,6 @@
+<div class="segment-options">
+  <div class="segment-line">
+    <span [class.hidden]="!withButton()" class="hover"></span>
+    <icon-button-mini [class.hidden]="!withButton()" (buttonClick)="addClick.emit()" icon="filled_add_circle"/>
+  </div>
+</div>

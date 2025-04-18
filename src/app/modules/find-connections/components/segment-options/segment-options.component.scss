@@ -1,0 +1,35 @@
+.segment-options {
+  display: flex;
+  margin-left: 8px;
+
+  .segment-line {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+
+    .hover {
+      position: absolute;
+      left: 8px;
+      height: 1.5rem;
+      width: 1.5rem;
+      background-color: var(--surface-container-high);
+      border-radius: 50%;
+    }
+
+    .hidden {
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      border-left: 3px dashed var(--on-surface-variant);
+      transform: translateX(-50%);
+    }
+  }
+}
