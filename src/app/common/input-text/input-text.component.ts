@@ -33,6 +33,7 @@ export class InputTextComponent {
 
   isValid = true;
   _value : string = ''
+  inputId = 'input-' + crypto.randomUUID();
 
   constructor() {
     effect(() => {

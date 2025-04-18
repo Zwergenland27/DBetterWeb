@@ -3,6 +3,7 @@
     <icon *ngIf="icon()" [name]="icon()!" class="prefix"/>
     <input type="text"
            #input
+           [id]="inputId"
            [ngModel]="_value"
            (ngModelChange)="currentValueChange($event)"
            [placeholder]="hint()"
@@ -10,7 +11,7 @@
            (focus)="onFocus(input)"
            [class.invalid]="!isValid"
            (blur)="validate()"/>
-    <label [class.required]="required()">{{ label() }}</label>
+    <label [for]="inputId" [class.required]="required()">{{ label() }}</label>
     <icon-button-mini *ngIf="buttonIcon()" class="suffix" [icon]="buttonIcon()!" (buttonClick)="buttonClick.emit()"/>
   </div>
   <div *ngIf="!hideErrors()" class="input-errors">
