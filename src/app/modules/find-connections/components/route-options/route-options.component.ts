@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import {
   AutocompleteInputTextComponent
 } from '../../../../common/autocomplete-input-text/autocomplete-input-text.component';
-import {Observable, of} from 'rxjs';
+import {map, Observable, of} from 'rxjs';
 import {NgIf} from '@angular/common';
 import {SegmentOptionsComponent} from '../segment-options/segment-options.component';
 import {StopoverLengthOfStayComponent} from '../stopover-length-of-stay/stopover-length-of-stay.component';
+import {ConnectionService} from '../../connection.service';
 
 @Component({
   selector: 'route-options',
@@ -26,18 +27,18 @@ export class RouteOptionsComponent {
   secondStopover: {id: string | undefined, name: string, stayTotalMinutes: number} = {id: undefined, name: '', stayTotalMinutes: 0};
   destinationStationId: string | undefined = undefined;
 
+
+  constructor(private connectionService: ConnectionService) {
+  }
+
   stopoverAsResult(stopover: {id: string | undefined, name: string}){
     return {id: stopover.id, value: stopover.name};
   }
 
-  stations: {id: string, value: string}[] = [
-    {id: "0", value: "Dresden"},
-    {id: "1", value: "Hamburg"},
-    {id: "2", value: "Leipzig"}];
-
   searchStation = (value: string) : Observable<{id: string, value: string}[]> => {
-    const result = this.stations.filter(s => s.value.includes(value));
-    return of(result);
+    return this.connectionService.findStations(value).pipe(map(stations => {
+      return stations.map(station => ({id: station.id, value: station.name}));
+    }));
   }
 
   originStationSelected(result: {id: string | undefined}){
