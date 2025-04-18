@@ -1,6 +1,7 @@
 <div class="route-options">
   <autocomplete-input-text
     icon="trip_origin"
+    i18n-label="@@origin"
     label="Origin"
     [autocompleteFunction]="searchStation"
     (valueChange)="originStationSelected($event)"
@@ -14,6 +15,7 @@
     icon="filled_location_on"
     buttonIcon="filled_cancel"
     (buttonClick)="removeFirstStopover()"
+    i18n-label="@@stopover"
     label="Stopover"
     [autocompleteFunction]="searchStation"
     [default]="stopoverAsResult(firstStopover)"
@@ -29,6 +31,7 @@
     icon="filled_location_on"
     buttonIcon="filled_cancel"
     (buttonClick)="removeSecondStopover()"
+    i18n-label="@@stopover"
     label="Stopover"
     [autocompleteFunction]="searchStation"
     [default]="stopoverAsResult(secondStopover)"
@@ -41,6 +44,7 @@
   <segment-options *ngIf="showSecondStopoverInput" [withButton]="false"/>
   <autocomplete-input-text
     icon="filled_flag"
+    i18n-label="@@destination"
     label="Destination"
     [autocompleteFunction]="searchStation"
     (valueChange)="destinationStationSelected($event)"

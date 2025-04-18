@@ -1,7 +1,7 @@
 <div class="length-of-stay">
   <icon class="prefix" name="schedule"/>
   <div class="inputs">
-    <span class="title">Length of stay:</span>
+    <span class="title" i18n="@@length_of_stay">Length of stay:</span>
     <icon-button-mini icon="remove" (buttonClick)="subtract15Min()" highlight/>
     <input
       #hoursInput
@@ -12,7 +12,7 @@
       (focus)="hoursInput.select();"
       (beforeinput)="beforeHoursInput($event)"
       (ngModelChange)="onHoursInput($event, minutesInput)">
-    <span class="unit">h</span>
+    <span class="unit" i18n="@@hour_unit">h</span>
     <input
       #minutesInput
       [id]="minutesInputId"
@@ -22,7 +22,7 @@
       (focus)="minutesInput.select()"
       (beforeinput)="beforeMinutesInput($event)"
       (ngModelChange)="onMinutesInput($event, minutesInput)">
-    <span class="unit">min</span>
+    <span class="unit" i18n="@@minute_unit">min</span>
     <icon-button-mini icon="add" (buttonClick)="add15Min()" highlight/>
   </div>
 </div>
