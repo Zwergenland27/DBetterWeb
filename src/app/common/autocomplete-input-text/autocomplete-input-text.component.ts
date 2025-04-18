@@ -42,11 +42,14 @@ export class AutocompleteInputTextComponent {
     });
   }
 
-  close(){
+
+  close(event: FocusEvent){
+    if(event.relatedTarget) return;
     setTimeout(() => {
       this.suggestions = [];
       if(this.mustUseSuggestion() && this._selectedId === undefined){
         this._closing = true;
+        console.log("2");
         this.inputText.currentValueChange('');
         this.value = '';
       }
