@@ -27,6 +27,7 @@ export class RouteOptionsComponent {
   secondStopover: {id: string | undefined, name: string, stayTotalMinutes: number} = {id: undefined, name: '', stayTotalMinutes: 0};
   destinationStationId: string | undefined = undefined;
 
+  debounceTime = 200;
 
   constructor(private connectionService: ConnectionService) {
   }
@@ -36,6 +37,9 @@ export class RouteOptionsComponent {
   }
 
   searchStation = (value: string) : Observable<{id: string, value: string}[]> => {
+    if(!value){
+      return of([])
+    }
     return this.connectionService.findStations(value).pipe(map(stations => {
       return stations.map(station => ({id: station.id, value: station.name}));
     }));

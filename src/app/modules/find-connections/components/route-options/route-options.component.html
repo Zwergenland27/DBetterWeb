@@ -4,6 +4,7 @@
     i18n-label="@@origin"
     label="Origin"
     [autocompleteFunction]="searchStation"
+    [debounceTimeMs]="debounceTime"
     (valueChange)="originStationSelected($event)"
     hideErrors
     required
@@ -18,6 +19,7 @@
     i18n-label="@@stopover"
     label="Stopover"
     [autocompleteFunction]="searchStation"
+    [debounceTimeMs]="debounceTime"
     [default]="stopoverAsResult(firstStopover)"
     (valueChange)="firstStopoverStationSelected($event)"
     hideErrors
@@ -34,6 +36,7 @@
     i18n-label="@@stopover"
     label="Stopover"
     [autocompleteFunction]="searchStation"
+    [debounceTimeMs]="debounceTime"
     [default]="stopoverAsResult(secondStopover)"
     (valueChange)="secondStopoverStationSelected($event)"
     hideErrors
@@ -47,6 +50,7 @@
     i18n-label="@@destination"
     label="Destination"
     [autocompleteFunction]="searchStation"
+    [debounceTimeMs]="debounceTime"
     (valueChange)="destinationStationSelected($event)"
     hideErrors
     required

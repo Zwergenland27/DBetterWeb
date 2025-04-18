@@ -1,6 +1,6 @@
-import {booleanAttribute, Component, effect, input, output, ViewChild} from '@angular/core';
+import {booleanAttribute, Component, effect, input, OnInit, output, ViewChild} from '@angular/core';
 import {InputTextComponent} from '../input-text/input-text.component';
-import {Observable} from 'rxjs';
+import {debounceTime, Observable, Subject, switchMap} from 'rxjs';
 
 @Component({
   selector: 'autocomplete-input-text',
@@ -10,7 +10,7 @@ import {Observable} from 'rxjs';
   templateUrl: './autocomplete-input-text.component.html',
   styleUrl: './autocomplete-input-text.component.scss'
 })
-export class AutocompleteInputTextComponent {
+export class AutocompleteInputTextComponent implements OnInit {
   @ViewChild('input') inputText!: InputTextComponent;
 
   icon = input<string>();
@@ -25,9 +25,12 @@ export class AutocompleteInputTextComponent {
   selectAllOnFocus = input(false, {transform: booleanAttribute});
 
   default = input<{id: string | undefined, value:string}>({id: undefined, value: ''});
+  debounceTimeMs = input<number>(0);
   autocompleteFunction = input.required<(value: string) => Observable<{id: string, value: string}[]>>();
   mustUseSuggestion = input(false, {transform: booleanAttribute});
   valueChange = output<{id: string | undefined, value:string, valid:boolean}>();
+
+  private inputSubject = new Subject<string>();
 
   _selectedId : string | undefined = undefined;
   value = '';
@@ -42,6 +45,16 @@ export class AutocompleteInputTextComponent {
     });
   }
 
+  ngOnInit() {
+    this.inputSubject
+      .pipe(
+        debounceTime(this.debounceTimeMs()),
+        switchMap(value => this.autocompleteFunction()(value))
+      ).subscribe(suggestions => {
+      this.suggestions = suggestions
+      console.log(suggestions);
+    })
+  }
 
   close(event: FocusEvent){
     if(event.relatedTarget) return;
@@ -49,7 +62,6 @@ export class AutocompleteInputTextComponent {
       this.suggestions = [];
       if(this.mustUseSuggestion() && this._selectedId === undefined){
         this._closing = true;
-        console.log("2");
         this.inputText.currentValueChange('');
         this.value = '';
       }
@@ -71,11 +83,7 @@ export class AutocompleteInputTextComponent {
       return;
     }
 
-    this.autocompleteFunction()(result.value).subscribe(
-      value => {
-        this.suggestions = value;
-      }
-    );
+    this.inputSubject.next(result.value);
   }
 
   select(id: string){
