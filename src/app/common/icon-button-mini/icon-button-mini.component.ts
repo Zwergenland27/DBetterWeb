@@ -1,4 +1,4 @@
-import {Component, input, output} from '@angular/core';
+import {booleanAttribute, Component, input, output} from '@angular/core';
 import {IconComponent} from '../icon/icon.component';
 
 @Component({
@@ -9,7 +9,7 @@ import {IconComponent} from '../icon/icon.component';
   template: `
     <button (click)="buttonClick.emit()">
       <span></span>
-      <icon [name]="icon()"/>
+      <icon [class.highlight]="highlight()" [name]="icon()"/>
     </button>
   `,
   styleUrl: './icon-button-mini.component.scss'
@@ -17,4 +17,5 @@ import {IconComponent} from '../icon/icon.component';
 export class IconButtonMiniComponent {
   icon = input.required<string>();
   buttonClick = output();
+  highlight = input(false, {transform: booleanAttribute});
 }
