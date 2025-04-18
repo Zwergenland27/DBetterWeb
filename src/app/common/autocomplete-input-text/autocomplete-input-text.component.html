@@ -10,6 +10,7 @@
               [required]="required()"
               [errorTranslations]="errorTranslations()"
               [hideErrors]="hideErrors()"
+              [selectAllOnFocus]="selectAllOnFocus()"
               [value]="value"
               (valueChange)="onValueChange($event)"/>
   <div class="suggestions" [class.opened]="suggestions.length > 0">

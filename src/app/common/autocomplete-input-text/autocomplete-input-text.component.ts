@@ -22,6 +22,7 @@ export class AutocompleteInputTextComponent {
   required = input(false, {transform: booleanAttribute});
   errorTranslations = input<Record<string, string>>({});
   hideErrors = input(false, {transform: booleanAttribute});
+  selectAllOnFocus = input(false, {transform: booleanAttribute});
 
   default = input<{id: string | undefined, value:string}>({id: undefined, value: ''});
   autocompleteFunction = input.required<(value: string) => Observable<{id: string, value: string}[]>>();

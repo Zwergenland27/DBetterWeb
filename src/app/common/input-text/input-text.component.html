@@ -7,7 +7,7 @@
            (ngModelChange)="currentValueChange($event)"
            [placeholder]="hint()"
            [class.hint]="hint()"
-           (focus)="scrollIntoView(input)"
+           (focus)="onFocus(input)"
            [class.invalid]="!isValid"
            (blur)="validate()"/>
     <label [class.required]="required()">{{ label() }}</label>

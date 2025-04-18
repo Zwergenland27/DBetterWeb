@@ -29,6 +29,7 @@ export class InputTextComponent {
   valueChange = output<{value: string, valid: boolean}>();
   errors: ErrorTranslation[] = [];
   hideErrors = input(false, {transform: booleanAttribute});
+  selectAllOnFocus = input(false, {transform: booleanAttribute});
 
   isValid = true;
   _value : string = ''
@@ -39,8 +40,11 @@ export class InputTextComponent {
     });
   }
 
-  scrollIntoView(inputElement: HTMLElement) {
+  onFocus(inputElement: HTMLInputElement) {
     inputElement.scrollIntoView({behavior: 'smooth', block: 'start'});
+    if(this.selectAllOnFocus()){
+      inputElement.select();
+    }
   }
 
   currentValueChange(value: string){
