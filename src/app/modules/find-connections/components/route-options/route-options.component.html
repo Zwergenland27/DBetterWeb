@@ -10,7 +10,10 @@
     required
     mustUseSuggestion
     selectAllOnFocus/>
-  <segment-options (addClick)="addFirstStopover()" [withButton]="!showFirstStopoverInput || !showSecondStopoverInput"/>
+  <segment-options
+    (addClick)="addFirstStopover()"
+    [withButton]="!showFirstStopoverInput || !showSecondStopoverInput"
+    [(allowedMeansOfTransport)]="firstSectionAllowedMeansOfTransport"/>
   <autocomplete-input-text
     *ngIf="showFirstStopoverInput"
     icon="filled_location_on"
@@ -27,7 +30,11 @@
     mustUseSuggestion
     selectAllOnFocus/>
   <stopover-length-of-stay [(totalMinutes)]="firstStopover.stayTotalMinutes" *ngIf="showFirstStopoverInput"/>
-  <segment-options *ngIf="showFirstStopoverInput" (addClick)="addSecondStopover()" [withButton]="!showFirstStopoverInput || !showSecondStopoverInput"/>
+  <segment-options
+    *ngIf="showFirstStopoverInput"
+    (addClick)="addSecondStopover()"
+    [withButton]="!showFirstStopoverInput || !showSecondStopoverInput"
+    [(allowedMeansOfTransport)]="secondSectionAllowedMeansOfTransport"/>
   <autocomplete-input-text
     *ngIf="showSecondStopoverInput"
     icon="filled_location_on"
@@ -44,7 +51,10 @@
     mustUseSuggestion
     selectAllOnFocus/>
   <stopover-length-of-stay [(totalMinutes)]="secondStopover.stayTotalMinutes" *ngIf="showSecondStopoverInput"/>
-  <segment-options *ngIf="showSecondStopoverInput" [withButton]="false"/>
+  <segment-options
+    *ngIf="showSecondStopoverInput"
+    [withButton]="false"
+    [(allowedMeansOfTransport)]="thirdSectionAllowedMeansOfTransport"/>
   <autocomplete-input-text
     icon="filled_flag"
     i18n-label="@@destination"

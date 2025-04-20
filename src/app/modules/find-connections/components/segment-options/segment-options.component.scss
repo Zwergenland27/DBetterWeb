@@ -1,12 +1,13 @@
 .segment-options {
   display: flex;
   margin-left: 8px;
+  align-items: center;
 
   .segment-line {
     position: relative;
+    align-self: stretch;
     display: flex;
     align-items: center;
-    padding: 8px 0;
 
     .hover {
       position: absolute;
@@ -31,5 +32,12 @@
       border-left: 3px dashed var(--on-surface-variant);
       transform: translateX(-50%);
     }
+  }
+
+  .allowed {
+    display: flex;
+    gap: var(--text-gap);
+    flex-wrap: wrap;
+    padding: 8px 0;
   }
 }

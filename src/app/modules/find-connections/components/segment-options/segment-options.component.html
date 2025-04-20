@@ -3,4 +3,14 @@
     <span [class.hidden]="!withButton()" class="hover"></span>
     <icon-button-mini [class.hidden]="!withButton()" (buttonClick)="addClick.emit()" icon="filled_add_circle"/>
   </div>
+  <div class="allowed">
+    <chip i18n-name="@@high_speed_trains" name="High speed trains" [checked]="currentAllowedMeansOfTransport.highSpeedTrains" (checkedChange)="allowHighSpeedTrainsChanged($event)"/>
+    <chip i18n-name="@@fast_trains" name="Fast trains" [checked]="currentAllowedMeansOfTransport.fastTrains" (checkedChange)="allowFastTrainsChanged($event)"/>
+    <chip i18n-name="@@regional-trains" name="Regional trains" [checked]="currentAllowedMeansOfTransport.regionalTrains" (checkedChange)="allowRegionalTrainsChanged($event)"/>
+    <chip i18n-name="@@suburban-trains" name="S-Bahn" [checked]="currentAllowedMeansOfTransport.suburbanTrains" (checkedChange)="allowSuburbanTrainsChanged($event)"/>
+    <chip i18n-name="@@undergrounds" name="Undergrounds" [checked]="currentAllowedMeansOfTransport.undergrounds" (checkedChange)="allowUndergroundsChanged($event)"/>
+    <chip i18n-name="@@trams" name="Trams" [checked]="currentAllowedMeansOfTransport.trams" (checkedChange)="allowTramsChanged($event)"/>
+    <chip i18n-name="@@busses" name="Busses" [checked]="currentAllowedMeansOfTransport.undergrounds" (checkedChange)="allowBussesChanged($event)"/>
+    <chip i18n-name="@@boats" name="Boats" [checked]="currentAllowedMeansOfTransport.boats" (checkedChange)="allowBoatsChanged($event)"/>
+  </div>
 </div>

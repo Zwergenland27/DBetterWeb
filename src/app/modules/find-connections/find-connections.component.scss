@@ -23,6 +23,7 @@ $options-opener-width: calc(1.5rem + 2 * 8px);
 
   .panels {
     overflow: auto;
+    scrollbar-gutter: stable;
   }
 
   .footer {
