@@ -2,7 +2,21 @@
   <div class="input-text" [class.icon]="icon()" [class.button]="buttonIcon()">
     <icon *ngIf="icon()" [name]="icon()!" class="prefix"/>
     <input type="text"
+           *ngIf="keyboardType() === 'text'"
            #input
+           inputmode="text"
+           [id]="inputId"
+           [ngModel]="_value"
+           (ngModelChange)="currentValueChange($event)"
+           [placeholder]="hint()"
+           [class.hint]="hint()"
+           (focus)="onFocus(input)"
+           [class.invalid]="!isValid"
+           (blur)="validate()"/>
+    <input type="text"
+           *ngIf="keyboardType() === 'email'"
+           #input
+           inputmode="email"
            [id]="inputId"
            [ngModel]="_value"
            (ngModelChange)="currentValueChange($event)"

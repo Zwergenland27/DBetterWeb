@@ -1,40 +1,60 @@
 import {booleanAttribute, Component, effect, input, output} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {IconComponent} from '../icon/icon.component';
-import {NgIf} from '@angular/common';
 import {ErrorTranslation} from '../error-translation';
 import {IconButtonMiniComponent} from '../icon-button-mini/icon-button-mini.component';
+import {IconComponent} from '../icon/icon.component';
+import {NgIf} from '@angular/common';
 
 @Component({
-  selector: 'input-text',
+  selector: 'input-number',
   imports: [
     FormsModule,
+    IconButtonMiniComponent,
     IconComponent,
-    NgIf,
-    IconButtonMiniComponent
+    NgIf
   ],
-  templateUrl: './input-text.component.html',
-  styleUrl: './input-text.component.scss'
+  templateUrl: './input-number.component.html',
+  styleUrl: './input-number.component.scss'
 })
-export class InputTextComponent {
+export class InputNumberComponent {
   icon = input<string>();
-  keyboardType = input<'text' | 'email'>('text');
   buttonIcon = input<string>();
   buttonClick = output();
   label = input.required<string>();
-  hint = input<string>('');
-  value = input.required<string>();
-  validators = input<((value: string) => boolean)[]>([]);
+  prefix = input<string>('');
+  suffix = input<string>('');
+  value = input.required<number>();
+  minValue = input<number>();
+  maxValue = input<number>();
   required = input(false, {transform: booleanAttribute});
   errorTranslations = input<Record<string, string>>({});
-  valueChange = output<{value: string, valid: boolean}>();
+  valueChange = output<{value: number | undefined, valid: boolean}>();
   errors: ErrorTranslation[] = [];
   hideErrors = input(false, {transform: booleanAttribute});
   selectAllOnFocus = input(false, {transform: booleanAttribute});
 
+  textValue(value: number | undefined){
+    if(value === undefined) return '';
+    if(this.focused) return value;
+    let text = '';
+    if(this.prefix()){
+      text += `${this.prefix()} `;
+    }
+
+    text += value;
+
+    if(this.suffix()){
+      text += ` ${this.suffix()}`;
+    }
+
+    return text;
+  }
+
   isValid = true;
-  _value : string = ''
+  _value: number | undefined = undefined;
   inputId = 'input-' + crypto.randomUUID();
+
+  focused = false;
 
   constructor() {
     effect(() => {
@@ -43,14 +63,27 @@ export class InputTextComponent {
   }
 
   onFocus(inputElement: HTMLInputElement) {
+    this.focused = true;
     inputElement.scrollIntoView({behavior: 'smooth', block: 'start'});
     if(this.selectAllOnFocus()){
-      inputElement.select();
+      setTimeout(() => {inputElement.select();})
     }
   }
 
-  currentValueChange(value: string){
+  onInput(event: InputEvent) {
+    if(!event.data) return;
+
+    if(isNaN(Number(event.data))){
+      event.preventDefault();
+      return;
+    }
+  }
+
+  currentValueChange(value: number){
     this._value = value;
+
+    if(!value) this._value = undefined;
+
     this.validate();
     this.valueChange.emit({value: this._value, valid: this.isValid});
   }
@@ -76,9 +109,24 @@ export class InputTextComponent {
     this.setErrors([]);
   }
 
+  onBlur(){
+    this.focused = false;
+    this.validate();
+  }
+
   validate(){
     if(this.required() && !this._value){
       this.setErrors(["Frontend.Missing"])
+      return;
+    }
+
+    if(this.minValue() && this._value != undefined && this._value < this.minValue()!){
+      this.setErrors(["Frontend.TooSmall"]);
+      return;
+    }
+
+    if(this.maxValue() && this._value != undefined && this._value > this.maxValue()!){
+      this.setErrors(["Frontend.TooLarge"]);
       return;
     }
 
