@@ -1,2 +1,10 @@
 .route-options {
+  display: flex;
+  flex-direction: column;
+
+  .options {
+    margin-top: 16px;
+    display: flex;
+    gap: var(--text-gap);
+  }
 }

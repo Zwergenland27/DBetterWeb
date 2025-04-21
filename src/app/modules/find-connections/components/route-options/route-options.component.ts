@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, effect, input} from '@angular/core';
 import {
   AutocompleteInputTextComponent
 } from '../../../../common/autocomplete-input-text/autocomplete-input-text.component';
@@ -10,6 +10,8 @@ import {ConnectionService} from '../../connection.service';
 import {
   getMeansOfTransportDefault,
 } from '../../contracts/parameters/means-of-transport-parameters';
+import {InputNumberComponent} from '../../../../common/input-number/input-number.component';
+import {RouteParameters} from '../../contracts/parameters/route-parameters';
 
 @Component({
   selector: 'route-options',
@@ -17,12 +19,16 @@ import {
     AutocompleteInputTextComponent,
     NgIf,
     SegmentOptionsComponent,
-    StopoverLengthOfStayComponent
+    StopoverLengthOfStayComponent,
+    InputNumberComponent,
   ],
   templateUrl: './route-options.component.html',
   styleUrl: './route-options.component.scss'
 })
 export class RouteOptionsComponent {
+
+  routeOptions = input<RouteParameters>();
+
   originStationId: string | undefined = undefined;
   firstSectionAllowedMeansOfTransport = getMeansOfTransportDefault();
   showFirstStopoverInput = false;
@@ -32,6 +38,8 @@ export class RouteOptionsComponent {
   secondStopover: {id: string | undefined, name: string, stayTotalMinutes: number} = {id: undefined, name: '', stayTotalMinutes: 0};
   thirdSectionAllowedMeansOfTransport = getMeansOfTransportDefault();
   destinationStationId: string | undefined = undefined;
+  minTransferMinutes = 0;
+  maxTransfers = 10;
 
   debounceTime = 200;
 

@@ -66,4 +66,30 @@
     required
     mustUseSuggestion
     selectAllOnFocus/>
+  <div class="options">
+    <input-number
+      icon="airline_stops"
+      i18n-label="@@transfers"
+      label="Transfers"
+      i18n-prefix="@@maximum_short"
+      prefix="max."
+      [minValue]="0"
+      [value]="maxTransfers"
+      [maxValue]="10"
+      selectAllOnFocus
+      required/>
+    <input-number
+      icon="hourglass"
+      i18n-label="@@transfer_time"
+      label="Transfers time"
+      i18n-prefix="@@minimum_short"
+      prefix="min."
+      [minValue]="0"
+      [value]="minTransferMinutes"
+      [maxValue]="43"
+      i18n-suffix="@@minutes_short"
+      suffix="min"
+      selectAllOnFocus
+      required/>
+  </div>
 </div>
