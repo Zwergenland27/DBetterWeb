@@ -1,4 +1,4 @@
-import {Component, effect, input} from '@angular/core';
+import {Component, effect, input, output} from '@angular/core';
 import {
   AutocompleteInputTextComponent
 } from '../../../../common/autocomplete-input-text/autocomplete-input-text.component';
@@ -7,11 +7,10 @@ import {NgIf} from '@angular/common';
 import {SegmentOptionsComponent} from '../segment-options/segment-options.component';
 import {StopoverLengthOfStayComponent} from '../stopover-length-of-stay/stopover-length-of-stay.component';
 import {ConnectionService} from '../../connection.service';
-import {
-  getMeansOfTransportDefault,
-} from '../../contracts/parameters/means-of-transport-parameters';
 import {InputNumberComponent} from '../../../../common/input-number/input-number.component';
-import {RouteParameters} from '../../contracts/parameters/route-parameters';
+import {RouteOptionsData, RouteOptionsStopoverData} from './route-options-data';
+import {combineMeansOfTransport} from '../../contracts/parameters/means-of-transport-parameters';
+import {StopoverParameters} from '../../contracts/parameters/stopover-parameters';
 
 @Component({
   selector: 'route-options',
@@ -27,27 +26,27 @@ import {RouteParameters} from '../../contracts/parameters/route-parameters';
 })
 export class RouteOptionsComponent {
 
-  routeOptions = input<RouteParameters>();
+  routeOptions = input.required<RouteOptionsData>();
+  routeOptionsChange = output<RouteOptionsData>();
 
-  originStationId: string | undefined = undefined;
-  firstSectionAllowedMeansOfTransport = getMeansOfTransportDefault();
-  showFirstStopoverInput = false;
-  firstStopover: {id: string | undefined, name: string, stayTotalMinutes: number} = {id: undefined, name: '', stayTotalMinutes: 0};
-  secondSectionAllowedMeansOfTransport = getMeansOfTransportDefault();
-  showSecondStopoverInput = false;
-  secondStopover: {id: string | undefined, name: string, stayTotalMinutes: number} = {id: undefined, name: '', stayTotalMinutes: 0};
-  thirdSectionAllowedMeansOfTransport = getMeansOfTransportDefault();
-  destinationStationId: string | undefined = undefined;
-  minTransferMinutes = 0;
-  maxTransfers = 10;
+  _routeOptions: RouteOptionsData = undefined!;
+
+  get allowAddingStopover(){
+    if(!this._routeOptions) return false;
+    return this._routeOptions.secondStopover == undefined
+  }
 
   debounceTime = 200;
 
   constructor(private connectionService: ConnectionService) {
+    effect(() => {
+      this._routeOptions = this.routeOptions();
+    });
   }
 
-  stopoverAsResult(stopover: {id: string | undefined, name: string}){
-    return {id: stopover.id, value: stopover.name};
+  stopoverAsResult(stopover: RouteOptionsStopoverData) {
+    if(stopover === undefined || stopover.station === undefined) {return {id: undefined, value: ''}}
+    return {id: stopover.station.id, value: stopover.station.name};
   }
 
   searchStation = (value: string) : Observable<{id: string, value: string}[]> => {
@@ -59,97 +58,129 @@ export class RouteOptionsComponent {
     }));
   }
 
-  originStationSelected(result: {id: string | undefined}){
-    this.originStationId = result.id;
+  originStationSelected(result: {id: string | undefined, value: string}){
+    if(result.id === undefined) {
+      this._routeOptions.originStation = undefined;
+    }else{
+      this._routeOptions.originStation = {
+        id: result.id,
+        name: result.value
+      };
+    }
+
+    this.routeOptionsChange.emit(this._routeOptions);
   }
 
 
-  destinationStationSelected(result: {id: string | undefined}){
-    this.destinationStationId = result.id;
+  destinationStationSelected(result: {id: string | undefined, value: string}){
+    if(result.id === undefined) {
+      this._routeOptions.destinationStation = undefined;
+    }else{
+      this._routeOptions.destinationStation = {
+        id: result.id,
+        name: result.value
+      };
+    }
+    this.routeOptionsChange.emit(this._routeOptions);
   }
 
   addFirstStopover(){
-    if(!this.showFirstStopoverInput){
-      this.showFirstStopoverInput = true;
-      this.secondSectionAllowedMeansOfTransport = structuredClone(this.firstSectionAllowedMeansOfTransport);
+    //Add first stopover
+    if(this._routeOptions.firstStopover === undefined){
+      this._routeOptions.firstStopover = {
+        station: undefined,
+        lengthOfStay: 0,
+        meansOfTransportNextSection: structuredClone(this._routeOptions.meansOfTransportFirstSection)
+      };
+      this.routeOptionsChange.emit(this._routeOptions);
       return;
     }
 
-    this.secondStopover.id = this.firstStopover.id;
-    this.secondStopover.name = this.firstStopover.name;
-    this.secondStopover.stayTotalMinutes = this.firstStopover.stayTotalMinutes;
-    this.thirdSectionAllowedMeansOfTransport = structuredClone(this.secondSectionAllowedMeansOfTransport);
-    this.secondSectionAllowedMeansOfTransport = structuredClone(this.firstSectionAllowedMeansOfTransport);
+    //Add stopover before existing first stopover
+    this._routeOptions.secondStopover = {
+      station: structuredClone(this._routeOptions.firstStopover.station),
+      lengthOfStay: this._routeOptions.firstStopover.lengthOfStay,
+      meansOfTransportNextSection: structuredClone(this._routeOptions.firstStopover.meansOfTransportNextSection)
+    };
 
-    this.firstStopover.id = undefined;
-    this.firstStopover.name = '';
-    this.firstStopover.stayTotalMinutes = 0;
+    this._routeOptions.firstStopover = undefined;
 
     //Re-renders first component to ensure that it won't get flagged as invalid
-    this.showFirstStopoverInput = false;
-    setTimeout(() => this.showFirstStopoverInput = true);
+    setTimeout(() => {
+      this._routeOptions.firstStopover = {
+        station: undefined,
+        lengthOfStay: 0,
+        meansOfTransportNextSection: structuredClone(this._routeOptions.meansOfTransportFirstSection)
+      }
 
-    this.showSecondStopoverInput = true;
+      this.routeOptionsChange.emit(this._routeOptions);
+    });
   }
 
   firstStopoverStationSelected(result: {id: string | undefined, value: string}){
-    this.firstStopover.id = result.id;
-    this.firstStopover.name = result.value;
+    if(result.id === undefined) {
+      this._routeOptions.firstStopover!.station = undefined;
+    }else{
+      this._routeOptions.firstStopover!.station = {
+        id: result.id,
+        name: result.value
+      };
+    }
+
+    this.routeOptionsChange.emit(this._routeOptions);
   }
 
   removeFirstStopover(){
-    if(!this.showSecondStopoverInput){
-      this.firstStopover.id = undefined;
-      this.firstStopover.name = '';
+    //Combine the first two allowed means of transport
+    this._routeOptions.meansOfTransportFirstSection = combineMeansOfTransport(
+      this._routeOptions.meansOfTransportFirstSection,
+      this._routeOptions.firstStopover!.meansOfTransportNextSection!)
 
-      this.showFirstStopoverInput = false;
+    //Remove first stopover, without moving the second stopover to its position
+    if(this._routeOptions.secondStopover === undefined){
+      this._routeOptions.firstStopover = undefined;
+      this.routeOptionsChange.emit(this._routeOptions);
+      return;
     }
 
-    this.firstStopover.id = this.secondStopover.id;
-    this.firstStopover.name = this.secondStopover.name;
-    this.firstStopover.stayTotalMinutes = this.secondStopover.stayTotalMinutes;
-    this.firstSectionAllowedMeansOfTransport = {
-      highSpeedTrains: this.firstSectionAllowedMeansOfTransport.highSpeedTrains || this.secondSectionAllowedMeansOfTransport.highSpeedTrains,
-      fastTrains: this.firstSectionAllowedMeansOfTransport.fastTrains || this.secondSectionAllowedMeansOfTransport.fastTrains,
-      regionalTrains: this.firstSectionAllowedMeansOfTransport.regionalTrains || this.secondSectionAllowedMeansOfTransport.regionalTrains,
-      suburbanTrains: this.firstSectionAllowedMeansOfTransport.suburbanTrains || this.secondSectionAllowedMeansOfTransport.suburbanTrains,
-      undergrounds: this.firstSectionAllowedMeansOfTransport.undergrounds || this.secondSectionAllowedMeansOfTransport.undergrounds,
-      trams: this.firstSectionAllowedMeansOfTransport.trams || this.secondSectionAllowedMeansOfTransport.trams,
-      busses: this.firstSectionAllowedMeansOfTransport.busses || this.secondSectionAllowedMeansOfTransport.busses,
-      boats: this.firstSectionAllowedMeansOfTransport.boats || this.secondSectionAllowedMeansOfTransport.boats,
-    }
+    //Move second stopover to position of first stopover
+    this._routeOptions.firstStopover = this._routeOptions.secondStopover
+    this._routeOptions.secondStopover = undefined;
 
-    this.secondStopover.id = undefined;
-    this.secondStopover.name = '';
-    this.secondStopover.stayTotalMinutes = 0;
-
-    this.showSecondStopoverInput = false;
+    this.routeOptionsChange.emit(this._routeOptions);
   }
 
   addSecondStopover(){
-    this.showSecondStopoverInput = true;
-    this.thirdSectionAllowedMeansOfTransport = structuredClone(this.firstSectionAllowedMeansOfTransport);
+    this._routeOptions.secondStopover = {
+      station: undefined,
+      lengthOfStay: 0,
+      meansOfTransportNextSection: structuredClone(this._routeOptions.firstStopover!.meansOfTransportNextSection!)
+    };
+
+    this.routeOptionsChange.emit(this._routeOptions);
   }
 
   secondStopoverStationSelected(result: {id: string | undefined, value: string}){
-    this.secondStopover.id = result.id;
-    this.secondStopover.name = result.value;
+    if(result.id === undefined) {
+      this._routeOptions.secondStopover!.station = undefined;
+    }else{
+      this._routeOptions.secondStopover!.station = {
+        id: result.id,
+        name: result.value
+      };
+    }
+
+    this.routeOptionsChange.emit(this._routeOptions);
   }
 
   removeSecondStopover(){
-    this.secondStopover.id = undefined;
-    this.secondStopover.name = '';
-    this.showSecondStopoverInput = false;
+    this._routeOptions.firstStopover!.meansOfTransportNextSection = combineMeansOfTransport(
+      this._routeOptions.firstStopover!.meansOfTransportNextSection,
+      this._routeOptions.secondStopover!.meansOfTransportNextSection
+    )
 
-    this.secondSectionAllowedMeansOfTransport = {
-      highSpeedTrains: this.secondSectionAllowedMeansOfTransport.highSpeedTrains || this.thirdSectionAllowedMeansOfTransport.highSpeedTrains,
-      fastTrains: this.secondSectionAllowedMeansOfTransport.fastTrains || this.thirdSectionAllowedMeansOfTransport.fastTrains,
-      regionalTrains: this.secondSectionAllowedMeansOfTransport.regionalTrains || this.thirdSectionAllowedMeansOfTransport.regionalTrains,
-      suburbanTrains: this.secondSectionAllowedMeansOfTransport.suburbanTrains || this.thirdSectionAllowedMeansOfTransport.suburbanTrains,
-      undergrounds: this.secondSectionAllowedMeansOfTransport.undergrounds || this.thirdSectionAllowedMeansOfTransport.undergrounds,
-      trams: this.secondSectionAllowedMeansOfTransport.trams || this.thirdSectionAllowedMeansOfTransport.trams,
-      busses: this.secondSectionAllowedMeansOfTransport.busses || this.thirdSectionAllowedMeansOfTransport.busses,
-      boats: this.secondSectionAllowedMeansOfTransport.boats || this.thirdSectionAllowedMeansOfTransport.boats,
-    }
+    this._routeOptions.secondStopover = undefined;
+
+    this.routeOptionsChange.emit(this._routeOptions);
   }
 }

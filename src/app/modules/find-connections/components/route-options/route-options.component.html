@@ -12,10 +12,10 @@
     selectAllOnFocus/>
   <segment-options
     (addClick)="addFirstStopover()"
-    [withButton]="!showFirstStopoverInput || !showSecondStopoverInput"
-    [(allowedMeansOfTransport)]="firstSectionAllowedMeansOfTransport"/>
+    [withButton]="allowAddingStopover"
+    [(allowedMeansOfTransport)]="_routeOptions.meansOfTransportFirstSection"/>
   <autocomplete-input-text
-    *ngIf="showFirstStopoverInput"
+    *ngIf="_routeOptions.firstStopover != undefined"
     icon="filled_location_on"
     buttonIcon="filled_cancel"
     (buttonClick)="removeFirstStopover()"
@@ -23,20 +23,22 @@
     label="Stopover"
     [autocompleteFunction]="searchStation"
     [debounceTimeMs]="debounceTime"
-    [default]="stopoverAsResult(firstStopover)"
+    [default]="stopoverAsResult(_routeOptions.firstStopover)"
     (valueChange)="firstStopoverStationSelected($event)"
     hideErrors
     required
     mustUseSuggestion
     selectAllOnFocus/>
-  <stopover-length-of-stay [(totalMinutes)]="firstStopover.stayTotalMinutes" *ngIf="showFirstStopoverInput"/>
+  <stopover-length-of-stay
+    *ngIf="_routeOptions.firstStopover != undefined"
+    [(totalMinutes)]="_routeOptions.firstStopover.lengthOfStay"/>
   <segment-options
-    *ngIf="showFirstStopoverInput"
+    *ngIf="_routeOptions.firstStopover != undefined"
     (addClick)="addSecondStopover()"
-    [withButton]="!showFirstStopoverInput || !showSecondStopoverInput"
-    [(allowedMeansOfTransport)]="secondSectionAllowedMeansOfTransport"/>
+    [withButton]="allowAddingStopover"
+    [(allowedMeansOfTransport)]="_routeOptions.firstStopover.meansOfTransportNextSection"/>
   <autocomplete-input-text
-    *ngIf="showSecondStopoverInput"
+    *ngIf="_routeOptions.secondStopover != undefined"
     icon="filled_location_on"
     buttonIcon="filled_cancel"
     (buttonClick)="removeSecondStopover()"
@@ -44,17 +46,19 @@
     label="Stopover"
     [autocompleteFunction]="searchStation"
     [debounceTimeMs]="debounceTime"
-    [default]="stopoverAsResult(secondStopover)"
+    [default]="stopoverAsResult(_routeOptions.secondStopover)"
     (valueChange)="secondStopoverStationSelected($event)"
     hideErrors
     required
     mustUseSuggestion
     selectAllOnFocus/>
-  <stopover-length-of-stay [(totalMinutes)]="secondStopover.stayTotalMinutes" *ngIf="showSecondStopoverInput"/>
+  <stopover-length-of-stay
+    *ngIf="_routeOptions.secondStopover != undefined"
+    [(totalMinutes)]="_routeOptions.secondStopover.lengthOfStay"/>
   <segment-options
-    *ngIf="showSecondStopoverInput"
+    *ngIf="_routeOptions.secondStopover != undefined"
     [withButton]="false"
-    [(allowedMeansOfTransport)]="thirdSectionAllowedMeansOfTransport"/>
+    [(allowedMeansOfTransport)]="_routeOptions.secondStopover.meansOfTransportNextSection"/>
   <autocomplete-input-text
     icon="filled_flag"
     i18n-label="@@destination"
@@ -74,7 +78,7 @@
       i18n-prefix="@@maximum_short"
       prefix="max."
       [minValue]="0"
-      [value]="maxTransfers"
+      [value]="_routeOptions.maxTransfers"
       [maxValue]="10"
       selectAllOnFocus
       required/>
@@ -85,7 +89,7 @@
       i18n-prefix="@@minimum_short"
       prefix="min."
       [minValue]="0"
-      [value]="minTransferMinutes"
+      [value]="_routeOptions.minTransferTime"
       [maxValue]="43"
       i18n-suffix="@@minutes_short"
       suffix="min"
