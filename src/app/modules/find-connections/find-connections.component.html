@@ -20,7 +20,7 @@
       <floating-button icon="search" i18n-text="@@button-search" text="Search"/>
     </div>
   </div>
-  <div class="options-opener" (click)="open()">
+  <div class="options-opener" (click)="open()" [class.hidden]="editMode">
     <icon class="desktop" name="chevron_right"/>
     <icon class="mobile" name="keyboard_arrow_down"/>
     <icon name="tune"/>
