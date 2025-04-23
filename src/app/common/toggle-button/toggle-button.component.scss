@@ -1,0 +1,35 @@
+.toggle-button {
+  button {
+    cursor: pointer;
+    border: none;
+    color: var(--on-surface-variant);
+    background-color: var(--surface-variant);
+    font: var(--label-large);
+    padding: 8px 12px;
+
+    &.active {
+      color: var(--on-primary-container);
+      background-color: var(--primary-container);
+    }
+  }
+
+  button:first-child {
+    border-radius: var(--radius-round) 0 0 var(--radius-round);
+  }
+
+  button:last-child {
+    border-radius: 0 var(--radius-round) var(--radius-round) 0;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  button:hover {
+    filter: brightness(0.8);
+  }
+}
+
+@media(prefers-color-scheme: dark) {
+  button:hover {
+    filter: brightness(1.2);
+  }
+}
