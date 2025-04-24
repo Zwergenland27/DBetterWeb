@@ -1,0 +1,22 @@
+<div class="input">
+  <div class="date-input">
+    <input
+      #input
+      [id]="inputId"
+      type="date"
+      [min]="toLocalIsoDate(min())"
+      [max]="toLocalIsoDate(max())"
+      [ngModel]="_date"
+      (ngModelChange)="currentDateChange($event)"
+      [required]="required()"
+    (blur)="onBlur()"/>
+    <label [class.required]="required()" [class.no-content]="_date === ''">{{ label() }}</label>
+    <div class="hide-default-icon"></div>
+    <icon-button-mini icon="calendar_month" (buttonClick)="showDialog(input)"/>
+  </div>
+  <div *ngIf="!hideErrors()" class="input-errors">
+    @for(error of errors; track error.code){
+      <span>{{error.message}}</span>
+    }
+  </div>
+</div>

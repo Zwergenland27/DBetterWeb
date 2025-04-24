@@ -1,0 +1,20 @@
+<div class="input">
+  <div class="time-input">
+    <input
+      #input
+      [id]="inputId"
+      type="time"
+      [ngModel]="_time"
+      (ngModelChange)="currentTimeChange($event)"
+      [required]="required()"
+      (blur)="onBlur()"/>
+    <label [class.required]="required()" [class.no-content]="_time === ''">{{ label() }}</label>
+    <div class="hide-default-icon"></div>
+    <icon-button-mini icon="schedule" (buttonClick)="showDialog(input)"/>
+  </div>
+  <div *ngIf="!hideErrors()" class="input-errors">
+    @for(error of errors; track error.code){
+      <span>{{error.message}}</span>
+    }
+  </div>
+</div>
