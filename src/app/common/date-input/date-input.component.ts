@@ -23,8 +23,8 @@ export class DateInputComponent {
   errors: ErrorTranslation[] = [];
   hideErrors = input(false, {transform: booleanAttribute});
 
-  date = input.required<Date>();
-  dateChange = output<{date: Date, valid: boolean}>();
+  date = input<string>('');
+  dateChange = output<{date: string | undefined, valid: boolean}>();
   _date = '';
 
   isValid = true;
@@ -33,7 +33,7 @@ export class DateInputComponent {
 
   constructor() {
     effect(() => {
-      this._date = this.date().toISOString().split('T')[0];
+      this._date = this.date();
     });
   }
 
@@ -57,7 +57,12 @@ export class DateInputComponent {
     this._date = value;
 
     this.validate();
-    this.dateChange.emit({date: new Date(Date.parse(this._date)), valid: this.isValid});
+    if(this.isValid){
+      this.dateChange.emit({date: this._date, valid: true});
+    }else{
+      this.dateChange.emit({date: undefined, valid: this.isValid});
+    }
+
   }
 
   setErrors(errorCodes: string[]){

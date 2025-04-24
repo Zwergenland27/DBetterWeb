@@ -78,7 +78,8 @@
       i18n-prefix="@@maximum_short"
       prefix="max."
       [minValue]="0"
-      [value]="_routeOptions.maxTransfers"
+      [value]="_routeOptions.maxTransfers!"
+      (valueChange)="maxTransfersChanged($event)"
       [maxValue]="10"
       selectAllOnFocus
       required/>
@@ -89,7 +90,8 @@
       i18n-prefix="@@minimum_short"
       prefix="min."
       [minValue]="0"
-      [value]="_routeOptions.minTransferTime"
+      [value]="_routeOptions.minTransferTime!"
+      (valueChange)="minTransferTimeChanged($event)"
       [maxValue]="43"
       i18n-suffix="@@minutes_short"
       suffix="min"

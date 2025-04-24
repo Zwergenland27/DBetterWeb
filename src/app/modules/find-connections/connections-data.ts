@@ -1,8 +1,10 @@
 import {RouteOptionsData} from './components/route-options/route-options-data';
 import {getMeansOfTransportDefault} from './contracts/parameters/means-of-transport-parameters';
+import {TimeOptionsData} from './components/time-options/time-options-data';
 
 export interface ConnectionsData {
-  route: RouteOptionsData
+  route: RouteOptionsData,
+  time: TimeOptionsData,
 }
 
 export function newRequest() : ConnectionsData {
@@ -14,7 +16,13 @@ export function newRequest() : ConnectionsData {
       secondStopover: undefined,
       destinationStation: undefined,
       maxTransfers: 10,
+      maxTransfersValid: true,
       minTransferTime: 5,
+      minTransferTimeValid: true,
+    },
+    time: {
+      type: 'departure',
+      timestamp: new Date(),
     }
   }
 }

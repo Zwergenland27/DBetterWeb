@@ -6,8 +6,10 @@ export interface RouteOptionsData {
   firstStopover: RouteOptionsStopoverData | undefined;
   secondStopover: RouteOptionsStopoverData | undefined;
   destinationStation: RouteOptionsStationData | undefined;
-  maxTransfers: number;
-  minTransferTime: number;
+  maxTransfers: number | undefined;
+  maxTransfersValid: boolean,
+  minTransferTime: number | undefined;
+  minTransferTimeValid: boolean,
 }
 
 export interface RouteOptionsStationData {

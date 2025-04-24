@@ -32,4 +32,8 @@ export class FindConnectionsComponent {
   open(){
     this.editMode = true;
   }
+
+  test(){
+    console.log(this.connectionOptions);
+  }
 }

@@ -79,8 +79,8 @@ export class InputNumberComponent {
     }
   }
 
-  currentValueChange(value: number){
-    this._value = value;
+  currentValueChange(value: string){
+    this._value = Number(value);
 
     if(!value) this._value = undefined;
 

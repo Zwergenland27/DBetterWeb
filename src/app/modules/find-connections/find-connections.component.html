@@ -10,14 +10,14 @@
         <route-options [(routeOptions)]="connectionOptions.route"/>
       </expansion-panel>
       <expansion-panel i18n-text="@@time" text="Time" [expanded]="true"  [invalid]="false">
-        <time-options/>
+        <time-options [(timeOptions)]="connectionOptions.time"/>
       </expansion-panel>
       <expansion-panel i18n-text="@@passengers" text="Passengers" [expanded]="true"  [invalid]="false">
         <passenger-options/>
       </expansion-panel>
     </div>
     <div class="footer">
-      <floating-button icon="search" i18n-text="@@button-search" text="Search"/>
+      <floating-button icon="search" i18n-text="@@button-search" text="Search" (click)="test()"/>
     </div>
   </div>
   <div class="options-opener" (click)="open()" [class.hidden]="editMode">

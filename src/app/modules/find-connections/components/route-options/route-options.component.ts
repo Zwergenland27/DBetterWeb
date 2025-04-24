@@ -183,4 +183,16 @@ export class RouteOptionsComponent {
 
     this.routeOptionsChange.emit(this._routeOptions);
   }
+
+  maxTransfersChanged(result: {value: number | undefined, valid: boolean}) {
+    this._routeOptions.maxTransfers = result.value;
+    this._routeOptions.maxTransfersValid = result.valid;
+    this.routeOptionsChange.emit(this._routeOptions);
+  }
+
+  minTransferTimeChanged(result: {value: number | undefined, valid: boolean}) {
+    this._routeOptions.minTransferTime = result.value;
+    this._routeOptions.minTransferTimeValid = result.valid;
+    this.routeOptionsChange.emit(this._routeOptions);
+  }
 }
