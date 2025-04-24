@@ -23,9 +23,12 @@
     "length_of_stay": "Aufenthalt:",
     "hour_unit": "h",
     "minute_unit": "min",
+    "date": "Datum",
+    "time": "Zeit",
+    "Departure": "Abfahrt",
+    "Arrival": "Ankunft",
     "connection-options-title": "Reiseoptionen",
     "route": "Route",
-    "time": "Zeit",
     "passengers": "Reisende",
     "button-search": "Suchen"
   }

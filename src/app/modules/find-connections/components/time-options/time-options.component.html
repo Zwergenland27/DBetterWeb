@@ -2,12 +2,12 @@
   <toggle-button [options]="options" [selectedOption]="_timeOptions.type" (selectedOptionChange)="typeChanged($event)"/>
   <div>
     <icon-button-mini icon="chevron_left" (buttonClick)="subtractOneDay()" highlight/>
-    <date-input [date]="asLocalDate(_timeOptions.timestamp)" (dateChange)="dateChanged($event)" label="Date" hideErrors required/>
+    <date-input [date]="asLocalDate(_timeOptions.timestamp)" (dateChange)="dateChanged($event)" i18n-label="@@date" label="Date" hideErrors required/>
     <icon-button-mini icon="chevron_right" (buttonClick)="addOneDay()" highlight/>
   </div>
   <div>
     <icon-button-mini icon="remove" (buttonClick)="subtract15Min()" highlight/>
-    <time-input [time]="asLocalTime(_timeOptions.timestamp)" (timeChange)="timeChanged($event)" label="Time" hideErrors required/>
+    <time-input [time]="asLocalTime(_timeOptions.timestamp)" (timeChange)="timeChanged($event)" i18n-label="@@time" label="Time" hideErrors required/>
     <icon-button-mini icon="add" (buttonClick)="add15Min()" highlight/>
   </div>
 </div>

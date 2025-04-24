@@ -18,7 +18,10 @@ import {IconButtonMiniComponent} from '../../../../common/icon-button-mini/icon-
 })
 export class TimeOptionsComponent {
 
-  options = [{key: 'departure', label: 'Departure',}, {key: 'arrival', label: 'Arrival'}];
+  options = [
+    {key: 'departure', label: $localize`:@@Departure:Departure`,},
+    {key: 'arrival', label: $localize`:@@Arrival:Arrival`,},
+  ];
 
   timeOptions = input.required<TimeOptionsData>();
   timeOptionsChange = output<TimeOptionsData>();
