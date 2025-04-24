@@ -101,7 +101,6 @@ export class DateInputComponent {
       const date = new Date(year, month - 1, day, 0, 0, 0);
 
       if(this.min() && date < this.min()!){
-        console.log(date.toISOString(), this.min()!.toISOString());
         this.setErrors(["Frontend.BeforeMinDate"]);
         return;
       }

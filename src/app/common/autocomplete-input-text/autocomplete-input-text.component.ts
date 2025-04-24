@@ -52,7 +52,6 @@ export class AutocompleteInputTextComponent implements OnInit {
         switchMap(value => this.autocompleteFunction()(value))
       ).subscribe(suggestions => {
       this.suggestions = suggestions
-      console.log(suggestions);
     })
   }
 
