@@ -9,7 +9,10 @@ import {StopoverLengthOfStayComponent} from '../stopover-length-of-stay/stopover
 import {ConnectionService} from '../../connection.service';
 import {InputNumberComponent} from '../../../../common/input-number/input-number.component';
 import {RouteOptionsData, RouteOptionsStopoverData} from './route-options-data';
-import {combineMeansOfTransport} from '../../contracts/parameters/means-of-transport-parameters';
+import {
+  combineMeansOfTransport,
+  MeansOfTransportParameters
+} from '../../contracts/parameters/means-of-transport-parameters';
 import {StopoverParameters} from '../../contracts/parameters/stopover-parameters';
 
 @Component({
@@ -44,9 +47,9 @@ export class RouteOptionsComponent {
     });
   }
 
-  stopoverAsResult(stopover: RouteOptionsStopoverData) {
-    if(stopover === undefined || stopover.station === undefined) {return {id: undefined, value: ''}}
-    return {id: stopover.station.id, value: stopover.station.name};
+  stationAsAutoComplete(station: {id: string, name: string} | undefined) {
+    if(station === undefined) {return {id: undefined, value: ''}}
+    return {id: station.id, value: station.name};
   }
 
   searchStation = (value: string) : Observable<{id: string, value: string}[]> => {
@@ -68,9 +71,8 @@ export class RouteOptionsComponent {
       };
     }
 
-    this.routeOptionsChange.emit(this._routeOptions);
+    this.optionsUpdated();
   }
-
 
   destinationStationSelected(result: {id: string | undefined, value: string}){
     if(result.id === undefined) {
@@ -81,7 +83,8 @@ export class RouteOptionsComponent {
         name: result.value
       };
     }
-    this.routeOptionsChange.emit(this._routeOptions);
+
+    this.optionsUpdated();
   }
 
   addFirstStopover(){
@@ -92,7 +95,7 @@ export class RouteOptionsComponent {
         lengthOfStay: 0,
         meansOfTransportNextSection: structuredClone(this._routeOptions.meansOfTransportFirstSection)
       };
-      this.routeOptionsChange.emit(this._routeOptions);
+      this.optionsUpdated();
       return;
     }
 
@@ -113,7 +116,7 @@ export class RouteOptionsComponent {
         meansOfTransportNextSection: structuredClone(this._routeOptions.meansOfTransportFirstSection)
       }
 
-      this.routeOptionsChange.emit(this._routeOptions);
+      this.optionsUpdated();
     });
   }
 
@@ -127,7 +130,7 @@ export class RouteOptionsComponent {
       };
     }
 
-    this.routeOptionsChange.emit(this._routeOptions);
+    this.optionsUpdated();
   }
 
   removeFirstStopover(){
@@ -139,7 +142,7 @@ export class RouteOptionsComponent {
     //Remove first stopover, without moving the second stopover to its position
     if(this._routeOptions.secondStopover === undefined){
       this._routeOptions.firstStopover = undefined;
-      this.routeOptionsChange.emit(this._routeOptions);
+      this.optionsUpdated();
       return;
     }
 
@@ -147,7 +150,7 @@ export class RouteOptionsComponent {
     this._routeOptions.firstStopover = this._routeOptions.secondStopover
     this._routeOptions.secondStopover = undefined;
 
-    this.routeOptionsChange.emit(this._routeOptions);
+    this.optionsUpdated();
   }
 
   addSecondStopover(){
@@ -157,7 +160,7 @@ export class RouteOptionsComponent {
       meansOfTransportNextSection: structuredClone(this._routeOptions.firstStopover!.meansOfTransportNextSection!)
     };
 
-    this.routeOptionsChange.emit(this._routeOptions);
+    this.optionsUpdated();
   }
 
   secondStopoverStationSelected(result: {id: string | undefined, value: string}){
@@ -170,7 +173,7 @@ export class RouteOptionsComponent {
       };
     }
 
-    this.routeOptionsChange.emit(this._routeOptions);
+    this.optionsUpdated();
   }
 
   removeSecondStopover(){
@@ -181,18 +184,22 @@ export class RouteOptionsComponent {
 
     this._routeOptions.secondStopover = undefined;
 
-    this.routeOptionsChange.emit(this._routeOptions);
+    this.optionsUpdated();
   }
 
   maxTransfersChanged(result: {value: number | undefined, valid: boolean}) {
     this._routeOptions.maxTransfers = result.value;
     this._routeOptions.maxTransfersValid = result.valid;
-    this.routeOptionsChange.emit(this._routeOptions);
+    this.optionsUpdated();
   }
 
   minTransferTimeChanged(result: {value: number | undefined, valid: boolean}) {
     this._routeOptions.minTransferTime = result.value;
     this._routeOptions.minTransferTimeValid = result.valid;
+    this.optionsUpdated();
+  }
+
+  optionsUpdated(){
     this.routeOptionsChange.emit(this._routeOptions);
   }
 }

@@ -3,6 +3,7 @@
     icon="trip_origin"
     i18n-label="@@origin"
     label="Origin"
+    [default]="stationAsAutoComplete(_routeOptions.originStation)"
     [autocompleteFunction]="searchStation"
     [debounceTimeMs]="debounceTime"
     (valueChange)="originStationSelected($event)"
@@ -13,7 +14,8 @@
   <segment-options
     (addClick)="addFirstStopover()"
     [withButton]="allowAddingStopover"
-    [(allowedMeansOfTransport)]="_routeOptions.meansOfTransportFirstSection"/>
+    [(allowedMeansOfTransport)]="_routeOptions.meansOfTransportFirstSection"
+    (allowedMeansOfTransportChange)="optionsUpdated()"/>
   <autocomplete-input-text
     *ngIf="_routeOptions.firstStopover != undefined"
     icon="filled_location_on"
@@ -23,7 +25,7 @@
     label="Stopover"
     [autocompleteFunction]="searchStation"
     [debounceTimeMs]="debounceTime"
-    [default]="stopoverAsResult(_routeOptions.firstStopover)"
+    [default]="stationAsAutoComplete(_routeOptions.firstStopover?.station)"
     (valueChange)="firstStopoverStationSelected($event)"
     hideErrors
     required
@@ -31,12 +33,14 @@
     selectAllOnFocus/>
   <stopover-length-of-stay
     *ngIf="_routeOptions.firstStopover != undefined"
-    [(totalMinutes)]="_routeOptions.firstStopover.lengthOfStay"/>
+    [(totalMinutes)]="_routeOptions.firstStopover.lengthOfStay"
+    (totalMinutesChange)="optionsUpdated()"/>
   <segment-options
     *ngIf="_routeOptions.firstStopover != undefined"
     (addClick)="addSecondStopover()"
     [withButton]="allowAddingStopover"
-    [(allowedMeansOfTransport)]="_routeOptions.firstStopover.meansOfTransportNextSection"/>
+    [(allowedMeansOfTransport)]="_routeOptions.firstStopover.meansOfTransportNextSection"
+    (allowedMeansOfTransportChange)="optionsUpdated()"/>
   <autocomplete-input-text
     *ngIf="_routeOptions.secondStopover != undefined"
     icon="filled_location_on"
@@ -46,7 +50,7 @@
     label="Stopover"
     [autocompleteFunction]="searchStation"
     [debounceTimeMs]="debounceTime"
-    [default]="stopoverAsResult(_routeOptions.secondStopover)"
+    [default]="stationAsAutoComplete(_routeOptions.secondStopover?.station)"
     (valueChange)="secondStopoverStationSelected($event)"
     hideErrors
     required
@@ -54,16 +58,19 @@
     selectAllOnFocus/>
   <stopover-length-of-stay
     *ngIf="_routeOptions.secondStopover != undefined"
-    [(totalMinutes)]="_routeOptions.secondStopover.lengthOfStay"/>
+    [(totalMinutes)]="_routeOptions.secondStopover.lengthOfStay"
+    (totalMinutesChange)="optionsUpdated()"/>
   <segment-options
     *ngIf="_routeOptions.secondStopover != undefined"
     [withButton]="false"
-    [(allowedMeansOfTransport)]="_routeOptions.secondStopover.meansOfTransportNextSection"/>
+    [(allowedMeansOfTransport)]="_routeOptions.secondStopover.meansOfTransportNextSection"
+    (allowedMeansOfTransportChange)="optionsUpdated()"/>
   <autocomplete-input-text
     icon="filled_flag"
     i18n-label="@@destination"
     label="Destination"
     [autocompleteFunction]="searchStation"
+    [default]="stationAsAutoComplete(_routeOptions.destinationStation)"
     [debounceTimeMs]="debounceTime"
     (valueChange)="destinationStationSelected($event)"
     hideErrors
