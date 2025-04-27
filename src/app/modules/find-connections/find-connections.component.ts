@@ -5,7 +5,7 @@ import {TimeOptionsComponent} from './components/time-options/time-options.compo
 import {PassengerOptionsComponent} from './components/passenger-options/passenger-options.component';
 import {FloatingButtonComponent} from '../../common/floating-button/floating-button.component';
 import {IconComponent} from '../../common/icon/icon.component';
-import {ConnectionsData, newRequest} from './connections-data';
+import {newRequest} from './connections-data';
 import {ConnectionService} from './connection.service';
 import {StopoverParameters} from './contracts/parameters/stopover-parameters';
 

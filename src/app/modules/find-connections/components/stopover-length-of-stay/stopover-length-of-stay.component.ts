@@ -1,9 +1,7 @@
 import {Component, effect, input, output} from '@angular/core';
 import {IconButtonMiniComponent} from '../../../../common/icon-button-mini/icon-button-mini.component';
 import {IconComponent} from '../../../../common/icon/icon.component';
-import {NgIf} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {FloatingButtonComponent} from '../../../../common/floating-button/floating-button.component';
 
 @Component({
   selector: 'stopover-length-of-stay',
