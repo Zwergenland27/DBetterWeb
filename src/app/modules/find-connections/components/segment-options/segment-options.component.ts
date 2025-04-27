@@ -51,7 +51,7 @@ export class SegmentOptionsComponent {
   }
 
   allowUndergroundsChanged(allowed: boolean) {
-    this.currentAllowedMeansOfTransport.undergrounds = allowed;
+    this.currentAllowedMeansOfTransport.undergroundTrains = allowed;
     this.allowedMeansOfTransportChange.emit(this.currentAllowedMeansOfTransport);
   }
 

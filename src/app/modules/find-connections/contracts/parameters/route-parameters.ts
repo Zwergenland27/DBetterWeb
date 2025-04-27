@@ -5,8 +5,8 @@ export interface RouteParameters {
   originStationId: string;
   meansOfTransportFirstSection: MeansOfTransportParameters;
   firstStopover: StopoverParameters | undefined;
-  meansOfTransportSecondSection: MeansOfTransportParameters | undefined;
   secondStopover: StopoverParameters | undefined;
-  meansOfTransportThirdSection: MeansOfTransportParameters | undefined;
   destinationStationId: string;
+  maxTransfers: number,
+  minTransferTime: number,
 }

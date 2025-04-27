@@ -3,7 +3,7 @@ export interface MeansOfTransportParameters {
   fastTrains: boolean;
   regionalTrains: boolean;
   suburbanTrains: boolean;
-  undergrounds: boolean;
+  undergroundTrains: boolean;
   trams: boolean;
   busses: boolean;
   boats: boolean;
@@ -15,7 +15,7 @@ export function getMeansOfTransportDefault() : MeansOfTransportParameters {
     fastTrains: true,
     regionalTrains: true,
     suburbanTrains: false,
-    undergrounds: false,
+    undergroundTrains: false,
     trams: false,
     busses: false,
     boats: false
@@ -28,7 +28,7 @@ export function combineMeansOfTransport(first: MeansOfTransportParameters, secon
     fastTrains: first.fastTrains || second.fastTrains,
     regionalTrains: first.regionalTrains || second.regionalTrains,
     suburbanTrains: first.suburbanTrains || second.suburbanTrains,
-    undergrounds: first.undergrounds || second.undergrounds,
+    undergroundTrains: first.undergroundTrains || second.undergroundTrains,
     trams: first.trams || second.trams,
     busses: first.busses || second.busses,
     boats: first.boats || second.boats,

@@ -103,6 +103,7 @@ export class StopoverLengthOfStayComponent {
       this.hours++;
       this.minutes -= 60;
     }
+    this.emitTotalValue();
   }
 
   get subtractionAllowed(){
@@ -116,5 +117,6 @@ export class StopoverLengthOfStayComponent {
       this.hours--;
       this.minutes += 60;
     }
+    this.emitTotalValue();
   }
 }

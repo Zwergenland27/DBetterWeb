@@ -6,6 +6,8 @@ import {PassengerOptionsComponent} from './components/passenger-options/passenge
 import {FloatingButtonComponent} from '../../common/floating-button/floating-button.component';
 import {IconComponent} from '../../common/icon/icon.component';
 import {ConnectionsData, newRequest} from './connections-data';
+import {ConnectionService} from './connection.service';
+import {StopoverParameters} from './contracts/parameters/stopover-parameters';
 
 @Component({
   selector: 'app-find-connections',
@@ -25,6 +27,8 @@ export class FindConnectionsComponent {
 
   connectionOptions = newRequest();
 
+  constructor(private connectionService: ConnectionService) {
+  }
   close(){
     this.editMode = false;
   }
@@ -34,6 +38,53 @@ export class FindConnectionsComponent {
   }
 
   test(){
-    console.log(this.connectionOptions);
+    const options = this.connectionOptions;
+
+    if(options.route.originStation === undefined || options.route.destinationStation === undefined){
+      throw new Error('Origin and destination station is missing');
+    }
+
+    let firstStopover: StopoverParameters | undefined = undefined;
+    let secondStopover: StopoverParameters | undefined = undefined;
+
+    if(options.route.firstStopover != undefined){
+      if(options.route.firstStopover.station === undefined){
+        throw new Error('First stopover station missing');
+      }
+      firstStopover = {
+        stationId: options.route.firstStopover.station.id,
+        lengthOfStay: options.route.firstStopover.lengthOfStay,
+        meansOfTransportNextSection: options.route.firstStopover.meansOfTransportNextSection
+      }
+    }
+
+    if(options.route.secondStopover != undefined){
+      if(options.route.secondStopover.station === undefined){
+        throw new Error('Second stopover station missing');
+      }
+      secondStopover = {
+        stationId: options.route.secondStopover.station.id,
+        lengthOfStay: options.route.secondStopover.lengthOfStay,
+        meansOfTransportNextSection: options.route.secondStopover.meansOfTransportNextSection
+      }
+    }
+
+    this.connectionService.getSuggestions({
+      departureTime: options.time.type === 'departure' ? options.time.timestamp.toISOString() : undefined,
+      arrivalTime: options.time.type === 'arrival' ? options.time.timestamp.toISOString() : undefined,
+      passengers: [],
+      route: {
+        originStationId: options.route.originStation.id,
+        meansOfTransportFirstSection: options.route.meansOfTransportFirstSection,
+        firstStopover: firstStopover,
+        secondStopover: secondStopover,
+        destinationStationId: options.route.destinationStation.id,
+        maxTransfers: options.route.maxTransfers!,
+        minTransferTime: options.route.minTransferTime!,
+      },
+      comfortClass: 'Second'
+    }).subscribe(value => {
+      console.log(value);
+    });
   }
 }

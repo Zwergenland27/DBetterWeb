@@ -1,4 +1,7 @@
+import {MeansOfTransportParameters} from './means-of-transport-parameters';
+
 export interface StopoverParameters {
   stationId: string;
-  transferTime: number;
+  lengthOfStay: number;
+  meansOfTransportNextSection: MeansOfTransportParameters;
 }
