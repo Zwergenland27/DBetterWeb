@@ -25,7 +25,7 @@
     label="Stopover"
     [autocompleteFunction]="searchStation"
     [debounceTimeMs]="debounceTime"
-    [default]="stationAsAutoComplete(_routeOptions.firstStopover?.station)"
+    [default]="stationAsAutoComplete(_routeOptions.firstStopover.station)"
     (valueChange)="firstStopoverStationSelected($event)"
     hideErrors
     required
@@ -50,7 +50,7 @@
     label="Stopover"
     [autocompleteFunction]="searchStation"
     [debounceTimeMs]="debounceTime"
-    [default]="stationAsAutoComplete(_routeOptions.secondStopover?.station)"
+    [default]="stationAsAutoComplete(_routeOptions.secondStopover.station)"
     (valueChange)="secondStopoverStationSelected($event)"
     hideErrors
     required
