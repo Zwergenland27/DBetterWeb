@@ -1,0 +1,60 @@
+<div class="connection-card">
+  <div class="overview">
+    <div class="connection">
+      <div class="header">
+        <div class="time">
+          <div class="planned">
+            <span>{{plannedDepartureTime | date:"shortTime"}}</span>
+            <span>-</span>
+            <span>{{plannedArrivalTime | date:"shortTime"}}</span>
+          </div>
+          <div class="real" *ngIf="realDepartureTime.type != 'no-data' || realArrivalTime.type != 'no-data'">
+            <span [ngClass]="realDepartureTime.type">{{realDepartureTime.time | date:"shortTime"}}</span>
+            <span>-</span>
+            <span [ngClass]="realArrivalTime.type">{{realArrivalTime.time | date:"shortTime"}}</span>
+          </div>
+        </div>
+        <div class="duration">
+          <div>
+            <span *ngIf="realDuration.hours">{{realDuration.hours}}</span>
+            <span>h</span>
+          </div>
+          <div>
+            <span>{{realDuration.minutes}}</span>
+            <span>min</span>
+          </div>
+        </div>
+        <div class="transfers">
+          <span *ngIf="transferCount == 0">Direct connection</span>
+          <span *ngIf="transferCount > 0">{{transferCount}} transfers</span>
+        </div>
+      </div>
+      <div class="time-graph">
+        <div>
+          @for(segment of timegraph; track $index){
+            <div *ngIf="segment.demand" [ngClass]="segment.demand.secondClass" [style.width]="segment.plannedPercentage + '%'">
+            </div>
+            <div *ngIf="!segment.demand" class="transfer" [style.width]="segment.plannedPercentage + '%'">
+            </div>
+          }
+        </div>
+      </div>
+      <div class="segments">
+        @for(segment of connection().segments; track segment){
+          <div *ngIf="segment.$type === 'walking'" class="segment">
+            WALK
+          </div>
+          <div *ngIf="segment.$type === 'transport'" class="segment">
+            {{getShortName(asTransportSegment(segment).product)}} {{asTransportSegment(segment).number}}
+          </div>
+        }
+      </div>
+    </div>
+    <div class="actions">
+      Actions
+    </div>
+  </div>
+  <div class="details">
+    Details
+  </div>
+</div>

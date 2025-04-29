@@ -102,6 +102,11 @@ $options-opener-width: calc(1.5rem + 2 * 8px);
   }
 
   .suggestions {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 16px;
+    padding: 16px;
 
     &.expanded {
       transform: translateX(calc($options-opener-width - $options-width));

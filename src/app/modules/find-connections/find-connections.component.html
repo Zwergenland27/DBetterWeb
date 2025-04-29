@@ -7,10 +7,10 @@
     </div>
     <div class="panels">
       <expansion-panel i18n-text="@@route" text="Route" [expanded]="true"  [invalid]="false">
-        <route-options [(routeOptions)]="connectionOptions.route"/>
+        <route-options [routeOptions]="connectionOptions.route" (routeOptionsChange)="routeChanged($event)"/>
       </expansion-panel>
       <expansion-panel i18n-text="@@time" text="Time" [expanded]="true"  [invalid]="false">
-        <time-options [(timeOptions)]="connectionOptions.time"/>
+        <time-options [timeOptions]="connectionOptions.time" (timeOptionsChange)="timeChanged($event)"/>
       </expansion-panel>
       <expansion-panel i18n-text="@@passengers" text="Passengers" [expanded]="true"  [invalid]="false">
         <passenger-options/>
@@ -28,6 +28,6 @@
     <icon class="mobile" name="keyboard_arrow_down"/>
   </div>
   <div class="suggestions" [class.expanded]="!editMode">
-    SUGGESTIONS <br/>
+    <connection-card *ngFor="let connection of connections" [connection]="connection"/>
   </div>
 </div>

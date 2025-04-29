@@ -5,9 +5,14 @@ import {TimeOptionsComponent} from './components/time-options/time-options.compo
 import {PassengerOptionsComponent} from './components/passenger-options/passenger-options.component';
 import {FloatingButtonComponent} from '../../common/floating-button/floating-button.component';
 import {IconComponent} from '../../common/icon/icon.component';
-import {newRequest} from './connections-data';
+import {ConnectionsData} from './connections-data';
 import {ConnectionService} from './connection.service';
 import {StopoverParameters} from './contracts/parameters/stopover-parameters';
+import {ConnectionDto} from './contracts/dtos/connection.dto';
+import {ConnectionCardComponent} from './components/connection-card/connection-card.component';
+import {NgForOf} from '@angular/common';
+import {RouteOptionsData} from './components/route-options/route-options-data';
+import {TimeOptionsData} from './components/time-options/time-options-data';
 
 @Component({
   selector: 'app-find-connections',
@@ -17,7 +22,9 @@ import {StopoverParameters} from './contracts/parameters/stopover-parameters';
     TimeOptionsComponent,
     PassengerOptionsComponent,
     FloatingButtonComponent,
-    IconComponent
+    IconComponent,
+    ConnectionCardComponent,
+    NgForOf
   ],
   templateUrl: './find-connections.component.html',
   styleUrl: './find-connections.component.scss'
@@ -25,9 +32,13 @@ import {StopoverParameters} from './contracts/parameters/stopover-parameters';
 export class FindConnectionsComponent {
   editMode = true;
 
-  connectionOptions = newRequest();
+  connectionOptions: ConnectionsData;
+  connections : ConnectionDto[] = [];
 
   constructor(private connectionService: ConnectionService) {
+    this.connectionOptions = connectionService.loadConnectionsData();
+
+    this.connections = JSON.parse(sessionStorage.getItem("data")!);
   }
   close(){
     this.editMode = false;
@@ -35,6 +46,16 @@ export class FindConnectionsComponent {
 
   open(){
     this.editMode = true;
+  }
+
+  routeChanged(options: RouteOptionsData){
+    this.connectionOptions.route = options;
+    this.connectionService.storeConnectionsData(this.connectionOptions);
+  }
+
+  timeChanged(options: TimeOptionsData){
+    this.connectionOptions.time = options;
+    this.connectionService.storeConnectionsData(this.connectionOptions);
   }
 
   test(){
@@ -84,7 +105,8 @@ export class FindConnectionsComponent {
       },
       comfortClass: 'Second'
     }).subscribe(value => {
-      console.log(value);
+      this.connections = value.connections;
+      sessionStorage.setItem('data', JSON.stringify(this.connections));
     });
   }
 }
