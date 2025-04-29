@@ -5,14 +5,14 @@ import {BikeCarriageInformationDto} from '../../../../common/contracts/dtos/bike
 import {CateringInformationDto} from '../../../../common/contracts/dtos/catering-information.dto';
 import {TransportProduct} from '../../../../common/contracts/dtos/transport-product';
 
-export interface TransportSegment extends SegmentDto {
+export interface TransportSegmentDto extends SegmentDto {
   routeId: string;
   demand: DemandDto;
   stops: StopDto[];
-  operator: string | undefined;
-  destination: string | undefined;
+  operator: string | null;
+  destination: string | null;
   product: TransportProduct;
-  replacementService: true | undefined;
+  replacementService: true | null;
   number: string;
   bikeCarriage: BikeCarriageInformationDto;
   catering: CateringInformationDto;

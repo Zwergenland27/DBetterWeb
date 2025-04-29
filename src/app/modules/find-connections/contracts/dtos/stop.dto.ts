@@ -4,14 +4,14 @@ import { PlatformDto } from "../../../../common/contracts/dtos/platform.dto";
 
 export interface StopDto {
   id: string;
-  departureTime: TravelTime | undefined;
-  arrivalTime: TravelTime | undefined;
+  departureTime: TravelTime | null;
+  arrivalTime: TravelTime | null;
   demand: DemandDto;
   name: string;
   platform: PlatformDto;
-  isAdditional: true | undefined;
-  isCancelled: true | undefined;
-  isExitOnly: true | undefined;
-  isEntryOnly: true | undefined;
+  isAdditional: true | null;
+  isCancelled: true | null;
+  isExitOnly: true | null;
+  isEntryOnly: true | null;
   stopIndex: number;
 }
