@@ -33,6 +33,7 @@
     transform: unset;
     pointer-events: none;
     transition: 0.2s ease all;
+    color: var(--on-surface-variant);
     font: var(--label-large);
 
     &.required:after {
