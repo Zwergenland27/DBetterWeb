@@ -8,5 +8,10 @@ export interface OfferDto {
 }
 
 export enum Currency {
-  Eur = 'Eur'
+  Euro = 'Euro',
+}
+
+export function getShortCurrency(currency: Currency){
+  if(currency == Currency.Euro) return "EUR";
+  return "";
 }
