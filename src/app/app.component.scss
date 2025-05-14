@@ -26,12 +26,13 @@ $title-height: calc(2 * 16px + 1.5rem);
 
 .content {
   flex: 1;
+  min-width: 0;
 }
 
 @media screen and (width >= 768px) {
   .navigation {
     display: flex;
-    width: $navigation-size;
+    min-width: $navigation-size;
     flex-direction: column;
 
     nav {
