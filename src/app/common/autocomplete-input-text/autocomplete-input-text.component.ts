@@ -38,14 +38,9 @@ export class AutocompleteInputTextComponent implements OnInit {
 
   _closing = false;
 
-  constructor() {
-    effect(() => {
-      this.value = this.default().value;
-      this._selectedId = this.default().id;
-    });
-  }
-
   ngOnInit() {
+    this.value = this.default().value;
+    this._selectedId = this.default().id;
     this.inputSubject
       .pipe(
         debounceTime(this.debounceTimeMs()),
