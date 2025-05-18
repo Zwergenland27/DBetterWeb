@@ -54,7 +54,15 @@ export class ConnectionService {
     }
   }
 
-  getSuggestions(parameters: ConnectionRequestParameters): Observable<ConnectionSuggestionsDto> {
-    return this.http.post<ConnectionSuggestionsDto>('connections/suggestions', parameters);
+  getSuggestions(id: string, page: string | null): Observable<ConnectionSuggestionsDto> {
+    if(page){
+      return this.http.get<ConnectionSuggestionsDto>(`connections/requests/${id}/suggestions?page=${page}`);
+    }
+
+    return this.http.get<ConnectionSuggestionsDto>(`connections/requests/${id}/suggestions`);
+  }
+
+  createRequest(parameters: ConnectionRequestParameters): Observable<ConnectionSuggestionsDto> {
+    return this.http.post<ConnectionSuggestionsDto>('connections/requests', parameters);
   }
 }

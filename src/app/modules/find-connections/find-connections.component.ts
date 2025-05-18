@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {RouteOptionsComponent} from './components/route-options/route-options.component';
 import {ExpansionPanelComponent} from './components/expansion-panel/expansion-panel.component';
 import {TimeOptionsComponent} from './components/time-options/time-options.component';
@@ -10,9 +10,10 @@ import {ConnectionService} from './connection.service';
 import {StopoverParameters} from './contracts/parameters/stopover-parameters';
 import {ConnectionDto} from './contracts/dtos/connection.dto';
 import {ConnectionCardComponent} from './components/connection-card/connection-card.component';
-import {NgForOf} from '@angular/common';
+import {DatePipe, NgIf} from '@angular/common';
 import {RouteOptionsData} from './components/route-options/route-options-data';
 import {TimeOptionsData} from './components/time-options/time-options-data';
+import {LoaderComponent} from '../../common/loader/loader.component';
 
 @Component({
   selector: 'app-find-connections',
@@ -24,13 +25,22 @@ import {TimeOptionsData} from './components/time-options/time-options-data';
     FloatingButtonComponent,
     IconComponent,
     ConnectionCardComponent,
-    NgForOf
+    NgIf,
+    DatePipe,
+    LoaderComponent
   ],
   templateUrl: './find-connections.component.html',
   styleUrl: './find-connections.component.scss'
 })
 export class FindConnectionsComponent {
   editMode = true;
+
+  requestId = ''
+  loadingEarlier = false;
+  pageEarlier: string | null = null;
+  loading = false;
+  pageLater: string | null = null;
+  loadingLater = false;
 
   connectionOptions: ConnectionsData;
   connections : ConnectionDto[] = [];
@@ -40,6 +50,7 @@ export class FindConnectionsComponent {
 
     this.connections = JSON.parse(sessionStorage.getItem("data")!);
   }
+
   close(){
     this.editMode = false;
   }
@@ -58,7 +69,27 @@ export class FindConnectionsComponent {
     this.connectionService.storeConnectionsData(this.connectionOptions);
   }
 
-  test(){
+  displayDate(i: number){
+    if (i === 0) return true;
+
+    const previousConnectionDeparture = new Date(this.connections[i - 1].segments[0].departureTime.planned);
+    const connectionDeparture = new Date(this.connections[i].segments[0].departureTime.planned);
+    return previousConnectionDeparture.toDateString() != connectionDeparture.toDateString();
+  }
+
+  loadEarlier(){
+    this.loadingEarlier = true;
+    this.connectionService.getSuggestions(
+      this.requestId,
+      this.pageEarlier,
+    ).subscribe(value => {
+      this.loadingEarlier = false;
+      this.pageEarlier = value.pageEarlier;
+      this.connections = value.connections.concat(this.connections);
+    })
+  }
+
+  startSearch(){
     const options = this.connectionOptions;
 
     if(options.route.originStation === undefined || options.route.destinationStation === undefined){
@@ -90,7 +121,10 @@ export class FindConnectionsComponent {
       }
     }
 
-    this.connectionService.getSuggestions({
+    this.connections = [];
+    this.loading = true;
+
+    this.connectionService.createRequest({
       departureTime: options.time.type === 'departure' ? options.time.timestamp.toISOString() : undefined,
       arrivalTime: options.time.type === 'arrival' ? options.time.timestamp.toISOString() : undefined,
       passengers: [],
@@ -105,8 +139,24 @@ export class FindConnectionsComponent {
       },
       comfortClass: 'Second'
     }).subscribe(value => {
+      this.loading = false;
+      this.requestId = value.requestId;
+      this.pageEarlier = value.pageEarlier;
       this.connections = value.connections;
+      this.pageLater = value.pageLater;
       sessionStorage.setItem('data', JSON.stringify(this.connections));
     });
+  }
+
+  loadLater(){
+    this.loadingLater = true;
+    this.connectionService.getSuggestions(
+      this.requestId,
+      this.pageLater,
+    ).subscribe(value => {
+      this.loadingLater = false;
+      this.pageLater = value.pageLater;
+      this.connections = this.connections.concat(value.connections);
+    })
   }
 }

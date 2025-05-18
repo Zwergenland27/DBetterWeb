@@ -105,11 +105,19 @@ $options-opener-width: calc(1.5rem + 2 * 8px);
     display: flex;
     flex-direction: column;
     width: 100%;
-    gap: 16px;
+    height: calc(100% - 2 * 16px);
     padding: 16px;
+    gap: 16px;
+    overflow-y: scroll;
 
-    &.expanded {
-      transform: translateX(calc($options-opener-width - $options-width));
+    .centered {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
+
+    .date {
+      font: var(--headline-medium);
     }
   }
 }

@@ -17,7 +17,7 @@
       </expansion-panel>
     </div>
     <div class="footer">
-      <floating-button icon="search" i18n-text="@@button-search" text="Search" (click)="test()"/>
+      <floating-button icon="search" i18n-text="@@button-search" text="Search" (click)="startSearch()"/>
     </div>
   </div>
   <div class="options-opener" (click)="open()" [class.hidden]="editMode">
@@ -28,6 +28,14 @@
     <icon class="mobile" name="keyboard_arrow_down"/>
   </div>
   <div class="suggestions" [class.expanded]="!editMode">
-    <connection-card *ngFor="let connection of connections" [connection]="connection"/>
+    <loader class="centered" *ngIf="loadingEarlier"/>
+    <floating-button class="centered" *ngIf="connections.length > 0" small secondary icon="keyboard_arrow_up" text="earlier" (click)="loadEarlier()"/>
+    <loader class="centered" *ngIf="loading"/>
+    @for(connection of connections; track connection.id;){
+      <span *ngIf="displayDate($index)" class="date">{{connection.segments[0].departureTime.planned | date: 'fullDate'}}</span>
+      <connection-card [connection]="connection"/>
+    }
+    <floating-button class="centered" *ngIf="connections.length > 0" small secondary icon="keyboard_arrow_down" text="later" (click)="loadLater()"/>
+    <loader class="centered" *ngIf="loadingLater"/>
   </div>
 </div>
