@@ -8,108 +8,117 @@
 
   .overview {
     display: flex;
+    gap: 10px;
+    flex-direction: column;
+    padding: 10px;
 
-    .connection {
-      padding: 8px;
-      flex: 1;
-
-      .header {
+    .header {
+      display: flex;
+      justify-content: space-between;
+      .time {
         display: flex;
-        justify-content: space-between;
-        .time {
-          display: flex;
-          flex-direction: column;
-
-          div {
-            display: flex;
-            gap: var(--text-gap);
-
-            &.planned {
-              font: var(--title-large);
-            }
-
-            &.real {
-              font: var(--title-medium);
-            }
-
-            .on-time {
-              color: green;
-            }
-
-            .delayed {
-              color: red;
-            }
-          }
-        }
-
-        .duration {
-          display: flex;
-          font: var(--title-small);
-          gap: var(--text-gap);
-        }
-
-        .transfers {
-          font: var(--title-small);
-        }
-      }
-
-      .time-graph {
+        flex-direction: column;
 
         div {
           display: flex;
-          div {
-            background-color: green;
-            height: 1rem;
+          gap: var(--text-gap);
 
-            &.transfer {
-              background: transparent;
-            }
+          &.planned {
+            font: var(--title-large);
+          }
 
-            &.Unknown {
-              background: var(--on-surface);
-            }
+          &.real {
+            font: var(--title-medium);
+          }
 
-            &.Low {
-              background: green;
-            }
+          .on-time {
+            color: green;
+          }
 
-            &.Medium {
-              background: yellow;
-            }
-
-            &.High {
-              background: red;
-            }
-
-            &.Extreme {
-              background: var(--error);
-            }
-
-            &.Overbooked {
-              background: black;
-            }
+          .delayed {
+            color: red;
           }
         }
       }
 
-      .segments {
+      .duration {
         display: flex;
-        flex-wrap: wrap;
+        font: var(--title-small);
         gap: var(--text-gap);
+      }
 
-        .segment {
-          padding: 4px 8px;
-          border-radius: var(--radius-small);
-          border: 1px solid var(--outline-variant);
-          background-color: var(--surface-container-high);
-          font: var(--label-large);
+      .transfers {
+        font: var(--title-small);
+      }
+    }
+
+    .segments {
+      display: flex;
+      overflow-x: auto;
+      gap: var(--text-gap);
+
+      .segment {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 4px 8px;
+        border-radius: var(--radius-small);
+        border: 1px solid var(--outline-variant);
+        color: var(--on-surface-variant);
+        background-color: var(--surface-variant);
+        font: var(--label-large);
+
+        .test {
+          display: flex;
+          justify-content: center;
+        }
+
+        icon {
+          color: var(--on-surface-variant);
+
+          &.Low {
+            color: var(--primary);
+          }
+
+          &.Medium {
+            color: yellow;
+          }
+
+          &.High {
+            color: orange;
+          }
+
+          &.Extreme {
+            color: red;
+          }
+
+          &.Overbooked {
+            color: black;
+          }
+        }
+
+        span {
+          text-wrap: nowrap;
+          text-align: center;
         }
       }
     }
 
     .actions {
-      width: 10rem;
-      border-left: 1px solid var(--outline-variant);
+      display: flex;
+      justify-content: flex-end;
+
+      .price {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        gap: var(--text-gap);
+        font: var(--body-large);
+
+        .price-text {
+          font: var(--title-large);
+        }
+      }
     }
   }
 

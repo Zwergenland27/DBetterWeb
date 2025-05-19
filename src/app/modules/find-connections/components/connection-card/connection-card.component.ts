@@ -1,26 +1,30 @@
 import { Component, input } from '@angular/core';
 import { ConnectionDto } from '../../contracts/dtos/connection.dto';
-import {connect} from 'rxjs';
-import {DatePipe, NgClass, NgIf} from '@angular/common';
-import {TransportSegmentDto} from '../../contracts/dtos/transport-segment.dto';
+import {CurrencyPipe, DatePipe, NgClass, NgIf} from '@angular/common';
+import {getIconName, TransportSegmentDto} from '../../contracts/dtos/transport-segment.dto';
 import {SegmentDto} from '../../contracts/dtos/segment.dto';
-import {getShortName} from '../../../../common/contracts/dtos/transport-product';
-import {DemandDto} from '../../../../common/contracts/dtos/demand.dto';
-import {TravelTime} from '../../../../common/contracts/dtos/travel-time.dto';
+import {IconComponent} from '../../../../common/icon/icon.component';
+import {getShortCurrency} from '../../contracts/dtos/offer.dto';
+import {FloatingButtonComponent} from '../../../../common/floating-button/floating-button.component';
 
 @Component({
   selector: 'connection-card',
   imports: [
     DatePipe,
     NgIf,
-    NgClass
+    NgClass,
+    IconComponent,
+    CurrencyPipe,
+    FloatingButtonComponent
   ],
   templateUrl: './connection-card.component.html',
   styleUrl: './connection-card.component.scss'
 })
 export class ConnectionCardComponent {
   connection = input.required<ConnectionDto>();
-  protected readonly connect = connect;
+
+  constructor(private datePipe: DatePipe) {
+  }
 
   get plannedDepartureTime() {
     const segments = this.connection().segments;
@@ -77,13 +81,7 @@ export class ConnectionCardComponent {
     const departure = this.realDepartureTime;
     const arrival = this.realArrivalTime;
 
-    const difference = Math.abs(Date.parse(arrival.time) - Date.parse(departure.time));
-    const hours = Math.floor(difference / (1000 * 60 * 60));
-    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (60000));
-    return {
-      hours: hours,
-      minutes: minutes
-    };
+    return this.getHoursAndMinutesBetweenDates(departure.time, arrival.time);
   }
 
   asTransportSegment(segment: SegmentDto) {
@@ -94,59 +92,73 @@ export class ConnectionCardComponent {
     return this.connection().segments.filter(segment => segment.$type === 'transport').length - 1;
   }
 
-  get timegraph() : {
-    plannedPercentage: number,
-    realPercentage: number,
-    demand: DemandDto | undefined}[] {
-    const graphSections: {plannedPercentage: number, realPercentage: number, demand: DemandDto | undefined}[] = [];
+  getPercentage(segment: SegmentDto) {
+    const totalDeparture = this.connection().segments[0].departureTime.planned;
+    const totalArrival = this.connection().segments[this.connection().segments.length - 1].arrivalTime.planned;
+    const totalDuration = Math.abs(Date.parse(totalArrival) - Date.parse(totalDeparture));
 
-    const segments = this.connection().segments;
-    const totalDuration = this.getDuration(
-      segments[0].departureTime,
-      segments[segments.length - 1].arrivalTime);
-
-    for(let i = 0; i < segments.length; i++){
-      const segment = segments[i];
-      const duration = this.getDuration(segment.departureTime, segment.arrivalTime);
-      let demand: DemandDto | undefined = undefined;
-
-      if(segment.$type === 'transport'){
-        demand = (segment as TransportSegmentDto).demand;
-      }
-
-      graphSections.push({
-        plannedPercentage: +(duration.plannedDuration / totalDuration.plannedDuration).toFixed(2) * 100,
-        realPercentage: +(duration.realDuration / totalDuration.realDuration).toFixed(2) * 100,
-        demand: demand
-      });
-
-      if(i < segments.length - 1){
-        const transferDuration = this.getDuration(segment.arrivalTime, segments[i+1].departureTime);
-        graphSections.push({
-          plannedPercentage: +(transferDuration.plannedDuration / totalDuration.plannedDuration).toFixed(2) * 100,
-          realPercentage: +(transferDuration.realDuration / totalDuration.realDuration).toFixed(2) * 100,
-          demand: undefined
-        })
-      }
-    }
-
-    return graphSections;
-  }
-
-  getDuration(departure: TravelTime, arrival: TravelTime){
-    const plannedDeparture = departure.planned;
-    const plannedArrival = arrival.planned;
+    const plannedDeparture = segment.departureTime.planned;
+    const plannedArrival = segment.arrivalTime.planned;
     const plannedDuration = Math.abs(Date.parse(plannedArrival) - Date.parse(plannedDeparture));
 
-
-    const realDeparture = departure.real ?? departure.planned;
-    const realArrival = arrival.real ?? arrival.planned;
-    const realDuration = Math.abs(Date.parse(realDeparture) - Date.parse(realArrival));
-    return {
-      plannedDuration: plannedDuration,
-      realDuration: realDuration
-    }
+    return (plannedDuration / totalDuration) * 100;
   }
 
-  protected readonly getShortName = getShortName;
+  getTransferPercentage(fromSegment: SegmentDto, toSegment: SegmentDto) {
+    const totalDeparture = this.connection().segments[0].departureTime.planned;
+    const totalArrival = this.connection().segments[this.connection().segments.length - 1].arrivalTime.planned;
+    const totalDuration = Math.abs(Date.parse(totalArrival) - Date.parse(totalDeparture));
+
+    const plannedDeparture = fromSegment.arrivalTime.planned;
+    const plannedArrival = toSegment.departureTime.planned;
+    const plannedDuration = Math.abs(Date.parse(plannedArrival) - Date.parse(plannedDeparture));
+
+    return (plannedDuration / totalDuration) * 100;
+  }
+
+  getHoursAndMinutesBetweenDates(date1: string, date2: string){
+    let difference = Date.parse(date2) - Date.parse(date1);
+    const hours = Math.floor(difference / (1000 * 60 * 60));
+    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (60000));
+    return {
+      hours: hours,
+      minutes: minutes
+    };
+  }
+
+  getTransferTime(index: number){
+    const segments = this.connection().segments;
+    if(index >= segments.length - 1) return undefined;
+    const fromSegment = segments[index];
+
+    if(fromSegment.$type === 'walking'){
+      const realTransferTime = this.getHoursAndMinutesBetweenDates(fromSegment.departureTime.real ?? fromSegment.departureTime.planned, fromSegment.arrivalTime.real ?? fromSegment.arrivalTime.planned);
+      if(realTransferTime.hours > 0){
+        return `${realTransferTime.hours}h ${realTransferTime.minutes}min`;
+      }
+
+      return `${realTransferTime.minutes}min`;
+    }
+
+    const toSegment = segments[index + 1];
+
+    if(fromSegment.$type === 'transport' && toSegment.$type === 'transport'){
+      const realTransferTime = this.getHoursAndMinutesBetweenDates(fromSegment.arrivalTime.real ?? fromSegment.arrivalTime.planned, toSegment.departureTime.real ?? toSegment.departureTime.planned);
+      if(realTransferTime.hours > 0){
+        return `${realTransferTime.hours}h ${realTransferTime.minutes}min`;
+      }
+
+      return `${realTransferTime.minutes}min`;
+    }
+
+    return undefined;
+  }
+
+  openOnBahnDe(){
+    console.log(this.connection().bahnDeUrl);
+    window.open(this.connection().bahnDeUrl, "_blank");
+  }
+
+  protected readonly getShortCurrency = getShortCurrency;
+  protected readonly getIconName = getIconName;
 }

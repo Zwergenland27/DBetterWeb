@@ -4,6 +4,7 @@ import {OfferDto} from './offer.dto';
 
 export interface ConnectionDto {
   id: string;
+  bahnDeUrl: string;
   demand: DemandDto;
   segments: SegmentDto[];
   offer: OfferDto;

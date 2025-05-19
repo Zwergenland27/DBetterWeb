@@ -1,57 +1,56 @@
 <div class="connection-card">
   <div class="overview">
-    <div class="connection">
-      <div class="header">
-        <div class="time">
-          <div class="planned">
-            <span>{{plannedDepartureTime | date:"shortTime"}}</span>
-            <span>-</span>
-            <span>{{plannedArrivalTime | date:"shortTime"}}</span>
-          </div>
-          <div class="real" *ngIf="realDepartureTime.type != 'no-data' || realArrivalTime.type != 'no-data'">
-            <span [ngClass]="realDepartureTime.type">{{realDepartureTime.time | date:"shortTime"}}</span>
-            <span>-</span>
-            <span [ngClass]="realArrivalTime.type">{{realArrivalTime.time | date:"shortTime"}}</span>
-          </div>
+    <div class="header">
+      <div class="time">
+        <div class="planned">
+          <span>{{plannedDepartureTime | date:"shortTime"}}</span>
+          <span>-</span>
+          <span>{{plannedArrivalTime | date:"shortTime"}}</span>
         </div>
-        <div class="duration">
-          <div>
-            <span *ngIf="realDuration.hours">{{realDuration.hours}}</span>
-            <span>h</span>
-          </div>
-          <div>
-            <span>{{realDuration.minutes}}</span>
-            <span>min</span>
-          </div>
-        </div>
-        <div class="transfers">
-          <span *ngIf="transferCount == 0">Direct connection</span>
-          <span *ngIf="transferCount > 0">{{transferCount}} transfers</span>
+        <div class="real" *ngIf="realDepartureTime.type != 'no-data' || realArrivalTime.type != 'no-data'">
+          <span [ngClass]="realDepartureTime.type">{{realDepartureTime.time | date:"shortTime"}}</span>
+          <span>-</span>
+          <span [ngClass]="realArrivalTime.type">{{realArrivalTime.time | date:"shortTime"}}</span>
         </div>
       </div>
-      <div class="time-graph">
+      <div class="duration">
+        <div *ngIf="realDuration.hours">
+          <span>{{realDuration.hours}}</span>
+          <span>h</span>
+        </div>
         <div>
-          @for(segment of timegraph; track $index){
-            <div *ngIf="segment.demand" [ngClass]="segment.demand.secondClass" [style.width]="segment.plannedPercentage + '%'">
-            </div>
-            <div *ngIf="!segment.demand" class="transfer" [style.width]="segment.plannedPercentage + '%'">
-            </div>
-          }
+          <span>{{realDuration.minutes}}</span>
+          <span>min</span>
         </div>
       </div>
-      <div class="segments">
-        @for(segment of connection().segments; track segment){
-          <div *ngIf="segment.$type === 'walking'" class="segment">
-            WALK
-          </div>
-          <div *ngIf="segment.$type === 'transport'" class="segment">
-            {{getShortName(asTransportSegment(segment).product)}} {{asTransportSegment(segment).number}}
-          </div>
-        }
+      <div class="transfers">
+        <span *ngIf="transferCount == 0">Direct connection</span>
+        <span *ngIf="transferCount > 0">{{transferCount}} transfers</span>
       </div>
     </div>
+    <div class="segments">
+      @for(segment of connection().segments; track $index; let i = $index){
+        @if(segment.$type === 'walking'){
+          <div class="transfer" [style.flex-grow]="getPercentage(segment)">
+          </div>
+        }
+        @if(segment.$type === 'transport'){
+          <div class="segment" [style.flex-grow]="getPercentage(segment)">
+            <span>{{asTransportSegment(segment).line}}</span>
+            <div class="test">
+              <icon [name]="getIconName(asTransportSegment(segment).transportCategory)"/>
+              <icon [ngClass]="asTransportSegment(segment).demand.secondClass" name="filled_group"/>
+            </div>
+          </div>
+          <div *ngIf="getTransferTime(i)" class="transfer"  [style.flex-grow]="getTransferPercentage(segment, connection().segments[i + 1])">
+          </div>
+        }
+      }
+    </div>
     <div class="actions">
-      Actions
+      <floating-button *ngIf="!connection().offer" small secondary icon="open_in_new" text="View on bahn.de" (click)="openOnBahnDe()"/>
+      <floating-button *ngIf="connection().offer && connection().offer.partial" small secondary icon="open_in_new" text="Get offers on bahn.de" (click)="openOnBahnDe()"/>
+      <floating-button *ngIf="connection().offer && !connection().offer.partial" small secondary icon="open_in_new" text="{{connection().offer.price | currency: getShortCurrency(connection().offer.currency) }} on bahn.de" (click)="openOnBahnDe()"/>
     </div>
   </div>
   <div class="details">
