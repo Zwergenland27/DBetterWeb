@@ -4,6 +4,12 @@
     "logo-alt": "Logo of dbetter",
     "find-connection-nav": "Connections",
     "about-nav": "About",
+    "hour_unit": "h",
+    "minute_unit": "min",
+    "transfers_plural": "{VAR_PLURAL, plural, =0 {direct connection} one {{INTERPOLATION} transfer} other {{INTERPOLATION} transfers}}",
+    "view_on_bahn.de": "View on bahn.de",
+    "get-offers-on-bahn.de": "Get offers on bahn.de",
+    "price_on_bahn.de": "{$INTERPOLATION} on bahn.de",
     "origin": "Origin",
     "stopover": "Stopover",
     "destination": "Destination",
@@ -21,8 +27,6 @@
     "busses": "Busses",
     "boats": "Boats",
     "length_of_stay": "Length of stay:",
-    "hour_unit": "h",
-    "minute_unit": "min",
     "date": "Date",
     "time": "Time",
     "Departure": "Departure",
@@ -30,6 +34,8 @@
     "connection-options-title": "Connection options",
     "route": "Route",
     "passengers": "Passengers",
-    "button-search": "Search"
+    "button-search": "Search",
+    "earlier": "earlier",
+    "later": "later"
   }
 }

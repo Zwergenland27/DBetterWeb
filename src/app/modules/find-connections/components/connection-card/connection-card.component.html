@@ -16,16 +16,15 @@
       <div class="duration">
         <div *ngIf="realDuration.hours">
           <span>{{realDuration.hours}}</span>
-          <span>h</span>
+          <span i18n="@@hour_unit">h</span>
         </div>
         <div>
           <span>{{realDuration.minutes}}</span>
-          <span>min</span>
+          <span i18n="@@minute_unit">min</span>
         </div>
       </div>
       <div class="transfers">
-        <span *ngIf="transferCount == 0">Direct connection</span>
-        <span *ngIf="transferCount > 0">{{transferCount}} transfers</span>
+        <span i18n="@@transfers_plural">{transferCount, plural, =0 {direct connection} one {{{transferCount}} transfer} other {{{transferCount}} transfers}}</span>
       </div>
     </div>
     <div class="segments">
@@ -48,9 +47,19 @@
       }
     </div>
     <div class="actions">
-      <floating-button *ngIf="!connection().offer" small secondary icon="open_in_new" text="View on bahn.de" (click)="openOnBahnDe()"/>
-      <floating-button *ngIf="connection().offer && connection().offer.partial" small secondary icon="open_in_new" text="Get offers on bahn.de" (click)="openOnBahnDe()"/>
-      <floating-button *ngIf="connection().offer && !connection().offer.partial" small secondary icon="open_in_new" text="{{connection().offer.price | currency: getShortCurrency(connection().offer.currency) }} on bahn.de" (click)="openOnBahnDe()"/>
+      <floating-button *ngIf="!connection().offer"
+                       small secondary icon="open_in_new"
+                       i18n-text="@@view_on_bahn.de" text="View on bahn.de"
+                       (click)="openOnBahnDe()"/>
+      <floating-button *ngIf="connection().offer && connection().offer.partial"
+                       small secondary icon="open_in_new"
+                       i18n-text="@@get-offers-on-bahn.de" text="Get offers on bahn.de"
+                       (click)="openOnBahnDe()"/>
+      <floating-button *ngIf="connection().offer && !connection().offer.partial"
+                       small secondary icon="open_in_new"
+
+                       i18n-text="@@price_on_bahn.de" text="{{connection().offer.price | currency: getShortCurrency(connection().offer.currency) }} on bahn.de"
+                       (click)="openOnBahnDe()"/>
     </div>
   </div>
   <div class="details">

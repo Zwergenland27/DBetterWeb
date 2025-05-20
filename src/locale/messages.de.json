@@ -4,6 +4,12 @@
     "logo-alt": "dbetter Logo",
     "find-connection-nav": "Verbindungen",
     "about-nav": "Über",
+    "hour_unit": "h",
+    "minute_unit": "min",
+    "transfers_plural": "{VAR_PLURAL, plural, =0 {Direktverbindung} one {{INTERPOLATION} Umstieg} other {{INTERPOLATION} Umstiege}}",
+    "view_on_bahn.de": "Auf bahn.de ansehen",
+    "get-offers-on-bahn.de": "Angebote auf bahn.de ansehen",
+    "price_on_bahn.de": "{$INTERPOLATION} auf bahn.de",
     "origin": "Start",
     "stopover": "Zwischenhalt",
     "destination": "Ziel",
@@ -21,8 +27,6 @@
     "trams": "Straßenbahnen",
     "busses": "Busse",
     "length_of_stay": "Aufenthalt:",
-    "hour_unit": "h",
-    "minute_unit": "min",
     "date": "Datum",
     "time": "Zeit",
     "Departure": "Abfahrt",
@@ -30,6 +34,8 @@
     "connection-options-title": "Reiseoptionen",
     "route": "Route",
     "passengers": "Reisende",
-    "button-search": "Suchen"
+    "button-search": "Suchen",
+    "earlier": "Eher",
+    "later": "Später"
   }
 }

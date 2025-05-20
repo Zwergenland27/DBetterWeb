@@ -29,13 +29,13 @@
   </div>
   <div class="suggestions" [class.expanded]="!editMode">
     <loader class="centered" *ngIf="loadingEarlier"/>
-    <floating-button class="centered" *ngIf="!connections || connections.length > 0" small secondary icon="keyboard_arrow_up" text="earlier" (click)="loadEarlier()"/>
+    <floating-button class="centered" *ngIf="!connections || connections.length > 0" small secondary icon="keyboard_arrow_up" i18n-text="@@earlier" text="earlier" (click)="loadEarlier()"/>
     <loader class="centered" *ngIf="loading"/>
     @for(connection of connections; track connection.id;){
       <span *ngIf="displayDate($index)" class="date">{{connection.segments[0].departureTime.planned | date: 'fullDate'}}</span>
       <connection-card [connection]="connection"/>
     }
-    <floating-button class="centered" *ngIf="!connections || connections.length > 0" small secondary icon="keyboard_arrow_down" text="later" (click)="loadLater()"/>
+    <floating-button class="centered" *ngIf="!connections || connections.length > 0" small secondary icon="keyboard_arrow_down" i18n-text="@@later" text="later" (click)="loadLater()"/>
     <loader class="centered" *ngIf="loadingLater"/>
   </div>
 </div>
