@@ -41,6 +41,8 @@ $options-opener-width: calc(1.5rem + 2 * 8px);
 
 .options-opener {
   display: none;
+  position: sticky;
+  top: 0;
   cursor: pointer;
   color: var(--on-secondary-container);
   background-color: var(--secondary-container);
@@ -62,6 +64,26 @@ $options-opener-width: calc(1.5rem + 2 * 8px);
 
   &:hover {
     box-shadow: var(--hover-shadow);
+  }
+}
+
+.suggestions {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 2 * 16px);
+  height: calc(100% - 2 * 16px);
+  padding: 16px;
+  gap: 16px;
+  overflow-y: scroll;
+
+  .centered {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .date {
+    font: var(--headline-medium);
   }
 }
 
@@ -100,26 +122,6 @@ $options-opener-width: calc(1.5rem + 2 * 8px);
       display: unset;
     }
   }
-
-  .suggestions {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: calc(100% - 2 * 16px);
-    padding: 16px;
-    gap: 16px;
-    overflow-y: scroll;
-
-    .centered {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-    }
-
-    .date {
-      font: var(--headline-medium);
-    }
-  }
 }
 
 @media screen and (width < 768px) {
@@ -154,6 +156,10 @@ $options-opener-width: calc(1.5rem + 2 * 8px);
 
   .suggestions {
     display: none;
+
+    &.expanded {
+      display: flex;
+    }
   }
 }
 

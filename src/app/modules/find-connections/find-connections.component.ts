@@ -123,7 +123,9 @@ export class FindConnectionsComponent {
 
     this.connections = [];
     this.loading = true;
-
+    if(window.innerWidth <= 768){
+      this.editMode = false;
+    }
     this.connectionService.createRequest({
       departureTime: options.time.type === 'departure' ? options.time.timestamp.toISOString() : undefined,
       arrivalTime: options.time.type === 'arrival' ? options.time.timestamp.toISOString() : undefined,
