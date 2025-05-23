@@ -36,7 +36,7 @@
         @if(segment.$type === 'transport'){
           <div class="segment" [style.flex-grow]="getPercentage(segment)">
             <span>{{asTransportSegment(segment).line}}</span>
-            <div class="test">
+            <div class="segment-icons">
               <icon [name]="getIconName(asTransportSegment(segment).transportCategory)"/>
               <icon [ngClass]="asTransportSegment(segment).demand.secondClass" name="filled_group"/>
             </div>
@@ -47,6 +47,10 @@
       }
     </div>
     <div class="actions">
+      <div class="details-button" (click)="toggleDetails()">
+        <span>Details</span>
+        <icon [name]="detailsOpened ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"/>
+      </div>
       <floating-button *ngIf="!connection().offer"
                        small secondary icon="open_in_new"
                        i18n-text="@@view_on_bahn.de" text="View on bahn.de"
@@ -62,7 +66,12 @@
                        (click)="openOnBahnDe()"/>
     </div>
   </div>
-  <div class="details">
-    Details
+  <div class="details" *ngIf="detailsOpened">
+    @for(segment of connection().segments; track $index){
+      <div *ngIf="segment.$type === 'transport' && $index > 0">
+        TRANSFER
+      </div>
+      <segment *ngIf="segment.$type === 'transport'" [segment]="asTransportSegment(segment)"/>
+    }
   </div>
 </div>

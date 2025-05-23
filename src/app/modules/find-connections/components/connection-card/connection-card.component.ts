@@ -6,6 +6,7 @@ import {SegmentDto} from '../../contracts/dtos/segment.dto';
 import {IconComponent} from '../../../../common/icon/icon.component';
 import {getShortCurrency} from '../../contracts/dtos/offer.dto';
 import {FloatingButtonComponent} from '../../../../common/floating-button/floating-button.component';
+import {SegmentComponent} from '../segment/segment.component';
 
 @Component({
   selector: 'connection-card',
@@ -15,12 +16,14 @@ import {FloatingButtonComponent} from '../../../../common/floating-button/floati
     NgClass,
     IconComponent,
     CurrencyPipe,
-    FloatingButtonComponent
+    FloatingButtonComponent,
+    SegmentComponent
   ],
   templateUrl: './connection-card.component.html',
   styleUrl: './connection-card.component.scss'
 })
 export class ConnectionCardComponent {
+  detailsOpened = false;
   connection = input.required<ConnectionDto>();
 
   constructor(private datePipe: DatePipe) {
@@ -157,6 +160,10 @@ export class ConnectionCardComponent {
   openOnBahnDe(){
     console.log(this.connection().bahnDeUrl);
     window.open(this.connection().bahnDeUrl, "_blank");
+  }
+
+  toggleDetails(){
+    this.detailsOpened = !this.detailsOpened;
   }
 
   protected readonly getShortCurrency = getShortCurrency;

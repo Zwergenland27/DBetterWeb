@@ -1,0 +1,68 @@
+<div class="segment">
+  <div class="route">
+    @for(stop of segment().stops; track stop.id){
+      @if($index === 0){
+        <div class="stop">
+          <div class="timeline" [class.cancelled]="stop.isCancelled">
+            <div class="important-time">
+              <span>{{stop.departureTime!.planned | date: 'shortTime'}}</span>
+              <span *ngIf="getDelayInformation(stop.departureTime!)" [ngClass]="getDelayInformation(stop.departureTime!)?.type">{{stop.departureTime!.real | date: 'shortTime'}}</span>
+            </div>
+          </div>
+          <div class="progress">
+            <span class="line top"></span>
+            <span class="stop-marking important"></span>
+          </div>
+          <div class="important-infos">
+            <span>{{stop.name}}</span>
+            <span>{{stop.platform?.planned}}</span>
+            <span *ngIf="stop.isExitOnly">No entry</span>
+            <span *ngIf="stop.isEntryOnly">No exit</span>
+          </div>
+        </div>
+      }@else if($index === segment().stops.length - 1){
+        <div class="stop">
+          <div class="timeline" [class.cancelled]="stop.isCancelled">
+            <div class="important-time">
+              <span>{{stop.arrivalTime!.planned | date: 'shortTime'}}</span>
+              <span *ngIf="getDelayInformation(stop.arrivalTime!)" [ngClass]="getDelayInformation(stop.arrivalTime!)?.type">{{stop.arrivalTime!.real | date: 'shortTime'}}</span>
+            </div>
+          </div>
+            <div class="progress">
+              <span class="line bottom"></span>
+              <span class="stop-marking important"></span>
+            </div>
+          <div class="important-infos">
+            <span>{{stop.name}}</span>
+            <span>{{stop.platform?.planned}}</span>
+            <span *ngIf="stop.isExitOnly">No entry</span>
+            <span *ngIf="stop.isEntryOnly">No exit</span>
+          </div>
+        </div>
+      }@else if(expanded){
+        <div class="stop">
+          <div class="timeline" [class.cancelled]="stop.isCancelled">
+            <div class="time">
+              <span>{{stop.arrivalTime!.planned | date: 'shortTime'}}</span>
+              <span [ngClass]="getDelayInformation(stop.arrivalTime!)?.type">{{getDelayInformation(stop.arrivalTime!)?.delay}}</span>
+            </div>
+            <div class="time">
+              <span>{{stop.departureTime!.planned | date: 'shortTime'}}</span>
+              <span [ngClass]="getDelayInformation(stop.departureTime!)?.type">{{getDelayInformation(stop.departureTime!)?.delay}}</span>
+            </div>
+          </div>
+          <div class="progress">
+            <span class="line"></span>
+            <span class="stop-marking"></span>
+          </div>
+          <div class="infos">
+            <span>{{stop.name}}</span>
+          </div>
+        </div>
+      }
+    }
+  </div>
+  <div class="infos">
+
+  </div>
+</div>

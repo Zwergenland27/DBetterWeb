@@ -1,0 +1,125 @@
+.segment {
+  display: flex;
+  color: var(--on-surface);
+
+  .route {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    .stop {
+      display: flex;
+      gap: var(--text-gap);
+
+      .timeline {
+        width: 9rch;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: var(--text-gap) 0;
+
+        .time {
+          display: flex;
+          gap: var(--text-gap);
+          font: var(--label-large);
+        }
+
+        .important-time {
+          display: flex;
+          flex-direction: column;
+          font: var(--title-large);
+          text-align: left;
+        }
+      }
+
+      .progress {
+        position: relative;
+        width: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .line {
+          position: absolute;
+          width: 4px;
+          height: 100%;
+          background-color: var(--on-surface);
+
+          &.top {
+            bottom: 0;
+            height: 50%;
+            border-top-left-radius: var(--radius-medium);
+            border-top-right-radius: var(--radius-medium);
+          }
+
+          &.bottom {
+            top: 0;
+            height: 50%;
+            border-bottom-left-radius: var(--radius-medium);
+            border-bottom-right-radius: var(--radius-medium);
+          }
+        }
+
+        .stop-marking {
+          position: absolute;
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background-color: var(--surface-container);
+          border: 2px solid var(--on-surface);
+
+          &.important {
+            border: 4px solid var(--on-surface);
+          }
+        }
+      }
+
+      .infos {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: var(--text-gap) 0;
+        font: var(--label-large);
+        line-height: var(--label-large-size);
+      }
+
+      .important-infos {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: var(--text-gap) 0;
+        font: var(--title-large);
+        line-height: var(--title-large-size);
+
+        .stopover-infos {
+          cursor: pointer;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: var(--primary);
+          font: var(--title-medium);
+        }
+      }
+    }
+  }
+
+  .infos {
+    flex: 1;
+  }
+}
+
+.Early {
+  color: blue;
+}
+
+.OnTime {
+  color: green;
+}
+
+.NormalDelay {
+  color: yellow;
+}
+
+.Delay {
+  color: red;
+}

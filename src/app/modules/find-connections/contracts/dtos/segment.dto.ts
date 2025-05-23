@@ -1,7 +1,7 @@
 import {TravelTime} from '../../../../common/contracts/dtos/travel-time.dto';
 
 export interface SegmentDto {
-  $type: string;
+  $type: 'transport' | 'walking';
   departureTime: TravelTime;
   arrivalTime: TravelTime
 }

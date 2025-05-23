@@ -8,7 +8,7 @@ export interface StopDto {
   arrivalTime: TravelTime | null;
   demand: DemandDto;
   name: string;
-  platform: PlatformDto;
+  platform: PlatformDto | null;
   isAdditional: true | null;
   isCancelled: true | null;
   isExitOnly: true | null;
