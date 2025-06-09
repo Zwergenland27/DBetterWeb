@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {StationDto} from './contracts/dtos/station.dto';
-import {Observable} from 'rxjs';
+import {Station, StationDto} from './contracts/dtos/station';
+import {map, Observable} from 'rxjs';
 import {ConnectionRequestParameters} from './contracts/parameters/connection-request-parameters';
-import {ConnectionSuggestionsDto} from './contracts/dtos/connection-suggestions.dto';
+import {ConnectionSuggestions, ConnectionSuggestionsDto} from './contracts/dtos/connection-suggestions.dto';
 import { ConnectionsData } from './connections-data';
 import {getMeansOfTransportDefault} from './contracts/parameters/means-of-transport-parameters';
 
@@ -15,7 +15,7 @@ export class ConnectionService {
 
   constructor(private http: HttpClient) { }
 
-  findStations(query: string) : Observable<StationDto[]> {
+  findStations(query: string) : Observable<Station[]> {
     return this.http.get<StationDto[]>(`stations?query=${query}`);
   }
 
@@ -54,15 +54,21 @@ export class ConnectionService {
     }
   }
 
-  getSuggestions(id: string, page: string | null): Observable<ConnectionSuggestionsDto> {
+  getSuggestions(id: string, page: string | null): Observable<ConnectionSuggestions> {
     if(page){
-      return this.http.get<ConnectionSuggestionsDto>(`connections/requests/${id}/suggestions?page=${page}`);
+      return this.http.get<ConnectionSuggestionsDto>(`connections/requests/${id}/suggestions?page=${page}`).pipe(
+        map(dto => ConnectionSuggestions.fromDto(dto))
+      );
     }
 
-    return this.http.get<ConnectionSuggestionsDto>(`connections/requests/${id}/suggestions`);
+    return this.http.get<ConnectionSuggestionsDto>(`connections/requests/${id}/suggestions`).pipe(
+        map(dto => ConnectionSuggestions.fromDto(dto))
+      );
   }
 
-  createRequest(parameters: ConnectionRequestParameters): Observable<ConnectionSuggestionsDto> {
-    return this.http.post<ConnectionSuggestionsDto>('connections/requests', parameters);
+  createRequest(parameters: ConnectionRequestParameters): Observable<ConnectionSuggestions> {
+    return this.http.post<ConnectionSuggestionsDto>('connections/requests', parameters).pipe(
+        map(dto => ConnectionSuggestions.fromDto(dto))
+      );
   }
 }

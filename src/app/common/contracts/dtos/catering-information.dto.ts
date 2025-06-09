@@ -13,3 +13,20 @@ export enum CateringType
   SeatServed = 'SeatServed',
   Snack = 'Snack'
 }
+
+export class CateringInformation {
+  constructor(
+    public status: CateringType,
+    public fromStopIndex: number,
+    public toStopIndex: number,
+  ) {
+  }
+
+  static fromDto(dto: CateringInformationDto): CateringInformation {
+    return new CateringInformation(
+      dto.status,
+      dto.fromStopIndex,
+      dto.toStopIndex,
+    );
+  }
+}

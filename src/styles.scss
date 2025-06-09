@@ -175,6 +175,16 @@
   --tertiary-fixed: light-dark(var(--light-tertiary-fixed), var(--dark-tertiary-fixed));
   --tertiary-fixed-dim: light-dark(var(--light-tertiary-fixed-dim), var(--dark-tertiary-fixed-dim));
 
+  --demand-low: var(--primary);
+  --demand-medium: yellow;
+  --demand-high: orange;
+  --demand-extreme: red;
+  --demand-overbooked: black;
+
+  --timing-early: blue;
+  --timing-on-time: var(--primary);
+  --timing-normal-delay: yellow;
+  --timing-delay: red;
 
   --body-large: 400 1rem / 1.5rem Roboto;
   --body-large-font: Roboto;

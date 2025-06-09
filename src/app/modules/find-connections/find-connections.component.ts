@@ -8,12 +8,13 @@ import {IconComponent} from '../../common/icon/icon.component';
 import {ConnectionsData} from './connections-data';
 import {ConnectionService} from './connection.service';
 import {StopoverParameters} from './contracts/parameters/stopover-parameters';
-import {ConnectionDto} from './contracts/dtos/connection.dto';
+import {Connection, ConnectionDto} from './contracts/dtos/connection';
 import {ConnectionCardComponent} from './components/connection-card/connection-card.component';
 import {DatePipe, NgIf} from '@angular/common';
 import {RouteOptionsData} from './components/route-options/route-options-data';
 import {TimeOptionsData} from './components/time-options/time-options-data';
 import {LoaderComponent} from '../../common/loader/loader.component';
+import {ComfortClass} from '../../common/contracts/dtos/comfort-class';
 
 @Component({
   selector: 'app-find-connections',
@@ -43,12 +44,11 @@ export class FindConnectionsComponent {
   loadingLater = false;
 
   connectionOptions: ConnectionsData;
-  connections : ConnectionDto[] = [];
+  connections : Connection[] = [];
+  comfortClass = ComfortClass.Second;
 
   constructor(private connectionService: ConnectionService) {
     this.connectionOptions = connectionService.loadConnectionsData();
-
-    this.connections = JSON.parse(sessionStorage.getItem("data")!);
   }
 
   close(){
@@ -72,9 +72,9 @@ export class FindConnectionsComponent {
   displayDate(i: number){
     if (i === 0) return true;
 
-    const previousConnectionDeparture = new Date(this.connections[i - 1].segments[0].departureTime.planned);
-    const connectionDeparture = new Date(this.connections[i].segments[0].departureTime.planned);
-    return previousConnectionDeparture.toDateString() != connectionDeparture.toDateString();
+    const previousConnectionDeparture = this.connections[i - 1].departureTime.planned.getDate();
+    const connectionDeparture = this.connections[i].departureTime.planned.getDate();
+    return previousConnectionDeparture != connectionDeparture;
   }
 
   loadEarlier(){
@@ -146,7 +146,6 @@ export class FindConnectionsComponent {
       this.pageEarlier = value.pageEarlier;
       this.connections = value.connections;
       this.pageLater = value.pageLater;
-      sessionStorage.setItem('data', JSON.stringify(this.connections));
     });
   }
 
@@ -161,4 +160,6 @@ export class FindConnectionsComponent {
       this.connections = this.connections.concat(value.connections);
     })
   }
+
+  protected readonly ComfortClass = ComfortClass;
 }

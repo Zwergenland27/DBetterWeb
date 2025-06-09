@@ -31,12 +31,20 @@
             font: var(--title-medium);
           }
 
-          .on-time {
-            color: green;
+          .Early {
+            color: var(--timing-early);
           }
 
-          .delayed {
-            color: red;
+          .OnTime {
+            color: var(--timing-on-time);
+          }
+
+          .NormalDelay {
+            color: var(--timing-normal-delay);
+          }
+
+          .Delay {
+            color: var(--timing-delay);
           }
         }
       }
@@ -77,23 +85,23 @@
           color: var(--on-surface-variant);
 
           &.Low {
-            color: var(--primary);
+            color: var(--demand-low);
           }
 
           &.Medium {
-            color: yellow;
+            color: var(--demand-medium);
           }
 
           &.High {
-            color: orange;
+            color: var(--demand-high);
           }
 
           &.Extreme {
-            color: red;
+            color: var(--demand-extreme);
           }
 
           &.Overbooked {
-            color: black;
+            color: var(--demand-overbooked);
           }
         }
 
@@ -105,13 +113,11 @@
     }
 
     .actions {
-      position: relative;
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
+      align-items: center;
 
       .details-button {
-        position: absolute;
-        left: 50%;
         cursor: pointer;
         display: flex;
         height: 100%;
@@ -137,5 +143,12 @@
 
   .details {
     border-top: 1px solid var(--outline-variant);
+    padding: 16px;
+
+    .transfer {
+      margin: 16px 0;
+      height: 5rem;
+      background-color: var(--surface-container-high);
+    }
   }
 }

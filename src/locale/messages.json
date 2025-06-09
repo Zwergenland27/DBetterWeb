@@ -4,6 +4,8 @@
     "logo-alt": "Logo of dbetter",
     "find-connection-nav": "Connections",
     "about-nav": "About",
+    "platform_short": "Pl.",
+    "bus_platform_short": "Pl.",
     "hour_unit": "h",
     "minute_unit": "min",
     "transfers_plural": "{VAR_PLURAL, plural, =0 {direct connection} one {{INTERPOLATION} transfer} other {{INTERPOLATION} transfers}}",

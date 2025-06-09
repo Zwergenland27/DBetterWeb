@@ -3,47 +3,43 @@
     <div class="header">
       <div class="time">
         <div class="planned">
-          <span>{{plannedDepartureTime | date:"shortTime"}}</span>
+          <span>{{plannedTimeInformation.departure | date:"shortTime"}}</span>
           <span>-</span>
-          <span>{{plannedArrivalTime | date:"shortTime"}}</span>
+          <span>{{plannedTimeInformation.arrival | date:"shortTime"}}</span>
         </div>
-        <div class="real" *ngIf="realDepartureTime.type != 'no-data' || realArrivalTime.type != 'no-data'">
-          <span [ngClass]="realDepartureTime.type">{{realDepartureTime.time | date:"shortTime"}}</span>
+        <div class="real" *ngIf="realTimeInformation">
+          <span [ngClass]="realTimeInformation.departureTimingType?.type">{{realTimeInformation.departure | date:"shortTime"}}</span>
           <span>-</span>
-          <span [ngClass]="realArrivalTime.type">{{realArrivalTime.time | date:"shortTime"}}</span>
+          <span [ngClass]="realTimeInformation.arrivalTimingType?.type">{{realTimeInformation.arrival | date:"shortTime"}}</span>
         </div>
       </div>
       <div class="duration">
-        <div *ngIf="realDuration.hours">
-          <span>{{realDuration.hours}}</span>
+        <div *ngIf="connection().plannedDuration.hours">
+          <span>{{connection().plannedDuration.hours}}</span>
           <span i18n="@@hour_unit">h</span>
         </div>
         <div>
-          <span>{{realDuration.minutes}}</span>
+          <span>{{connection().plannedDuration.minutes}}</span>
           <span i18n="@@minute_unit">min</span>
         </div>
       </div>
       <div class="transfers">
-        <span i18n="@@transfers_plural">{transferCount, plural, =0 {direct connection} one {{{transferCount}} transfer} other {{{transferCount}} transfers}}</span>
+        <span i18n="@@transfers_plural">{connection().numberOfTransfers, plural, =0 {direct connection} one {{{connection().numberOfTransfers}} transfer} other {{{connection().numberOfTransfers}} transfers}}</span>
       </div>
     </div>
     <div class="segments">
-      @for(segment of connection().segments; track $index; let i = $index){
-        @if(segment.$type === 'walking'){
-          <div class="transfer" [style.flex-grow]="getPercentage(segment)">
+      @for(segment of connection().segments; track $index){
+        <div *ngIf="isTransferSegment(segment)" class="transfer" [style.flex-grow]="connection().plannedDurationOfSegment($index)">
+
+        </div>
+
+        <div *ngIf="isTransportSegment(segment)" class="segment" [style.flex-grow]="connection().plannedDurationOfSegment($index)">
+          <span>{{(asTransportSegment(segment)).line}}</span>
+          <div class="segment-icons">
+            <icon [name]="asTransportSegment(segment).iconName"/>
+            <icon [ngClass]="asTransportSegment(segment).demand.secondClass" name="filled_group"/>
           </div>
-        }
-        @if(segment.$type === 'transport'){
-          <div class="segment" [style.flex-grow]="getPercentage(segment)">
-            <span>{{asTransportSegment(segment).line}}</span>
-            <div class="segment-icons">
-              <icon [name]="getIconName(asTransportSegment(segment).transportCategory)"/>
-              <icon [ngClass]="asTransportSegment(segment).demand.secondClass" name="filled_group"/>
-            </div>
-          </div>
-          <div *ngIf="getTransferTime(i)" class="transfer"  [style.flex-grow]="getTransferPercentage(segment, connection().segments[i + 1])">
-          </div>
-        }
+        </div>
       }
     </div>
     <div class="actions">
@@ -55,23 +51,26 @@
                        small secondary icon="open_in_new"
                        i18n-text="@@view_on_bahn.de" text="View on bahn.de"
                        (click)="openOnBahnDe()"/>
-      <floating-button *ngIf="connection().offer && connection().offer.partial"
+      <floating-button *ngIf="connection().offer && connection().offer!.partial"
                        small secondary icon="open_in_new"
                        i18n-text="@@get-offers-on-bahn.de" text="Get offers on bahn.de"
                        (click)="openOnBahnDe()"/>
-      <floating-button *ngIf="connection().offer && !connection().offer.partial"
+      <floating-button *ngIf="connection().offer && !connection().offer!.partial"
                        small secondary icon="open_in_new"
 
-                       i18n-text="@@price_on_bahn.de" text="{{connection().offer.price | currency: getShortCurrency(connection().offer.currency) }} on bahn.de"
+                       i18n-text="@@price_on_bahn.de" text="{{connection().offer!.price | currency: connection().offer!.shortCurrency }} on bahn.de"
                        (click)="openOnBahnDe()"/>
     </div>
   </div>
   <div class="details" *ngIf="detailsOpened">
     @for(segment of connection().segments; track $index){
-      <div *ngIf="segment.$type === 'transport' && $index > 0">
+      <div *ngIf="isTransferSegment(segment)" class="transfer">
         TRANSFER
+        <div *ngIf="isWalkingSegment(segment)">
+          WALKING
+        </div>
       </div>
-      <segment *ngIf="segment.$type === 'transport'" [segment]="asTransportSegment(segment)"/>
+      <segment *ngIf="isTransportSegment(segment)" [comfortClass]="comfortClass()" [segment]="asTransportSegment(segment)"/>
     }
   </div>
 </div>

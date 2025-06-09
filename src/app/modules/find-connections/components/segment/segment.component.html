@@ -1,65 +1,58 @@
 <div class="segment">
   <div class="route">
     @for(stop of segment().stops; track stop.id){
-      @if($index === 0){
-        <div class="stop">
-          <div class="timeline" [class.cancelled]="stop.isCancelled">
-            <div class="important-time">
-              <span>{{stop.departureTime!.planned | date: 'shortTime'}}</span>
-              <span *ngIf="getDelayInformation(stop.departureTime!)" [ngClass]="getDelayInformation(stop.departureTime!)?.type">{{stop.departureTime!.real | date: 'shortTime'}}</span>
+      <div class="stop" [class.cancelled]="stop.isCancelled" [class.expanded]="expanded" [class.first]="$index === 0" [class.last]="$index === segment().stops.length - 1">
+        <div class="timeline">
+          <div class="time" *ngIf="stop.arrivalTime">
+            <span>{{stop.arrivalTime.planned | date: 'shortTime'}}</span>
+            <span [ngClass]="stop.arrivalTime.getDelayInformation()?.type">{{stop.arrivalTime.real | date: 'shortTime'}}</span>
+          </div>
+          <div class="time" *ngIf="stop.departureTime">
+            <span>{{stop.departureTime.planned | date: 'shortTime'}}</span>
+            <span [ngClass]="stop.departureTime.getDelayInformation()?.type">{{stop.departureTime.real | date: 'shortTime'}}</span>
+          </div>
+          <div class="duration" *ngIf="$index === 0">
+            <div *ngIf="segment().realDuration.hours">
+              <span>{{segment().realDuration.hours}}</span>
+              <span i18n="@@hour_unit">h</span>
             </div>
-          </div>
-          <div class="progress">
-            <span class="line top"></span>
-            <span class="stop-marking important"></span>
-          </div>
-          <div class="important-infos">
-            <span>{{stop.name}}</span>
-            <span>{{stop.platform?.planned}}</span>
-            <span *ngIf="stop.isExitOnly">No entry</span>
-            <span *ngIf="stop.isEntryOnly">No exit</span>
+            <span>
+              <span>{{segment().realDuration.minutes}}</span>
+              <span i18n="@@minute_unit">min</span>
+            </span>
           </div>
         </div>
-      }@else if($index === segment().stops.length - 1){
-        <div class="stop">
-          <div class="timeline" [class.cancelled]="stop.isCancelled">
-            <div class="important-time">
-              <span>{{stop.arrivalTime!.planned | date: 'shortTime'}}</span>
-              <span *ngIf="getDelayInformation(stop.arrivalTime!)" [ngClass]="getDelayInformation(stop.arrivalTime!)?.type">{{stop.arrivalTime!.real | date: 'shortTime'}}</span>
+        <div class="progress">
+          <span class="line top" [ngClass]="getDemand($index - 1)"></span>
+          <span class="node"></span>
+          <span class="line bottom" [ngClass]="getDemand($index)"></span>
+        </div>
+        <div class="information">
+          <div class="station">
+            <span class="name">{{stop.name}}</span>
+            <div class="platform" [class.changed]="stop.platform.real" *ngIf="stop.platform">
+              <span>{{stop.platform.shortType}}</span>
+              <span>{{stop.platform.planned}}</span>
+              <span>{{stop.platform.real}}</span>
             </div>
-          </div>
-            <div class="progress">
-              <span class="line bottom"></span>
-              <span class="stop-marking important"></span>
+            <span *ngIf="stop.isAdditional">Additional stop</span>
+            <span *ngIf="stop.isExitOnly">Exit only</span>
+            <span *ngIf="stop.isEntryOnly">Entry only</span>
+            <div class="details" *ngIf="$index === 0">
+              <div class="line-infos">
+                <icon [name]="segment().iconName"/>
+                <span>{{segment().line}}</span>
+                <span *ngIf="segment().destination">to {{segment().destination}}</span>
+              </div>
+              <span class="expand-button-disabled" *ngIf="segment().stops.length === 2">without stopovers</span>
+              <div *ngIf="segment().stops.length > 2" class="expand-button" (click)="toggleExpanded()">
+                <span>{segment().stops.length - 2, plural, one {{{segment().stops.length - 2}} stopover} other {{{segment().stops.length - 2}} stopovers}}</span>
+                <icon [name]="expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"/>
+              </div>
             </div>
-          <div class="important-infos">
-            <span>{{stop.name}}</span>
-            <span>{{stop.platform?.planned}}</span>
-            <span *ngIf="stop.isExitOnly">No entry</span>
-            <span *ngIf="stop.isEntryOnly">No exit</span>
           </div>
         </div>
-      }@else if(expanded){
-        <div class="stop">
-          <div class="timeline" [class.cancelled]="stop.isCancelled">
-            <div class="time">
-              <span>{{stop.arrivalTime!.planned | date: 'shortTime'}}</span>
-              <span [ngClass]="getDelayInformation(stop.arrivalTime!)?.type">{{getDelayInformation(stop.arrivalTime!)?.delay}}</span>
-            </div>
-            <div class="time">
-              <span>{{stop.departureTime!.planned | date: 'shortTime'}}</span>
-              <span [ngClass]="getDelayInformation(stop.departureTime!)?.type">{{getDelayInformation(stop.departureTime!)?.delay}}</span>
-            </div>
-          </div>
-          <div class="progress">
-            <span class="line"></span>
-            <span class="stop-marking"></span>
-          </div>
-          <div class="infos">
-            <span>{{stop.name}}</span>
-          </div>
-        </div>
-      }
+      </div>
     }
   </div>
   <div class="infos">

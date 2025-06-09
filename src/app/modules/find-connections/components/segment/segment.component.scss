@@ -8,96 +8,218 @@
     flex-direction: column;
 
     .stop {
-      display: flex;
-      gap: var(--text-gap);
+      display: none;
+      grid-template-columns: 15ch 24px auto;
+      grid-template-rows: auto;
+
+      &.expanded {
+        display: grid;
+      }
 
       .timeline {
-        width: 9rch;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        padding: var(--text-gap) 0;
+        align-items: flex-end;
+        font: var(--body-large);
+        line-height: var(--body-large-size);
+        padding-bottom: 2ch;
 
         .time {
           display: flex;
           gap: var(--text-gap);
-          font: var(--label-large);
         }
 
-        .important-time {
+        .duration {
           display: flex;
-          flex-direction: column;
-          font: var(--title-large);
-          text-align: left;
+          gap: var(--text-gap);
+          font: var(--body-large);
         }
       }
 
       .progress {
         position: relative;
-        width: 24px;
         display: flex;
+        flex-direction: column;
         align-items: center;
-        justify-content: center;
+        width: 24px;
+        height: 100%;
 
         .line {
-          position: absolute;
           width: 4px;
-          height: 100%;
           background-color: var(--on-surface);
+
+          &.Low {
+            background-color: var(--demand-low);
+          }
+
+          &.Medium {
+            background-color: var(--demand-medium);
+          }
+
+          &.High {
+            background-color: var(--demand-high);
+          }
+
+          &.Extreme {
+            background-color: var(--demand-extreme);
+          }
+
+          &.Overbooked {
+            background-color: var(--demand-overbooked)
+          }
 
           &.top {
             bottom: 0;
-            height: 50%;
-            border-top-left-radius: var(--radius-medium);
-            border-top-right-radius: var(--radius-medium);
+            height: var(--body-large-size);
           }
 
           &.bottom {
             top: 0;
-            height: 50%;
-            border-bottom-left-radius: var(--radius-medium);
-            border-bottom-right-radius: var(--radius-medium);
+            height: calc(100% - var(--body-large-size));
           }
         }
 
-        .stop-marking {
+        .node {
           position: absolute;
+          top: calc(var(--body-large-size) - 7px);
           width: 8px;
           height: 8px;
           border-radius: 50%;
+          border: 3px solid var(--on-surface);
           background-color: var(--surface-container);
-          border: 2px solid var(--on-surface);
+        }
+      }
 
-          &.important {
-            border: 4px solid var(--on-surface);
+      .information {
+        padding-top: calc(var(--label-large-size) / 2);
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 2ch;
+
+        .station {
+          display: flex;
+          flex-direction: column;
+
+          .name {
+            font: var(--body-large);
+            line-height: var(--body-large-size);
+          }
+
+          .platform {
+            display: flex;
+            font: var(--body-medium);
+            line-height: var(--body-medium-size);
+            color: var(--on-surface-variant);
+            gap: var(--text-gap);
+
+            &.changed {
+              color: yellow;
+
+              span:nth-child(2) {
+                text-decoration: line-through;
+              }
+            }
+          }
+        }
+
+        .details {
+          display: flex;
+          align-items: flex-start;
+          flex-direction: column;
+          gap: 1ch;
+          padding-top: 1ch;
+
+          .line-infos {
+            display: flex;
+            align-items: center;
+            gap: var(--text-gap);
+            border-radius: var(--radius-small);
+            border: 1px solid var(--outline-variant);
+            background-color: var(--surface-container-high);
+            padding: 4px;
+            font: var(--body-large);
+          }
+
+          .expand-button {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            color: var(--primary);
+            font: var(--title-medium);
+          }
+
+          .expand-button-disabled {
+            color: var(--primary);
+            font: var(--title-medium);
           }
         }
       }
 
-      .infos {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: var(--text-gap) 0;
-        font: var(--label-large);
-        line-height: var(--label-large-size);
+      &.first, &.last {
+        display: grid;
+
+        .timeline {
+          font: var(--title-large);
+          line-height: var(--title-large-size);
+        }
+
+        .progress {
+          .node {
+            top: calc(var(--title-large-size) / 2 - 7px);
+            background-color: var(--primary-container);
+          }
+        }
+
+        .information {
+          padding-top: 0;
+          .station {
+            .name {
+              font: var(--title-large);
+              line-height: var(--title-large-size);
+            }
+
+            .platform {
+              font: var(--title-medium);
+              line-height: var(--title-medium-size);
+            }
+          }
+        }
       }
 
-      .important-infos {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: var(--text-gap) 0;
-        font: var(--title-large);
-        line-height: var(--title-large-size);
+      &.first {
+        .progress {
+          .top {
+           visibility: hidden;
+          }
+        }
+      }
+      &.last {
+        .timeline {
+          padding-bottom: 0;
+        }
 
-        .stopover-infos {
-          cursor: pointer;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          color: var(--primary);
-          font: var(--title-medium);
+        .progress {
+          .bottom {
+            visibility: hidden;
+          }
+        }
+
+        .information {
+          padding-bottom: 0;
+        }
+      }
+
+      &.cancelled {
+        text-decoration: line-through;
+      }
+
+      &.additional {
+        .information {
+          .station {
+            .name {
+              color: green;
+            }
+          }
         }
       }
     }
@@ -109,17 +231,21 @@
 }
 
 .Early {
-  color: blue;
+  color: var(--timing-early);
 }
 
 .OnTime {
-  color: green;
+  color: var(--timing-on-time);
 }
 
 .NormalDelay {
-  color: yellow;
+  color: var(--timing-normal-delay);
 }
 
 .Delay {
-  color: red;
+  color: var(--timing-delay);
+}
+
+@media screen and (width < 768px) {
+
 }
