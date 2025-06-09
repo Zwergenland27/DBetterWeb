@@ -115,7 +115,7 @@ export class InputNumberComponent {
   }
 
   validate(){
-    if(this.required() && !this._value){
+    if(this.required() && this._value === undefined){
       this.setErrors(["Frontend.Missing"])
       return;
     }
