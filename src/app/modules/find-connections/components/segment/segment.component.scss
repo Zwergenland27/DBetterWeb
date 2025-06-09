@@ -114,7 +114,7 @@
             gap: var(--text-gap);
 
             &.changed {
-              color: yellow;
+              color: var(--timing-normal-delay);
 
               span:nth-child(2) {
                 text-decoration: line-through;

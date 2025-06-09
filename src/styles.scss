@@ -175,16 +175,16 @@
   --tertiary-fixed: light-dark(var(--light-tertiary-fixed), var(--dark-tertiary-fixed));
   --tertiary-fixed-dim: light-dark(var(--light-tertiary-fixed-dim), var(--dark-tertiary-fixed-dim));
 
-  --demand-low: var(--primary);
-  --demand-medium: yellow;
-  --demand-high: orange;
-  --demand-extreme: red;
-  --demand-overbooked: black;
+  --demand-low: light-dark(#2e7d32, #81c784);;
+  --demand-medium: light-dark(#ffa000, #ffcc80);
+  --demand-high: light-dark(#c62828, #ef5350);
+  --demand-extreme: var(--error);
+  --demand-overbooked: light(#6a1b9a, #ba68c8);
 
-  --timing-early: blue;
-  --timing-on-time: var(--primary);
-  --timing-normal-delay: yellow;
-  --timing-delay: red;
+  --timing-early: light-dark(#1976d2, #90caf9);
+  --timing-on-time: light-dark(#2e7d32, #81c784);;
+  --timing-normal-delay: light-dark(#ffa000, #ffcc80);
+  --timing-delay: light-dark(#d32f2f, #ef9a9a);
 
   --body-large: 400 1rem / 1.5rem Roboto;
   --body-large-font: Roboto;
