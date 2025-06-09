@@ -26,6 +26,7 @@
     "additional_stop": "Zusatzhalt",
     "exit_only": "Nur Ausstieg",
     "entry_only": "Nur Einstieg",
+    "to_destination": "nach {$INTERPOLATION}",
     "without_stopovers": "Ohne Zwischenhalt",
     "extend_stopovers": "{VAR_PLURAL, plural, one {{INTERPOLATION} Zwischenhalt} other {{INTERPOLATION} Zwischenhalte}}",
     "regional-trains": "Regionalverkehr",

@@ -31,6 +31,7 @@
     "additional_stop": "Additional stop",
     "exit_only": "Exit only",
     "entry_only": "Entry only",
+    "to_destination": "to {$INTERPOLATION}",
     "without_stopovers": "without stopovers",
     "extend_stopovers": "{VAR_PLURAL, plural, one {{INTERPOLATION} stopover} other {{INTERPOLATION} stopovers}}",
     "length_of_stay": "Length of stay:",

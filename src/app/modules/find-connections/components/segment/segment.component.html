@@ -42,7 +42,7 @@
               <div class="line-infos">
                 <icon [name]="segment().iconName"/>
                 <span>{{segment().line}}</span>
-                <span *ngIf="segment().destination">to {{segment().destination}}</span>
+                <span *ngIf="segment().destination" i18n="@@to_destination">to {{segment().destination}}</span>
               </div>
               <span class="expand-button-disabled" *ngIf="segment().stops.length === 2" i18n="@@without_stopovers">without stopovers</span>
               <div *ngIf="segment().stops.length > 2" class="expand-button" (click)="toggleExpanded()">
