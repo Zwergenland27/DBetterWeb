@@ -35,18 +35,18 @@
               <span>{{stop.platform.planned}}</span>
               <span>{{stop.platform.real}}</span>
             </div>
-            <span *ngIf="stop.isAdditional">Additional stop</span>
-            <span *ngIf="stop.isExitOnly">Exit only</span>
-            <span *ngIf="stop.isEntryOnly">Entry only</span>
+            <span *ngIf="stop.isAdditional" i18n="@@additional_stop">Additional stop</span>
+            <span *ngIf="stop.isExitOnly" i18n="@@exit_only">Exit only</span>
+            <span *ngIf="stop.isEntryOnly" i18n="@@entry_only">Entry only</span>
             <div class="details" *ngIf="$index === 0">
               <div class="line-infos">
                 <icon [name]="segment().iconName"/>
                 <span>{{segment().line}}</span>
                 <span *ngIf="segment().destination">to {{segment().destination}}</span>
               </div>
-              <span class="expand-button-disabled" *ngIf="segment().stops.length === 2">without stopovers</span>
+              <span class="expand-button-disabled" *ngIf="segment().stops.length === 2" i18n="@@without_stopovers">without stopovers</span>
               <div *ngIf="segment().stops.length > 2" class="expand-button" (click)="toggleExpanded()">
-                <span>{segment().stops.length - 2, plural, one {{{segment().stops.length - 2}} stopover} other {{{segment().stops.length - 2}} stopovers}}</span>
+                <span i18n="@@extend_stopovers">{segment().stops.length - 2, plural, one {{{segment().stops.length - 2}} stopover} other {{{segment().stops.length - 2}} stopovers}}</span>
                 <icon [name]="expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"/>
               </div>
             </div>
