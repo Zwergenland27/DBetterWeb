@@ -76,10 +76,19 @@ $options-opener-width: calc(1.5rem + 2 * 8px);
   gap: 16px;
   overflow-y: scroll;
 
-  .centered {
+  .spinner {
     display: flex;
     flex-direction: row;
     justify-content: center;
+
+    div {
+      border-radius: 50%;
+      border: 8px solid var(--surface-variant);
+      border-top: 8px solid var(--primary);
+      width: 32px;
+      height: 32px;
+      animation: spin 1s infinite linear;
+    }
   }
 
   .date {
@@ -173,4 +182,9 @@ $options-opener-width: calc(1.5rem + 2 * 8px);
   .options-opener:hover {
     filter: brightness(1.2);
   }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

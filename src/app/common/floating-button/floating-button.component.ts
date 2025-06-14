@@ -9,8 +9,9 @@ import {NgIf} from '@angular/common';
     NgIf
   ],
   template: `
-    <button [disabled]="disabled()" [class.small]="small()" [class.secondary]="secondary()">
-      <icon *ngIf="icon()" [name]="icon()!"/>
+    <button [disabled]="disabled() || loading()" [class.small]="small()" [class.secondary]="secondary()">
+      <icon *ngIf="icon() && !loading()" [name]="icon()!"/>
+      <div *ngIf="loading()" class="spinner"></div>
       <span *ngIf="text()">{{ text() }}</span>
     </button>
   `,
@@ -22,4 +23,5 @@ export class FloatingButtonComponent {
   disabled = input(false, {transform: booleanAttribute});
   small = input(false, {transform: booleanAttribute});
   secondary = input(false, {transform: booleanAttribute});
+  loading = input(false, {transform: booleanAttribute});
 }

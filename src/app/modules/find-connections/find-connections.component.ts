@@ -8,12 +8,11 @@ import {IconComponent} from '../../common/icon/icon.component';
 import {ConnectionsData} from './connections-data';
 import {ConnectionService} from './connection.service';
 import {StopoverParameters} from './contracts/parameters/stopover-parameters';
-import {Connection, ConnectionDto} from './contracts/dtos/connection';
+import {Connection} from './contracts/dtos/connection';
 import {ConnectionCardComponent} from './components/connection-card/connection-card.component';
 import {DatePipe, NgIf} from '@angular/common';
 import {RouteOptionsData} from './components/route-options/route-options-data';
 import {TimeOptionsData} from './components/time-options/time-options-data';
-import {LoaderComponent} from '../../common/loader/loader.component';
 import {ComfortClass} from '../../common/contracts/dtos/comfort-class';
 
 @Component({
@@ -28,7 +27,6 @@ import {ComfortClass} from '../../common/contracts/dtos/comfort-class';
     ConnectionCardComponent,
     NgIf,
     DatePipe,
-    LoaderComponent
   ],
   templateUrl: './find-connections.component.html',
   styleUrl: './find-connections.component.scss'
@@ -167,6 +165,4 @@ export class FindConnectionsComponent {
       this.connections = this.connections.concat(value.connections);
     })
   }
-
-  protected readonly ComfortClass = ComfortClass;
 }
