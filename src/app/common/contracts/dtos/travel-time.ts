@@ -26,7 +26,6 @@ export class TravelTime {
     if(!this.real) return null;
 
     const delay = Math.floor((this.real.getTime() - this.planned.getTime()) / 60000.0);
-    console.log(this.real.getTime(), this.planned.getTime());
     let type = TimingType.OnTime;
 
     if(delay < 0) {

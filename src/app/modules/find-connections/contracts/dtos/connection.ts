@@ -40,7 +40,7 @@ export class Connection{
     return lastSegment.stops[lastSegment.stops.length - 1].arrivalTime!;
   }
 
-  get plannedDuration() {
+  get realDuration() {
     const departure = this.departureTime.real ?? this.departureTime.planned;
     const arrival = this.arrivalTime.real ?? this.arrivalTime.planned;
 
@@ -58,7 +58,30 @@ export class Connection{
     return this.segments.filter(s => s instanceof TransferSegment).length;
   }
 
-  plannedDurationOfSegment(segmentIndex: number) {
+  getTransferDuration(segmentIndex: number){
+    const segment = this.segments[segmentIndex];
+    if(!(segment instanceof TransferSegment)) throw new Error(`Segment index ${segmentIndex} is no transfer segment`);
+
+    const previousSegment = this.segments[segmentIndex - 1] as TransportSegment;
+    const nextSegment = this.segments[segmentIndex + 1] as TransportSegment;
+
+    const lastStop = previousSegment.stops[previousSegment.stops.length - 1];
+    const nextStop = nextSegment.stops[0];
+
+    const arrival = lastStop.arrivalTime!.real ?? lastStop.arrivalTime!.planned;
+    const departure = nextStop.departureTime!.real ?? nextStop.departureTime!.planned;
+
+    const milliseconds = departure.getTime() - arrival.getTime();
+
+    const hours = Math.floor(milliseconds / (1000 * 60 * 60));
+    const minutes = Math.floor((milliseconds % (1000 * 60 * 60)) / (60000));
+    return {
+      hours: hours,
+      minutes: minutes
+    };
+  }
+
+  calculateSegmentPercentage(segmentIndex: number) {
     const totalDeparture = this.departureTime.real ?? this.departureTime.planned;
     const totalArrival = this.arrivalTime.real ?? this.arrivalTime.planned;
 

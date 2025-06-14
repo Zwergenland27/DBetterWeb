@@ -146,9 +146,28 @@
     padding: 16px;
 
     .transfer {
+      display: grid;
+      grid-template-columns: 15ch 24px auto;
       margin: 16px 0;
       height: 5rem;
       background-color: var(--surface-container-high);
+
+      .duration {
+        height: 100%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: var(--text-gap);
+        font: var(--title-medium);
+      }
+
+      .information {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        gap: var(--text-gap);
+        font: var(--title-medium);
+      }
     }
   }
 }

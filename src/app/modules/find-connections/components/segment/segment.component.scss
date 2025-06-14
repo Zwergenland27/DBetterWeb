@@ -211,7 +211,22 @@
       }
 
       &.cancelled {
-        text-decoration: line-through;
+
+        .timeline {
+          text-decoration: line-through;
+        }
+
+        .information {
+          .station {
+            .name {
+              text-decoration: line-through;
+            }
+
+            .platform {
+              text-decoration: line-through;
+            }
+          }
+        }
       }
 
       &.additional {

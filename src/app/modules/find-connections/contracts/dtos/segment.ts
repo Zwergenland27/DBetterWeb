@@ -41,7 +41,7 @@ export class Segment {
 
 
   private static fromWalkingSegmentDto(dto: WalkingSegmentDto): WalkingSegment {
-    return new WalkingSegment(dto.distance, dto.duration);
+    return new WalkingSegment(dto.distance, dto.walkDuration);
   }
 }
 
@@ -128,14 +128,18 @@ export class TransportSegment {
 
 export interface WalkingSegmentDto extends TransferSegmentDto {
   distance: number;
-  duration: number;
+  walkDuration: number;
 }
 
 export class WalkingSegment extends TransferSegment {
   constructor(
     public distance: number,
-    public duration: number
+    public walkDuration: number
   ) {
     super();
+  }
+
+  get minutes(){
+    return Math.floor(this.walkDuration / 60);
   }
 }

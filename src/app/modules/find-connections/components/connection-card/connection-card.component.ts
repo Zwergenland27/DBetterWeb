@@ -38,6 +38,10 @@ export class ConnectionCardComponent {
     return segment instanceof WalkingSegment;
   }
 
+  asWalkingSegment(segment: Segment) {
+    return segment as WalkingSegment;
+  }
+
   isTransportSegment(segment: Segment) {
     return segment instanceof TransportSegment;
   }
