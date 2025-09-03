@@ -12,6 +12,7 @@ $options-opener-width: calc(1.5rem + 2 * 8px);
   display: flex;
   flex-direction: column;
   z-index: 1;
+  box-shadow: var(--normal-shadow);
 
   .header {
     position: sticky;
@@ -75,6 +76,11 @@ $options-opener-width: calc(1.5rem + 2 * 8px);
   padding: 16px;
   gap: 16px;
   overflow-y: scroll;
+
+  .centered {
+    display: flex;
+    justify-content: center;
+  }
 
   .spinner {
     display: flex;
