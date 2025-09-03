@@ -85,11 +85,17 @@ export class FindConnectionsComponent {
     this.connectionService.getSuggestions(
       this.requestId,
       this.pageEarlier,
-    ).subscribe(value => {
-      this.loadingEarlier = false;
-      this.pageEarlier = value.pageEarlier;
-      this.connections = value.connections.concat(this.connections);
-    })
+    ).subscribe({
+      next: value => {
+        this.loadingEarlier = false;
+        this.pageEarlier = value.pageEarlier;
+        this.connections = value.connections.concat(this.connections);
+      },
+      error: error => {
+        window.alert(error.message);
+        this.loadingEarlier = false;
+      }
+    });
   }
 
   startSearch(){
@@ -145,24 +151,39 @@ export class FindConnectionsComponent {
         minTransferTime: options.route.minTransferTime!,
       },
       comfortClass: 'Second'
-    }).subscribe(value => {
-      this.loading = false;
-      this.requestId = value.requestId;
-      this.pageEarlier = value.pageEarlier;
-      this.connections = value.connections;
-      this.pageLater = value.pageLater;
-    });
+    })
+      .subscribe(
+        {
+          next: value => {
+            this.loading = false;
+            this.requestId = value.requestId;
+            this.pageEarlier = value.pageEarlier;
+            this.connections = value.connections;
+            this.pageLater = value.pageLater;
+          },
+          error: error => {
+            window.alert(error.message);
+            this.loading = false;
+          },
+        }
+      );
   }
 
-  loadLater(){
+  loadLater() {
     this.loadingLater = true;
     this.connectionService.getSuggestions(
       this.requestId,
       this.pageLater,
-    ).subscribe(value => {
-      this.loadingLater = false;
-      this.pageLater = value.pageLater;
-      this.connections = this.connections.concat(value.connections);
-    })
+    ).subscribe({
+      next: value => {
+        this.loadingLater = false;
+        this.pageLater = value.pageLater;
+        this.connections = this.connections.concat(value.connections);
+      },
+      error: error => {
+        window.alert(error.message);
+        this.loadingLater = false;
+      }
+    });
   }
 }
