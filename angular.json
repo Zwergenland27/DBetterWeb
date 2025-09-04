@@ -8,9 +8,7 @@
       "i18n" : {
         "sourceLocale": "en",
         "locales": {
-          "de": {
-            "translation": "src/locale/messages.de.json"
-          }
+          "de": "src/locale/messages.de.json"
         }
       },
       "schematics": {
