@@ -9,7 +9,7 @@
 
     .stop {
       display: none;
-      grid-template-columns: 15ch 24px auto;
+      grid-template-columns: 13ch 24px auto;
       grid-template-rows: auto;
 
       &.expanded {
@@ -142,6 +142,7 @@
           }
 
           .expand-button {
+            user-select: none;
             cursor: pointer;
             display: flex;
             align-items: center;

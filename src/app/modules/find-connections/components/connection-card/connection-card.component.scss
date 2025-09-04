@@ -118,6 +118,7 @@
       align-items: center;
 
       .details-button {
+        user-select: none;
         cursor: pointer;
         display: flex;
         height: 100%;
@@ -147,7 +148,7 @@
 
     .transfer {
       display: grid;
-      grid-template-columns: 15ch 24px auto;
+      grid-template-columns: 13ch 24px auto;
       margin: 16px 0;
       height: 5rem;
       background-color: var(--surface-container-high);
@@ -169,5 +170,13 @@
         font: var(--title-medium);
       }
     }
+  }
+}
+
+@media screen and (width < 768px) {
+  .connection-card {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
   }
 }
