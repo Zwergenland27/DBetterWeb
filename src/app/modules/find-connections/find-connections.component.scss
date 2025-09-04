@@ -48,7 +48,7 @@ $options-opener-width: calc(1.5rem + 2 * 8px);
   color: var(--on-secondary-container);
   background-color: var(--secondary-container);
   box-shadow: var(--normal-shadow);
-  z-index: 0;
+  z-index: 1;
 
   &.hidden {
     display: none;
