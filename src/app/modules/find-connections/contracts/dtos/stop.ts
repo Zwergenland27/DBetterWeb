@@ -8,6 +8,7 @@ export interface StopDto {
   arrivalTime: TravelTimeDto | null;
   demand: DemandDto;
   name: string;
+  ril100: string | null;
   platform: PlatformDto | null;
   isAdditional: true | null;
   isCancelled: true | null;
@@ -23,6 +24,7 @@ export class Stop {
     public arrivalTime: TravelTime | null,
     public demand: Demand,
     public name: string,
+    public ril100: string | null,
     public platform: Platform | null,
     public isAdditional: boolean,
     public isCancelled: boolean,
@@ -39,6 +41,7 @@ export class Stop {
       dto.arrivalTime ? TravelTime.fromDto(dto.arrivalTime) : null,
       Demand.fromDto(dto.demand),
       dto.name,
+      dto.ril100,
       dto.platform ? Platform.fromDto(dto.platform) : null,
       dto.isAdditional === true,
       dto.isCancelled === true,
