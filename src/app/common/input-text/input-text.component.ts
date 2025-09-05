@@ -1,7 +1,7 @@
 import {booleanAttribute, Component, effect, input, output} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {IconComponent} from '../icon/icon.component';
-import {NgIf} from '@angular/common';
+
 import {ErrorTranslation} from '../error-translation';
 import {IconButtonMiniComponent} from '../icon-button-mini/icon-button-mini.component';
 
@@ -10,9 +10,8 @@ import {IconButtonMiniComponent} from '../icon-button-mini/icon-button-mini.comp
   imports: [
     FormsModule,
     IconComponent,
-    NgIf,
     IconButtonMiniComponent
-  ],
+],
   templateUrl: './input-text.component.html',
   styleUrl: './input-text.component.scss'
 })

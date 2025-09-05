@@ -28,14 +28,22 @@
     <icon class="mobile" name="keyboard_arrow_down"/>
   </div>
   <div class="suggestions" [class.expanded]="!editMode">
-    <floating-button [loading]="loadingEarlier" class="centered" *ngIf="connections && connections.length > 0" small secondary icon="keyboard_arrow_up" i18n-text="@@earlier" text="earlier" (click)="loadEarlier()"/>
-    <div class="spinner" *ngIf="loading">
-      <div></div>
-    </div>
+    @if (connections && connections.length > 0) {
+      <floating-button [loading]="loadingEarlier" class="centered" small secondary icon="keyboard_arrow_up" i18n-text="@@earlier" text="earlier" (click)="loadEarlier()"/>
+    }
+    @if (loading) {
+      <div class="spinner">
+        <div></div>
+      </div>
+    }
     @for(connection of connections; track connection.id;){
-      <span *ngIf="displayDate($index)" class="date">{{connection.departureTime.planned | date: 'fullDate'}}</span>
+      @if (displayDate($index)) {
+        <span class="date">{{connection.departureTime.planned | date: 'fullDate'}}</span>
+      }
       <connection-card [connection]="connection" [comfortClass]="comfortClass"/>
     }
-    <floating-button [loading]="loadingLater" class="centered" *ngIf="connections && connections.length > 0" small secondary icon="keyboard_arrow_down" i18n-text="@@later" text="later" (click)="loadLater()"/>
+    @if (connections && connections.length > 0) {
+      <floating-button [loading]="loadingLater" class="centered" small secondary icon="keyboard_arrow_down" i18n-text="@@later" text="later" (click)="loadLater()"/>
+    }
   </div>
 </div>

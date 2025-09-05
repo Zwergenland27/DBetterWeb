@@ -1,5 +1,5 @@
 import {Component, input} from '@angular/core';
-import {DatePipe, NgClass, NgIf} from '@angular/common';
+import { DatePipe, NgClass } from '@angular/common';
 import {IconComponent} from '../../../../common/icon/icon.component';
 import {ComfortClass} from '../../../../common/contracts/dtos/comfort-class';
 import {DemandDto, DemandStatus} from '../../../../common/contracts/dtos/demand';
@@ -8,11 +8,10 @@ import {TransportSegment} from '../../contracts/dtos/segment';
 @Component({
   selector: 'segment',
   imports: [
-    NgIf,
     DatePipe,
     NgClass,
     IconComponent
-  ],
+],
   templateUrl: './segment.component.html',
   styleUrl: './segment.component.scss'
 })

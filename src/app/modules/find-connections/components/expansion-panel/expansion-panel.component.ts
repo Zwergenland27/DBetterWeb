@@ -1,13 +1,12 @@
 import {booleanAttribute, Component, effect, input, output} from '@angular/core';
 import {IconComponent} from '../../../../common/icon/icon.component';
-import {NgIf} from '@angular/common';
+
 
 @Component({
   selector: 'expansion-panel',
   imports: [
-    IconComponent,
-    NgIf
-  ],
+    IconComponent
+],
   templateUrl: './expansion-panel.component.html',
   styleUrl: './expansion-panel.component.scss'
 })

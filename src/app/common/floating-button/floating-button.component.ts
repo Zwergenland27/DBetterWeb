@@ -1,20 +1,25 @@
 import {booleanAttribute, Component, input} from '@angular/core';
 import {IconComponent} from '../icon/icon.component';
-import {NgIf} from '@angular/common';
+
 
 @Component({
   selector: 'floating-button',
   imports: [
-    IconComponent,
-    NgIf
-  ],
+    IconComponent
+],
   template: `
     <button [disabled]="disabled() || loading()" [class.small]="small()" [class.secondary]="secondary()">
-      <icon *ngIf="icon() && !loading()" [name]="icon()!"/>
-      <div *ngIf="loading()" class="spinner"></div>
-      <span *ngIf="text()">{{ text() }}</span>
+      @if (icon() && !loading()) {
+        <icon [name]="icon()!"/>
+      }
+      @if (loading()) {
+        <div class="spinner"></div>
+      }
+      @if (text()) {
+        <span>{{ text() }}</span>
+      }
     </button>
-  `,
+    `,
   styleUrl: './floating-button.component.scss'
 })
 export class FloatingButtonComponent {

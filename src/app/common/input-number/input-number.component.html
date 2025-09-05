@@ -1,22 +1,28 @@
 <div class="input">
   <div class="input-number" [class.icon]="icon()" [class.button]="buttonIcon()">
-    <icon *ngIf="icon()" [name]="icon()!" class="prefix"/>
+    @if (icon()) {
+      <icon [name]="icon()!" class="prefix"/>
+    }
     <input type="text"
-           #input
-           inputmode="numeric"
-           [id]="inputId"
-           (beforeinput)="onInput($event)"
-           [ngModel]="textValue(_value)"
-           (ngModelChange)="currentValueChange($event)"
-           (focus)="onFocus(input)"
-           [class.invalid]="!isValid"
-           (blur)="onBlur()"/>
+      #input
+      inputmode="numeric"
+      [id]="inputId"
+      (beforeinput)="onInput($event)"
+      [ngModel]="textValue(_value)"
+      (ngModelChange)="currentValueChange($event)"
+      (focus)="onFocus(input)"
+      [class.invalid]="!isValid"
+      (blur)="onBlur()"/>
     <label [for]="inputId" [class.required]="required()">{{ label() }}</label>
-    <icon-button-mini *ngIf="buttonIcon()" class="suffix" [icon]="buttonIcon()!" (buttonClick)="buttonClick.emit()"/>
-  </div>
-  <div *ngIf="!hideErrors()" class="input-errors">
-    @for(error of errors; track error.code){
-      <span>{{error.message}}</span>
+    @if (buttonIcon()) {
+      <icon-button-mini class="suffix" [icon]="buttonIcon()!" (buttonClick)="buttonClick.emit()"/>
     }
   </div>
+  @if (!hideErrors()) {
+    <div class="input-errors">
+      @for(error of errors; track error.code){
+        <span>{{error.message}}</span>
+      }
+    </div>
+  }
 </div>

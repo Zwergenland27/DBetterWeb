@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
 import { Connection, ConnectionDto } from '../../contracts/dtos/connection';
-import {CurrencyPipe, DatePipe, NgClass, NgIf} from '@angular/common';
+import { CurrencyPipe, DatePipe, NgClass } from '@angular/common';
 import {Segment, SegmentDto, TransferSegment, TransportSegment, WalkingSegment} from '../../contracts/dtos/segment';
 import {IconComponent} from '../../../../common/icon/icon.component';
 import {FloatingButtonComponent} from '../../../../common/floating-button/floating-button.component';
@@ -12,13 +12,12 @@ import {connect} from 'rxjs';
   selector: 'connection-card',
   imports: [
     DatePipe,
-    NgIf,
     NgClass,
     IconComponent,
     CurrencyPipe,
     FloatingButtonComponent,
     SegmentComponent
-  ],
+],
   templateUrl: './connection-card.component.html',
   styleUrl: './connection-card.component.scss'
 })

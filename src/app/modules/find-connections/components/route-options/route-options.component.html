@@ -16,55 +16,61 @@
     [withButton]="allowAddingStopover"
     [(allowedMeansOfTransport)]="_routeOptions.meansOfTransportFirstSection"
     (allowedMeansOfTransportChange)="optionsUpdated()"/>
-  <autocomplete-input-text
-    *ngIf="_routeOptions.firstStopover != undefined"
-    icon="filled_location_on"
-    buttonIcon="filled_cancel"
-    (buttonClick)="removeFirstStopover()"
-    i18n-label="@@stopover"
-    label="Stopover"
-    [autocompleteFunction]="searchStation"
-    [debounceTimeMs]="debounceTime"
-    [default]="stationAsAutoComplete(_routeOptions.firstStopover.station)"
-    (valueChange)="firstStopoverStationSelected($event)"
-    hideErrors
-    required
-    mustUseSuggestion
-    selectAllOnFocus/>
-  <stopover-length-of-stay
-    *ngIf="_routeOptions.firstStopover != undefined"
-    [(totalMinutes)]="_routeOptions.firstStopover.lengthOfStay"
-    (totalMinutesChange)="optionsUpdated()"/>
-  <segment-options
-    *ngIf="_routeOptions.firstStopover != undefined"
-    (addClick)="addSecondStopover()"
-    [withButton]="allowAddingStopover"
-    [(allowedMeansOfTransport)]="_routeOptions.firstStopover.meansOfTransportNextSection"
-    (allowedMeansOfTransportChange)="optionsUpdated()"/>
-  <autocomplete-input-text
-    *ngIf="_routeOptions.secondStopover != undefined"
-    icon="filled_location_on"
-    buttonIcon="filled_cancel"
-    (buttonClick)="removeSecondStopover()"
-    i18n-label="@@stopover"
-    label="Stopover"
-    [autocompleteFunction]="searchStation"
-    [debounceTimeMs]="debounceTime"
-    [default]="stationAsAutoComplete(_routeOptions.secondStopover.station)"
-    (valueChange)="secondStopoverStationSelected($event)"
-    hideErrors
-    required
-    mustUseSuggestion
-    selectAllOnFocus/>
-  <stopover-length-of-stay
-    *ngIf="_routeOptions.secondStopover != undefined"
-    [(totalMinutes)]="_routeOptions.secondStopover.lengthOfStay"
-    (totalMinutesChange)="optionsUpdated()"/>
-  <segment-options
-    *ngIf="_routeOptions.secondStopover != undefined"
-    [withButton]="false"
-    [(allowedMeansOfTransport)]="_routeOptions.secondStopover.meansOfTransportNextSection"
-    (allowedMeansOfTransportChange)="optionsUpdated()"/>
+  @if (_routeOptions.firstStopover != undefined) {
+    <autocomplete-input-text
+      icon="filled_location_on"
+      buttonIcon="filled_cancel"
+      (buttonClick)="removeFirstStopover()"
+      i18n-label="@@stopover"
+      label="Stopover"
+      [autocompleteFunction]="searchStation"
+      [debounceTimeMs]="debounceTime"
+      [default]="stationAsAutoComplete(_routeOptions.firstStopover.station)"
+      (valueChange)="firstStopoverStationSelected($event)"
+      hideErrors
+      required
+      mustUseSuggestion
+      selectAllOnFocus/>
+  }
+  @if (_routeOptions.firstStopover != undefined) {
+    <stopover-length-of-stay
+      [(totalMinutes)]="_routeOptions.firstStopover.lengthOfStay"
+      (totalMinutesChange)="optionsUpdated()"/>
+  }
+  @if (_routeOptions.firstStopover != undefined) {
+    <segment-options
+      (addClick)="addSecondStopover()"
+      [withButton]="allowAddingStopover"
+      [(allowedMeansOfTransport)]="_routeOptions.firstStopover.meansOfTransportNextSection"
+      (allowedMeansOfTransportChange)="optionsUpdated()"/>
+  }
+  @if (_routeOptions.secondStopover != undefined) {
+    <autocomplete-input-text
+      icon="filled_location_on"
+      buttonIcon="filled_cancel"
+      (buttonClick)="removeSecondStopover()"
+      i18n-label="@@stopover"
+      label="Stopover"
+      [autocompleteFunction]="searchStation"
+      [debounceTimeMs]="debounceTime"
+      [default]="stationAsAutoComplete(_routeOptions.secondStopover.station)"
+      (valueChange)="secondStopoverStationSelected($event)"
+      hideErrors
+      required
+      mustUseSuggestion
+      selectAllOnFocus/>
+  }
+  @if (_routeOptions.secondStopover != undefined) {
+    <stopover-length-of-stay
+      [(totalMinutes)]="_routeOptions.secondStopover.lengthOfStay"
+      (totalMinutesChange)="optionsUpdated()"/>
+  }
+  @if (_routeOptions.secondStopover != undefined) {
+    <segment-options
+      [withButton]="false"
+      [(allowedMeansOfTransport)]="_routeOptions.secondStopover.meansOfTransportNextSection"
+      (allowedMeansOfTransportChange)="optionsUpdated()"/>
+  }
   <autocomplete-input-text
     icon="filled_flag"
     i18n-label="@@destination"

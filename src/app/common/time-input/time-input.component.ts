@@ -2,15 +2,14 @@ import {booleanAttribute, Component, effect, input, output} from '@angular/core'
 import {ErrorTranslation} from '../error-translation';
 import {FormsModule} from '@angular/forms';
 import {IconButtonMiniComponent} from '../icon-button-mini/icon-button-mini.component';
-import {NgIf} from '@angular/common';
+
 
 @Component({
   selector: 'time-input',
   imports: [
     FormsModule,
-    IconButtonMiniComponent,
-    NgIf
-  ],
+    IconButtonMiniComponent
+],
   templateUrl: './time-input.component.html',
   styleUrl: './time-input.component.scss'
 })

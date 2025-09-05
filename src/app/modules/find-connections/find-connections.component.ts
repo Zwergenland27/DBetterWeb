@@ -10,7 +10,7 @@ import {ConnectionService} from './connection.service';
 import {StopoverParameters} from './contracts/parameters/stopover-parameters';
 import {Connection} from './contracts/dtos/connection';
 import {ConnectionCardComponent} from './components/connection-card/connection-card.component';
-import {DatePipe, NgIf} from '@angular/common';
+import { DatePipe } from '@angular/common';
 import {RouteOptionsData} from './components/route-options/route-options-data';
 import {TimeOptionsData} from './components/time-options/time-options-data';
 import {ComfortClass} from '../../common/contracts/dtos/comfort-class';
@@ -25,9 +25,8 @@ import {ComfortClass} from '../../common/contracts/dtos/comfort-class';
     FloatingButtonComponent,
     IconComponent,
     ConnectionCardComponent,
-    NgIf,
-    DatePipe,
-  ],
+    DatePipe
+],
   templateUrl: './find-connections.component.html',
   styleUrl: './find-connections.component.scss'
 })

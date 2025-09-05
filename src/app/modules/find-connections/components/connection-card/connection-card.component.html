@@ -7,17 +7,21 @@
           <span>-</span>
           <span>{{plannedTimeInformation.arrival | date:"shortTime"}}</span>
         </div>
-        <div class="real" *ngIf="realTimeInformation">
-          <span [ngClass]="realTimeInformation.departureTimingType?.type">{{realTimeInformation.departure | date:"shortTime"}}</span>
-          <span>-</span>
-          <span [ngClass]="realTimeInformation.arrivalTimingType?.type">{{realTimeInformation.arrival | date:"shortTime"}}</span>
-        </div>
+        @if (realTimeInformation) {
+          <div class="real">
+            <span [ngClass]="realTimeInformation.departureTimingType?.type">{{realTimeInformation.departure | date:"shortTime"}}</span>
+            <span>-</span>
+            <span [ngClass]="realTimeInformation.arrivalTimingType?.type">{{realTimeInformation.arrival | date:"shortTime"}}</span>
+          </div>
+        }
       </div>
       <div class="duration">
-        <div *ngIf="connection().realDuration.hours">
-          <span>{{connection().realDuration.hours}}</span>
-          <span i18n="@@hour_unit">h</span>
-        </div>
+        @if (connection().realDuration.hours) {
+          <div>
+            <span>{{connection().realDuration.hours}}</span>
+            <span i18n="@@hour_unit">h</span>
+          </div>
+        }
         <div>
           <span>{{connection().realDuration.minutes}}</span>
           <span i18n="@@minute_unit">min</span>
@@ -29,17 +33,20 @@
     </div>
     <div class="segments">
       @for(segment of connection().segments; track $index){
-        <div *ngIf="isTransferSegment(segment)" class="transfer" [style.flex-grow]="connection().calculateSegmentPercentage($index)">
-
-        </div>
-
-        <div *ngIf="isTransportSegment(segment)" class="segment" [style.flex-grow]="connection().calculateSegmentPercentage($index)">
-          <span>{{(asTransportSegment(segment)).line}}</span>
-          <div class="segment-icons">
-            <icon [name]="asTransportSegment(segment).iconName"/>
-            <icon [ngClass]="asTransportSegment(segment).demand.secondClass" name="filled_group"/>
+        @if (isTransferSegment(segment)) {
+          <div class="transfer" [style.flex-grow]="connection().calculateSegmentPercentage($index)">
           </div>
-        </div>
+        }
+
+        @if (isTransportSegment(segment)) {
+          <div class="segment" [style.flex-grow]="connection().calculateSegmentPercentage($index)">
+            <span>{{(asTransportSegment(segment)).line}}</span>
+            <div class="segment-icons">
+              <icon [name]="asTransportSegment(segment).iconName"/>
+              <icon [ngClass]="asTransportSegment(segment).demand.secondClass" name="filled_group"/>
+            </div>
+          </div>
+        }
       }
     </div>
     <div class="actions">
@@ -47,46 +54,63 @@
         <span>Details</span>
         <icon [name]="detailsOpened ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"/>
       </div>
-      <floating-button *ngIf="!connection().offer"
-                       small secondary icon="open_in_new"
-                       i18n-text="@@view_on_bahn.de" text="View on bahn.de"
-                       (click)="openOnBahnDe()"/>
-      <floating-button *ngIf="connection().offer && connection().offer!.partial"
-                       small secondary icon="open_in_new"
-                       i18n-text="@@get-offers-on-bahn.de" text="Get offers on bahn.de"
-                       (click)="openOnBahnDe()"/>
-      <floating-button *ngIf="connection().offer && !connection().offer!.partial"
-                       small secondary icon="open_in_new"
-
-                       i18n-text="@@price_on_bahn.de" text="{{connection().offer!.price | currency: connection().offer!.shortCurrency }} on bahn.de"
-                       (click)="openOnBahnDe()"/>
+      @if (!connection().offer) {
+        <floating-button
+          small secondary icon="open_in_new"
+          i18n-text="@@view_on_bahn.de" text="View on bahn.de"
+          (click)="openOnBahnDe()"/>
+      }
+      @if (connection().offer && connection().offer!.partial) {
+        <floating-button
+          small secondary icon="open_in_new"
+          i18n-text="@@get-offers-on-bahn.de" text="Get offers on bahn.de"
+          (click)="openOnBahnDe()"/>
+      }
+      @if (connection().offer && !connection().offer!.partial) {
+        <floating-button
+          small secondary icon="open_in_new"
+          i18n-text="@@price_on_bahn.de" text="{{connection().offer!.price | currency: connection().offer!.shortCurrency }} on bahn.de"
+          (click)="openOnBahnDe()"/>
+      }
     </div>
   </div>
-  <div class="details" *ngIf="detailsOpened">
-    @for(segment of connection().segments; track $index){
-      <div *ngIf="isTransferSegment(segment)" class="transfer">
-        <div class="duration">
-          <icon name="airline_stops"/>
-          <div *ngIf="connection().getTransferDuration($index).hours">
-            <span>{{connection().getTransferDuration($index).hours}}</span>
-            <span i18n="@@hour_unit">h</span>
+  @if (detailsOpened) {
+    <div class="details">
+      @for(segment of connection().segments; track $index){
+        @if (isTransferSegment(segment)) {
+          <div class="transfer">
+            <div class="duration">
+              <icon name="airline_stops"/>
+              @if (connection().getTransferDuration($index).hours) {
+                <div>
+                  <span>{{connection().getTransferDuration($index).hours}}</span>
+                  <span i18n="@@hour_unit">h</span>
+                </div>
+              }
+              <div>
+                <span>{{connection().getTransferDuration($index).minutes}}</span>
+                <span i18n="@@minute_unit">min</span>
+              </div>
+            </div>
+            <div></div>
+            @if (isWalkingSegment(segment)) {
+              <div class="information">
+                <icon name="directions_walk"/>
+                <div>
+                  <span>{{asWalkingSegment(segment).minutes}}</span>
+                  <span i18n="@@minute_unit">min</span>
+                </div>
+                @if (asWalkingSegment(segment).distance) {
+                  <span>({{asWalkingSegment(segment).distance}}m)</span>
+                }
+              </div>
+            }
           </div>
-          <div>
-            <span>{{connection().getTransferDuration($index).minutes}}</span>
-            <span i18n="@@minute_unit">min</span>
-          </div>
-        </div>
-        <div></div>
-        <div class="information" *ngIf="isWalkingSegment(segment)">
-          <icon name="directions_walk"/>
-          <div>
-            <span>{{asWalkingSegment(segment).minutes}}</span>
-            <span i18n="@@minute_unit">min</span>
-          </div>
-          <span *ngIf="asWalkingSegment(segment).distance">({{asWalkingSegment(segment).distance}}m)</span>
-        </div>
-      </div>
-      <segment *ngIf="isTransportSegment(segment)" [comfortClass]="comfortClass()" [segment]="asTransportSegment(segment)"/>
-    }
-  </div>
+        }
+        @if (isTransportSegment(segment)) {
+          <segment [comfortClass]="comfortClass()" [segment]="asTransportSegment(segment)"/>
+        }
+      }
+    </div>
+  }
 </div>

@@ -3,7 +3,7 @@ import {
   AutocompleteInputTextComponent
 } from '../../../../common/autocomplete-input-text/autocomplete-input-text.component';
 import {map, Observable, of} from 'rxjs';
-import {NgIf} from '@angular/common';
+
 import {SegmentOptionsComponent} from '../segment-options/segment-options.component';
 import {StopoverLengthOfStayComponent} from '../stopover-length-of-stay/stopover-length-of-stay.component';
 import {ConnectionService} from '../../connection.service';
@@ -19,11 +19,10 @@ import {StopoverParameters} from '../../contracts/parameters/stopover-parameters
   selector: 'route-options',
   imports: [
     AutocompleteInputTextComponent,
-    NgIf,
     SegmentOptionsComponent,
     StopoverLengthOfStayComponent,
-    InputNumberComponent,
-  ],
+    InputNumberComponent
+],
   templateUrl: './route-options.component.html',
   styleUrl: './route-options.component.scss'
 })
