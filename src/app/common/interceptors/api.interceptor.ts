@@ -1,6 +1,7 @@
 import { HttpInterceptorFn } from '@angular/common/http';
+import {environment} from '../../../environments/environment';
 
-const baseUrl = "https://api.dbetter.de/"
+const baseUrl = environment.apiUrl;
 
 export const apiInterceptor: HttpInterceptorFn = (req, next) => {
   req = req.clone({
