@@ -14,6 +14,7 @@ import {
   MeansOfTransportParameters
 } from '../../contracts/parameters/means-of-transport-parameters';
 import {StopoverParameters} from '../../contracts/parameters/stopover-parameters';
+import {Errors} from '../../contracts/errors';
 
 @Component({
   selector: 'route-options',
@@ -201,4 +202,6 @@ export class RouteOptionsComponent {
   optionsUpdated(){
     this.routeOptionsChange.emit(this._routeOptions);
   }
+
+  protected readonly Errors = Errors;
 }
