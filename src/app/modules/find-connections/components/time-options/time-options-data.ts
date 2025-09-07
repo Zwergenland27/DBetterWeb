@@ -1,4 +1,4 @@
 export interface TimeOptionsData {
   type: 'arrival' | 'departure',
-  timestamp: Date,
+  timestamp: Date | undefined
 }

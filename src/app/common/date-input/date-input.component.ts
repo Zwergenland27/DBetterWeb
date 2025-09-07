@@ -23,7 +23,7 @@ export class DateInputComponent {
   hideErrors = input(false, {transform: booleanAttribute});
 
   date = input<string>('');
-  dateChange = output<{date: string | undefined, valid: boolean}>();
+  dateChange = output<{date: string, valid: boolean}>();
   _date = '';
 
   isValid = true;
@@ -47,7 +47,7 @@ export class DateInputComponent {
     if(this.isValid){
       this.dateChange.emit({date: this._date, valid: true});
     }else{
-      this.dateChange.emit({date: undefined, valid: this.isValid});
+      this.dateChange.emit({date: "", valid: this.isValid});
     }
   }
 

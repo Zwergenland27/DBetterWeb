@@ -21,7 +21,7 @@ export class TimeInputComponent {
   hideErrors = input(false, {transform: booleanAttribute});
 
   time = input<string>('');
-  timeChange = output<{time: string | undefined, valid: boolean}>();
+  timeChange = output<{time: string, valid: boolean}>();
   _time = '';
 
   isValid = true;
@@ -44,7 +44,7 @@ export class TimeInputComponent {
     if(this.isValid){
       this.timeChange.emit({time: this._time, valid: true});
     }else{
-      this.timeChange.emit({time: undefined, valid: this.isValid});
+      this.timeChange.emit({time: "", valid: this.isValid});
     }
 
   }

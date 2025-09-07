@@ -100,6 +100,8 @@ export class FindConnectionsComponent {
   startSearch(){
     const options = this.connectionOptions;
 
+    //TODO: validate options and highlight all invalid fields
+
     if(options.route.originStation === undefined || options.route.destinationStation === undefined){
       throw new Error('Origin and destination station is missing');
     }
@@ -127,6 +129,10 @@ export class FindConnectionsComponent {
         lengthOfStay: options.route.secondStopover.lengthOfStay,
         meansOfTransportNextSection: options.route.secondStopover.meansOfTransportNextSection
       }
+    }
+
+    if(options.time.timestamp === undefined){
+      throw new Error('Time timestamp is missing');
     }
 
     this.connections = [];
