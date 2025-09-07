@@ -4,11 +4,12 @@
       #input
       [id]="inputId"
       type="date"
-      [min]="toLocalIsoDate(min())"
-      [max]="toLocalIsoDate(max())"
+      [min]="min()"
+      [max]="max()"
       [ngModel]="_date"
       (ngModelChange)="currentDateChange($event)"
       [required]="required()"
+      [class.invalid]="!isValid"
       (blur)="onBlur()"/>
     <label [class.required]="required()" [class.no-content]="_date === ''">{{ label() }}</label>
     <div class="hide-default-icon"></div>

@@ -30,7 +30,7 @@ export class TimeInputComponent {
 
   constructor() {
     effect(() => {
-      this._time = this.time();
+      this.currentTimeChange(this.time());
     });
   }
 
@@ -75,9 +75,12 @@ export class TimeInputComponent {
   }
 
   validate(){
-    if(this.required() && this._time === ''){
-      this.setErrors(["Frontend.Missing"])
-      return;
+    const [hour, minute] = this._time.split(':').map(Number);
+    if(isNaN(hour) || isNaN(minute)){
+      if(this.required()){
+        this.setErrors(["Frontend.Missing"])
+        return;
+      }
     }
 
     this.clearErrors();

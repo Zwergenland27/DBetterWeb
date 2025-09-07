@@ -16,8 +16,8 @@ import {ErrorTranslation} from '../error-translation';
 export class DateInputComponent {
   label = input.required<string>();
   required = input(false, {transform: booleanAttribute});
-  min = input<Date>();
-  max = input<Date>();
+  min = input<string>();
+  max = input<string>();
   errorTranslations = input<Record<string, string>>({});
   errors: ErrorTranslation[] = [];
   hideErrors = input(false, {transform: booleanAttribute});
@@ -32,20 +32,8 @@ export class DateInputComponent {
 
   constructor() {
     effect(() => {
-      this._date = this.date();
+      this.currentDateChange(this.date());
     });
-  }
-
-  toLocalIsoDate(date: Date | undefined){
-    if(date === undefined){
-      return '';
-    }
-
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-
-    return `${year}-${month}-${day}`;
   }
 
   showDialog(input: HTMLInputElement) {
@@ -61,7 +49,6 @@ export class DateInputComponent {
     }else{
       this.dateChange.emit({date: undefined, valid: this.isValid});
     }
-
   }
 
   setErrors(errorCodes: string[]){
@@ -90,23 +77,34 @@ export class DateInputComponent {
   }
 
   validate(){
-    if(this.required() && this._date === ''){
-      this.setErrors(["Frontend.Missing"])
-      return;
-    }
+    let [year, month, day] = this._date.split('-').map(Number);
 
-    if(this._date != ''){
-      const [year, month, day] = this._date.split('-').map(Number);
-      const date = new Date(year, month - 1, day, 0, 0, 0);
-
-      if(this.min() && date < this.min()!){
-        this.setErrors(["Frontend.BeforeMinDate"]);
+    if(isNaN(year) || isNaN(month) || isNaN(day)){
+      if(this.required()){
+        this.setErrors(["Frontend.Missing"]);
         return;
       }
 
-      if(this.max() && date > this.max()!){
-        this.setErrors(["Frontend.AfterMaxDate"]);
-        return;
+      const date = new Date(year, month - 1, day, 0, 0, 0);
+
+      if(this.min()){
+        [year, month, day] = this.min()!.split('-').map(Number);
+        const min = new Date(year, month - 1, day, 0, 0, 0);
+
+        if(date < min){
+          this.setErrors(["Frontend.BeforeMinDate"]);
+          return;
+        }
+      }
+
+      if(this.max()){
+        [year, month, day] = this.max()!.split('-').map(Number);
+        const max = new Date(year, month - 1, day, 0, 0, 0);
+
+        if(date > max){
+          this.setErrors(["Frontend.AfterMaxDate"]);
+          return;
+        }
       }
     }
 

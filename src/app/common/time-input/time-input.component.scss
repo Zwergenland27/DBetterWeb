@@ -24,6 +24,14 @@
     &:focus + label {
       color: var(--primary);
     }
+
+    &.invalid{
+      border-bottom-color: var(--error);
+    }
+
+    &.invalid + label {
+      color: var(--error);
+    }
   }
 
   label {
