@@ -85,36 +85,66 @@ export class TimeOptionsComponent {
   }
 
   subtractOneDay(){
-    if(!this._timeOptions.timestamp){
+    if(!this.date){
       return;
     }
 
-    this._timeOptions.timestamp.setDate(this._timeOptions.timestamp.getDate() - 1);
-    this.timeOptionsChange.emit(this._timeOptions);
+    const date = new Date(this.date);
+    date.setDate(date.getDate() - 1)
+    this.date = this.asLocalDate(date);
   }
 
   addOneDay(){
-    if(!this._timeOptions.timestamp){
+    if(!this.date){
       return;
     }
 
-    this._timeOptions.timestamp.setDate(this._timeOptions.timestamp.getDate() + 1);
-    this.timeOptionsChange.emit(this._timeOptions);
+    const date = new Date(this.date);
+    date.setDate(date.getDate() + 1)
+    this.date = this.asLocalDate(date);
   }
 
   subtract15Min(){
-    if(!this._timeOptions.timestamp){
+    if(!this.time){
       return;
     }
-    this._timeOptions.timestamp = new Date(this._timeOptions.timestamp.getTime() - 15 * 60000);
-    this.timeOptionsChange.emit(this._timeOptions);
+
+    let [hours, minutes] = this.time.split(":").map(Number);
+    minutes -= 15;
+
+    if(minutes < 0){
+      minutes += 60;
+      hours -= 1;
+    }
+
+    if(hours < 0){
+      hours += 24;
+    }
+
+    this.time = hours.toString().padStart(2, '0')
+      + ":"
+      + minutes.toString().padStart(2, '0');
   }
 
   add15Min(){
-    if(!this._timeOptions.timestamp){
+    if(!this.time){
       return;
     }
-    this._timeOptions.timestamp = new Date(this._timeOptions.timestamp.getTime() + 15 * 60000);
-    this.timeOptionsChange.emit(this._timeOptions);
+
+    let [hours, minutes] = this.time.split(":").map(Number);
+    minutes += 15;
+
+    if(minutes >= 60){
+      minutes -= 60;
+      hours += 1;
+    }
+
+    if(hours >= 24){
+      hours -= 24;
+    }
+
+    this.time = hours.toString().padStart(2, '0')
+      + ":"
+      + minutes.toString().padStart(2, '0');
   }
 }
