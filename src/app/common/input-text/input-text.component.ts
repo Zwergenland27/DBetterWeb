@@ -42,7 +42,7 @@ export class InputTextComponent {
   }
 
   onFocus(inputElement: HTMLInputElement) {
-    inputElement.scrollIntoView({behavior: 'smooth', block: 'start'});
+    inputElement.scrollIntoView({behavior: 'smooth', block: 'center'});
     if(this.selectAllOnFocus()){
       inputElement.select();
     }
