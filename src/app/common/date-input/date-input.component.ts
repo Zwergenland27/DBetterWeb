@@ -2,14 +2,16 @@ import {booleanAttribute, Component, effect, input, output} from '@angular/core'
 import {IconButtonMiniComponent} from '../icon-button-mini/icon-button-mini.component';
 import {FormsModule} from '@angular/forms';
 import {ErrorTranslation} from '../error-translation';
+import {DatePickerComponent} from '../date-picker/date-picker.component';
 
 
 @Component({
   selector: 'date-input',
   imports: [
     IconButtonMiniComponent,
-    FormsModule
-],
+    FormsModule,
+    DatePickerComponent
+  ],
   templateUrl: './date-input.component.html',
   styleUrl: './date-input.component.scss'
 })
@@ -30,6 +32,8 @@ export class DateInputComponent {
 
   inputId = 'input-' + crypto.randomUUID();
 
+  pickerOpen = false;
+
   constructor() {
     effect(() => {
       this.currentDateChange(this.date());
@@ -37,7 +41,20 @@ export class DateInputComponent {
   }
 
   showDialog(input: HTMLInputElement) {
-    input.showPicker();
+    if(/android|iphone|ipad|ipod/i.test(navigator.userAgent)){
+      input.showPicker();
+      return;
+    }
+    this.pickerOpen = !this.pickerOpen;
+  }
+
+  closeDialog(){
+    this.pickerOpen = false;
+  }
+
+  newDateSelected(value: string){
+    this.pickerOpen = false;
+    this.currentDateChange(value);
   }
 
   currentDateChange(value: string){

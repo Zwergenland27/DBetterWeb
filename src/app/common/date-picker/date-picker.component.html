@@ -1,0 +1,35 @@
+<div #overlay class="overlay" (click)="overlayClick($event)">
+  <div #dialog [style.left]="position.x + 'px'" [style.top]="position.y + 'px'" class="datepicker-dialog">
+    <div class="header">
+      <icon-button-mini icon="chevron_left" (buttonClick)="previousMonth()" highlight/>
+      <span class="title">
+      {{activeMonth | date:"MMMM yyyy"}}
+      </span>
+      <icon-button-mini icon="chevron_right" (buttonClick)="nextMonth()" highlight/>
+    </div>
+
+    <div class="weekdays">
+      <span>Mon</span>
+      <span>Tue</span>
+      <span>Wed</span>
+      <span>Thu</span>
+      <span>Fri</span>
+      <span>Sat</span>
+      <span>Sun</span>
+    </div>
+
+    <div class="days">
+      @for(day of days; track day){
+        <button
+          (click)="selectDate(day)"
+          class="day"
+          [class.invisible]="day === 0"
+          [class.selected]="isSelected(day)"
+          [class.today]="isToday(day)">
+          <span></span>
+          {{ day }}
+        </button>
+      }
+    </div>
+  </div>
+</div>
