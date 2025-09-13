@@ -60,6 +60,11 @@
       }
     }
 
+    .differentOrigin{
+      color: var(--demand-medium);
+      font: var(--body-medium);
+    }
+
     .segments {
       display: flex;
       overflow-x: auto;

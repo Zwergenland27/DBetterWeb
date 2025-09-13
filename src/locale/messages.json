@@ -9,6 +9,7 @@
     "hour_unit": "h",
     "minute_unit": "min",
     "transfers_plural": "{VAR_PLURAL, plural, =0 {direct connection} one {{INTERPOLATION} transfer} other {{INTERPOLATION} transfers}}",
+    "different_origin": "from {$INTERPOLATION}",
     "view_on_bahn.de": "View on bahn.de",
     "get-offers-on-bahn.de": "Get offers on bahn.de",
     "price_on_bahn.de": "{$INTERPOLATION} on bahn.de",

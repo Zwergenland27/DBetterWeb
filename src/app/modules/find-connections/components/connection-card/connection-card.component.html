@@ -31,6 +31,9 @@
         <span i18n="@@transfers_plural">{connection().numberOfTransfers, plural, =0 {direct connection} one {{{connection().numberOfTransfers}} transfer} other {{{connection().numberOfTransfers}} transfers}}</span>
       </div>
     </div>
+    @if(connection().differentOrigin){
+      <span class="differentOrigin" i18n="@@different_origin">from {{asTransportSegment(connection().segments[0]).stops[0].name}}</span>
+    }
     <div class="segments">
       @for(segment of connection().segments; track $index){
         @if (isTransferSegment(segment)) {
