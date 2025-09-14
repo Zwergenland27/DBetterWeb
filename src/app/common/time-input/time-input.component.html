@@ -13,6 +13,9 @@
     <div class="hide-default-icon"></div>
     <icon-button-mini icon="schedule" (buttonClick)="showDialog(input)"/>
   </div>
+  @if(pickerOpen){
+    <time-picker [inputTarget]="input" [selectedTime]="_time" (closed)="closeDialog()" (selectedTimeChange)="newTimeSelected($event)"/>
+  }
   @if (!hideErrors()) {
     <div class="input-errors">
       @for(error of errors; track error.code){

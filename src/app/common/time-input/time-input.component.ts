@@ -2,14 +2,16 @@ import {booleanAttribute, Component, effect, input, output} from '@angular/core'
 import {ErrorTranslation} from '../error-translation';
 import {FormsModule} from '@angular/forms';
 import {IconButtonMiniComponent} from '../icon-button-mini/icon-button-mini.component';
+import {TimePickerComponent} from '../time-picker/time-picker.component';
 
 
 @Component({
   selector: 'time-input',
   imports: [
     FormsModule,
-    IconButtonMiniComponent
-],
+    IconButtonMiniComponent,
+    TimePickerComponent
+  ],
   templateUrl: './time-input.component.html',
   styleUrl: './time-input.component.scss'
 })
@@ -28,6 +30,8 @@ export class TimeInputComponent {
 
   inputId = 'input-' + crypto.randomUUID();
 
+  pickerOpen = false;
+
   constructor() {
     effect(() => {
       this.currentTimeChange(this.time());
@@ -35,7 +39,20 @@ export class TimeInputComponent {
   }
 
   showDialog(input: HTMLInputElement) {
-    input.showPicker();
+    if(/android|iphone|ipad|ipod/i.test(navigator.userAgent)){
+      input.showPicker();
+      return;
+    }
+    this.pickerOpen = !this.pickerOpen;
+  }
+
+  closeDialog(){
+    this.pickerOpen = false;
+  }
+
+  newTimeSelected(value: string){
+    this.pickerOpen = true;
+    this.currentTimeChange(value);
   }
 
   currentTimeChange(value: string){
