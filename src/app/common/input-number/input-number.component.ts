@@ -20,9 +20,10 @@ export class InputNumberComponent {
   buttonIcon = input<string>();
   buttonClick = output();
   label = input.required<string>();
+  hint = input<string>('');
   prefix = input<string>('');
   suffix = input<string>('');
-  value = input.required<number>();
+  value = input<number>();
   minValue = input<number>();
   maxValue = input<number>();
   required = input(false, {transform: booleanAttribute});

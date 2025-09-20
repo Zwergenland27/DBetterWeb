@@ -11,6 +11,8 @@
       [ngModel]="textValue(_value)"
       (ngModelChange)="currentValueChange($event)"
       (focus)="onFocus(input)"
+           [placeholder]="hint()"
+           [class.hint]="hint()"
       [class.invalid]="!isValid"
       (blur)="onBlur()"/>
     <label [for]="inputId" [class.required]="required()">{{ label() }}</label>
