@@ -1,5 +1,8 @@
 .toggle-button {
+  display: flex;
+
   button {
+    white-space: nowrap;
     cursor: pointer;
     border: none;
     color: var(--on-surface-variant);
