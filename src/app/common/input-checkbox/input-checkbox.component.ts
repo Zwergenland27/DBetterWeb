@@ -10,9 +10,15 @@ import {Component, input} from '@angular/core';
     </div>
   `,
   styles: `
+    .input {
+      display: flex;
+    }
     input {
       accent-color: var(--primary);
-      font: var(--title-large);
+    }
+    label {
+      font: var(--body-large);
+      white-space: nowrap;
     }
   `
 })
