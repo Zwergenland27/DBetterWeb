@@ -12,12 +12,12 @@ import {Component, effect, input, output} from '@angular/core';
   `,
   styleUrl: './toggle-button.component.scss'
 })
-export class ToggleButtonComponent {
-  options = input.required<{key:string, label: string}[]>();
-  selectedOption = input.required<string>();
-  selectedOptionChange = output<string>();
+export class ToggleButtonComponent<T> {
+  options = input.required<{key:T, label: string}[]>();
+  selectedOption = input.required<T>();
+  selectedOptionChange = output<T>();
 
-  _selectedOption = '';
+  _selectedOption: T | undefined = undefined;
 
   constructor() {
     effect(() => {
@@ -25,7 +25,7 @@ export class ToggleButtonComponent {
     });
   }
 
-  onclick(key: string){
+  onclick(key: T){
     this._selectedOption = key;
     this.selectedOptionChange.emit(key);
   }
