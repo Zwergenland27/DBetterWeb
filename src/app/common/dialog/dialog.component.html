@@ -1,0 +1,26 @@
+@if(isVisible){
+  <div class="background">
+    <div class="dialog">
+      <div class="header">
+        @if(icon()){
+          <icon [name]="icon()!"/>
+        }
+        <span>{{dialogTitle()}}</span>
+        <icon-button-mini icon="close" (buttonClick)="close()"/>
+      </div>
+      <div class="content">
+        <ng-content/>
+      </div>
+      <div class="buttons">
+        <floating-button [text]="cancelButtonText()" (click)="close()"/>
+        @if(secondaryButtonText()){
+          <floating-button secondary [text]="secondaryButtonText()" (click)="secondaryButtonClicked()"/>
+        }
+
+        @if(primaryButtonText()){
+          <floating-button [text]="primaryButtonText()" (click)="primaryButtonClicked()"/>
+        }
+      </div>
+    </div>
+  </div>
+}
