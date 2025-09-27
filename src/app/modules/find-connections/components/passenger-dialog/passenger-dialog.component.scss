@@ -1,0 +1,36 @@
+.personal-information {
+  display: flex;
+  flex-direction: column;
+
+  .age {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    font: var(--title-large);
+  }
+}
+
+.additional-information{
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+
+  .other-discounts {
+    display: flex;
+    flex-direction: column;
+
+    .distance{
+      visibility: hidden;
+    }
+  }
+}
+
+.bahnCards {
+  display: flex;
+  max-width: 30rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  font: var(--title-medium);
+}

@@ -1,0 +1,56 @@
+<app-dialog
+  #dialog
+  icon="person_add"
+  dialogTitle="Add passenger"
+  cancelButtonText="Cancel"
+  primaryButtonText="Add"
+  (primaryClicked)="add()">
+  <div class="personal-information">
+    <autocomplete-input-text label="Name" icon="person" [default]="user" [autocompleteFunction]="autocomplete" (valueChange)="selectName($event)"/>
+    <div class="age">
+      <!--<date-input label="Date of birth" />
+      <span>or</span>-->
+      <input-number label="Age" [value]="age" (valueChange)="selectAge($event)" required/>
+    </div>
+  </div>
+  <div class="additional-information">
+    <div class="additional-passengers">
+      <input-number [value]="bikes" (valueChange)="selectBikes($event)" label="Bikes" icon="directions_bike" required/>
+      <input-number [value]="dogs" (valueChange)="selectDogs($event)" label="Dogs" icon="pets" required/>
+    </div>
+    <div class="other-discounts">
+      <input-checkbox label="Deutschlandticket" [(checked)]="hasDeutschlandTicket"/>
+      <input-checkbox class="distance" label="hidden" [checked]="false"/>
+      <input-checkbox label="HalbtaxAbo" [(checked)]="hasHalbtexAbo"/>
+      <input-checkbox label="Klimaticket Österreich" [(checked)]="hasKlimaTicket"/>
+      <input-checkbox label="NL-40%" [(checked)]="hasNl40"/>
+      <input-checkbox label="Vorteilscard Österreich" [(checked)]="hasVorteilscard"/>
+    </div>
+  </div>
+  <div class="bahnCards">
+    <div>
+      <span>BahnCard25</span>
+      <toggle-button [options]="discountComfortClasses" [(selectedOption)]="bahnCard25"/>
+    </div>
+    <div>
+      <span>BahnCard25 Business</span>
+      <toggle-button [options]="discountComfortClasses" [(selectedOption)]="bahnCard25Business"/>
+    </div>
+    <div>
+      <span>BahnCard50</span>
+      <toggle-button [options]="discountComfortClasses" [(selectedOption)]="bahnCard50"/>
+    </div>
+    <div>
+      <span>BahnCard50 Business</span>
+      <toggle-button [options]="discountComfortClasses" [(selectedOption)]="bahnCard50Business"/>
+    </div>
+    <div>
+      <span>BahnCard100</span>
+      <toggle-button [options]="discountComfortClasses" [(selectedOption)]="bahnCard100"/>
+    </div>
+    <div>
+      <span>CH-General-Abonnement</span>
+      <toggle-button [options]="discountComfortClasses" [(selectedOption)]="chGeneral"/>
+    </div>
+  </div>
+</app-dialog>
