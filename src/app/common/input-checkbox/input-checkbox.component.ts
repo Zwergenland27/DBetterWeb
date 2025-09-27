@@ -1,11 +1,11 @@
-import {Component, input} from '@angular/core';
+import {Component, effect, input, output} from '@angular/core';
 
 @Component({
   selector: 'input-checkbox',
   imports: [],
   template: `
     <div class="input">
-      <input [id]="inputId" type="checkbox"/>
+      <input [id]="inputId" type="checkbox" [checked]="checked()" (change)="statusChange()"/>
       <label [for]="inputId">{{label()}}</label>
     </div>
   `,
@@ -23,6 +23,21 @@ import {Component, input} from '@angular/core';
   `
 })
 export class InputCheckboxComponent {
+  checked = input.required<boolean>();
+  checkedChange = output<boolean>();
   label = input.required<string>();
   inputId = 'input-' + crypto.randomUUID();
+
+  currentlyChecked = false;
+
+  constructor() {
+    effect(() => {
+      this.currentlyChecked = this.checked();
+    });
+  }
+
+  statusChange() {
+    this.currentlyChecked = !this.currentlyChecked;
+    this.checkedChange.emit(this.currentlyChecked);
+  }
 }
