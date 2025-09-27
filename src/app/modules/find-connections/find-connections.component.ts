@@ -14,6 +14,7 @@ import { DatePipe } from '@angular/common';
 import {RouteOptionsData} from './components/route-options/route-options-data';
 import {TimeOptionsData} from './components/time-options/time-options-data';
 import {ComfortClass} from '../../common/contracts/dtos/comfort-class';
+import {PassengerData} from './components/passenger-options/passenger-data';
 
 @Component({
   selector: 'app-find-connections',
@@ -68,6 +69,11 @@ export class FindConnectionsComponent {
 
   timeChanged(options: TimeOptionsData){
     this.connectionOptions.time = options;
+    this.connectionService.storeConnectionsData(this.connectionOptions);
+  }
+
+  passengersChanged(passengers: PassengerData[]){
+    this.connectionOptions.passengers = passengers;
     this.connectionService.storeConnectionsData(this.connectionOptions);
   }
 
@@ -145,7 +151,7 @@ export class FindConnectionsComponent {
     this.connectionService.createRequest({
       departureTime: options.time.type === 'departure' ? options.time.timestamp.toISOString() : undefined,
       arrivalTime: options.time.type === 'arrival' ? options.time.timestamp.toISOString() : undefined,
-      passengers: [],
+      passengers: options.passengers,
       route: {
         originStationId: options.route.originStation.id,
         meansOfTransportFirstSection: options.route.meansOfTransportFirstSection,

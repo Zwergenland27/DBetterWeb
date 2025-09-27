@@ -50,7 +50,8 @@ export class ConnectionService {
       time: {
         type: 'departure',
         timestamp: new Date(),
-      }
+      },
+      passengers: []
     }
   }
 
