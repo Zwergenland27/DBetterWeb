@@ -1,4 +1,4 @@
-import {booleanAttribute, Component, effect, input, OnInit, output, ViewChild} from '@angular/core';
+import {booleanAttribute, Component, effect, input, output, ViewChild} from '@angular/core';
 import {InputTextComponent} from '../input-text/input-text.component';
 import {debounceTime, Observable, Subject, switchMap} from 'rxjs';
 
@@ -10,7 +10,7 @@ import {debounceTime, Observable, Subject, switchMap} from 'rxjs';
   templateUrl: './autocomplete-input-text.component.html',
   styleUrl: './autocomplete-input-text.component.scss'
 })
-export class AutocompleteInputTextComponent implements OnInit {
+export class AutocompleteInputTextComponent {
   @ViewChild('input') inputText!: InputTextComponent;
 
   icon = input<string>();
@@ -38,16 +38,18 @@ export class AutocompleteInputTextComponent implements OnInit {
 
   _closing = false;
 
-  ngOnInit() {
-    this.value = this.default().value;
-    this._selectedId = this.default().id;
-    this.inputSubject
-      .pipe(
-        debounceTime(this.debounceTimeMs()),
-        switchMap(value => this.autocompleteFunction()(value))
-      ).subscribe(suggestions => {
-      this.suggestions = suggestions
-    })
+  constructor() {
+    effect(() => {
+      this.value = this.default().value;
+      this._selectedId = this.default().id;
+      this.inputSubject
+        .pipe(
+          debounceTime(this.debounceTimeMs()),
+          switchMap(value => this.autocompleteFunction()(value))
+        ).subscribe(suggestions => {
+        this.suggestions = suggestions
+      });
+    });
   }
 
   close(event: FocusEvent){
