@@ -40,15 +40,18 @@ export class AutocompleteInputTextComponent {
 
   constructor() {
     effect(() => {
+      if(this.value === this.default().value && this._selectedId === this.default().id){
+        return;
+      }
       this.value = this.default().value;
       this._selectedId = this.default().id;
-      this.inputSubject
-        .pipe(
-          debounceTime(this.debounceTimeMs()),
-          switchMap(value => this.autocompleteFunction()(value))
-        ).subscribe(suggestions => {
-        this.suggestions = suggestions
-      });
+    });
+    this.inputSubject
+      .pipe(
+        debounceTime(this.debounceTimeMs()),
+        switchMap(value => this.autocompleteFunction()(value))
+      ).subscribe(suggestions => {
+      this.suggestions = suggestions
     });
   }
 
