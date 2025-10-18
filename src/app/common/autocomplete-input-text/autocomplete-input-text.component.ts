@@ -25,7 +25,7 @@ export class AutocompleteInputTextComponent {
   selectAllOnFocus = input(false, {transform: booleanAttribute});
 
   default = input<{id: string | undefined, value:string}>({id: undefined, value: ''});
-  debounceTimeMs = input<number>(0);
+  debounceTimeMs = input<number>(300);
   autocompleteFunction = input.required<(value: string) => Observable<{id: string, value: string}[]>>();
   mustUseSuggestion = input(false, {transform: booleanAttribute});
   valueChange = output<{id: string | undefined, value:string, valid:boolean}>();
