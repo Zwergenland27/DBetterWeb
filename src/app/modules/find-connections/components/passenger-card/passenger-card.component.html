@@ -1,0 +1,35 @@
+<div class="passenger-card" (click)="test(1)">
+  <div class="header">
+    <icon name="person"/>
+    <span>{{passenger().name}} ({{passenger().age}})</span>
+    <icon-button-mini icon="person_remove" (buttonClick)="test(2)//removed.emit()"/>
+  </div>
+  <div class="attributes">
+    @if(passenger().bikes > 0){
+      <icon name="directions_bike"/>
+    }
+    @if(passenger().dogs > 0){
+      <icon name="pets"/>
+    }
+    @if(passenger().bahnCard25 === SelectableDiscountClass.Second){
+      <span>BahnCard25</span>
+    }
+    @if(passenger().bahnCard25 === SelectableDiscountClass.First){
+      <span class="first">BahnCard25</span>
+    }
+
+    @if(passenger().bahnCard50 === SelectableDiscountClass.Second){
+      <span>BahnCard50</span>
+    }
+    @if(passenger().bahnCard50 === SelectableDiscountClass.First){
+      <span class="first">BahnCard50</span>
+    }
+
+    @if(passenger().bahnCard100 === SelectableDiscountClass.Second){
+      <span>BahnCard100</span>
+    }
+    @if(passenger().bahnCard100 === SelectableDiscountClass.First){
+      <span class="first">BahnCard100</span>
+    }
+  </div>
+</div>

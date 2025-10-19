@@ -7,14 +7,14 @@ import {InputNumberComponent} from '../../../../common/input-number/input-number
 import {ToggleButtonComponent} from '../../../../common/toggle-button/toggle-button.component';
 import {InputCheckboxComponent} from '../../../../common/input-checkbox/input-checkbox.component';
 import {DialogComponent} from '../../../../common/dialog/dialog.component';
-import {Discount, DiscountComfortClass, DiscountType, PassengerData} from '../passenger-options/passenger-data';
+import {
+  Discount,
+  DiscountComfortClass,
+  DiscountType,
+  PassengerOptionsData,
+  SelectableDiscountClass
+} from '../passenger-options/passenger-options-data';
 import {ComfortClass} from '../../../../common/contracts/dtos/comfort-class';
-
-enum SelectableDiscountClass{
-  None = 'None',
-  First = 'First',
-  Second = 'Second',
-}
 
 @Component({
   selector: 'passenger-dialog',
@@ -32,6 +32,8 @@ export class PassengerDialogComponent {
   dialog = viewChild.required<DialogComponent>('dialog');
 
   closed = output();
+
+  editMode = false;
 
   discountComfortClasses : {
     key: SelectableDiscountClass,
@@ -51,11 +53,11 @@ export class PassengerDialogComponent {
     }
   ]
 
-  name: string = '';
+  id = '';
 
-  user = {
+  user : { id: string | undefined, value: string, } = {
     id: undefined,
-    value: this.name
+    value: ''
   };
 
   age: number | undefined = undefined;
@@ -75,19 +77,48 @@ export class PassengerDialogComponent {
   bahnCard100 : SelectableDiscountClass = SelectableDiscountClass.None
   chGeneral : SelectableDiscountClass = SelectableDiscountClass.None
 
-  private passengerCompletedListener : (passenger: PassengerData) => void = () => {}
+  get dialogTitle(){
+    return this.editMode
+      ? $localize`:@@edit_passenger:Edit passenger`
+      : $localize`:@@add_passenger:Add passenger`
+  }
 
-  open(){
+  get primaryButtonText(){
+    return this.editMode
+      ? $localize`:@@apply:Apply`
+      : $localize`:@@add:Add`
+  }
+
+  private passengerCompletedListener : (passenger: PassengerOptionsData) => void = () => {}
+
+  open(passengerOptions: PassengerOptionsData | null = null){
+    if(passengerOptions){
+      this.id = passengerOptions.id;
+      this.user = {
+        id: undefined,
+        value: passengerOptions.name ?? ''
+      }
+      this.age = passengerOptions.age;
+
+      this.bikes = passengerOptions.bikes;
+      this.dogs = passengerOptions.dogs;
+
+      this.bahnCard25 = passengerOptions.bahnCard25;
+      this.bahnCard50 = passengerOptions.bahnCard50;
+      this.bahnCard100 = passengerOptions.bahnCard100;
+      this.editMode = true;
+    }else{
+      this.id = crypto.randomUUID()
+    }
     this.dialog().open();
   }
 
-  onCompleted(listener: (passenger: PassengerData) => void){
+  onCompleted(listener: (passenger: PassengerOptionsData) => void){
     this.passengerCompletedListener = listener;
   }
 
   selectName(result:{id: string | undefined, value: string}){
-    this.name = result.value;
-    this.user.value = this.name;
+    this.user = result;
   }
 
   selectAge(result:{value: number | undefined}){
@@ -106,7 +137,7 @@ export class PassengerDialogComponent {
     return from([]);
   }
 
-  add(){
+  primaryClicked(){
     if(!this.age){
       throw new Error("age is required");
     }
@@ -119,50 +150,19 @@ export class PassengerDialogComponent {
       throw new Error("dogs is required");
     }
 
-    const discounts : Discount[] = [];
-
-    if(this.bahnCard25 != SelectableDiscountClass.None){
-      discounts.push({
-        type: DiscountType.BahnCard25,
-        comfortClass: this.convertToComfortClass(this.bahnCard25)
-      })
-    }
-
-    if(this.bahnCard50 != SelectableDiscountClass.None){
-      discounts.push({
-        type: DiscountType.BahnCard50,
-        comfortClass: this.convertToComfortClass(this.bahnCard50)
-      })
-    }
-
-    if(this.bahnCard100 != SelectableDiscountClass.None){
-      discounts.push({
-        type: DiscountType.BahnCard100,
-        comfortClass: this.convertToComfortClass(this.bahnCard100)
-      })
-    }
-
-    const passenger : PassengerData = {
-      id: crypto.randomUUID(),
-      name: this.name,
+    const passenger : PassengerOptionsData = {
+      id: this.id,
+      userId: null,
+      name: this.user.value,
       age: this.age,
       bikes: this.bikes,
       dogs: this.dogs,
-      discounts: discounts
+      bahnCard25: this.bahnCard25,
+      bahnCard50: this.bahnCard50,
+      bahnCard100: this.bahnCard100,
     }
 
     this.passengerCompletedListener(passenger);
-  }
-
-  convertToComfortClass(discount: SelectableDiscountClass): DiscountComfortClass {
-    if(discount === SelectableDiscountClass.None){
-      throw new Error("Cannot convert from none to comfort class")
-    }
-
-    if(discount === SelectableDiscountClass.First){
-      return DiscountComfortClass.First;
-    }
-
-    return DiscountComfortClass.Second;
+    this.dialog().close();
   }
 }

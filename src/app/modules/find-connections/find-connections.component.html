@@ -13,7 +13,11 @@
         <time-options [timeOptions]="connectionOptions.time" (timeOptionsChange)="timeChanged($event)"/>
       </expansion-panel>
       <expansion-panel i18n-text="@@passengers" text="Passengers" [expanded]="true"  [invalid]="false">
-        <passenger-options [passengers]="connectionOptions.passengers" (passengersChange)="passengersChanged($event)"/>
+        <passenger-options
+          [passengers]="connectionOptions.passengers"
+          (passengersChange)="passengersChanged($event)"
+          [comfortClass]="connectionOptions.comfortClass"
+          (comfortClassChange)="comfortClassChanged($event)"/>
       </expansion-panel>
     </div>
     <div class="footer">
@@ -40,7 +44,7 @@
       @if (displayDate($index)) {
         <span class="date">{{connection.departureTime.planned | date: 'fullDate'}}</span>
       }
-      <connection-card [connection]="connection" [comfortClass]="comfortClass"/>
+      <connection-card [connection]="connection" [comfortClass]="connectionOptions.comfortClass"/>
     }
     @if (connections && connections.length > 0) {
       <floating-button [loading]="loadingLater" class="centered" small secondary icon="keyboard_arrow_down" i18n-text="@@later" text="later" (click)="loadLater()"/>

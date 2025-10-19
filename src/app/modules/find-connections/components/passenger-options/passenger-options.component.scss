@@ -1,0 +1,11 @@
+.options {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.passengers {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}

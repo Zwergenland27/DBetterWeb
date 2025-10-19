@@ -6,6 +6,7 @@ import {ConnectionRequestParameters} from './contracts/parameters/connection-req
 import {ConnectionSuggestions, ConnectionSuggestionsDto} from './contracts/dtos/connection-suggestions.dto';
 import { ConnectionsData } from './connections-data';
 import {getMeansOfTransportDefault} from './contracts/parameters/means-of-transport-parameters';
+import {ComfortClass} from '../../common/contracts/dtos/comfort-class';
 
 @Injectable({
   providedIn: 'root'
@@ -51,6 +52,7 @@ export class ConnectionService {
         type: 'departure',
         timestamp: new Date(),
       },
+      comfortClass: ComfortClass.Second,
       passengers: []
     }
   }

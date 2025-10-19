@@ -5,6 +5,11 @@ export interface ConnectionRequestParameters {
   departureTime: string | undefined;
   arrivalTime: string | undefined;
   passengers: PassengerParameter[];
-  comfortClass: 'Second';
+  comfortClass: ComfortClass;
   route: RouteParameters;
+}
+
+export enum ComfortClass {
+  First = 'First',
+  Second = 'Second',
 }

@@ -1,10 +1,11 @@
 <app-dialog
   #dialog
   icon="person_add"
-  dialogTitle="Add passenger"
+  [dialogTitle]="dialogTitle"
+  i18n-cancelButtonText="@@cancel"
   cancelButtonText="Cancel"
-  primaryButtonText="Add"
-  (primaryClicked)="add()">
+  [primaryButtonText]="primaryButtonText"
+  (primaryClicked)="primaryClicked()">
   <div class="personal-information">
     <autocomplete-input-text label="Name" icon="person" [default]="user" [autocompleteFunction]="autocomplete" (valueChange)="selectName($event)"/>
     <div class="age">

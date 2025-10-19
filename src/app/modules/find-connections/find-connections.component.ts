@@ -14,7 +14,12 @@ import { DatePipe } from '@angular/common';
 import {RouteOptionsData} from './components/route-options/route-options-data';
 import {TimeOptionsData} from './components/time-options/time-options-data';
 import {ComfortClass} from '../../common/contracts/dtos/comfort-class';
-import {PassengerData} from './components/passenger-options/passenger-data';
+import {
+  Discount,
+  DiscountType, mapToPassengerParameter,
+  PassengerOptionsData,
+  SelectableDiscountClass
+} from './components/passenger-options/passenger-options-data';
 
 @Component({
   selector: 'app-find-connections',
@@ -45,7 +50,6 @@ export class FindConnectionsComponent {
 
   connectionOptions: ConnectionsData;
   connections : Connection[] = [];
-  comfortClass = ComfortClass.Second;
 
   constructor(private connectionService: ConnectionService) {
     this.connectionOptions = connectionService.loadConnectionsData();
@@ -72,7 +76,7 @@ export class FindConnectionsComponent {
     this.connectionService.storeConnectionsData(this.connectionOptions);
   }
 
-  passengersChanged(passengers: PassengerData[]){
+  passengersChanged(passengers: PassengerOptionsData[]){
     this.connectionOptions.passengers = passengers;
     this.connectionService.storeConnectionsData(this.connectionOptions);
   }
@@ -151,7 +155,7 @@ export class FindConnectionsComponent {
     this.connectionService.createRequest({
       departureTime: options.time.type === 'departure' ? options.time.timestamp.toISOString() : undefined,
       arrivalTime: options.time.type === 'arrival' ? options.time.timestamp.toISOString() : undefined,
-      passengers: options.passengers,
+      passengers: options.passengers.map(mapToPassengerParameter),
       route: {
         originStationId: options.route.originStation.id,
         meansOfTransportFirstSection: options.route.meansOfTransportFirstSection,
@@ -161,7 +165,7 @@ export class FindConnectionsComponent {
         maxTransfers: options.route.maxTransfers!,
         minTransferTime: options.route.minTransferTime!,
       },
-      comfortClass: 'Second'
+      comfortClass: options.comfortClass
     })
       .subscribe(
         {
@@ -196,5 +200,10 @@ export class FindConnectionsComponent {
         this.loadingLater = false;
       }
     });
+  }
+
+  comfortClassChanged(comfortClass: ComfortClass) {
+    this.connectionOptions.comfortClass = comfortClass;
+    this.connectionService.storeConnectionsData(this.connectionOptions);
   }
 }

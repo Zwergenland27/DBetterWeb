@@ -1,2 +1,9 @@
-Coming soon
-<button (click)="openDialog()">Add</button>
+<div class="options">
+  <toggle-button [options]="comfortClassOptions" [selectedOption]="_comfortClass" (selectedOptionChange)="selectComfortClass($event)"/>
+  <floating-button small icon="person_add" i18n-text="@@add-passenger" text="Add passenger" (click)="openDialog()"/>
+</div>
+<div class="passengers">
+  @for(passenger of _passengers; track passenger.id){
+    <passenger-card [passenger]="passenger" (removed)="removePassenger(passenger.id)" (click)="editPassenger(passenger.id)"/>
+  }
+</div>

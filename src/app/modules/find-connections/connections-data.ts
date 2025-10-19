@@ -1,9 +1,11 @@
 import {RouteOptionsData} from './components/route-options/route-options-data';
 import {TimeOptionsData} from './components/time-options/time-options-data';
-import {PassengerData} from './components/passenger-options/passenger-data';
+import {PassengerOptionsData} from './components/passenger-options/passenger-options-data';
+import {ComfortClass} from './contracts/parameters/connection-request-parameters';
 
 export interface ConnectionsData {
   route: RouteOptionsData,
   time: TimeOptionsData,
-  passengers: PassengerData[]
+  comfortClass: ComfortClass,
+  passengers: PassengerOptionsData[]
 }
