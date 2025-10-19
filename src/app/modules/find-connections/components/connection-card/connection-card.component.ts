@@ -1,4 +1,13 @@
-import { Component, input } from '@angular/core';
+import {
+  AfterContentChecked,
+  AfterContentInit,
+  Component,
+  effect,
+  ElementRef,
+  input, NgZone,
+  viewChild,
+  ViewChild
+} from '@angular/core';
 import { Connection, ConnectionDto } from '../../contracts/dtos/connection';
 import { CurrencyPipe, DatePipe, NgClass } from '@angular/common';
 import {Segment, SegmentDto, TransferSegment, TransportSegment, WalkingSegment} from '../../contracts/dtos/segment';
@@ -22,11 +31,13 @@ import {connect} from 'rxjs';
   styleUrl: './connection-card.component.scss'
 })
 export class ConnectionCardComponent {
+  card = viewChild.required<ElementRef<HTMLDivElement>>("card")
+
   detailsOpened = false;
   connection = input.required<Connection>();
   comfortClass = input.required<ComfortClass>();
 
-  constructor(private datePipe: DatePipe) {
+  constructor(private ngZone: NgZone) {
   }
 
   isTransferSegment(segment: Segment) {
@@ -77,5 +88,16 @@ export class ConnectionCardComponent {
 
   toggleDetails(){
     this.detailsOpened = !this.detailsOpened;
+    if(!this.detailsOpened) return;
+
+    const sub = this.ngZone.onStable.subscribe(() => {
+      requestAnimationFrame(() => {
+        this.card().nativeElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      });
+      sub.unsubscribe();
+    })
   }
 }
