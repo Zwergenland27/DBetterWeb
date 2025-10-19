@@ -7,7 +7,7 @@ import {IconComponent} from '../icon/icon.component';
     IconComponent
   ],
   template: `
-    <button (click)="buttonClick.emit()">
+    <button (click)="buttonClicked($event)">
       <span></span>
       <icon [class.highlight]="highlight()" [name]="icon()"/>
     </button>
@@ -18,4 +18,9 @@ export class IconButtonMiniComponent {
   icon = input.required<string>();
   buttonClick = output();
   highlight = input(false, {transform: booleanAttribute});
+
+  buttonClicked(event: Event){
+    this.buttonClick.emit();
+    event.stopPropagation();
+  }
 }
