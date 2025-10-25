@@ -6,6 +6,7 @@ import {TravelTime} from '../../../../common/contracts/dtos/travel-time';
 export interface ConnectionDto {
   id: string;
   differentOrigin: boolean;
+  differentDestination: boolean;
   bahnDeUrl: string;
   demand: DemandDto;
   segments: SegmentDto[];
@@ -16,6 +17,7 @@ export class Connection{
   constructor(
     public id: string,
     public differentOrigin: boolean,
+    public differentDestination: boolean,
     public bahnDeUrl: string,
     public demand: Demand,
     public segments: Segment[],
@@ -26,6 +28,7 @@ export class Connection{
     return new Connection(
       dto.id,
       dto.differentOrigin,
+      dto.differentDestination,
       dto.bahnDeUrl,
       Demand.fromDto(dto.demand),
       dto.segments.map(Segment.fromDto),

@@ -34,6 +34,10 @@
     @if(connection().differentOrigin){
       <span class="differentOrigin" i18n="@@different_origin">from {{asTransportSegment(connection().segments[0]).stops[0].name}}</span>
     }
+
+    @if(connection().differentDestination){
+      <span class="differentOrigin" i18n="@@different_destination">only to {{asTransportSegment(connection().segments[connection().segments.length - 1]).stops[asTransportSegment(connection().segments[connection().segments.length - 1]).stops.length - 1].name}}</span>
+    }
     <div class="segments">
       @for(segment of connection().segments; track $index){
         @if (isTransferSegment(segment)) {
