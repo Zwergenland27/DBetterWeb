@@ -46,7 +46,12 @@
             <span>{{(asTransportSegment(segment)).line}}</span>
             <div class="segment-icons">
               <icon [name]="asTransportSegment(segment).iconName"/>
-              <icon [ngClass]="asTransportSegment(segment).demand.secondClass" name="filled_group"/>
+              @if(comfortClass() == ComfortClass.First){
+                <icon [ngClass]="asTransportSegment(segment).demand.firstClass" name="filled_group"/>
+              }
+              @if(comfortClass() == ComfortClass.Second){
+                <icon [ngClass]="asTransportSegment(segment).demand.secondClass" name="filled_group"/>
+              }
             </div>
           </div>
         }

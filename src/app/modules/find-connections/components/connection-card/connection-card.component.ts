@@ -16,6 +16,7 @@ import {FloatingButtonComponent} from '../../../../common/floating-button/floati
 import {SegmentComponent} from '../segment/segment.component';
 import {ComfortClass} from '../../../../common/contracts/dtos/comfort-class';
 import {connect} from 'rxjs';
+import {DemandDto, DemandStatus} from '../../../../common/contracts/dtos/demand';
 
 @Component({
   selector: 'connection-card',
@@ -100,4 +101,6 @@ export class ConnectionCardComponent {
       sub.unsubscribe();
     })
   }
+
+  protected readonly ComfortClass = ComfortClass;
 }
