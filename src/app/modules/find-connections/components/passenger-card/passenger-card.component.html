@@ -18,6 +18,13 @@
       <span class="first">BahnCard25</span>
     }
 
+    @if(passenger().bahnCard25Business === SelectableDiscountClass.Second){
+      <span>BahnCard25Business</span>
+    }
+    @if(passenger().bahnCard25Business === SelectableDiscountClass.First){
+      <span class="first">BahnCard25Business</span>
+    }
+
     @if(passenger().bahnCard50 === SelectableDiscountClass.Second){
       <span>BahnCard50</span>
     }
@@ -25,11 +32,45 @@
       <span class="first">BahnCard50</span>
     }
 
+    @if(passenger().bahnCard50Business === SelectableDiscountClass.Second){
+      <span>BahnCard25Business</span>
+    }
+    @if(passenger().bahnCard50Business === SelectableDiscountClass.First){
+      <span class="first">BahnCard25Business</span>
+    }
+
     @if(passenger().bahnCard100 === SelectableDiscountClass.Second){
       <span>BahnCard100</span>
     }
     @if(passenger().bahnCard100 === SelectableDiscountClass.First){
       <span class="first">BahnCard100</span>
+    }
+
+    @if(passenger().chGeneralAbonnement === SelectableDiscountClass.Second){
+      <span>CH-General-Abonnement</span>
+    }
+    @if(passenger().chGeneralAbonnement === SelectableDiscountClass.First){
+      <span class="first">CH-General-Abonnement</span>
+    }
+
+    @if(passenger().ownsDeutschlandTicket){
+      <span>DeutschlandTicket</span>
+    }
+
+    @if(passenger().ownsHalbTaxAbo){
+      <span>HalbtaxAbo</span>
+    }
+
+    @if(passenger().ownsKlimaTicketAu){
+      <span>Klimaticket Österreich</span>
+    }
+
+    @if(passenger().ownsNl40){
+      <span>NL-40%</span>
+    }
+
+    @if(passenger().ownsVorteilsCardAu){
+      <span>Vorteilscard Österreich</span>
     }
   </div>
 </div>

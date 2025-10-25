@@ -8,8 +8,16 @@ export interface PassengerOptionsData {
   bikes: number;
   dogs: number;
   bahnCard25: SelectableDiscountClass;
+  bahnCard25Business: SelectableDiscountClass;
   bahnCard50: SelectableDiscountClass;
+  bahnCard50Business: SelectableDiscountClass;
   bahnCard100: SelectableDiscountClass;
+  chGeneralAbonnement: SelectableDiscountClass;
+  ownsHalbTaxAbo: boolean,
+  ownsVorteilsCardAu: boolean,
+  ownsNl40: boolean,
+  ownsKlimaTicketAu: boolean,
+  ownsDeutschlandTicket: boolean
 }
 
 export interface Discount {
@@ -19,8 +27,16 @@ export interface Discount {
 
 export enum DiscountType {
   BahnCard25 = 'BahnCard25',
+  BahnCard25Business = 'BahnCard25Business',
   BahnCard50 = 'BahnCard50 ',
+  BahnCard50Business = 'BahnCard50Business',
   BahnCard100 = 'BahnCard100',
+  CHGeneralAbonnement = 'CHGeneralAbonnement',
+  HalbtaxAbo = 'HalbtaxAbo',
+  VorteilsCardAu = 'VorteilsCardAu',
+  Nl40 = 'Nl40',
+  KlimaTicketAu = 'KlimaTicketAu',
+  DeutschlandTicket = 'DeutschlandTicket'
 }
 
 export enum DiscountComfortClass {
@@ -42,21 +58,77 @@ export function mapToPassengerParameter(passenger: PassengerOptionsData) : Passe
     discounts.push({
       type: DiscountType.BahnCard25,
       comfortClass: convertToComfortClass(passenger.bahnCard25)
-    })
+    });
+  }
+
+  if(passenger.bahnCard25Business != SelectableDiscountClass.None){
+    discounts.push({
+      type: DiscountType.BahnCard25Business,
+      comfortClass: convertToComfortClass(passenger.bahnCard25Business)
+    });
   }
 
   if(passenger.bahnCard50 != SelectableDiscountClass.None){
     discounts.push({
       type: DiscountType.BahnCard50,
       comfortClass: convertToComfortClass(passenger.bahnCard50)
-    })
+    });
+  }
+
+  if(passenger.bahnCard50Business != SelectableDiscountClass.None){
+    discounts.push({
+      type: DiscountType.BahnCard50Business,
+      comfortClass: convertToComfortClass(passenger.bahnCard50Business)
+    });
   }
 
   if(passenger.bahnCard100 != SelectableDiscountClass.None){
     discounts.push({
       type: DiscountType.BahnCard100,
       comfortClass: convertToComfortClass(passenger.bahnCard100)
-    })
+    });
+  }
+
+  if(passenger.chGeneralAbonnement != SelectableDiscountClass.None){
+    discounts.push({
+      type: DiscountType.CHGeneralAbonnement,
+      comfortClass: convertToComfortClass(passenger.chGeneralAbonnement)
+    });
+  }
+
+  if(passenger.ownsHalbTaxAbo){
+    discounts.push({
+      type: DiscountType.HalbtaxAbo,
+      comfortClass: DiscountComfortClass.Unknown
+    });
+  }
+
+  if(passenger.ownsVorteilsCardAu){
+    discounts.push({
+      type: DiscountType.VorteilsCardAu,
+      comfortClass: DiscountComfortClass.Unknown
+    });
+  }
+
+  if(passenger.ownsNl40){
+    discounts.push({
+      type: DiscountType.Nl40,
+      comfortClass: DiscountComfortClass.Unknown
+    });
+  }
+
+  if(passenger.ownsKlimaTicketAu){
+    discounts.push({
+      type: DiscountType.KlimaTicketAu,
+      comfortClass: DiscountComfortClass.Second
+    });
+  }
+
+  if(passenger.ownsDeutschlandTicket){
+    discounts.push({
+      type: DiscountType.DeutschlandTicket,
+      comfortClass: DiscountComfortClass.Second
+    });
   }
 
   return {

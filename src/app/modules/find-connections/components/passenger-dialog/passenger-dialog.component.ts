@@ -64,18 +64,18 @@ export class PassengerDialogComponent {
   bikes: number | undefined = 0;
   dogs: number | undefined = 0;
 
-  hasDeutschlandTicket = false;
-  hasHalbtexAbo = false;
-  hasKlimaTicket = false;
-  hasNl40 = false;
-  hasVorteilscard = false;
+  ownsDeutschlandTicket = false;
+  ownsHalbTaxAbo = false;
+  ownsKlimaTicketAu = false;
+  ownsNl40 = false;
+  ownsVorteilscardAu = false;
 
   bahnCard25 : SelectableDiscountClass = SelectableDiscountClass.None;
   bahnCard25Business : SelectableDiscountClass = SelectableDiscountClass.None;
   bahnCard50 : SelectableDiscountClass = SelectableDiscountClass.None;
   bahnCard50Business : SelectableDiscountClass = SelectableDiscountClass.None
   bahnCard100 : SelectableDiscountClass = SelectableDiscountClass.None
-  chGeneral : SelectableDiscountClass = SelectableDiscountClass.None
+  chGeneralAbonnement : SelectableDiscountClass = SelectableDiscountClass.None
 
   get dialogTitle(){
     return this.editMode
@@ -104,8 +104,17 @@ export class PassengerDialogComponent {
       this.dogs = passengerOptions.dogs;
 
       this.bahnCard25 = passengerOptions.bahnCard25;
+      this.bahnCard25Business = passengerOptions.bahnCard25Business
       this.bahnCard50 = passengerOptions.bahnCard50;
+      this.bahnCard50Business = passengerOptions.bahnCard50Business
       this.bahnCard100 = passengerOptions.bahnCard100;
+      this.chGeneralAbonnement = passengerOptions.chGeneralAbonnement;
+      this.ownsDeutschlandTicket = passengerOptions.ownsDeutschlandTicket;
+      this.ownsHalbTaxAbo = passengerOptions.ownsHalbTaxAbo;
+      this.ownsKlimaTicketAu = passengerOptions.ownsKlimaTicketAu;
+      this.ownsNl40 = passengerOptions.ownsNl40;
+      this.ownsVorteilscardAu = passengerOptions.ownsVorteilsCardAu
+
       this.editMode = true;
     }else{
       this.id = crypto.randomUUID()
@@ -158,8 +167,16 @@ export class PassengerDialogComponent {
       bikes: this.bikes,
       dogs: this.dogs,
       bahnCard25: this.bahnCard25,
+      bahnCard25Business: this.bahnCard25Business,
       bahnCard50: this.bahnCard50,
+      bahnCard50Business: this.bahnCard50Business,
       bahnCard100: this.bahnCard100,
+      chGeneralAbonnement: this.chGeneralAbonnement,
+      ownsHalbTaxAbo: this.ownsHalbTaxAbo,
+      ownsVorteilsCardAu: this.ownsVorteilscardAu,
+      ownsNl40: this.ownsNl40,
+      ownsKlimaTicketAu: this.ownsKlimaTicketAu,
+      ownsDeutschlandTicket: this.ownsDeutschlandTicket
     }
 
     this.passengerCompletedListener(passenger);

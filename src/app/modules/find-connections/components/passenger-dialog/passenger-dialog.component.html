@@ -20,12 +20,12 @@
       <input-number [value]="dogs" (valueChange)="selectDogs($event)" label="Dogs" icon="pets" required/>
     </div>
     <div class="other-discounts">
-      <input-checkbox label="Deutschlandticket" [(checked)]="hasDeutschlandTicket"/>
+      <input-checkbox label="Deutschlandticket" [(checked)]="ownsDeutschlandTicket"/>
       <input-checkbox class="distance" label="hidden" [checked]="false"/>
-      <input-checkbox label="HalbtaxAbo" [(checked)]="hasHalbtexAbo"/>
-      <input-checkbox label="Klimaticket Österreich" [(checked)]="hasKlimaTicket"/>
-      <input-checkbox label="NL-40%" [(checked)]="hasNl40"/>
-      <input-checkbox label="Vorteilscard Österreich" [(checked)]="hasVorteilscard"/>
+      <input-checkbox label="HalbtaxAbo" [(checked)]="ownsHalbTaxAbo"/>
+      <input-checkbox label="Klimaticket Österreich" [(checked)]="ownsKlimaTicketAu"/>
+      <input-checkbox label="NL-40%" [(checked)]="ownsNl40"/>
+      <input-checkbox label="Vorteilscard Österreich" [(checked)]="ownsVorteilscardAu"/>
     </div>
   </div>
   <div class="bahnCards">
@@ -51,7 +51,7 @@
     </div>
     <div>
       <span>CH-General-Abonnement</span>
-      <toggle-button [options]="discountComfortClasses" [(selectedOption)]="chGeneral"/>
+      <toggle-button [options]="discountComfortClasses" [(selectedOption)]="chGeneralAbonnement"/>
     </div>
   </div>
 </app-dialog>
