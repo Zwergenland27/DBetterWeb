@@ -50,4 +50,9 @@ export class Stop {
       dto.stopIndex
     );
   }
+  
+  public get nameWithRil100() {
+    if(!this.ril100) return this.name;
+    return `${this.name} [${this.ril100}]`;
+  }
 }

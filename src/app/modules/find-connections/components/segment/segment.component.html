@@ -37,7 +37,7 @@
         </div>
         <div class="information">
           <div class="station">
-            <span class="name">{{stop.name}}</span>
+            <span class="name">{{stop.nameWithRil100}}</span>
             @if (stop.platform) {
               <div class="platform" [class.changed]="stop.platform.real">
                 <span>{{stop.platform.shortType}}</span>

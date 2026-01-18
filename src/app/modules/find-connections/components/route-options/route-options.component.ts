@@ -57,7 +57,7 @@ export class RouteOptionsComponent {
       return of([])
     }
     return this.connectionService.findStations(value).pipe(map(stations => {
-      return stations.map(station => ({id: station.id, value: station.name}));
+      return stations.map(station => ({id: station.id, value: station.nameWithRil100}));
     }));
   }
 

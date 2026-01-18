@@ -18,7 +18,9 @@ export class ConnectionService {
   constructor(private http: HttpClient) { }
 
   findStations(query: string) : Observable<Station[]> {
-    return this.http.get<StationDto[]>(`stations?query=${query}`);
+    return this.http.get<StationDto[]>(`stations?query=${query}`).pipe(
+      map(stations => stations.map(Station.fromDto))
+    );
   }
 
   storeRequest(id: string, request: ConnectionRequest){
