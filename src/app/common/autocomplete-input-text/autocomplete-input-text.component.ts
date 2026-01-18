@@ -37,15 +37,21 @@ export class AutocompleteInputTextComponent {
   suggestions: {id: string, value: string}[] = [];
 
   _closing = false;
+  _ignoreDefault = false;
 
   constructor() {
-    effect(() => {
+    const effectRef = effect(() => {
+      effectRef.destroy();
+      if(this._ignoreDefault){
+        this._ignoreDefault = true;
+        return;
+      }
       if(this.value === this.default().value && this._selectedId === this.default().id){
         return;
       }
       this.value = this.default().value;
       this._selectedId = this.default().id;
-    });
+    }, {manualCleanup: true});
     this.inputSubject
       .pipe(
         debounceTime(this.debounceTimeMs()),
