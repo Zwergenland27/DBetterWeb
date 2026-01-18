@@ -28,7 +28,7 @@ export class Segment {
       dto.operator,
       dto.destination,
       dto.transportCategory,
-      dto.replacementService === true,
+      dto.productClass,
       dto.line,
       BikeCarriageInformation.fromDto(dto.bikeCarriage),
       CateringInformation.fromDto(dto.catering)
@@ -63,7 +63,7 @@ export interface TransportSegmentDto extends SegmentDto {
   operator: string | null;
   destination: string | null;
   transportCategory: TransportCategory;
-  replacementService: true | null;
+  productClass: string;
   line: string;
   bikeCarriage: BikeCarriageInformationDto;
   catering: CateringInformationDto;
@@ -90,7 +90,7 @@ export class TransportSegment {
     public operator: string | null,
     public destination: string | null,
     public transportCategory: TransportCategory,
-    public replacementService: boolean,
+    public productClass: string,
     public line: string,
     public bikeCarriage: BikeCarriageInformation,
     public catering: CateringInformation,

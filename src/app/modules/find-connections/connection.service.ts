@@ -3,16 +3,17 @@ import {HttpClient} from '@angular/common/http';
 import {Station, StationDto} from './contracts/dtos/station';
 import {map, Observable} from 'rxjs';
 import {ConnectionRequestParameters} from './contracts/parameters/connection-request-parameters';
-import {ConnectionSuggestions, ConnectionSuggestionsDto} from './contracts/dtos/connection-suggestions.dto';
-import { ConnectionsData } from './connections-data';
+import { ConnectionRequest } from './connection-request';
 import {getMeansOfTransportDefault} from './contracts/parameters/means-of-transport-parameters';
 import {ComfortClass} from '../../common/contracts/dtos/comfort-class';
+import {Connection, ConnectionDto} from './contracts/dtos/connection';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConnectionService {
-  private DATA_KEY = 'connectionsData';
+  private REQUEST_KEY = 'connectionRequest';
 
   constructor(private http: HttpClient) { }
 
@@ -20,12 +21,18 @@ export class ConnectionService {
     return this.http.get<StationDto[]>(`stations?query=${query}`);
   }
 
-  storeConnectionsData(connectionsData: ConnectionsData){
-    sessionStorage.setItem(this.DATA_KEY, JSON.stringify(connectionsData));
+  storeRequest(id: string, request: ConnectionRequest){
+
+    const storedRequest = {
+      id: id,
+      request: request
+    };
+
+    sessionStorage.setItem(this.REQUEST_KEY, JSON.stringify(storedRequest));
   }
 
-  loadConnectionsData(): ConnectionsData {
-    const storedJson = sessionStorage.getItem(this.DATA_KEY);
+  loadRequest(): {id: string, request: ConnectionRequest} {
+    const storedJson = sessionStorage.getItem(this.REQUEST_KEY);
     if(storedJson != null){
       return JSON.parse(storedJson,(key, value) => {
         // Erkennen, ob der Wert wie ein ISO-Datum aussieht
@@ -37,41 +44,44 @@ export class ConnectionService {
     }
 
     return {
-      route: {
-        originStation: undefined,
-        meansOfTransportFirstSection: getMeansOfTransportDefault(),
-        firstStopover: undefined,
-        secondStopover: undefined,
-        destinationStation: undefined,
-        maxTransfers: 10,
-        maxTransfersValid: true,
-        minTransferTime: 5,
-        minTransferTimeValid: true,
-      },
-      time: {
-        type: 'departure',
-        timestamp: new Date(),
-      },
-      comfortClass: ComfortClass.Second,
-      passengers: []
+      id: crypto.randomUUID(),
+      request: {
+        route: {
+          originStation: undefined,
+          meansOfTransportFirstSection: getMeansOfTransportDefault(),
+          firstStopover: undefined,
+          secondStopover: undefined,
+          destinationStation: undefined,
+          maxTransfers: 10,
+          maxTransfersValid: true,
+          minTransferTime: 5,
+          minTransferTimeValid: true,
+        },
+        time: {
+          type: 'departure',
+          timestamp: new Date(),
+        },
+        comfortClass: ComfortClass.Second,
+        passengers: []
+      }
     }
   }
 
-  getSuggestions(id: string, page: string | null): Observable<ConnectionSuggestions> {
-    if(page){
-      return this.http.get<ConnectionSuggestionsDto>(`connections/requests/${id}/suggestions?page=${page}`).pipe(
-        map(dto => ConnectionSuggestions.fromDto(dto))
-      );
+  getSuggestions(id: string, mode: 'earlier' | 'normal' | 'later'): Observable<Connection[]> {
+    let extension = "";
+    switch(mode){
+      case 'earlier': extension="/earlier"; break;
+      case 'later': extension="/later"; break;
     }
 
-    return this.http.get<ConnectionSuggestionsDto>(`connections/requests/${id}/suggestions`).pipe(
-        map(dto => ConnectionSuggestions.fromDto(dto))
-      );
+    return this.http.get<ConnectionDto[]>(`requests/${id}/suggestions${extension}`).pipe(
+      map(connections => connections.map(Connection.fromDto))
+    );
   }
 
-  createRequest(parameters: ConnectionRequestParameters): Observable<ConnectionSuggestions> {
-    return this.http.post<ConnectionSuggestionsDto>('connections/requests', parameters).pipe(
-        map(dto => ConnectionSuggestions.fromDto(dto))
+  upsertRequest(parameters: ConnectionRequestParameters, id: string): Observable<Connection[]> {
+    return this.http.put<ConnectionDto[]>(`requests/${id}`, parameters).pipe(
+        map(connections => connections.map(Connection.fromDto))
       );
   }
 }

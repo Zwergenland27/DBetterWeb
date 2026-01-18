@@ -5,7 +5,7 @@ import {TimeOptionsComponent} from './components/time-options/time-options.compo
 import {PassengerOptionsComponent} from './components/passenger-options/passenger-options.component';
 import {FloatingButtonComponent} from '../../common/floating-button/floating-button.component';
 import {IconComponent} from '../../common/icon/icon.component';
-import {ConnectionsData} from './connections-data';
+import {ConnectionRequest} from './connection-request';
 import {ConnectionService} from './connection.service';
 import {StopoverParameters} from './contracts/parameters/stopover-parameters';
 import {Connection} from './contracts/dtos/connection';
@@ -41,18 +41,19 @@ export class FindConnectionsComponent {
 
   editMode = true;
 
-  requestId = ''
   loadingEarlier = false;
-  pageEarlier: string | null = null;
   loading = false;
-  pageLater: string | null = null;
   loadingLater = false;
 
-  connectionOptions: ConnectionsData;
+  requestId: string;
+  connectionOptions: ConnectionRequest;
   connections : Connection[] = [];
 
   constructor(private connectionService: ConnectionService) {
-    this.connectionOptions = connectionService.loadConnectionsData();
+    const storedRequestObject = connectionService.loadRequest();
+    this.requestId = storedRequestObject.id;
+    this.connectionOptions = storedRequestObject.request;
+
     if(sessionStorage.getItem(this.REQUESTED_KEY) === "true"){
       this.startSearch();
     }
@@ -68,17 +69,17 @@ export class FindConnectionsComponent {
 
   routeChanged(options: RouteOptionsData){
     this.connectionOptions.route = options;
-    this.connectionService.storeConnectionsData(this.connectionOptions);
+    this.connectionService.storeRequest(this.requestId, this.connectionOptions);
   }
 
   timeChanged(options: TimeOptionsData){
     this.connectionOptions.time = options;
-    this.connectionService.storeConnectionsData(this.connectionOptions);
+    this.connectionService.storeRequest(this.requestId, this.connectionOptions);
   }
 
   passengersChanged(passengers: PassengerOptionsData[]){
     this.connectionOptions.passengers = passengers;
-    this.connectionService.storeConnectionsData(this.connectionOptions);
+    this.connectionService.storeRequest(this.requestId, this.connectionOptions);
   }
 
   displayDate(i: number){
@@ -93,12 +94,11 @@ export class FindConnectionsComponent {
     this.loadingEarlier = true;
     this.connectionService.getSuggestions(
       this.requestId,
-      this.pageEarlier,
+      'earlier'
     ).subscribe({
       next: value => {
         this.loadingEarlier = false;
-        this.pageEarlier = value.pageEarlier;
-        this.connections = value.connections.concat(this.connections);
+        this.connections = value.concat(this.connections);
       },
       error: error => {
         window.alert(error.message);
@@ -152,7 +152,7 @@ export class FindConnectionsComponent {
     }
 
     sessionStorage.setItem(this.REQUESTED_KEY, "true");
-    this.connectionService.createRequest({
+    this.connectionService.upsertRequest({
       departureTime: options.time.type === 'departure' ? options.time.timestamp.toISOString() : undefined,
       arrivalTime: options.time.type === 'arrival' ? options.time.timestamp.toISOString() : undefined,
       passengers: options.passengers.map(mapToPassengerParameter),
@@ -166,15 +166,12 @@ export class FindConnectionsComponent {
         minTransferTime: options.route.minTransferTime!,
       },
       comfortClass: options.comfortClass
-    })
+    }, this.requestId)
       .subscribe(
         {
           next: value => {
             this.loading = false;
-            this.requestId = value.requestId;
-            this.pageEarlier = value.pageEarlier;
-            this.connections = value.connections;
-            this.pageLater = value.pageLater;
+            this.connections = value;
           },
           error: error => {
             window.alert(error.message);
@@ -188,12 +185,11 @@ export class FindConnectionsComponent {
     this.loadingLater = true;
     this.connectionService.getSuggestions(
       this.requestId,
-      this.pageLater,
+      'later'
     ).subscribe({
       next: value => {
         this.loadingLater = false;
-        this.pageLater = value.pageLater;
-        this.connections = this.connections.concat(value.connections);
+        this.connections = this.connections.concat(value);
       },
       error: error => {
         window.alert(error.message);
@@ -204,6 +200,6 @@ export class FindConnectionsComponent {
 
   comfortClassChanged(comfortClass: ComfortClass) {
     this.connectionOptions.comfortClass = comfortClass;
-    this.connectionService.storeConnectionsData(this.connectionOptions);
+    this.connectionService.storeRequest(this.requestId, this.connectionOptions);
   }
 }

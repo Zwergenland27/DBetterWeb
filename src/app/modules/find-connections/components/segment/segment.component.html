@@ -58,7 +58,7 @@
               <div class="details">
                 <div class="line-infos">
                   <icon [name]="segment().iconName"/>
-                  <span>{{segment().line}}</span>
+                  <span>{{segment().productClass}} {{segment().line}}</span>
                   @if (segment().destination) {
                     <span i18n="@@to_destination">to {{segment().destination}}</span>
                   }
