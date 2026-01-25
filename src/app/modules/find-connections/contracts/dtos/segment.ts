@@ -5,6 +5,7 @@ import {
 import {CateringInformation, CateringInformationDto} from "../../../../common/contracts/dtos/catering-information.dto";
 import {Demand, DemandDto} from "../../../../common/contracts/dtos/demand";
 import {Stop, StopDto} from "./stop";
+import {PassengerInformation, PassengerInformationResponseDto} from './passengerInformationResponse';
 
 export interface SegmentDto {
   $type: 'transport' | 'transfer' | 'walking';
@@ -14,7 +15,7 @@ export class Segment {
   static fromDto(dto: SegmentDto): Segment {
     switch (dto.$type) {
       case 'transport': return Segment.fromTransportSegmentDto(dto as TransportSegmentDto);
-      case 'transfer': return Segment.fromTransferSegemntDto(dto as TransferSegmentDto);
+      case 'transfer': return Segment.fromTransferSegmentDto(dto as TransferSegmentDto);
       case 'walking': return Segment.fromWalkingSegmentDto(dto as WalkingSegmentDto);
       default: throw new Error(`Unknown segment type: ${dto.$type}`);
     }
@@ -22,20 +23,20 @@ export class Segment {
 
   private static fromTransportSegmentDto(dto: TransportSegmentDto): TransportSegment {
     return new TransportSegment(
-      dto.routeId,
+      dto.trainRunId,
       Demand.fromDto(dto.demand),
       dto.stops.map(Stop.fromDto),
       dto.operator,
       dto.destination,
       dto.transportCategory,
-      dto.productClass,
       dto.line,
       BikeCarriageInformation.fromDto(dto.bikeCarriage),
-      CateringInformation.fromDto(dto.catering)
+      CateringInformation.fromDto(dto.catering),
+      dto.passengerInformation.map(PassengerInformation.fromDto)
     );
   }
 
-  private static fromTransferSegemntDto(dto: TransferSegmentDto) : TransferSegment {
+  private static fromTransferSegmentDto(dto: TransferSegmentDto) : TransferSegment {
     return new TransferSegment();
   }
 
@@ -57,16 +58,16 @@ export class TransferSegment extends Segment {
 
 export interface TransportSegmentDto extends SegmentDto {
   $type: 'transport';
-  routeId: string;
+  trainRunId: string;
   demand: DemandDto;
   stops: StopDto[];
   operator: string | null;
   destination: string | null;
   transportCategory: TransportCategory;
-  productClass: string;
   line: string;
   bikeCarriage: BikeCarriageInformationDto;
   catering: CateringInformationDto;
+  passengerInformation: PassengerInformationResponseDto[];
 }
 
 export enum TransportCategory {
@@ -84,16 +85,16 @@ export enum TransportCategory {
 export class TransportSegment {
 
   constructor(
-    public routeId: string,
+    public trainRunId: string,
     public demand: Demand,
     public stops: Stop[],
     public operator: string | null,
     public destination: string | null,
     public transportCategory: TransportCategory,
-    public productClass: string,
     public line: string,
     public bikeCarriage: BikeCarriageInformation,
     public catering: CateringInformation,
+    public passengerInformation: PassengerInformation[]
   ) {
   }
 

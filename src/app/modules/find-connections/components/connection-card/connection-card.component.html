@@ -47,7 +47,7 @@
 
         @if (isTransportSegment(segment)) {
           <div class="segment" [style.flex-grow]="connection().calculateSegmentPercentage($index)">
-            <span>{{(asTransportSegment(segment)).productClass}} {{(asTransportSegment(segment)).line}}</span>
+            <span>{{(asTransportSegment(segment)).line}}</span>
             <div class="segment-icons">
               <icon [name]="asTransportSegment(segment).iconName"/>
               @if(comfortClass() == ComfortClass.First){

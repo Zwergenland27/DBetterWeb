@@ -58,7 +58,7 @@
               <div class="details">
                 <div class="line-infos">
                   <icon [name]="segment().iconName"/>
-                  <span>{{segment().productClass}} {{segment().line}}</span>
+                  <span>{{segment().line}}</span>
                   @if (segment().destination) {
                     <span i18n="@@to_destination">to {{segment().destination}}</span>
                   }
@@ -77,6 +77,11 @@
           </div>
         </div>
       </div>
+    }
+  </div>
+  <div class="infos">
+    @for(passengerInformation of segment().passengerInformation; track passengerInformation.message){
+      <span>{{passengerInformation.message}} : {{passengerInformation.type}}, {{passengerInformation.priority}}</span>
     }
   </div>
 </div>
