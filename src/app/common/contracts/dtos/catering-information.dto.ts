@@ -1,5 +1,5 @@
 export interface CateringInformationDto {
-  status: CateringType;
+  type: CateringType;
   fromStopIndex: number;
   toStopIndex: number;
 }
@@ -24,7 +24,7 @@ export class CateringInformation {
 
   static fromDto(dto: CateringInformationDto): CateringInformation {
     return new CateringInformation(
-      dto.status,
+      dto.type,
       dto.fromStopIndex,
       dto.toStopIndex,
     );

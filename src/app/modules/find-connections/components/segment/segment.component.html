@@ -80,6 +80,10 @@
     }
   </div>
   <div class="infos">
+    <floating-button
+      small secondary icon="open_in_new"
+      i18n-text="@@train-run-details" text="Train run details"
+      (click)="openTrainRunDetails()"/>
     @for(passengerInformation of segment().passengerInformation; track passengerInformation.message){
       <span>{{passengerInformation.message}} : {{passengerInformation.type}}, {{passengerInformation.priority}}</span>
     }

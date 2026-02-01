@@ -4,7 +4,7 @@ import {
   Component,
   effect,
   ElementRef,
-  input, NgZone,
+  input, NgZone, OnInit, output,
   viewChild,
   ViewChild
 } from '@angular/core';
@@ -17,6 +17,8 @@ import {SegmentComponent} from '../segment/segment.component';
 import {ComfortClass} from '../../../../common/contracts/dtos/comfort-class';
 import {connect} from 'rxjs';
 import {DemandDto, DemandStatus} from '../../../../common/contracts/dtos/demand';
+import {ConnectionService} from '../../connection.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'connection-card',
@@ -31,15 +33,66 @@ import {DemandDto, DemandStatus} from '../../../../common/contracts/dtos/demand'
   templateUrl: './connection-card.component.html',
   styleUrl: './connection-card.component.scss'
 })
-export class ConnectionCardComponent {
+export class ConnectionCardComponent implements OnInit {
   card = viewChild.required<ElementRef<HTMLDivElement>>("card")
 
   detailsOpened = false;
   connection = input.required<Connection>();
   comfortClass = input.required<ComfortClass>();
 
-  constructor(private ngZone: NgZone) {
+  arriveEarlierOnConnection = output<{
+    connectionId: string,
+    transferId: number,
+    result: (connectionId: string) => void}>();
+  departLaterOnConnection = output<{
+    connectionId: string,
+    transferId: number,
+    result: (connectionId: string) => void}>();
+
+  arriveEarlierLoadingIndex: number | null = null;
+  departLaterLoadingIndex: number | null = null;
+
+  arriveEarlierResults: {
+    connectionId: string,
+    transferId: number
+  }[] = [];
+
+  departLaterResults: {
+    connectionId: string,
+    transferId: number
+  }[] = [];
+
+  constructor(private ngZone: NgZone, private router: Router, private route: ActivatedRoute) {
   }
+
+  ngOnInit(): void {
+        this.route.queryParamMap.subscribe(params => {
+          const detailId = params.get("details")
+
+          if(detailId === null){
+            this.detailsOpened = false;
+            return;
+          }
+
+          if(detailId != this.connection().id && this.detailsOpened){
+            this.detailsOpened = false;
+            return;
+          }
+
+          if(detailId == this.connection().id && !this.detailsOpened){
+            this.detailsOpened = true;
+            const sub = this.ngZone.onStable.subscribe(() => {
+              requestAnimationFrame(() => {
+                this.card().nativeElement.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'start'
+                });
+              });
+              sub.unsubscribe();
+            })
+          }
+        });
+    }
 
   isTransferSegment(segment: Segment) {
     return segment instanceof TransferSegment;
@@ -59,6 +112,10 @@ export class ConnectionCardComponent {
 
   asTransportSegment(segment: Segment) {
     return segment as TransportSegment;
+  }
+
+  asTransferSegment(segment: Segment) {
+    return segment as TransferSegment;
   }
 
   get plannedTimeInformation(){
@@ -88,19 +145,93 @@ export class ConnectionCardComponent {
   }
 
   toggleDetails(){
-    this.detailsOpened = !this.detailsOpened;
-    if(!this.detailsOpened) return;
-
-    const sub = this.ngZone.onStable.subscribe(() => {
-      requestAnimationFrame(() => {
-        this.card().nativeElement.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
-      });
-      sub.unsubscribe();
-    })
+    if(!this.detailsOpened){
+      this.openConnectionDetails(this.connection().id);
+    }else{
+     this.closeConnectionDetails();
+    }
   }
 
   protected readonly ComfortClass = ComfortClass;
+
+  arriveEarlier(transferId: number) {
+    this.arriveEarlierLoadingIndex = transferId;
+    this.arriveEarlierOnConnection.emit({
+      connectionId: this.connection().id,
+      transferId: transferId,
+      result: (connectionId: string) => {
+        this.arriveEarlierResults.push({
+          transferId: transferId,
+          connectionId: connectionId
+        });
+        this.arriveEarlierLoadingIndex = null;
+      }
+    });
+  }
+
+  isArriveEarlierLoading(transferId: number){
+    return this.arriveEarlierLoadingIndex != null && this.arriveEarlierLoadingIndex == transferId;
+  }
+
+  departLater(transferId: number) {
+    this.departLaterLoadingIndex = transferId;
+    this.departLaterOnConnection.emit({
+      connectionId: this.connection().id,
+      transferId: transferId,
+      result: (connectionId: string) => {
+        this.departLaterResults.push({
+          transferId: transferId,
+          connectionId: connectionId
+        });
+        this.departLaterLoadingIndex = null;
+      }
+    });
+  }
+
+  isDepartLaterLoading(transferId: number){
+    return this.departLaterLoadingIndex != null && this.departLaterLoadingIndex == transferId;
+  }
+
+  isAnyArriveEarlierOrDepartLaterLoading(){
+    return this.arriveEarlierLoadingIndex != null || this.departLaterLoadingIndex != null;
+  }
+
+  hasArriveEarlierRequested(transferId: number){
+    return this.arriveEarlierResults.findIndex(r => r.transferId === transferId) >= 0;
+  }
+
+  hasDepartLaterRequested(transferId: number){
+    return this.departLaterResults.findIndex(r => r.transferId === transferId) >= 0;
+  }
+
+  gotoConnectionWithEarlierArrival(transferId: number){
+    const result = this.arriveEarlierResults.find(r => r.transferId === transferId);
+    if(!result) return;
+
+    this.openConnectionDetails(result.connectionId);
+  }
+
+  gotoConnectionWithLaterDeparture(transferId: number){
+    const result = this.departLaterResults.find(r => r.transferId === transferId);
+    if(!result) return;
+
+    this.openConnectionDetails(result.connectionId);
+  }
+
+  openConnectionDetails(connectionId: string){
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {details: connectionId},
+      queryParamsHandling: 'merge',
+      replaceUrl: true
+    });
+  }
+
+  closeConnectionDetails(){
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {details: null},
+      replaceUrl: true
+    });
+  }
 }

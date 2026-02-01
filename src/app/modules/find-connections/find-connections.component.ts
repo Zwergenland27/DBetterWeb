@@ -198,6 +198,24 @@ export class FindConnectionsComponent {
     });
   }
 
+  arriveEarlierOnConnection(params: {connectionId: string, transferId: number, result: (connectionId: string) => void}) {
+    this.connectionService.arriveEarlier(this.requestId, params.connectionId, params.transferId)
+      .subscribe(connection => {
+        const connectionIndex = this.connections.findIndex(c => c.departureTime.planned > connection.departureTime.planned);
+        this.connections.splice(connectionIndex, 0, connection);
+        params.result(connection.id);
+    });
+  }
+
+  departLaterOnConnection(params: {connectionId: string, transferId: number, result: (connectionId: string) => void}) {
+    this.connectionService.departLater(this.requestId, params.connectionId, params.transferId)
+      .subscribe(connection => {
+        const connectionIndex = this.connections.findIndex(c => c.departureTime.planned > connection.departureTime.planned);
+        this.connections.splice(connectionIndex, 0, connection);
+        params.result(connection.id);
+      });
+  }
+
   comfortClassChanged(comfortClass: ComfortClass) {
     this.connectionOptions.comfortClass = comfortClass;
     this.connectionService.storeRequest(this.requestId, this.connectionOptions);

@@ -92,7 +92,11 @@
         @if (isTransferSegment(segment)) {
           <div class="transfer">
             <div class="duration">
-              <icon name="airline_stops"/>
+              @if(connection().getTransferDuration($index).passed){
+                <icon name="no_transfer"/>
+              }@else{
+                <icon name="airline_stops"/>
+              }
               @if (connection().getTransferDuration($index).hours) {
                 <div>
                   <span>{{connection().getTransferDuration($index).hours}}</span>
@@ -105,18 +109,39 @@
               </div>
             </div>
             <div></div>
-            @if (isWalkingSegment(segment)) {
-              <div class="information">
-                <icon name="directions_walk"/>
-                <div>
-                  <span>{{asWalkingSegment(segment).minutes}}</span>
-                  <span i18n="@@minute_unit">min</span>
-                </div>
-                @if (asWalkingSegment(segment).distance) {
-                  <span>({{asWalkingSegment(segment).distance}}m)</span>
-                }
-              </div>
-            }
+            <div class="information">
+              @if (isWalkingSegment(segment)) {
+                  <icon name="directions_walk"/>
+                  <div>
+                    <span>{{asWalkingSegment(segment).minutes}}</span>
+                    <span i18n="@@minute_unit">min</span>
+                  </div>
+                  @if (asWalkingSegment(segment).distance) {
+                    <span>({{asWalkingSegment(segment).distance}}m)</span>
+                  }
+              }
+              @if(hasArriveEarlierRequested(asTransferSegment(segment).transferId)){
+                <floating-button small secondary text="Connection with earlier arrival" (click)="gotoConnectionWithEarlierArrival(asTransferSegment(segment).transferId)"/>
+              } @else {
+                <floating-button
+                  [loading]="isArriveEarlierLoading(asTransferSegment(segment).transferId)"
+                  [disabled]="isAnyArriveEarlierOrDepartLaterLoading()"
+                  small secondary
+                  text="Arrive earlier"
+                  (click)="arriveEarlier(asTransferSegment(segment).transferId)"/>
+              }
+
+              @if(hasDepartLaterRequested(asTransferSegment(segment).transferId)){
+                <floating-button small secondary text="Connection with later departure" (click)="gotoConnectionWithLaterDeparture(asTransferSegment(segment).transferId)"/>
+              } @else {
+                <floating-button
+                  [loading]="isDepartLaterLoading(asTransferSegment(segment).transferId)"
+                  [disabled]="isAnyArriveEarlierOrDepartLaterLoading()"
+                  small secondary
+                  text="Depart later"
+                  (click)="departLater(asTransferSegment(segment).transferId)"/>
+              }
+            </div>
           </div>
         }
         @if (isTransportSegment(segment)) {

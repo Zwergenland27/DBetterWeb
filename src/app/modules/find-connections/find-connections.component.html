@@ -44,7 +44,7 @@
       @if (displayDate($index)) {
         <span class="date">{{connection.departureTime.planned | date: 'fullDate'}}</span>
       }
-      <connection-card [connection]="connection" [comfortClass]="connectionOptions.comfortClass"/>
+      <connection-card [connection]="connection" [comfortClass]="connectionOptions.comfortClass" (arriveEarlierOnConnection)="arriveEarlierOnConnection($event)" (departLaterOnConnection)="departLaterOnConnection($event)"/>
     }
     @if (connections && connections.length > 0) {
       <floating-button [loading]="loadingLater" class="centered" small secondary icon="keyboard_arrow_down" i18n-text="@@later" text="later" (click)="loadLater()"/>

@@ -77,11 +77,17 @@ export class Connection{
     const arrival = lastStop.arrivalTime!.real ?? lastStop.arrivalTime!.planned;
     const departure = nextStop.departureTime!.real ?? nextStop.departureTime!.planned;
 
-    const milliseconds = departure.getTime() - arrival.getTime();
+    let milliseconds = departure.getTime() - arrival.getTime();
+    let passed = false;
+    if(milliseconds < 0){
+      milliseconds *= -1;
+      passed = true;
+    }
 
     const hours = Math.floor(milliseconds / (1000 * 60 * 60));
     const minutes = Math.floor((milliseconds % (1000 * 60 * 60)) / (60000));
     return {
+      passed: passed,
       hours: hours,
       minutes: minutes
     };

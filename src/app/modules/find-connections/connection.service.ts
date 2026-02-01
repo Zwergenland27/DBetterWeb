@@ -81,6 +81,18 @@ export class ConnectionService {
     );
   }
 
+  arriveEarlier(requestId: string, connectionId: string, transferIndex: number) : Observable<Connection> {
+    return this.http.get<ConnectionDto>(`requests/${requestId}/suggestions/${connectionId}/transfers/${transferIndex}/arriveEarlier`).pipe(
+      map(connection => Connection.fromDto(connection)),
+    );
+  }
+
+  departLater(requestId: string, connectionId: string, transferIndex: number) : Observable<Connection> {
+    return this.http.get<ConnectionDto>(`requests/${requestId}/suggestions/${connectionId}/transfers/${transferIndex}/departLater`).pipe(
+      map(connection => Connection.fromDto(connection)),
+    );
+  }
+
   upsertRequest(parameters: ConnectionRequestParameters, id: string): Observable<Connection[]> {
     return this.http.put<ConnectionDto[]>(`requests/${id}`, parameters).pipe(
         map(connections => connections.map(Connection.fromDto))

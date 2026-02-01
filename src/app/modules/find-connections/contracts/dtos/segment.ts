@@ -37,21 +37,24 @@ export class Segment {
   }
 
   private static fromTransferSegmentDto(dto: TransferSegmentDto) : TransferSegment {
-    return new TransferSegment();
+    return new TransferSegment(dto.transferId);
   }
 
 
   private static fromWalkingSegmentDto(dto: WalkingSegmentDto): WalkingSegment {
-    return new WalkingSegment(dto.distance, dto.walkDuration);
+    return new WalkingSegment(dto.transferId, dto.distance, dto.walkDuration);
   }
 }
 
 export interface TransferSegmentDto {
   $type: 'transfer' | 'walking';
+  transferId: number;
 }
 
 export class TransferSegment extends Segment {
-  constructor(){
+  constructor(
+    public transferId: number
+  ){
     super();
   }
 }
@@ -134,10 +137,11 @@ export interface WalkingSegmentDto extends TransferSegmentDto {
 
 export class WalkingSegment extends TransferSegment {
   constructor(
+    transferId: number,
     public distance: number,
     public walkDuration: number
   ) {
-    super();
+    super(transferId);
   }
 
   get minutes(){
