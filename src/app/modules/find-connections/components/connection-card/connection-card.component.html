@@ -121,23 +121,25 @@
                   }
               }
               @if(hasArriveEarlierRequested(asTransferSegment(segment).transferId)){
-                <floating-button small secondary text="Connection with earlier arrival" (click)="gotoConnectionWithEarlierArrival(asTransferSegment(segment).transferId)"/>
+                <floating-button small secondary i18n-text="@@connection_earlier_arrival" text="Connection with earlier arrival" (click)="gotoConnectionWithEarlierArrival(asTransferSegment(segment).transferId)"/>
               } @else {
                 <floating-button
                   [loading]="isArriveEarlierLoading(asTransferSegment(segment).transferId)"
                   [disabled]="isAnyArriveEarlierOrDepartLaterLoading()"
                   small secondary
+                  i18n-text="@@arrive_earlier"
                   text="Arrive earlier"
                   (click)="arriveEarlier(asTransferSegment(segment).transferId)"/>
               }
 
               @if(hasDepartLaterRequested(asTransferSegment(segment).transferId)){
-                <floating-button small secondary text="Connection with later departure" (click)="gotoConnectionWithLaterDeparture(asTransferSegment(segment).transferId)"/>
+                <floating-button small secondary i18n-text="@@connection_later_departure" text="Connection with later departure" (click)="gotoConnectionWithLaterDeparture(asTransferSegment(segment).transferId)"/>
               } @else {
                 <floating-button
                   [loading]="isDepartLaterLoading(asTransferSegment(segment).transferId)"
                   [disabled]="isAnyArriveEarlierOrDepartLaterLoading()"
                   small secondary
+                  i18n-text="@@depart_later"
                   text="Depart later"
                   (click)="departLater(asTransferSegment(segment).transferId)"/>
               }
