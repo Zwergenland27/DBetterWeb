@@ -16,15 +16,15 @@ button {
     box-shadow: var(--hover-shadow);
   }
 
+  &.secondary {
+    color: var(--on-secondary-container);
+    background-color: var(--secondary-container);
+  }
+
   &:disabled {
     cursor: unset;
     color: color-mix(in srgb, var(--on-surface-variant) 38%, transparent);
     background-color: color-mix(in srgb, var(--on-surface-variant) 12%, transparent);
-  }
-
-  &.secondary {
-    color: var(--on-secondary-container);
-    background-color: var(--secondary-container);
   }
 
   &.small {
