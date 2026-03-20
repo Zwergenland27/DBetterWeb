@@ -1,0 +1,30 @@
+<div class="input">
+  <div class="input-number" [class.icon]="icon()" [class.button]="buttonIcon()">
+    @if (icon()) {
+      <icon [name]="icon()!" class="prefix"/>
+    }
+    <input type="text"
+      #input
+      inputmode="numeric"
+      [id]="inputId"
+      (beforeinput)="onInput($event)"
+      [ngModel]="textValue(_value)"
+      (ngModelChange)="currentValueChange($event)"
+      (focus)="onFocus(input)"
+           [placeholder]="hint()"
+           [class.hint]="hint()"
+      [class.invalid]="!isValid"
+      (blur)="onBlur()"/>
+    <label [for]="inputId" [class.required]="required()">{{ label() }}</label>
+    @if (buttonIcon()) {
+      <icon-button-mini class="suffix" [icon]="buttonIcon()!" (buttonClick)="buttonClick.emit()"/>
+    }
+  </div>
+  @if (!hideErrors()) {
+    <div class="input-errors">
+      @for(error of errors; track error.code){
+        <span>{{error.message}}</span>
+      }
+    </div>
+  }
+</div>

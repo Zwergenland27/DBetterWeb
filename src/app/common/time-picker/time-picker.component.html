@@ -1,0 +1,25 @@
+<div #overlay class="overlay" (click)="overlayClick($event)">
+  <div #dialog [style.left]="position.x + 'px'" [style.top]="position.y + 'px'" class="timepicker-dialog">
+    <div class="scrollable">
+      @for(hour of hours; track $index){
+        <button #hour
+          [class.selected]="isHourSelected(hour)"
+          (click)="selectHour(hour)">
+          <span></span>
+          {{hour.toString().padStart(2, '0')}}
+        </button>
+      }
+    </div>
+    <div class="scrollable">
+      @for(minute of minutes; track $index){
+        <button
+          #minute
+          [class.selected]="isMinuteSelected(minute)"
+          (click)="selectMinute(minute)">
+          <span></span>
+          {{minute.toString().padStart(2, '0')}}
+        </button>
+      }
+    </div>
+  </div>
+</div>

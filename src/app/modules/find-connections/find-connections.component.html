@@ -1,0 +1,53 @@
+<div class="find-connections">
+  <div class="options" [class.hidden]="!editMode">
+    <div class="header">
+      <icon name="tune"/>
+      <span i18n="@@connection-options-title">Connection options</span>
+      <floating-button icon="close" small secondary (click)="close()"/>
+    </div>
+    <div class="panels">
+      <expansion-panel i18n-text="@@route" text="Route" [expanded]="true"  [invalid]="false">
+        <route-options [routeOptions]="connectionOptions.route" (routeOptionsChange)="routeChanged($event)"/>
+      </expansion-panel>
+      <expansion-panel i18n-text="@@time" text="Time" [expanded]="true"  [invalid]="false">
+        <time-options [timeOptions]="connectionOptions.time" (timeOptionsChange)="timeChanged($event)"/>
+      </expansion-panel>
+      <expansion-panel i18n-text="@@passengers" text="Passengers" [expanded]="true"  [invalid]="false">
+        <passenger-options
+          [passengers]="connectionOptions.passengers"
+          (passengersChange)="passengersChanged($event)"
+          [comfortClass]="connectionOptions.comfortClass"
+          (comfortClassChange)="comfortClassChanged($event)"/>
+      </expansion-panel>
+    </div>
+    <div class="footer">
+      <floating-button [loading]="loading" icon="search" i18n-text="@@button-search" text="Search" (click)="startSearch()"/>
+    </div>
+  </div>
+  <div class="options-opener" (click)="open()" [class.hidden]="editMode">
+    <icon class="desktop" name="chevron_right"/>
+    <icon class="mobile" name="keyboard_arrow_down"/>
+    <icon name="tune"/>
+    <icon class="desktop" name="chevron_right"/>
+    <icon class="mobile" name="keyboard_arrow_down"/>
+  </div>
+  <div class="suggestions" [class.expanded]="!editMode">
+    @if (connections && connections.length > 0) {
+      <floating-button [loading]="loadingEarlier" class="centered" small secondary icon="keyboard_arrow_up" i18n-text="@@earlier" text="earlier" (click)="loadEarlier()"/>
+    }
+    @if (loading) {
+      <div class="spinner">
+        <div></div>
+      </div>
+    }
+    @for(connection of connections; track connection.id;){
+      @if (displayDate($index)) {
+        <span class="date">{{connection.departureTime.planned | date: 'fullDate'}}</span>
+      }
+      <connection-card [connection]="connection" [comfortClass]="connectionOptions.comfortClass" (arriveEarlierOnConnection)="arriveEarlierOnConnection($event)" (departLaterOnConnection)="departLaterOnConnection($event)"/>
+    }
+    @if (connections && connections.length > 0) {
+      <floating-button [loading]="loadingLater" class="centered" small secondary icon="keyboard_arrow_down" i18n-text="@@later" text="later" (click)="loadLater()"/>
+    }
+  </div>
+</div>

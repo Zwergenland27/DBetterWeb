@@ -1,0 +1,44 @@
+<div class="input">
+  <div class="input-text" [class.icon]="icon()" [class.button]="buttonIcon()">
+    @if (icon()) {
+      <icon [name]="icon()!" class="prefix"/>
+    }
+    @if (keyboardType() === 'text') {
+      <input type="text"
+        #input
+        inputmode="text"
+        [id]="inputId"
+        [ngModel]="_value"
+        (ngModelChange)="currentValueChange($event)"
+        [placeholder]="hint()"
+        [class.hint]="hint()"
+        (focus)="onFocus(input)"
+        [class.invalid]="!isValid"
+        (blur)="validate()"/>
+    }
+    @if (keyboardType() === 'email') {
+      <input type="text"
+        #input
+        inputmode="email"
+        [id]="inputId"
+        [ngModel]="_value"
+        (ngModelChange)="currentValueChange($event)"
+        [placeholder]="hint()"
+        [class.hint]="hint()"
+        (focus)="onFocus(input)"
+        [class.invalid]="!isValid"
+        (blur)="validate()"/>
+    }
+    <label [for]="inputId" [class.required]="required()">{{ label() }}</label>
+    @if (buttonIcon()) {
+      <icon-button-mini class="suffix" [icon]="buttonIcon()!" (buttonClick)="buttonClick.emit()"/>
+    }
+  </div>
+  @if (!hideErrors()) {
+    <div class="input-errors">
+      @for(error of errors; track error.code){
+        <span>{{error.message}}</span>
+      }
+    </div>
+  }
+</div>

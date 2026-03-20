@@ -1,0 +1,199 @@
+.connection-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-medium);
+  border: 1px solid var(--outline-variant);
+  background-color: var(--surface-container);
+  width: 100%;
+
+  .overview {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    padding: 10px;
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      .time {
+        display: flex;
+        flex-direction: column;
+
+        div {
+          display: flex;
+          gap: var(--text-gap);
+
+          &.planned {
+            font: var(--title-large);
+          }
+
+          &.real {
+            font: var(--title-medium);
+          }
+
+          .Early {
+            color: var(--timing-early);
+          }
+
+          .OnTime {
+            color: var(--timing-on-time);
+          }
+
+          .NormalDelay {
+            color: var(--timing-normal-delay);
+          }
+
+          .Delay {
+            color: var(--timing-delay);
+          }
+        }
+      }
+
+      .duration {
+        display: flex;
+        font: var(--title-small);
+        gap: var(--text-gap);
+      }
+
+      .transfers {
+        font: var(--title-small);
+      }
+    }
+
+    .differentOrigin{
+      color: var(--demand-medium);
+      font: var(--body-medium);
+    }
+
+    .segments {
+      display: flex;
+      overflow-x: auto;
+      gap: var(--text-gap);
+
+      .segment {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 4px 8px;
+        border-radius: var(--radius-small);
+        border: 1px solid var(--outline-variant);
+        color: var(--on-surface-variant);
+        background-color: var(--surface-variant);
+        font: var(--label-large);
+
+        .segment-icons {
+          display: flex;
+          justify-content: center;
+        }
+
+        icon {
+          color: var(--on-surface-variant);
+
+          &.Low {
+            color: var(--demand-low);
+          }
+
+          &.Medium {
+            color: var(--demand-medium);
+          }
+
+          &.High {
+            color: var(--demand-high);
+          }
+
+          &.Extreme {
+            color: var(--demand-extreme);
+          }
+
+          &.Overbooked {
+            color: var(--demand-overbooked);
+          }
+        }
+
+        span {
+          text-wrap: nowrap;
+          text-align: center;
+        }
+      }
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .details-button {
+        user-select: none;
+        cursor: pointer;
+        display: flex;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+        color: var(--primary);
+        font: var(--title-medium);
+      }
+
+      .price {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        gap: var(--text-gap);
+        font: var(--body-large);
+
+        .price-text {
+          font: var(--title-large);
+        }
+      }
+    }
+  }
+
+  .details {
+    border-top: 1px solid var(--outline-variant);
+
+    .transfer {
+      display: grid;
+      grid-template-columns: 13ch 24px auto;
+      margin: 16px 0;
+      padding: 0 var(--text-gap);
+      height: 5rem;
+      background-color: var(--surface-container-high);
+
+      .duration {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .total {
+          display: flex;
+          justify-content: flex-end;
+          gap: var(--text-gap);
+          font: var(--title-medium);
+        }
+
+        .walking {
+          display: flex;
+          justify-content: flex-end;
+          gap: var(--text-gap);
+          font: var(--title-medium);
+        }
+      }
+
+      .information {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        gap: var(--text-gap);
+        font: var(--title-medium);
+      }
+    }
+  }
+}
+
+@media screen and (width < 768px) {
+  .connection-card {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+}

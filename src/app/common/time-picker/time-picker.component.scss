@@ -1,0 +1,74 @@
+.overlay{
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timepicker-dialog {
+  position: absolute;
+  color: var(--on-surface);
+  font: var(--title-medium);
+  background-color: var(--surface-container-highest);
+  user-select: none;
+  z-index: 1001;
+  padding: 0.5em;
+  border-radius: var(--radius-medium);
+  border: 1px solid var(--surface-container-highest);
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+
+  .scrollable{
+    display: flex;
+    flex-direction: column;
+    max-height: 12.5em;
+    overflow: auto;
+    scroll-snap-type: y mandatory;
+
+    scrollbar-width: none;       /* Firefox */
+    -ms-overflow-style: none;    /* IE/Edge */
+
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+
+    button {
+      position: relative;
+      background: transparent;
+      scroll-snap-align: start;
+      border-radius: var(--radius-small);
+      border: none;
+      color: var(--on-surface);
+      font: var(--body-large);
+      padding: 0.5rem;
+
+      span{
+        content: '';
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        position: absolute;
+        opacity: 0;
+        background-color: #fff;
+        pointer-events: none;
+        border-radius: inherit;
+      }
+
+      &:hover {
+        span {
+          opacity: 0.1;
+        }
+      }
+
+      &.selected {
+        color: var(--on-primary-container);
+        background-color: var(--primary-container);
+      }
+    }
+  }
+}

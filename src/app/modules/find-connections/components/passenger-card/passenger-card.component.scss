@@ -1,0 +1,46 @@
+.passenger-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-medium);
+  border: 1px solid var(--outline-variant);
+  background-color: var(--surface-container);
+  font: var(--title-medium);
+  color: var(--on-background);
+  cursor: pointer;
+  width: 100%;
+
+  .header {
+    display: flex;
+    align-items: center;
+    padding: 0.25rem 0.5rem 0;
+
+    span {
+      flex: 1;
+    }
+  }
+
+  .attributes {
+    display: flex;
+    padding: 0 0.5rem 0.25rem;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+
+    .first {
+      text-decoration: underline;
+      text-decoration-color: var(--first-class-yellow);
+      text-decoration-thickness: 2px;
+    }
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .passenger-card:hover:not(:focus){
+    filter: brightness(0.8);
+  }
+}
+
+@media(prefers-color-scheme: dark) {
+  .passenger-card:hover:not(:focus){
+    filter: brightness(1.2);
+  }
+}

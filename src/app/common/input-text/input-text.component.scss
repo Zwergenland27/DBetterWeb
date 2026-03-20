@@ -1,0 +1,131 @@
+.input {
+  .input-text {
+    position: relative;
+
+    input {
+      width: 100%;
+      height: var(--input-height);
+      padding-top: 1rem;
+      padding-left: 16px;
+      font: var(--body-large);
+      border-radius: var(--radius-small) var(--radius-small) 0 0;
+      border: none;
+      border-bottom: 1px solid var(--on-surface-variant);
+      outline: none;
+      background-color: var(--surface-variant);
+      box-sizing: border-box;
+      z-index: 1;
+
+      &:focus {
+        border-bottom-color: var(--primary);
+        border-bottom-width: 2px;
+      }
+
+      &:focus + label {
+        color: var(--primary);
+      }
+
+      &:focus + label,
+      &.hint + label,
+      &:not(:placeholder-shown) + label{
+        top: 4px;
+        transform: unset;
+        font: var(--label-large);
+      }
+
+      &.invalid{
+        border-bottom-color: var(--error);
+      }
+
+      &.invalid + label {
+        color: var(--error);
+      }
+    }
+
+    .prefix {
+      display: none;
+      padding: 16px;
+      pointer-events: none;
+      z-index: 2;
+      color: var(--on-surface-variant);
+    }
+
+    label {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      transition: 0.2s ease all;
+      color: var(--on-surface-variant);
+      font: var(--body-large);
+
+      &.required:after {
+        content: "*";
+      }
+    }
+
+    .suffix {
+      display: none;
+      pointer-events: none;
+    }
+
+    &.icon {
+      .prefix {
+        display: unset;
+        position: absolute;
+      }
+
+      input {
+        padding-left: calc(1.5rem + 2 * 16px);
+      }
+
+      label {
+        left: calc(1.5rem + 2 * 16px);
+      }
+    }
+
+    &.button {
+      .suffix {
+        position: absolute;
+        display: inline-flex;
+        align-items: center;
+        height: var(--input-height);
+        right: 0;
+      }
+
+      input {
+        padding-right: calc(1.5rem + 2 * 8px);
+      }
+    }
+  }
+
+  .input-errors {
+    padding-left: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    color: var(--error);
+    min-height: var(--body-large-line-height);
+    font: var(--body-large);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  input:hover:not(:focus){
+    filter: brightness(0.8);
+  }
+
+  button:hover {
+    filter: brightness(0.8);
+  }
+}
+
+@media(prefers-color-scheme: dark) {
+  input:hover:not(:focus){
+    filter: brightness(1.2);
+  }
+
+  button:hover {
+    filter: brightness(1.2);
+  }
+}

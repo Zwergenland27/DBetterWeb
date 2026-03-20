@@ -1,0 +1,36 @@
+.expansion-panel {
+  border-radius: var(--radius-round);
+  width: 100%;
+
+  .header {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: var(--text-gap);
+    padding: 1rem;
+    -webkit-user-select: none;
+
+    .title {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      flex-grow: 1;
+      align-items: center;
+      font: var(--title-medium);
+    }
+  }
+
+  .invalid {
+    color: var(--error);
+  }
+
+  &:has(> .header:hover){
+    background: var(--surface-container-lowest);
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    padding: 0 16px 16px;
+  }
+}

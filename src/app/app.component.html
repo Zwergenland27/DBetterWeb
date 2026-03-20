@@ -1,0 +1,25 @@
+<div id="dialog"></div>
+<div class="app" [class.mobile-blurred]="navigationOpened">
+  <div class="blocker" [class.mobile-open]="navigationOpened">
+
+  </div>
+  <div class="navigation" [class.mobile-open]="navigationOpened">
+    <img src="logo-transparent.svg"
+         i18n-alt="@@logo-alt" alt="Logo of dbetter"/>
+    <floating-button class="navigation-close" icon="close" small secondary (click)="closeNavigation()"/>
+    <nav>
+      <nav-button link="find-connections" icon="search" i18n-text="@@find-connection-nav" text="Connections" (click)="closeNavigation()"/>
+      <nav-button link="about" icon="info" i18n-text="@@about-nav" text="About" (click)="closeNavigation()"/>
+      <nav-button link="settings" icon="settings" i18n-text="@@settings" text="Settings" (click)="closeNavigation()"/>
+    </nav>
+  </div>
+  <div class="mobile-title">
+    <img src="logo-transparent.svg"
+         i18n-alt="@@logo-alt" alt="Logo of dbetter"/>
+    <icon name="menu" (click)="openNavigation()"/>
+  </div>
+
+  <div class="content" [class.mobile-open]="navigationOpened">
+    <router-outlet/>
+  </div>
+</div>

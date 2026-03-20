@@ -1,0 +1,19 @@
+<div class="expansion-panel">
+  <div class="header" (click)="togglePanel()">
+    @if (invalid()) {
+      <icon [class.invalid]="invalid()" name="warning"/>
+    }
+    <span [class.invalid]="invalid()" class="title">{{ text() }}</span>
+    @if (isExpanded) {
+      <icon name="keyboard_arrow_up"/>
+    }
+    @if (!isExpanded) {
+      <icon name="keyboard_arrow_down"/>
+    }
+  </div>
+  @if (isExpanded) {
+    <div class="content">
+      <ng-content></ng-content>
+    </div>
+  }
+</div>

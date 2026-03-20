@@ -1,0 +1,96 @@
+<div class="segment">
+  <div class="route">
+    @for(stop of segment().stops; track stop.id){
+      <div class="stop" [class.cancelled]="stop.isCancelled" [class.expanded]="expanded" [class.first]="$index === 0" [class.last]="$index === segment().stops.length - 1">
+        <div class="timeline">
+          @if (stop.arrivalTime) {
+            <div class="time">
+              <span>{{stop.arrivalTime.planned | date: 'shortTime'}}</span>
+              <span [ngClass]="stop.arrivalTime.getDelayInformation()?.type">{{stop.arrivalTime.real | date: 'shortTime'}}</span>
+            </div>
+          }
+          @if (stop.departureTime) {
+            <div class="time">
+              <span>{{stop.departureTime.planned | date: 'shortTime'}}</span>
+              <span [ngClass]="stop.departureTime.getDelayInformation()?.type">{{stop.departureTime.real | date: 'shortTime'}}</span>
+            </div>
+          }
+          @if ($index === 0) {
+            <div class="duration">
+              @if (segment().realDuration.hours) {
+                <div>
+                  <span>{{segment().realDuration.hours}}</span>
+                  <span i18n="@@hour_unit">h</span>
+                </div>
+              }
+              <span>
+                <span>{{segment().realDuration.minutes}}</span>
+                <span i18n="@@minute_unit">min</span>
+              </span>
+            </div>
+          }
+        </div>
+        <div class="progress">
+          <span class="line top" [ngClass]="getDemand($index - 1)"></span>
+          <span class="node"></span>
+          <span class="line bottom" [ngClass]="getDemand($index)"></span>
+        </div>
+        <div class="information">
+          <div class="station">
+            <span class="name">{{stop.nameWithRil100}}</span>
+            @if (stop.platform) {
+              <div class="platform" [class.changed]="stop.platform.real">
+                <span>{{stop.platform.shortType}}</span>
+                <span>{{stop.platform.planned}}</span>
+                <span>{{stop.platform.real}}</span>
+              </div>
+            }
+            @if (stop.isAdditional) {
+              <span i18n="@@additional_stop">Additional stop</span>
+            }
+            @if (stop.isExitOnly) {
+              <span i18n="@@exit_only">Exit only</span>
+            }
+            @if (stop.isEntryOnly) {
+              <span i18n="@@entry_only">Entry only</span>
+            }
+            @if ($index === 0) {
+              <div class="details">
+                <div class="line-infos" (click)="openTrainRunDetails()">
+                  <icon [name]="segment().iconName"/>
+                  <span>{{segment().line?.display}}</span>
+                </div>
+                @if (segment().destination) {
+                  <span i18n="@@to_destination">to {{segment().destination}}</span>
+                }
+                @if (segment().stops.length === 2) {
+                  <span class="expand-button-disabled" i18n="@@without_stopovers">without stopovers</span>
+                }
+                @if (segment().stops.length > 2) {
+                  <div class="expand-button" (click)="toggleExpanded()">
+                    <span i18n="@@extend_stopovers">{segment().stops.length - 2, plural, one {{{segment().stops.length - 2}} stopover} other {{{segment().stops.length - 2}} stopovers}}</span>
+                    <icon [name]="expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"/>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+  <div class="infos">
+    @if(settings.developerMode()){
+      @for(passengerInformation of segment().passengerInformation; track passengerInformation.message){
+        <span>{{passengerInformation.message}} : {{passengerInformation.type}}, {{passengerInformation.priority}}</span>
+      }
+
+      @if(segment().trainComposition){
+        <span>Train composition (from {{segment().trainComposition!.source}}):</span>
+        @for(vehicle of segment().trainComposition!.vehicles;  track vehicle){
+          <span>{{vehicle}}</span>
+        }
+      }
+    }
+  </div>
+</div>

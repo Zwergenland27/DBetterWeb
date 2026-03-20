@@ -1,0 +1,105 @@
+.date-input {
+  position: relative;
+
+  input {
+    min-width: 20ch;
+    width: 100%;
+    height: var(--input-height);
+    padding-top: 1rem;
+    padding-left: 16px;
+    font: var(--body-large);
+    border-radius: var(--radius-small) var(--radius-small) 0 0;
+    border: none;
+    border-bottom: 1px solid var(--on-surface-variant);
+    outline: none;
+    background-color: var(--surface-variant);
+    box-sizing: border-box;
+    z-index: 1;
+
+    &:focus {
+      border-bottom-color: var(--primary);
+      border-bottom-width: 2px;
+    }
+
+    &:focus + label {
+      color: var(--primary);
+    }
+
+    &.invalid{
+      border-bottom-color: var(--error);
+    }
+
+    &.invalid + label {
+      color: var(--error);
+    }
+  }
+
+  label {
+    position: absolute;
+    left: 16px;
+    top: 4px;
+    transform: unset;
+    pointer-events: none;
+    transition: 0.2s ease all;
+    color: var(--on-surface-variant);
+    font: var(--label-large);
+
+    &.required:after {
+      content: "*";
+    }
+  }
+
+  .hide-default-icon {
+    position: absolute;
+    top: 4px;
+    right: 0;
+    bottom: 4px;
+    width: 24px;
+    background-color: var(--surface-variant);
+  }
+
+  icon-button-mini {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    height: var(--input-height);
+    right: 0;
+  }
+}
+
+.input-errors {
+  padding-left: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  color: var(--error);
+  min-height: var(--body-large-line-height);
+  font: var(--body-large);
+}
+
+@media (prefers-color-scheme: light) {
+  input:hover:not(:focus) {
+    filter: brightness(0.8);
+
+    + * + .hide-default-icon {
+      filter: brightness(0.8);
+    }
+  }
+}
+
+@media(prefers-color-scheme: dark) {
+  input:hover:not(:focus) {
+    filter: brightness(1.2);
+
+    + * +.hide-default-icon {
+      filter: brightness(1.2);
+    }
+  }
+}
+
+@media(hover:none){
+  .no-content{
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    font: var(--body-large) !important;
+  }
+}
