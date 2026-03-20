@@ -1,4 +1,8 @@
-import {LineInformationResult, TransportCategory} from '../../../find-connections/contracts/dtos/segment';
+import {
+  LineInformation,
+  LineInformationResult,
+  TransportCategory
+} from '../../../find-connections/contracts/dtos/segment';
 import {
   BikeCarriageInformation,
   BikeCarriageInformationDto
@@ -9,7 +13,6 @@ import {
   PassengerInformationResponseDto
 } from '../../../find-connections/contracts/dtos/passengerInformationResponse';
 import {Stop, StopResponse} from './stopResponse';
-import {catchError} from 'rxjs';
 
 export enum TrainFormationSource {
   RealTime = 'RealTime',
@@ -60,7 +63,7 @@ export class TrainRun {
     public circulationId: string,
     public operator: string | null,
     public transportCategory: TransportCategory,
-    public line: LineInformationResult | null,
+    public line: LineInformation | null,
     public stops: Stop[],
     public bikeCarriage: BikeCarriageInformation,
     public catering: CateringInformation,
@@ -75,13 +78,18 @@ export class TrainRun {
       trainComposition = TrainComposition.fromResponse(response.trainComposition);
     }
 
+    let line: LineInformation | null = null;
+    if(response.line){
+      line = LineInformation.fromResult(response.line)
+    }
+
     return new TrainRun(
       response.id,
       new Date(Date.parse(response.lastUpdatedAt)),
       response.circulationId,
       response.operator,
       response.transportCategory,
-      response.line,
+      line,
       response.stops.map(Stop.fromResponse),
       BikeCarriageInformation.fromDto(response.bikeCarriage),
       CateringInformation.fromDto(response.catering),

@@ -1,6 +1,6 @@
 
 @if(trainRun){
-  <span>Line: {{trainRun.line}}</span>
+  <span>Line: {{trainRun.line?.display}}</span>
   @if(trainRun.trainComposition){
     <span>Train composition (from {{trainRun.trainComposition.source}}):</span>
     @for(vehicle of trainRun.trainComposition.vehicles;  track vehicle){
