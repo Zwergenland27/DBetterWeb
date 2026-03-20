@@ -80,14 +80,16 @@
     }
   </div>
   <div class="infos">
-    @for(passengerInformation of segment().passengerInformation; track passengerInformation.message){
-      <span>{{passengerInformation.message}} : {{passengerInformation.type}}, {{passengerInformation.priority}}</span>
-    }
+    @if(settings.developerMode()){
+      @for(passengerInformation of segment().passengerInformation; track passengerInformation.message){
+        <span>{{passengerInformation.message}} : {{passengerInformation.type}}, {{passengerInformation.priority}}</span>
+      }
 
-    @if(segment().trainComposition){
-      <span>Train composition (from {{segment().trainComposition!.source}}):</span>
-      @for(vehicle of segment().trainComposition!.vehicles;  track vehicle){
-        <span>{{vehicle}}</span>
+      @if(segment().trainComposition){
+        <span>Train composition (from {{segment().trainComposition!.source}}):</span>
+        @for(vehicle of segment().trainComposition!.vehicles;  track vehicle){
+          <span>{{vehicle}}</span>
+        }
       }
     }
   </div>

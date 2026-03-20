@@ -1,1 +1,4 @@
-<p>settings works!</p>
+<label>
+  <input type="checkbox" [checked]="settings.developerMode()" (change)="toggle($event)">
+  Developer Mode
+</label>

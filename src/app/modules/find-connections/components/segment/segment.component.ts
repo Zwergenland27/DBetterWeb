@@ -6,6 +6,7 @@ import {DemandDto, DemandStatus} from '../../../../common/contracts/dtos/demand'
 import {TransportSegment} from '../../contracts/dtos/segment';
 import {FloatingButtonComponent} from '../../../../common/floating-button/floating-button.component';
 import {Router} from '@angular/router';
+import {SettingsService} from '../../../settings/settings.service';
 
 @Component({
   selector: 'segment',
@@ -25,7 +26,7 @@ export class SegmentComponent {
 
   expanded = false;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, public settings: SettingsService) {
   }
 
   getDemand(index: number){
@@ -51,6 +52,7 @@ export class SegmentComponent {
   }
 
   openTrainRunDetails() {
+    if(!this.settings.developerMode()) return;
     const url = this.router.serializeUrl(
       this.router.createUrlTree(['/train-runs', this.segment().trainRunId])
     );
