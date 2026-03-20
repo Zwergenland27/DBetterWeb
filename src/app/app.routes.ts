@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import {FindConnectionsComponent} from './modules/find-connections/find-connections.component';
 import {AboutComponent} from './modules/about/about.component';
 import {TrainRunsComponent} from './modules/train-runs/train-runs.component';
+import {SettingsComponent} from './modules/settings/settings.component';
 
 export const routes: Routes = [
   {
@@ -20,5 +21,9 @@ export const routes: Routes = [
   {
     path: 'train-runs/:id',
     component: TrainRunsComponent,
+  },
+  {
+    path: 'settings',
+    component: SettingsComponent,
   }
 ];
