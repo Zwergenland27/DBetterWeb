@@ -56,13 +56,13 @@
             }
             @if ($index === 0) {
               <div class="details">
-                <div class="line-infos">
+                <div class="line-infos" (click)="openTrainRunDetails()">
                   <icon [name]="segment().iconName"/>
-                  <span>{{segment().line}}</span>
-                  @if (segment().destination) {
-                    <span i18n="@@to_destination">to {{segment().destination}}</span>
-                  }
+                  <span>{{segment().line?.display}}</span>
                 </div>
+                @if (segment().destination) {
+                  <span i18n="@@to_destination">to {{segment().destination}}</span>
+                }
                 @if (segment().stops.length === 2) {
                   <span class="expand-button-disabled" i18n="@@without_stopovers">without stopovers</span>
                 }
@@ -80,12 +80,15 @@
     }
   </div>
   <div class="infos">
-    <floating-button
-      small secondary icon="open_in_new"
-      i18n-text="@@train-run-details" text="Train run details"
-      (click)="openTrainRunDetails()"/>
     @for(passengerInformation of segment().passengerInformation; track passengerInformation.message){
       <span>{{passengerInformation.message}} : {{passengerInformation.type}}, {{passengerInformation.priority}}</span>
+    }
+
+    @if(segment().trainComposition){
+      <span>Train composition (from {{segment().trainComposition!.source}}):</span>
+      @for(vehicle of segment().trainComposition!.vehicles;  track vehicle){
+        <span>{{vehicle}}</span>
+      }
     }
   </div>
 </div>

@@ -149,22 +149,34 @@
 
   .details {
     border-top: 1px solid var(--outline-variant);
-    padding: 16px;
 
     .transfer {
       display: grid;
       grid-template-columns: 13ch 24px auto;
       margin: 16px 0;
+      padding: 0 var(--text-gap);
       height: 5rem;
       background-color: var(--surface-container-high);
 
       .duration {
         height: 100%;
         display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        gap: var(--text-gap);
-        font: var(--title-medium);
+        flex-direction: column;
+        justify-content: center;
+
+        .total {
+          display: flex;
+          justify-content: flex-end;
+          gap: var(--text-gap);
+          font: var(--title-medium);
+        }
+
+        .walking {
+          display: flex;
+          justify-content: flex-end;
+          gap: var(--text-gap);
+          font: var(--title-medium);
+        }
       }
 
       .information {

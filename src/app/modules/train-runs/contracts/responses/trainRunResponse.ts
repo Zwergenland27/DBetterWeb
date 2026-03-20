@@ -1,4 +1,4 @@
-import {TransportCategory} from '../../../find-connections/contracts/dtos/segment';
+import {LineInformationResult, TransportCategory} from '../../../find-connections/contracts/dtos/segment';
 import {
   BikeCarriageInformation,
   BikeCarriageInformationDto
@@ -11,46 +11,82 @@ import {
 import {Stop, StopResponse} from './stopResponse';
 import {catchError} from 'rxjs';
 
+export enum TrainFormationSource {
+  RealTime = 'RealTime',
+  SeatingPlan = 'SeatingPlan',
+  Prediction = 'Prediction',
+}
+
+export interface TrainCompositionResultDto {
+  lastUpdatedAt: string;
+  trainRunId: string;
+  vehicles: string[],
+  source: TrainFormationSource,
+}
+
+export class TrainComposition {
+  constructor(
+    public lastUpdatedAt: Date,
+    public vehicles: string[],
+    public source: TrainFormationSource,
+  ){}
+
+  static fromResponse(dto: TrainCompositionResultDto): TrainComposition {
+    return new TrainComposition(
+      new Date(Date.parse(dto.lastUpdatedAt)),
+      dto.vehicles,
+      dto.source);
+  }
+}
+
 export interface TrainRunResponse {
   id: string;
+  lastUpdatedAt: string;
   circulationId: string;
   operator: string | null;
   transportCategory: TransportCategory;
-  line: string | null;
+  line: LineInformationResult | null;
   stops: StopResponse[];
-  serviceNumber: number | null;
   bikeCarriage: BikeCarriageInformationDto;
   catering: CateringInformationDto;
   passengerInformation: PassengerInformationResponseDto[];
+  trainComposition: TrainCompositionResultDto | null;
 }
 
 export class TrainRun {
   constructor(
     public id: string,
+    public lastUpdatedAt: Date,
     public circulationId: string,
     public operator: string | null,
     public transportCategory: TransportCategory,
-    public line: string | null,
+    public line: LineInformationResult | null,
     public stops: Stop[],
-    public serviceNumber: number | null,
     public bikeCarriage: BikeCarriageInformation,
     public catering: CateringInformation,
-    public passengerInformation: PassengerInformation[]
+    public passengerInformation: PassengerInformation[],
+    public trainComposition: TrainComposition | null,
   ) {
   }
 
   static fromResponse(response: TrainRunResponse) {
+    let trainComposition: TrainComposition | null = null;
+    if(response.trainComposition){
+      trainComposition = TrainComposition.fromResponse(response.trainComposition);
+    }
+
     return new TrainRun(
       response.id,
+      new Date(Date.parse(response.lastUpdatedAt)),
       response.circulationId,
       response.operator,
       response.transportCategory,
       response.line,
       response.stops.map(Stop.fromResponse),
-      response.serviceNumber,
       BikeCarriageInformation.fromDto(response.bikeCarriage),
       CateringInformation.fromDto(response.catering),
-      response.passengerInformation.map(PassengerInformation.fromDto)
+      response.passengerInformation.map(PassengerInformation.fromDto),
+      trainComposition
     )
   }
 }

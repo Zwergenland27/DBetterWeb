@@ -1,155 +1,161 @@
-<div #card class="connection-card">
-  <div class="overview">
-    <div class="header">
-      <div class="time">
-        <div class="planned">
-          <span>{{plannedTimeInformation.departure | date:"shortTime"}}</span>
-          <span>-</span>
-          <span>{{plannedTimeInformation.arrival | date:"shortTime"}}</span>
-        </div>
-        @if (realTimeInformation) {
-          <div class="real">
-            <span [ngClass]="realTimeInformation.departureTimingType?.type">{{realTimeInformation.departure | date:"shortTime"}}</span>
+@if(_connection() != null){
+  <div #card class="connection-card">
+    <div class="overview">
+      <div class="header">
+        <div class="time">
+          <div class="planned">
+            <span>{{plannedTimeInformation.departure | date:"shortTime"}}</span>
             <span>-</span>
-            <span [ngClass]="realTimeInformation.arrivalTimingType?.type">{{realTimeInformation.arrival | date:"shortTime"}}</span>
+            <span>{{plannedTimeInformation.arrival | date:"shortTime"}}</span>
           </div>
-        }
-      </div>
-      <div class="duration">
-        @if (connection().realDuration.hours) {
+          @if (realTimeInformation) {
+            <div class="real">
+              <span [ngClass]="realTimeInformation.departureTimingType?.type">{{realTimeInformation.departure | date:"shortTime"}}</span>
+              <span>-</span>
+              <span [ngClass]="realTimeInformation.arrivalTimingType?.type">{{realTimeInformation.arrival | date:"shortTime"}}</span>
+            </div>
+          }
+        </div>
+        <div class="duration">
+          @if (_connection()!.realDuration.hours) {
+            <div>
+              <span>{{_connection()!.realDuration.hours}}</span>
+              <span i18n="@@hour_unit">h</span>
+            </div>
+          }
           <div>
-            <span>{{connection().realDuration.hours}}</span>
-            <span i18n="@@hour_unit">h</span>
+            <span>{{_connection()!.realDuration.minutes}}</span>
+            <span i18n="@@minute_unit">min</span>
           </div>
-        }
-        <div>
-          <span>{{connection().realDuration.minutes}}</span>
-          <span i18n="@@minute_unit">min</span>
+        </div>
+        <div class="transfers">
+          <span i18n="@@transfers_plural">{_connection()!.numberOfTransfers, plural, =0 {direct connection} one {{{_connection()!.numberOfTransfers}} transfer} other {{{_connection()!.numberOfTransfers}} transfers}}</span>
         </div>
       </div>
-      <div class="transfers">
-        <span i18n="@@transfers_plural">{connection().numberOfTransfers, plural, =0 {direct connection} one {{{connection().numberOfTransfers}} transfer} other {{{connection().numberOfTransfers}} transfers}}</span>
-      </div>
-    </div>
-    @if(connection().differentOrigin){
-      <span class="differentOrigin" i18n="@@different_origin">from {{asTransportSegment(connection().segments[0]).stops[0].name}}</span>
-    }
+      @if(_connection()!.differentOrigin){
+        <span class="differentOrigin" i18n="@@different_origin">from {{asTransportSegment(_connection()!.segments[0]).stops[0].name}}</span>
+      }
 
-    @if(connection().differentDestination){
-      <span class="differentOrigin" i18n="@@different_destination">only to {{asTransportSegment(connection().segments[connection().segments.length - 1]).stops[asTransportSegment(connection().segments[connection().segments.length - 1]).stops.length - 1].name}}</span>
-    }
-    <div class="segments">
-      @for(segment of connection().segments; track $index){
-        @if (isTransferSegment(segment)) {
-          <div class="transfer" [style.flex-grow]="connection().calculateSegmentPercentage($index)">
-          </div>
-        }
-
-        @if (isTransportSegment(segment)) {
-          <div class="segment" [style.flex-grow]="connection().calculateSegmentPercentage($index)">
-            <span>{{(asTransportSegment(segment)).line}}</span>
-            <div class="segment-icons">
-              <icon [name]="asTransportSegment(segment).iconName"/>
-              @if(comfortClass() == ComfortClass.First){
-                <icon [ngClass]="asTransportSegment(segment).demand.firstClass" name="filled_group"/>
-              }
-              @if(comfortClass() == ComfortClass.Second){
-                <icon [ngClass]="asTransportSegment(segment).demand.secondClass" name="filled_group"/>
-              }
+      @if(_connection()!.differentDestination){
+        <span class="differentOrigin" i18n="@@different_destination">only to {{asTransportSegment(_connection()!.segments[_connection()!.segments.length - 1]).stops[asTransportSegment(_connection()!.segments[_connection()!.segments.length - 1]).stops.length - 1].name}}</span>
+      }
+      <div class="segments">
+        @for(segment of _connection()!.segments; track $index){
+          @if (isTransferSegment(segment)) {
+            <div class="transfer" [style.flex-grow]="_connection()!.calculateSegmentPercentage($index)">
             </div>
-          </div>
-        }
-      }
-    </div>
-    <div class="actions">
-      <div class="details-button" (click)="toggleDetails()">
-        <span>Details</span>
-        <icon [name]="detailsOpened ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"/>
-      </div>
-      @if (!connection().offer) {
-        <floating-button
-          small secondary icon="open_in_new"
-          i18n-text="@@view_on_bahn.de" text="View on bahn.de"
-          (click)="openOnBahnDe()"/>
-      }
-      @if (connection().offer && connection().offer!.partial) {
-        <floating-button
-          small secondary icon="open_in_new"
-          i18n-text="@@get-offers-on-bahn.de" text="Get offers on bahn.de"
-          (click)="openOnBahnDe()"/>
-      }
-      @if (connection().offer && !connection().offer!.partial) {
-        <floating-button
-          small secondary icon="open_in_new"
-          i18n-text="@@price_on_bahn.de" text="{{connection().offer!.price | currency: connection().offer!.shortCurrency }} on bahn.de"
-          (click)="openOnBahnDe()"/>
-      }
-    </div>
-  </div>
-  @if (detailsOpened) {
-    <div class="details">
-      @for(segment of connection().segments; track $index){
-        @if (isTransferSegment(segment)) {
-          <div class="transfer">
-            <div class="duration">
-              @if(connection().getTransferDuration($index).passed){
-                <icon name="no_transfer"/>
-              }@else{
-                <icon name="airline_stops"/>
-              }
-              @if (connection().getTransferDuration($index).hours) {
-                <div>
-                  <span>{{connection().getTransferDuration($index).hours}}</span>
-                  <span i18n="@@hour_unit">h</span>
-                </div>
-              }
-              <div>
-                <span>{{connection().getTransferDuration($index).minutes}}</span>
-                <span i18n="@@minute_unit">min</span>
+          }
+
+          @if (isTransportSegment(segment)) {
+            <div class="segment" [style.flex-grow]="_connection()!.calculateSegmentPercentage($index)">
+              <span>{{(asTransportSegment(segment)).line?.display}}</span>
+              <div class="segment-icons">
+                <icon [name]="asTransportSegment(segment).iconName"/>
+                @if(comfortClass() == ComfortClass.First){
+                  <icon [ngClass]="asTransportSegment(segment).demand.firstClass" name="filled_group"/>
+                }
+                @if(comfortClass() == ComfortClass.Second){
+                  <icon [ngClass]="asTransportSegment(segment).demand.secondClass" name="filled_group"/>
+                }
               </div>
             </div>
-            <div></div>
-            <div class="information">
-              @if (isWalkingSegment(segment)) {
-                  <icon name="directions_walk"/>
+          }
+        }
+      </div>
+      <div class="actions">
+        <div class="details-button" (click)="toggleDetails()">
+          <span>Details</span>
+          <icon [name]="detailsOpened ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"/>
+        </div>
+        @if (!_connection()!.offer) {
+          <floating-button
+            small secondary icon="open_in_new"
+            i18n-text="@@view_on_bahn.de" text="View on bahn.de"
+            (click)="openOnBahnDe()"/>
+        }
+        @if (_connection()!.offer && _connection()!.offer!.partial) {
+          <floating-button
+            small secondary icon="open_in_new"
+            i18n-text="@@get-offers-on-bahn.de" text="Get offers on bahn.de"
+            (click)="openOnBahnDe()"/>
+        }
+        @if (_connection()!.offer && !_connection()!.offer!.partial) {
+          <floating-button
+            small secondary icon="open_in_new"
+            i18n-text="@@price_on_bahn.de" text="{{_connection()!.offer!.price | currency: _connection()!.offer!.shortCurrency }} on bahn.de"
+            (click)="openOnBahnDe()"/>
+        }
+      </div>
+    </div>
+    @if (detailsOpened) {
+      <div class="details">
+        @for(segment of _connection()!.segments; track $index){
+          @if (isTransferSegment(segment)) {
+            <div class="transfer">
+              <div class="duration">
+                <div class="total">
+                  @if(_connection()!.getTransferDuration($index).passed){
+                    <icon name="watch_off"/>
+                  }@else{
+                    <icon name="airline_stops"/>
+                  }
+                  @if (_connection()!.getTransferDuration($index).hours) {
+                    <div>
+                      <span>{{_connection()!.getTransferDuration($index).hours}}</span>
+                      <span i18n="@@hour_unit">h</span>
+                    </div>
+                  }
                   <div>
-                    <span>{{asWalkingSegment(segment).minutes}}</span>
+                    <span>{{_connection()!.getTransferDuration($index).minutes}}</span>
                     <span i18n="@@minute_unit">min</span>
                   </div>
-                  @if (asWalkingSegment(segment).distance) {
-                    <span>({{asWalkingSegment(segment).distance}}m)</span>
-                  }
-              }
-              @if(hasArriveEarlierRequested(asTransferSegment(segment).transferId)){
-                <floating-button small secondary i18n-text="@@connection_earlier_arrival" text="Connection with earlier arrival" (click)="gotoConnectionWithEarlierArrival(asTransferSegment(segment).transferId)"/>
-              } @else {
-                <floating-button
-                  [loading]="isArriveEarlierLoading(asTransferSegment(segment).transferId)"
-                  [disabled]="isAnyArriveEarlierOrDepartLaterLoading()"
-                  small secondary
-                  i18n-text="@@arrive_earlier"
-                  text="Arrive earlier"
-                  (click)="arriveEarlier(asTransferSegment(segment).transferId)"/>
-              }
+                </div>
+                @if (isWalkingSegment(segment)) {
+                  <div class="walking">
+                    <icon name="directions_walk"/>
+                    <div>
+                      <span>{{asWalkingSegment(segment).minutes}}</span>
+                      <span i18n="@@minute_unit">min</span>
+                    </div>
+                    @if (asWalkingSegment(segment).distance) {
+                      <span>({{asWalkingSegment(segment).distance}}m)</span>
+                    }
+                  </div>
+                }
+              </div>
+              <div></div>
+              <div class="information">
+                @if(hasArriveEarlierRequested(asTransferSegment(segment).transferId)){
+                  <floating-button small secondary i18n-text="@@connection_earlier_arrival" text="Connection with earlier arrival" (click)="gotoConnectionWithEarlierArrival(asTransferSegment(segment).transferId)"/>
+                } @else {
+                  <floating-button
+                    [loading]="isArriveEarlierLoading(asTransferSegment(segment).transferId)"
+                    [disabled]="isAnyArriveEarlierOrDepartLaterLoading()"
+                    small secondary
+                    i18n-text="@@arrive_earlier"
+                    text="Arrive earlier"
+                    (click)="arriveEarlier(asTransferSegment(segment).transferId)"/>
+                }
 
-              @if(hasDepartLaterRequested(asTransferSegment(segment).transferId)){
-                <floating-button small secondary i18n-text="@@connection_later_departure" text="Connection with later departure" (click)="gotoConnectionWithLaterDeparture(asTransferSegment(segment).transferId)"/>
-              } @else {
-                <floating-button
-                  [loading]="isDepartLaterLoading(asTransferSegment(segment).transferId)"
-                  [disabled]="isAnyArriveEarlierOrDepartLaterLoading()"
-                  small secondary
-                  i18n-text="@@depart_later"
-                  text="Depart later"
-                  (click)="departLater(asTransferSegment(segment).transferId)"/>
-              }
+                @if(hasDepartLaterRequested(asTransferSegment(segment).transferId)){
+                  <floating-button small secondary i18n-text="@@connection_later_departure" text="Connection with later departure" (click)="gotoConnectionWithLaterDeparture(asTransferSegment(segment).transferId)"/>
+                } @else {
+                  <floating-button
+                    [loading]="isDepartLaterLoading(asTransferSegment(segment).transferId)"
+                    [disabled]="isAnyArriveEarlierOrDepartLaterLoading()"
+                    small secondary
+                    i18n-text="@@depart_later"
+                    text="Depart later"
+                    (click)="departLater(asTransferSegment(segment).transferId)"/>
+                }
+              </div>
             </div>
-          </div>
+          }
+          @if (isTransportSegment(segment)) {
+            <segment [comfortClass]="comfortClass()" [segment]="asTransportSegment(segment)"/>
+          }
         }
-        @if (isTransportSegment(segment)) {
-          <segment [comfortClass]="comfortClass()" [segment]="asTransportSegment(segment)"/>
-        }
-      }
-    </div>
-  }
-</div>
+      </div>
+    }
+  </div>
+}

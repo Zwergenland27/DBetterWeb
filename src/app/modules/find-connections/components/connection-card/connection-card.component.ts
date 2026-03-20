@@ -4,7 +4,7 @@ import {
   Component,
   effect,
   ElementRef,
-  input, NgZone, OnInit, output,
+  input, NgZone, OnDestroy, OnInit, output, signal,
   viewChild,
   ViewChild
 } from '@angular/core';
@@ -19,6 +19,7 @@ import {connect} from 'rxjs';
 import {DemandDto, DemandStatus} from '../../../../common/contracts/dtos/demand';
 import {ConnectionService} from '../../connection.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {TrainRunService} from '../../../train-runs/train-run.service';
 
 @Component({
   selector: 'connection-card',
@@ -33,11 +34,12 @@ import {ActivatedRoute, Router} from '@angular/router';
   templateUrl: './connection-card.component.html',
   styleUrl: './connection-card.component.scss'
 })
-export class ConnectionCardComponent implements OnInit {
+export class ConnectionCardComponent implements OnInit, OnDestroy {
   card = viewChild.required<ElementRef<HTMLDivElement>>("card")
 
   detailsOpened = false;
   connection = input.required<Connection>();
+  _connection = signal<Connection | null>(null);
   comfortClass = input.required<ComfortClass>();
 
   arriveEarlierOnConnection = output<{
@@ -62,24 +64,46 @@ export class ConnectionCardComponent implements OnInit {
     transferId: number
   }[] = [];
 
-  constructor(private ngZone: NgZone, private router: Router, private route: ActivatedRoute) {
+  private subscribedTrainRuns: string[] = [];
+
+  constructor(private ngZone: NgZone, private router: Router, private route: ActivatedRoute, private trainRunService: TrainRunService) {
+    effect(() => {
+      this._connection.set(this.connection());
+    });
+
+    effect(async () => {
+      const connection = this._connection();
+      if(connection == null) return;
+      for(const segment of connection.segments){
+        if(segment instanceof TransportSegment){
+          this.subscribedTrainRuns.push(segment.trainRunId);
+          await this.trainRunService.subscribeToTrainCompositionRealtimeFeed(segment.trainRunId, (trainComposition) => {
+            this._connection.update(connection => {
+              if(!connection) return null;
+              connection.updateTrainComposition(segment.trainRunId, trainComposition);
+              return connection;
+            });
+          });
+        }
+      }
+    });
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
         this.route.queryParamMap.subscribe(params => {
           const detailId = params.get("details")
 
-          if(detailId === null){
+          if(detailId === null || this._connection() === null) {
             this.detailsOpened = false;
             return;
           }
 
-          if(detailId != this.connection().id && this.detailsOpened){
+          if(detailId != this._connection()!.id && this.detailsOpened){
             this.detailsOpened = false;
             return;
           }
 
-          if(detailId == this.connection().id && !this.detailsOpened){
+          if(detailId == this._connection()!.id && !this.detailsOpened){
             this.detailsOpened = true;
             const sub = this.ngZone.onStable.subscribe(() => {
               requestAnimationFrame(() => {
@@ -92,7 +116,14 @@ export class ConnectionCardComponent implements OnInit {
             })
           }
         });
+  }
+
+  async ngOnDestroy() {
+    for (const trainRunId of this.subscribedTrainRuns) {
+      await this.trainRunService.unsubscribeFromTrainCompositionRealtimeFeed(trainRunId);
     }
+    this.subscribedTrainRuns = [];
+  }
 
   isTransferSegment(segment: Segment) {
     return segment instanceof TransferSegment;
@@ -120,14 +151,14 @@ export class ConnectionCardComponent implements OnInit {
 
   get plannedTimeInformation(){
     return {
-      departure: this.connection().departureTime.planned,
-      arrival: this.connection().arrivalTime.planned,
+      departure: this._connection()!.departureTime.planned,
+      arrival: this._connection()!.arrivalTime.planned,
     }
   }
 
   get realTimeInformation() {
-    const departure = this.connection().departureTime;
-    const arrival = this.connection().arrivalTime;
+    const departure = this._connection()!.departureTime;
+    const arrival = this._connection()!.arrivalTime;
 
     if(!departure.real && !arrival.real) return null;
 
@@ -140,13 +171,13 @@ export class ConnectionCardComponent implements OnInit {
   }
 
   openOnBahnDe(){
-    console.log(this.connection().bahnDeUrl);
-    window.open(this.connection().bahnDeUrl, "_blank");
+    console.log(this._connection()!.bahnDeUrl);
+    window.open(this._connection()!.bahnDeUrl, "_blank");
   }
 
   toggleDetails(){
     if(!this.detailsOpened){
-      this.openConnectionDetails(this.connection().id);
+      this.openConnectionDetails(this._connection()!.id);
     }else{
      this.closeConnectionDetails();
     }
@@ -157,7 +188,7 @@ export class ConnectionCardComponent implements OnInit {
   arriveEarlier(transferId: number) {
     this.arriveEarlierLoadingIndex = transferId;
     this.arriveEarlierOnConnection.emit({
-      connectionId: this.connection().id,
+      connectionId: this._connection()!.id,
       transferId: transferId,
       result: (connectionId: string) => {
         this.arriveEarlierResults.push({
@@ -176,7 +207,7 @@ export class ConnectionCardComponent implements OnInit {
   departLater(transferId: number) {
     this.departLaterLoadingIndex = transferId;
     this.departLaterOnConnection.emit({
-      connectionId: this.connection().id,
+      connectionId: this._connection()!.id,
       transferId: transferId,
       result: (connectionId: string) => {
         this.departLaterResults.push({

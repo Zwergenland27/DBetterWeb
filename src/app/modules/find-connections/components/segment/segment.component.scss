@@ -1,5 +1,6 @@
 .segment {
   display: flex;
+  padding: 0 var(--text-gap);
   color: var(--on-surface);
 
   .route {
@@ -131,6 +132,7 @@
           padding-top: 1ch;
 
           .line-infos {
+            cursor: pointer;
             display: flex;
             align-items: center;
             gap: var(--text-gap);
@@ -264,5 +266,7 @@
 }
 
 @media screen and (width < 768px) {
-
+  .segment {
+    flex-direction: column;
+  }
 }

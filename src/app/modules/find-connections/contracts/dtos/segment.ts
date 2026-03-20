@@ -6,6 +6,7 @@ import {CateringInformation, CateringInformationDto} from "../../../../common/co
 import {Demand, DemandDto} from "../../../../common/contracts/dtos/demand";
 import {Stop, StopDto} from "./stop";
 import {PassengerInformation, PassengerInformationResponseDto} from './passengerInformationResponse';
+import {TrainComposition, TrainCompositionResultDto} from '../../../train-runs/contracts/responses/trainRunResponse';
 
 export interface SegmentDto {
   $type: 'transport' | 'transfer' | 'walking';
@@ -22,6 +23,16 @@ export class Segment {
   }
 
   private static fromTransportSegmentDto(dto: TransportSegmentDto): TransportSegment {
+    let trainComposition: TrainComposition | null = null;
+    if(dto.trainComposition){
+      trainComposition = TrainComposition.fromResponse(dto.trainComposition);
+    }
+
+    let lineInformation: LineInformation | null = null;
+    if(dto.line){
+      lineInformation = LineInformation.fromResult(dto.line);
+    }
+
     return new TransportSegment(
       dto.trainRunId,
       Demand.fromDto(dto.demand),
@@ -29,10 +40,11 @@ export class Segment {
       dto.operator,
       dto.destination,
       dto.transportCategory,
-      dto.line,
+      lineInformation,
       BikeCarriageInformation.fromDto(dto.bikeCarriage),
       CateringInformation.fromDto(dto.catering),
-      dto.passengerInformation.map(PassengerInformation.fromDto)
+      dto.passengerInformation.map(PassengerInformation.fromDto),
+      trainComposition
     );
   }
 
@@ -67,10 +79,11 @@ export interface TransportSegmentDto extends SegmentDto {
   operator: string | null;
   destination: string | null;
   transportCategory: TransportCategory;
-  line: string;
+  line: LineInformationResult | null;
   bikeCarriage: BikeCarriageInformationDto;
   catering: CateringInformationDto;
   passengerInformation: PassengerInformationResponseDto[];
+  trainComposition: TrainCompositionResultDto | null;
 }
 
 export enum TransportCategory {
@@ -85,6 +98,39 @@ export enum TransportCategory {
   Replacement = 'Replacement',
 }
 
+export interface LineInformationResult {
+  number: string;
+  productClass: string | null;
+  serviceNumber: string | null;
+}
+
+export class LineInformation{
+  constructor(
+    public number: string,
+    public productClass: string | null,
+    public serviceNumber: string | null,
+  ) {}
+
+  static fromResult(result: LineInformationResult): LineInformation{
+    return new LineInformation(
+      result.number,
+      result.productClass,
+      result.serviceNumber,
+    );
+  }
+
+  get display(){
+    if(this.productClass != null && (this.productClass === 'ICE' || this.productClass === 'IC')){
+      return `${this.productClass} ${this.serviceNumber}`;
+    }
+    if(this.productClass != null){
+      return `${this.productClass} ${this.number}`;
+    }
+
+    return this.number;
+  }
+}
+
 export class TransportSegment {
 
   constructor(
@@ -94,10 +140,11 @@ export class TransportSegment {
     public operator: string | null,
     public destination: string | null,
     public transportCategory: TransportCategory,
-    public line: string,
+    public line: LineInformation | null,
     public bikeCarriage: BikeCarriageInformation,
     public catering: CateringInformation,
-    public passengerInformation: PassengerInformation[]
+    public passengerInformation: PassengerInformation[],
+    public trainComposition: TrainComposition | null
   ) {
   }
 

@@ -2,6 +2,7 @@ import {Demand, DemandDto} from "../../../../common/contracts/dtos/demand";
 import {Segment, SegmentDto, TransferSegment, TransportSegment} from './segment';
 import {Offer, OfferDto} from './offer';
 import {TravelTime} from '../../../../common/contracts/dtos/travel-time';
+import {TrainComposition, TrainCompositionResultDto} from '../../../train-runs/contracts/responses/trainRunResponse';
 
 export interface ConnectionDto {
   id: string;
@@ -117,5 +118,14 @@ export class Connection{
 
     const milliseconds = arrival.getTime() - departure.getTime();
     return (milliseconds / totalMilliseconds) * 100;
+  }
+
+  updateTrainComposition(trainRunId: string, trainComposition: TrainComposition) {
+    for(const segment of this.segments) {
+      if(segment instanceof TransportSegment && segment.trainRunId == trainRunId){
+        segment.trainComposition = trainComposition;
+        console.log(`Updating transport segment ${trainRunId}:`, trainComposition);
+      }
+    }
   }
 }

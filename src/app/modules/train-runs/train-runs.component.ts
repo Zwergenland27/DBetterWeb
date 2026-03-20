@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {TrainRunService} from './train-run.service';
 import {switchMap} from 'rxjs';
@@ -17,7 +17,7 @@ import {DemandDto, DemandStatus} from '../../common/contracts/dtos/demand';
   templateUrl: './train-runs.component.html',
   styleUrl: './train-runs.component.scss'
 })
-export class TrainRunsComponent implements OnInit {
+export class TrainRunsComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute, private trainRunService: TrainRunService) {
   }
@@ -30,7 +30,17 @@ export class TrainRunsComponent implements OnInit {
         const id = params.get("id")!;
         return this.trainRunService.get(id);
       })
-    ).subscribe(trainRun => this.trainRun = trainRun);
+    ).subscribe(async trainRun => {
+      this.trainRun = trainRun
+      await this.trainRunService.subscribeToTrainCompositionRealtimeFeed(this.trainRun.id, (trainComposition) => {
+        trainRun.trainComposition = trainComposition;
+      });
+    });
+  }
+
+  async ngOnDestroy() {
+    if(this.trainRun === undefined) return;
+    await this.trainRunService.unsubscribeFromTrainCompositionRealtimeFeed(this.trainRun.id);
   }
 
   getDemand(index: number){

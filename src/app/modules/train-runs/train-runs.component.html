@@ -1,6 +1,12 @@
 
 @if(trainRun){
-  <span>{{trainRun.line}} ({{trainRun.serviceNumber}})</span>
+  <span>Line: {{trainRun.line}}</span>
+  @if(trainRun.trainComposition){
+    <span>Train composition (from {{trainRun.trainComposition.source}}):</span>
+    @for(vehicle of trainRun.trainComposition.vehicles;  track vehicle){
+      <span>{{vehicle}}</span>
+    }
+  }
   <div class="route">
     @for(stop of trainRun.stops; track stop.id){
       <div class="stop" [class.cancelled]="stop.isCancelled" [class.first]="$index === 0" [class.last]="$index === trainRun.stops.length - 1">
