@@ -7,7 +7,7 @@ import {FloatingButtonComponent} from '../../common/floating-button/floating-but
 import {IconComponent} from '../../common/icon/icon.component';
 import {ConnectionRequest} from './connection-request';
 import {ConnectionService} from './connection.service';
-import {StopoverParameters} from './contracts/parameters/stopover-parameters';
+import {StopoverDto} from './contracts/parameters/stopover-dto';
 import {Connection} from './contracts/dtos/connection';
 import {ConnectionCardComponent} from './components/connection-card/connection-card.component';
 import { DatePipe } from '@angular/common';
@@ -116,8 +116,8 @@ export class FindConnectionsComponent {
       throw new Error('Origin and destination station is missing');
     }
 
-    let firstStopover: StopoverParameters | undefined = undefined;
-    let secondStopover: StopoverParameters | undefined = undefined;
+    let firstStopover: StopoverDto | undefined = undefined;
+    let secondStopover: StopoverDto | undefined = undefined;
 
     if(options.route.firstStopover != undefined){
       if(options.route.firstStopover.station === undefined){

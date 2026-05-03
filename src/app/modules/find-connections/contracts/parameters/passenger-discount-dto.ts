@@ -1,6 +1,6 @@
 import {DiscountComfortClass, DiscountType} from '../../components/passenger-options/passenger-options-data';
 
-export interface PassengerDiscountParameters {
+export interface PassengerDiscountDto {
   type: DiscountType,
   comfortClass: DiscountComfortClass
 }

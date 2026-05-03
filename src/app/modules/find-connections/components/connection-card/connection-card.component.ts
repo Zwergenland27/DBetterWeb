@@ -8,7 +8,7 @@ import {
   viewChild,
   ViewChild
 } from '@angular/core';
-import { Connection, ConnectionDto } from '../../contracts/dtos/connection';
+import { Connection, ConnectionResultDto } from '../../contracts/dtos/connection';
 import { CurrencyPipe, DatePipe, NgClass } from '@angular/common';
 import {Segment, SegmentDto, TransferSegment, TransportSegment, WalkingSegment} from '../../contracts/dtos/segment';
 import {IconComponent} from '../../../../common/icon/icon.component';

@@ -1,4 +1,4 @@
-export interface MeansOfTransportParameters {
+export interface MeansOfTransportDto {
   highSpeedTrains: boolean;
   fastTrains: boolean;
   regionalTrains: boolean;
@@ -9,7 +9,7 @@ export interface MeansOfTransportParameters {
   boats: boolean;
 }
 
-export function getMeansOfTransportDefault() : MeansOfTransportParameters {
+export function getMeansOfTransportDefault() : MeansOfTransportDto {
   return {
     highSpeedTrains: true,
     fastTrains: true,
@@ -22,7 +22,7 @@ export function getMeansOfTransportDefault() : MeansOfTransportParameters {
   }
 }
 
-export function combineMeansOfTransport(first: MeansOfTransportParameters, second: MeansOfTransportParameters) : MeansOfTransportParameters {
+export function combineMeansOfTransport(first: MeansOfTransportDto, second: MeansOfTransportDto) : MeansOfTransportDto {
   return {
     highSpeedTrains: first.highSpeedTrains || second.highSpeedTrains,
     fastTrains: first.fastTrains || second.fastTrains,

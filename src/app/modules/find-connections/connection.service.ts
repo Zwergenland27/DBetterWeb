@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Station, StationDto} from './contracts/dtos/station';
 import {map, Observable} from 'rxjs';
-import {ConnectionRequestParameters} from './contracts/parameters/connection-request-parameters';
+import {ConnectionRequestDto} from './contracts/parameters/connection-request-dto';
 import { ConnectionRequest } from './connection-request';
-import {getMeansOfTransportDefault} from './contracts/parameters/means-of-transport-parameters';
+import {getMeansOfTransportDefault} from './contracts/parameters/means-of-transport-dto';
 import {ComfortClass} from '../../common/contracts/dtos/comfort-class';
-import {Connection, ConnectionDto} from './contracts/dtos/connection';
+import {Connection, ConnectionResultDto} from './contracts/dtos/connection';
 
 
 @Injectable({
@@ -76,26 +76,26 @@ export class ConnectionService {
       case 'later': extension="/later"; break;
     }
 
-    return this.http.get<ConnectionDto[]>(`requests/${id}/suggestions${extension}`).pipe(
-      map(connections => connections.map(Connection.fromDto))
+    return this.http.get<ConnectionResultDto[]>(`requests/${id}/suggestions${extension}`).pipe(
+      map(connections => connections.map(Connection.fromResult))
     );
   }
 
   arriveEarlier(requestId: string, connectionId: string, transferIndex: number) : Observable<Connection> {
-    return this.http.get<ConnectionDto>(`requests/${requestId}/suggestions/${connectionId}/transfers/${transferIndex}/arriveEarlier`).pipe(
-      map(connection => Connection.fromDto(connection)),
+    return this.http.get<ConnectionResultDto>(`requests/${requestId}/suggestions/${connectionId}/transfers/${transferIndex}/arriveEarlier`).pipe(
+      map(connection => Connection.fromResult(connection)),
     );
   }
 
   departLater(requestId: string, connectionId: string, transferIndex: number) : Observable<Connection> {
-    return this.http.get<ConnectionDto>(`requests/${requestId}/suggestions/${connectionId}/transfers/${transferIndex}/departLater`).pipe(
-      map(connection => Connection.fromDto(connection)),
+    return this.http.get<ConnectionResultDto>(`requests/${requestId}/suggestions/${connectionId}/transfers/${transferIndex}/departLater`).pipe(
+      map(connection => Connection.fromResult(connection)),
     );
   }
 
-  upsertRequest(parameters: ConnectionRequestParameters, id: string): Observable<Connection[]> {
-    return this.http.put<ConnectionDto[]>(`requests/${id}`, parameters).pipe(
-        map(connections => connections.map(Connection.fromDto))
+  upsertRequest(parameters: ConnectionRequestDto, id: string): Observable<Connection[]> {
+    return this.http.put<ConnectionResultDto[]>(`requests/${id}`, parameters).pipe(
+        map(connections => connections.map(Connection.fromResult))
       );
   }
 }

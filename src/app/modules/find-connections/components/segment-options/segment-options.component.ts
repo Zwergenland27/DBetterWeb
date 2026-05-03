@@ -3,8 +3,8 @@ import {IconButtonMiniComponent} from '../../../../common/icon-button-mini/icon-
 import {ChipComponent} from '../../../../common/chip/chip.component';
 import {
   getMeansOfTransportDefault,
-  MeansOfTransportParameters
-} from '../../contracts/parameters/means-of-transport-parameters';
+  MeansOfTransportDto
+} from '../../contracts/parameters/means-of-transport-dto';
 
 @Component({
   selector: 'segment-options',
@@ -19,8 +19,8 @@ export class SegmentOptionsComponent {
   withButton = input<boolean>(true)
   addClick = output();
 
-  allowedMeansOfTransport = input.required<MeansOfTransportParameters>();
-  allowedMeansOfTransportChange = output<MeansOfTransportParameters>();
+  allowedMeansOfTransport = input.required<MeansOfTransportDto>();
+  allowedMeansOfTransportChange = output<MeansOfTransportDto>();
 
   currentAllowedMeansOfTransport = getMeansOfTransportDefault();
 

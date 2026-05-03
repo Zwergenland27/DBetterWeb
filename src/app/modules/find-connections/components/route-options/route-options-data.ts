@@ -1,8 +1,8 @@
-import {MeansOfTransportParameters} from '../../contracts/parameters/means-of-transport-parameters';
+import {MeansOfTransportDto} from '../../contracts/parameters/means-of-transport-dto';
 
 export interface RouteOptionsData {
   originStation: RouteOptionsStationData | undefined;
-  meansOfTransportFirstSection: MeansOfTransportParameters
+  meansOfTransportFirstSection: MeansOfTransportDto
   firstStopover: RouteOptionsStopoverData | undefined;
   secondStopover: RouteOptionsStopoverData | undefined;
   destinationStation: RouteOptionsStationData | undefined;
@@ -20,5 +20,5 @@ export interface RouteOptionsStationData {
 export interface RouteOptionsStopoverData {
   station: RouteOptionsStationData | undefined;
   lengthOfStay: number;
-  meansOfTransportNextSection: MeansOfTransportParameters
+  meansOfTransportNextSection: MeansOfTransportDto
 }

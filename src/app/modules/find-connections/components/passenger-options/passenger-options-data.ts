@@ -1,4 +1,4 @@
-import {PassengerParameter} from '../../contracts/parameters/passenger-parameter';
+import {PassengerDto} from '../../contracts/parameters/passenger-dto';
 
 export interface PassengerOptionsData {
   id: string;
@@ -51,7 +51,7 @@ export enum SelectableDiscountClass{
   Second = 'Second',
 }
 
-export function mapToPassengerParameter(passenger: PassengerOptionsData) : PassengerParameter {
+export function mapToPassengerParameter(passenger: PassengerOptionsData) : PassengerDto {
   const discounts : Discount[] = [];
 
   if(passenger.bahnCard25 != SelectableDiscountClass.None){

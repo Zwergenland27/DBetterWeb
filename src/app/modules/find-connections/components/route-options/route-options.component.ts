@@ -11,9 +11,9 @@ import {InputNumberComponent} from '../../../../common/input-number/input-number
 import {RouteOptionsData, RouteOptionsStopoverData} from './route-options-data';
 import {
   combineMeansOfTransport,
-  MeansOfTransportParameters
-} from '../../contracts/parameters/means-of-transport-parameters';
-import {StopoverParameters} from '../../contracts/parameters/stopover-parameters';
+  MeansOfTransportDto
+} from '../../contracts/parameters/means-of-transport-dto';
+import {StopoverDto} from '../../contracts/parameters/stopover-dto';
 import {Errors} from '../../contracts/errors';
 
 @Component({

@@ -1,17 +1,17 @@
 import {Demand, DemandDto} from "../../../../common/contracts/dtos/demand";
 import {Segment, SegmentDto, TransferSegment, TransportSegment} from './segment';
-import {Offer, OfferDto} from './offer';
+import {Offer, OfferResultDto} from './offer';
 import {TravelTime} from '../../../../common/contracts/dtos/travel-time';
-import {TrainComposition, TrainCompositionResultDto} from '../../../train-runs/contracts/responses/trainRunResponse';
+import {TrainComposition} from '../../../train-runs/contracts/responses/trainRunResponse';
 
-export interface ConnectionDto {
+export interface ConnectionResultDto {
   id: string;
   differentOrigin: boolean;
   differentDestination: boolean;
   bahnDeUrl: string;
   demand: DemandDto;
   segments: SegmentDto[];
-  offer: OfferDto | null;
+  offer: OfferResultDto | null;
 }
 
 export class Connection{
@@ -25,15 +25,15 @@ export class Connection{
     public offer: Offer | null) {
   }
 
-  static fromDto(dto: ConnectionDto): Connection {
+  static fromResult(result: ConnectionResultDto): Connection {
     return new Connection(
-      dto.id,
-      dto.differentOrigin,
-      dto.differentDestination,
-      dto.bahnDeUrl,
-      Demand.fromDto(dto.demand),
-      dto.segments.map(Segment.fromDto),
-      dto.offer ? Offer.fromDto(dto.offer) : null,
+      result.id,
+      result.differentOrigin,
+      result.differentDestination,
+      result.bahnDeUrl,
+      Demand.fromDto(result.demand),
+      result.segments.map(Segment.fromDto),
+      result.offer ? Offer.fromDto(result.offer) : null,
     );
   }
 

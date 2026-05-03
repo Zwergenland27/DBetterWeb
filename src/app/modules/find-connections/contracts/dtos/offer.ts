@@ -1,6 +1,6 @@
 import {ComfortClass} from '../../../../common/contracts/dtos/comfort-class';
 
-export interface OfferDto {
+export interface OfferResultDto {
   comfortClass: ComfortClass;
   price: number,
   currency: Currency,
@@ -20,7 +20,7 @@ export class Offer {
   ) {
   }
 
-  static fromDto(dto: OfferDto): Offer {
+  static fromDto(dto: OfferResultDto): Offer {
     return new Offer(
       dto.comfortClass,
       dto.price,
